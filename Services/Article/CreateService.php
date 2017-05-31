@@ -1,25 +1,24 @@
 <?php
-namespace Services\Categories;
+namespace Services\Article;
 
-
+use Models\Article;
+use Models\Articles_has_Categories;
 use Models\Category;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
-use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\Quark;
 
 /**
  * Class CreateService
  *
- * @package Services\Category
+ * @package Services\Article
  */
-class CreateService implements IQuarkServiceWithCustomProcessor,IQuarkPostService
-{
+class CreateService implements IQuarkPostService, IQuarkServiceWithCustomProcessor{
     /**
      * @param QuarkDTO $request
      * @param QuarkSession $session
@@ -28,34 +27,37 @@ class CreateService implements IQuarkServiceWithCustomProcessor,IQuarkPostServic
      */
     public function Post(QuarkDTO $request, QuarkSession $session) {
         /**
+         * @var QuarkModel|Article $article
          * @var QuarkModel|Category $category
-         * @var QuarkCollection|Category $categories
+         * @var QuarkModel|Articles_has_Categories $article_category
          */
-        //ceck if category is already exist
-        $category = QuarkModel::FindOne(new Category(),array(
+        //ceck if new article is already exist
+        $article = QuarkModel::FindOne(new Article(),array(
             'title' => $request->Data()->title
         ));
-        if($category != null) return array(
-            'status' => 403
+        if($article != null) return array(
+            'status' => 409
         );
-
-        $category = new QuarkModel(new Category(), $request->Data());
-        Quark::Trace($category);
-        if(!$category->Create()) return array(
-            'status' => 400
+        //create new article
+        $article = new QuarkModel(new Article(),$request->Data());
+        if(!$article->Create())return array(
+            'status' => 409
         );
 
         return array(
-            'status' => 200
+            'status' =>200
         );
+
     }
 
     /**
      * @param QuarkDTO $request
+     *
      * @return IQuarkIOProcessor
      */
     public function Processor(QuarkDTO $request) {
         return new QuarkJSONIOProcessor();
     }
+
 
 }

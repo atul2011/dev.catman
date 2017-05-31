@@ -1,5 +1,5 @@
 <?php
-namespace Services\Articles;
+namespace Services\Article;
 
 use Models\Article;
 use Models\Articles_has_Categories;
@@ -7,6 +7,7 @@ use Models\Category;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
@@ -30,16 +31,19 @@ class LinkService implements IQuarkServiceWithCustomProcessor,IQuarkPostService{
          * @var QuarkModel|Category $category
          * @var QuarkModel|Articles_has_Categories $link
          */
-        $article = QuarkModel::FindOneById(new Article(), $request->Data()->article_id);
+        Quark::Trace($request->Data()->child);
+        Quark::Trace($request->Data()->parent);
+        $article = QuarkModel::FindOneById(new Article(), $request->Data()->child);
         if($article == null) return array(
             'status' => 404
         );
 
-        $category = QuarkModel::FindOneById(new Category(), $request->Data()->category_id);
+        $category = QuarkModel::FindOneById(new Category(), $request->Data()->parent);
         if($category ==null) return array(
             'status' => 404
         );
-
+       Quark::Trace($request->Data()->child);
+       Quark::Trace($request->Data()->child);
         $link = QuarkModel::FindOne(new Articles_has_Categories(),array(
             'article_id' => $article->id,
             'category_id' =>$category->id
@@ -49,13 +53,17 @@ class LinkService implements IQuarkServiceWithCustomProcessor,IQuarkPostService{
             'status' => 409
         );
 
-        $link = new QuarkModel(new Articles_has_Categories(),$request->Data());
+        $link = new QuarkModel(new Articles_has_Categories(),array(
+            'article_id' =>$article,
+            "category_id" =>$category
+        ));
         if(!$link->Create()) return array(
             'status' => 409
         );
 
         return array(
-            'status' => 200
+            'status' => 200,
+            'category' => $category->id
         );
     }
 

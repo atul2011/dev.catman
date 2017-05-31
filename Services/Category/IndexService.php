@@ -1,17 +1,21 @@
 <?php
-namespace Services\Articles;
+namespace Services\Category;
 
-use Models\Article;
+use Models\Category;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
-use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 
-class ListService implements IQuarkServiceWithCustomProcessor,IQuarkGetService {
+/**
+ * Class IndexService
+ *
+ * @package Services\Categories
+ */
+class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor{
     /**
      * @param QuarkDTO $request
      * @param QuarkSession $session
@@ -19,17 +23,14 @@ class ListService implements IQuarkServiceWithCustomProcessor,IQuarkGetService {
      * @return mixed
      */
     public function Get(QuarkDTO $request, QuarkSession $session) {
-        /**
-         * @var QuarkModel|Article $article
-         */
-        $article = QuarkModel::FindOneById(new Article(),$request->URI()->Route(2));
-        if($article == null) return array(
-            'status' => 404
-        );
         return array(
             'status' => 200,
-            'article' => $article->Extract(),
-            'categories' => $article->Categories()->Extract()
+            'item' =>QuarkModel::FindOneById(new Category(),$request->URI()->Route(1))->Extract(
+                array(
+                    'id',
+                    'title'
+                )
+            )
         );
     }
 
@@ -38,8 +39,7 @@ class ListService implements IQuarkServiceWithCustomProcessor,IQuarkGetService {
      *
      * @return IQuarkIOProcessor
      */
-    public function Processor(QuarkDTO $request)    {
+    public function Processor(QuarkDTO $request){
         return new QuarkJSONIOProcessor();
     }
-
 }

@@ -1,5 +1,5 @@
 <?php
-namespace Services\Categories;
+namespace Services\Category;
 
 
 use Models\Category;

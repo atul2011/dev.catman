@@ -50,8 +50,8 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return mixed
      */
     public function BeforeExtract($fields, $weak) {
-        $this->parent_id = (string)$this->parent_id;
-        $this->child_id1 = (string)$this->child_id1;
+        $this->parent_id = (string)$this->parent_id->id;
+        $this->child_id1 = (string)$this->child_id1->id;
         $this->priority = (string)$this->priority;
     }
 
@@ -62,7 +62,6 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      */
     public function DefaultExtract($fields, $weak) {
         if($fields != null) return $fields;
-
         return array(
             'parent_id',
             'child_id1',

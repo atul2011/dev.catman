@@ -47,8 +47,8 @@ class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkM
      * @return mixed
      */
     public function BeforeExtract($fields, $weak) {
-        $this->article_id = (string)$this->article_id;
-        $this->category_id = (string)$this->category_id;
+        $this->article_id = (string)$this->article_id->id;
+        $this->category_id = (string)$this->category_id->id;
     }
 
     /**

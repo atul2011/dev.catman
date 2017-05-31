@@ -1,5 +1,5 @@
 <?php
-namespace Services\Categories;
+namespace Services\Category;
 
 use Models\Category;
 use Models\Categories_has_Categories;
@@ -30,32 +30,33 @@ class LinkService implements IQuarkServiceWithCustomProcessor,IQuarkPostService{
          * @var QuarkModel|Category $child
          * @var QuarkModel|Categories_has_Categories $link
          */
-        $parent = QuarkModel::FindOneById(new Category(),$request->Data()->parent);
+        $parent = QuarkModel::FindOneById(new Category(), $request->Data()->parent);
         if ($parent == null) return array(
             'status' => 404
         );
-        $child = QuarkModel::FindOneById(new Category(),$request->Data()->child);
+        $child = QuarkModel::FindOneById(new Category(), $request->Data()->child);
         if ($child == null) return array(
             'status' => 404
         );
-        $link = QuarkModel::FindOne(new Categories_has_Categories(),array(
+        $link = QuarkModel::FindOne(new Categories_has_Categories(), array(
             'parent_id' => $parent->id,
             'child_id1' => $child->id
         ));
-        if($link != null) return array(
+        if ($link != null) return array(
             'status' => 409
         );
 
-        $link = new QuarkModel(new Categories_has_Categories() , array(
+        $link = new QuarkModel(new Categories_has_Categories(), array(
             'parent_id' => $parent,
             'child_id1' => $child,
             'priority' => null
         ));
-                if(!$link->Create()) return array(
+        if (!$link->Create()) return array(
             'status' => 400
         );
         return array(
-            'status' => 200
+            'status' => 200,
+            'category' => $parent->id
         );
 
     }
