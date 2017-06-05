@@ -1,7 +1,6 @@
 <?php
 namespace Services\Admin;
 
-
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithCustomProcessor;
@@ -25,9 +24,7 @@ class CategoriesService implements IQuarkGetService,IQuarkServiceWithCustomProce
      * @return mixed
      */
     public function Get(QuarkDTO $request, QuarkSession $session) {
-        return QuarkView::InLayout(new CategoriesView(),new QuarkPresenceControl(),array(
-
-        ));
+        return QuarkView::InLayout(new CategoriesView(),new QuarkPresenceControl());
     }
 
     /**

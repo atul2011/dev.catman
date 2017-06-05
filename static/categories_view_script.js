@@ -1,10 +1,11 @@
 //function what will run at end of loading of page
-var selectedColor = 'rgb(255,\ 255,\ 0)';
+var selectedColor = 'rgb(51,\ 122,\ 183)';
+var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 var rootPoint = '<td id="0" class="route-points">></td>';
 $(document).ready(function () {
     LoadContent(false, 'none');
     //add event listener on input in search bars
-    $(".search").on("input", function () {
+    $(document).on("input", '.search', function () {
         CheckSearch(this.value, this.id);
     });
 
@@ -14,10 +15,72 @@ $(document).ready(function () {
     });
 
     //add event listener to checkbox "no parents"
-    $(".orfan").on("change", function () {
+    $(document).on("change", ".orfan", function () {
         noParents($(this).is(':checked'), $(this).attr('id'));
     });
+    ///event listener to delete icons for delete content
+    $(document).on('dblclick', '.delete-button-category', function () {
+        response = prompt('Do you want to delete this y/n ?', '');
+        if (response === 'n') {
+            return false;
+        } else if (response === 'y') {
+            $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function (data) {
+                if (data !== null && data !== '')
+                    console.log(data);
+            });
+            LoadContent(false, 'none');
+            setCategory($(".route-points").last().attr('id'));
+        } else {
+            return false;
+        }
+    });
+    $(document).on('dblclick', '.delete-button-article', function () {
+        response = prompt('Do you want to delete this y/n ?', '');
+        if (response === 'n') {
+            return false;
+        } else if (response === 'y') {
+            $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function (data) {
+                if (data !== null && data !== '')
+                    console.log(data);
+            });
+            LoadContent(false, 'none');
+            setCategory($(".route-points").last().attr('id'));
+        }
+    });
 
+    //event listener to set paint property to selected rows
+    $(document).on('click', '.category-row', function () {
+        paintRow($(this).attr("id"), 'category');
+        checkRow($(this).find("td:first").text(), 'category');
+    });
+
+    $(document).on('click', '.article-row', function () {
+        paintRow($(this).attr("id"), 'article');
+        checkRow($(this).find("td:first").text(), 'article');
+    });
+
+//event listener that will permite redirect when click to route node
+    $(document).on("dblclick", '.route-points', function () {
+        routeRedirect($(this).attr('id'));
+    });
+    //set mouse over and out events to route points
+    $(document).on("mouseover", '.route-points', function () {
+        $(this).css("background-color", selectedColor).css("color", selectedTextColor);
+    });
+    $(document).on("mouseout", '.route-points', function () {
+        $(this).css("background-color", 'white').css("color", 'black');
+    });
+// event listener that will permite open category in left table
+    $(document).on("dblclick", ".current-category", function () {
+        openCategory($(this).find("td#id").text());
+    });
+//set mouse over and out events to list of items in left table
+    $(document).on("mouseover", '.current-category', function () {
+        $(this).css("background-color", selectedColor).css("color", selectedTextColor);
+    });
+    $(document).on("mouseout", '.current-category', function () {
+        $(this).css("background-color", 'white').css("color", 'black');
+    });
     $("#route-row").append(rootPoint);
 });
 function noParents(orfan, model) {
@@ -33,8 +96,6 @@ function LoadContent(orfan, model) {
             removeItems('.category-row');
             json.response.forEach(ShowCategories);
         }
-        //add event listener to click to row when we want to select
-        setRowCheckOption('category');
         //resize the left-table
         getHeight();
         //this script will load after loading of all categories all articles which it contains
@@ -43,41 +104,19 @@ function LoadContent(orfan, model) {
                 removeItems('.article-row');
                 json.response.forEach(ShowArticles);
             }
-//add event listener to click to row when we want to select
-            setRowCheckOption('article');
-
-            //add event listeners to delete buttons
-            deleteItem('article');
-            deleteItem('category');
-
 //resize the left-table
             getHeight();
         });
     });
 }
-//function to set property of selection of row
-function setRowCheckOption(type) {
-    $('.' + type + '-row').on("click", function () {
-        paintRow($(this).attr("id"), type);
-        checkRow($(this).find("td:first").text(), type);
-    });
-}
-//function that will permite delete items
-function deleteItem(model) {
-    $(".delete-button-" + model).on("click", function () {
-        $.ajax({url: "/" + model + "/delete/" + $(this).attr('id'), type: "POST"}).then(function (data) {
-            LoadContent(false, 'none');
-            console.log(data);
-        });
-    });
-}
+
 //fucntion to show categories
 function ShowCategories(response) {
     str = '<tr id="category-values-' + response.id + '" class="category-row">' +
         '<td class="category-values" id="id">' + response.id + '</td>' +
-        '<td class="category-values" id="title">' + response.title + '</td>' +
+        '<td class="category-values" id="title">' + response.title.substr(0, 30)  + '</td>' +
         '<td class="category-values" id="type">' + response.sub + '</td>' +
-        '<td class="category-values" id="content">' + '<textarea rows="3" cols="20" class="content" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</td>' +
+        '<td class="category-values" id="content">' + '<textarea rows="3" cols="25" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</td>' +
         '<td class="category-values" id="actions">' + setActions('category', response.id) + '</td>' +
         '</tr>';
     $("#category-container").append(str);
@@ -87,9 +126,9 @@ function ShowCategories(response) {
 function ShowArticles(response) {
     str = '<tr id="article-values-' + response.id + '" class="article-row">' +
         '<td class="article-values" id="id">' + response.id + '</td>' +
-        '<td class="article-values" id="title">' + response.title + '</td>' +
+        '<td class="article-values" id="title">' + response.title.substr(0, 30)  + '</td>' +
         '<td class="article-values" id="date">' + response.release_date + '</td>' +
-        '<td class="article-values" id="content">' + '<textarea rows="3" cols="22" class="content" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</td>' +
+        '<td class="article-values" id="content">' + '<textarea rows="3" cols="25" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</td>' +
         '<td class="article-values" id="actions">' + setActions('article', response.id) + '</td>' +
         '</tr>';
     $("#articles-container").append(str);
@@ -99,8 +138,8 @@ function ShowArticles(response) {
 function setActions(model, id) {
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil actions-' + model + '" id="'+id+'" "></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser actions-' + model + '" id="'+id+'" "></a>';
+        '<a class="fa actions edit-button-' + model + ' fa-pencil actions-' + model + '" id="' + id + '" href="/' + model + '/edit/' + id + '""></a>' +
+        '<a class="fa actions delete-button-' + model + ' fa-eraser actions-' + model + '" id="' + id + '" "></a>';
 }
 //function to create an ICon for category as folder
 function setCategoryIcon() {
@@ -135,7 +174,6 @@ function CheckSearch(str, id) {
                     //renove all old search and put new
                     removeItems('.category-row');
                     json.response.forEach(ShowCategories);
-                    setRowCheckOption('category');
                 }
                 else {
                     removeItems('.category-row');
@@ -145,15 +183,10 @@ function CheckSearch(str, id) {
                 if (json.response !== '') {
                     removeItems('.article-row');
                     json.response.forEach(ShowArticles);
-                    setRowCheckOption('article');
                 } else {
                     removeItems('.article-row');
                 }
             }
-
-        //add event listeners to delete buttons
-        deleteItem('article', 'article');
-        deleteItem('category', 'category');
         }
     );
 }
@@ -173,15 +206,15 @@ function paintRow(id, type) {
     });
     //if not, we paint selected row
     if (status === "true") {
-        $("#" + id).css("background-color", selectedColor).addClass("selected");
+        $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
     //if yes, we paint in white all another rows before paint current row
     else if (status === "false") {
         $("tr." + default_class).each(function () {
-            $(this).css("background-color", "white").removeClass('selected').addClass(default_class);
+            $(this).css("background-color", "white").css("color", 'black').removeClass('selected').addClass(default_class);
         });
 
-        $("#" + id).css("background-color", selectedColor).addClass("selected");
+        $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
 }
 
@@ -196,11 +229,9 @@ function checkRow(data, type) {
     //define default valuses
     if (type === 'category') {
         url = "/category/list/";
-        service = "category";
     }
     else if (type === 'article') {
         url = "/category/articles/";
-        service = "article";
     }
     //if we are in root, we go on in selected category
     if (categoryParentId === "0") {
@@ -319,18 +350,12 @@ function ListCategory(categoryId) {
         json.children.forEach(function (data) {
             showCurrentItems(data, 'category');
         });
-        $(".current-category").on("click", function () {
-            openCategory($(this).find("td#id").text());
-        });
+
     });
     var articles = $.ajax({url: "/category/articles/" + categoryId}).then(function (json) {
         json.articles.forEach(function (data) {
             showCurrentItems(data, 'article');
         });
-    });
-//function to set event that will set option of redirect when click to categori in path
-    $(".route-points").on("click", function () {
-        routeRedirect($(this).attr('id'));
     });
 }
 //function that will permite open category from list
@@ -339,7 +364,7 @@ function openCategory(id) {
 }
 //fucntion to show categories
 function showCurrentItems(response, service) {
-    var  setIcon;
+    var setIcon;
     if (service === 'category') {
         setIcon = setCategoryIcon();
     } else {
@@ -349,7 +374,7 @@ function showCurrentItems(response, service) {
         '<td class="' + service + '" id="icon">' + setIcon + '</td>' +
         '<td class="' + service + '" id="id">' + response.id + '</td>' +
         '<td class="' + service + '" id="title">' + response.title + '</td>' +
-        '<td class="' + service + '" id="actions">' + setActions(service, service, response.id) + '</td>' +
+        '<td class="' + service + '" id="actions">' + setActions(service, response.id) + '</td>' +
         '</tr>';
     $("#content-container").append(str);
 }

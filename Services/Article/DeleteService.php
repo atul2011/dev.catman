@@ -12,6 +12,7 @@ use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Exception;
 
 /**
  * Class DeleteService
@@ -28,29 +29,20 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
     public function Post(QuarkDTO $request, QuarkSession $session) {
         /**
          * @var QuarkModel|Article $article
-         * @var QuarkModel|Articles_has_Categories $article_links
+         * @var QuarkCollection|Articles_has_Categories[] $article_links
          */
         $id = $request->URI()->Route(2);
-        $article = QuarkModel::FindOneById(new Article(), $id);
-//        $article_links = QuarkModel::Find(new Articles_has_Categories(), array(
-//            'article_id' => $id
-//        ));
-        $query = array();
-
-//        if ($article_links !== null ) {
-//            if (!$article_links->Remove())
-//                $query['status 1'] = '409';
-//            $query['status 1'] = '200';
-//            $query["cat_id 1 " . $article_links->article_id->id] = $article_links->article_id->id;
-//        }
-        if ($article !== null) {
-            if (!$article->Remove())
-                $query['status 2'] = '409';
-            $query['status 2'] = '200';
-            $query["cat_id 2 " . $article->id] = $article->id;
-        }
-        Quark::Trace($query);
-        return $query;
+		try {
+			QuarkModel::Delete(new Article(), array(
+				'id' => $id
+			));
+			QuarkModel::Delete(new Articles_has_Categories(), array(
+				'article_id' => $id
+			));
+		}catch (Exception $e)
+		{
+			return $e;
+		}
     }
 
     /**

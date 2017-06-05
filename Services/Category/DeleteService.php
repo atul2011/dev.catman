@@ -13,6 +13,7 @@ use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Exception;
 
 class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor {
     /**
@@ -29,49 +30,23 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
          * @var QuarkCollection|Articles_has_Categories[] $article_links
           */
         $id = $request->URI()->Route(2);
-        $category = QuarkModel::FindOneById(new Category(),$id);
-        $category_parent_links = QuarkModel::Find(new Categories_has_Categories(),array(
-            'parent_id' => $id
-        ));
-        $category_child_links = QuarkModel::Find(new Categories_has_Categories(),array(
-            'child_id1' => $id
-        ));
-        $article_links = QuarkModel::Find(new Articles_has_Categories(),array(
-            'category_id' => $id
-        ));
-        $query = array();
+          try{
+          	QuarkModel::Delete(new Categories_has_Categories(),array(
+          		'parent_id' =>$id
+			));
+          	QuarkModel::Delete(new Categories_has_Categories(),array(
+          		'child_id1' =>$id
+			));
+          	QuarkModel::Delete(new Articles_has_Categories(),array(
+          		'category_id' =>$id
+			));
+          	QuarkModel::Delete(new Category(),array(
+          		'id' =>$id
+			));
 
-        if ($category_parent_links->Count() > 0)
-            foreach ($category_parent_links as $link) {
-                if (!$link->Remove())
-                    $query['status 1'] = '409';
-                $query['status 1'] = '200';
-                $query["cat_id 1 " . $link->parent_id->id] = $link->parent_id->id;
-            }
-
-        if ($category_child_links->Count() > 0)
-            foreach ($category_child_links as $link) {
-                if (!$link->Remove())
-                    $query['status 2'] = '409';
-                $query['status 2'] = '200';
-                $query["cat_id 2 " . $link->child_id1->id] = $link->child_id1->id;
-            }
-
-        if ($article_links->Count() > 0)
-            foreach ($article_links as $link) {
-                if (!$link->Remove())
-                    $query['status 3'] = '409';
-                $query['status 3'] = '200';
-                $query["cat_id 3 " . $link->category_id->id] = $link->category_id->id;
-            }
-
-        if ($category !== null) {
-            if (!$category->Remove())
-                $query['status 4'] = '409';
-            $query['status 4'] = '200';
-            $query["cat_id 4 " . $category->id] = $category->id;
-        }
-        return $query;
+		  }catch (Exception $e){
+          	return $e;
+		  }
     }
 
     /**

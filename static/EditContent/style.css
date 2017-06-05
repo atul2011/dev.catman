@@ -1,0 +1,21 @@
+.middle {
+    max-width: 500px;
+}
+input[type="text"], input[type="date"], .content {
+    width: 100%;
+}
+.content{
+    min-height: 200px;
+}
+#second_div {
+    padding-left: 30px;
+}
+
+.title_null::placeholder {
+    color: red;
+}
+.title p {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: large;
+}

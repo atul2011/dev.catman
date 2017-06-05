@@ -12,6 +12,7 @@
 #article-link[type="submit"]:hover, #category-link[type="submit"]:hover {
     background-image: url("/static/images/button-left-checked.png");
 }
+
 /*clases that wiil change image of buttons*/
 .link-true {
     background-image: url("/static/images/button-left-true.png") !important;
@@ -20,29 +21,27 @@
 .link-false {
     background-image: url("/static/images/button-left-false.png") !important;
 }
-.link-none{
+
+.link-none {
     background-image: url("/static/images/button-left.png");
 }
+
 /*set no padding and margin to main divs*/
 .quark-presence-column .quark-presence-container {
     padding: 0;
     margin: 0;
 }
-body .quark-presence-column {
-    /*display: inline-block;*/
 
-    /*margin: 0;*/
-}
 /*set border to titles of tables with data*/
 .items-body th {
-    border: 0.5px solid black;
+    border-bottom: 0.5px solid lightgray;
 }
+
 
 /*set proprietes for textarea cells*/
 td textarea.content {
     padding: 0;
     margin: 0;
-    border: 0;
 }
 
 /*set overflow option for items tables*/
@@ -50,11 +49,13 @@ div.items-list {
     text-align: left;
     overflow-x: hidden;
     overflow-y: scroll;
+    padding-top: 5%;
 }
 
 /*row of each table with data*/
 tr.category-row:hover, tr.article-row:hover {
-    background-color: rgb(230, 255, 255);
+    background-color: rgb(51, 122, 183) !important;
+    color:white !important;
 }
 
 /*cell with textarea*/
@@ -63,31 +64,31 @@ td#category-values-content {
 }
 
 /*set border and border for div and table wich contain data*/
-div.items-list table.items-body {
-    border-right: 1px solid black;
+table.items-body {
+    border-right: 1px solid lightgray;
     width: 100%;
 }
 
 /*set border for cells in right tables*/
-table.items-body td {
-    border: 0.5px solid black;
+table.items-body {
+    border: 1px solid lightgray;
 }
 
 div.tables-container table {
-    /*min-width: 300px;*/
-
     padding: 0;
     margin: 0;
 }
 
-#list-left , #list-right {
+#list-left, #list-right {
     min-width: 300px;
 }
-#list-center{
+
+#list-center {
     max-width: 50px;
     margin-left: 0;
     margin-right: 0;
 }
+
 /*search bar and checkbox*/
 .search-list {
     list-style-type: none;
@@ -111,10 +112,11 @@ a.actions {
     font-size: 20px;
     text-decoration: none;
     color: black;
+    padding-left: 5px;
 }
 
-a:hover {
-    color: grey;
+.actions:hover {
+    color: #ff3300;
 }
 
 /*set height for right tabels*/
@@ -123,8 +125,8 @@ div.items-list {
 }
 
 /*set bold font for elements inside left table*/
-table#content-container {
-    font-weight: bold;
+table#content-container td#id{
+    padding-right: 10px;
 }
 
 /*set properties for left table in top that contains category path*/
@@ -132,21 +134,38 @@ table#content-container {
     border: 0.5px solid grey;
     width: 100%;
 }
-
+/*set border to route points*/
 #route td {
     text-align: left;
     border-right: 0.5px solid grey;
 }
-
-/*set no border for cells for left table*/
-table#content-container th, table#content-container td {
-    border: 0;
-}
-
+/*set style to route points*/
 .route-points {
-    padding-right: 0;
-    padding-left: 0;
     margin-left: 0;
     margin-right: 0;
+    color: black;
+    padding: 0;
 }
+/*set no border for row with values*/
+.category-values, .article-values {
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+}
+#content-container td{
+    border-left: none;
+    border-right: none;
+    border-spacing: 0px;
+}
+
+/*set right padding to in cells and all titles*/
+.category-values#id, .article-values#id, .titles{
+    padding-right: 10px;
+}
+/*set left-padding to id of every row*/
+#id{
+    padding-left: 5px;
+}
+
 

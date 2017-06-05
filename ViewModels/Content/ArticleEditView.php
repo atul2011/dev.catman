@@ -1,8 +1,6 @@
 <?php
 
-namespace ViewModels\Admin;
-
-use Middleware\Bootstrap;
+namespace ViewModels\Content;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithResources;
@@ -12,49 +10,44 @@ use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\ViewBehavior;
 
-/**
- * Class CategoriesView
- *
- * @package ViewModels\Admin
- */
-class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources {
+class ArticleEditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IQuarkViewModelWithResources {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Categories';
+		return 'Article Management';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Categories';
+		return 'Content/ArticleEdit';
 	}
-
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../static/style.css';
+		return __DIR__ . '/../../static/EditContent/style.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../static/categories_view_script.js';
+		return __DIR__ . '/../../static/EditContent/script.js';
 	}
 
 	/**
 	 * @return IQuarkViewResource[]
 	 */
-	public function ViewResources () {
+	public function ViewResources() {
 		return array(
-			new jQueryCore()
-		, new Bootstrap()
+			new jQueryCore(),
+			new MediumEditor()
 		);
+
 	}
 }

@@ -24,8 +24,4 @@ class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel {
     public function PresenceTitle() {
         return 'Dashboard';
     }
-
-
-
-
 }
