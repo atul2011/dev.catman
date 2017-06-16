@@ -28,18 +28,12 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Event[] $event
 		 */
 		$event = QuarkModel::Find(new Event());
-		$out = new QuarkCollection(new Event());
-		$i = 0;
 		$limit = 50;
-		if (isset($request->limit)) $limit = $request->limit;
-		$i = $limit;
-		foreach ($event as $item) {
-			if ($i > 0)
-				if (preg_match('#.*' . $request->name . '.*#Uis', $item->name) > 0) {
-					$out[] = $item;
-					--$i;
-				}
-		}
+
+		$out = $event->Select(
+			array('name' => array('$regex' => '#.*' . $request->name . '.*#Uis')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
+		);
 
 		return array(
 			'status' => 200,

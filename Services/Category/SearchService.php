@@ -14,7 +14,7 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
 
-class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostService,IQuarkAuthorizableServiceWithAuthentication {
+class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -28,20 +28,12 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		 * @var QuarkCollection|Category[] $categories
 		 */
 		$categories = QuarkModel::Find(new Category());
-		$out = new QuarkCollection(new Category());
 		$limit = 50;
-		if (isset($request->limit)) $limit = $request->limit;
-		$i = $limit;
-		foreach ($categories as $category) {
-			if ($i > 0) {
-				if (preg_match('#.*' . $request->title . '.*#Uis', $category->title) > 0) {
-					$out[] = $category;
-					--$i;
-				}
-			}else{
-				break;
-			}
-		}
+
+		$out = $categories->Select(
+			array('title' => array('$regex' => '#.*' . $request->title . '.*#Uis')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
+		);
 
 		return array(
 			'status' => 200,

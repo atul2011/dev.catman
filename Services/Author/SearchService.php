@@ -28,21 +28,12 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Author[] $author
 		 */
 		$author = QuarkModel::Find(new Author());
-		$out = new QuarkCollection(new Author());
 		$limit = 50;
-		if (isset($request->limit)) $limit = $request->limit;
-		$i = $limit;
-		foreach ($author as $item) {
-			if ($i > 0) {
-				if (preg_match('#.*' . $request->name . '.*#Uis', $item->name) > 0) {
-					$out[] = $item;
-					--$i;
-				}
-			}
-			else {
-				break;
-			}
-		}
+
+		$out = $author->Select(
+			array('name' => array('$regex' => '#.*' . $request->name . '.*#Uis')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
+		);
 
 		return array(
 			'status' => 200,

@@ -29,28 +29,12 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Article[] $articles
 		 */
 		$articles = QuarkModel::Find(new Article());
-		$limit = 10;
+		$limit = 50;
 
 		$out = $articles->Select(
 			array('title' => array('$regex' => '#.*' . $request->title . '.*#Uis')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
-		/*
-		$out = new QuarkCollection(new Article());
-		if (isset($request->limit)) $limit = $request->limit;
-		$i = $limit;
-		foreach ($articles as $article) {
-			if ($i > 0) {
-				if (preg_match('#.*' . $request->title . '.*#Uis', $article->title) > 0) {
-					$out[] = $article;
-					--$i;
-				}
-			}
-			else {
-				Quark::Trace($i);
-				break;
-			}
-		}*/
 
 		return array(
 			'status' => 200,
@@ -60,8 +44,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'release_date',
 				'event_id',
 				'txtfield'
-			)
-			));
+			)));
 	}
 
 	/**
