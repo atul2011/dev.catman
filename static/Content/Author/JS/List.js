@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    resizeList(100,0);
+    resizeList(120,0);
     LoadContent(false, 'author', ShowAuthors);
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){

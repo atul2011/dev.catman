@@ -172,7 +172,7 @@ function CheckSearch(str, id) {
     $.ajax({url: "/" + type + "/search?title=" + str,type:'POST'}).then(function (json) {
             if (id === 'categories') {
                 if (json.response !== '') {
-                    //renove all old search and put new
+                    //remove all old search and put new
                     removeItems('.category-row');
                     json.response.forEach(ShowCategories);
                 }

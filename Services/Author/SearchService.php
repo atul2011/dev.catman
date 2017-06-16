@@ -29,7 +29,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 */
 		$author = QuarkModel::Find(new Author());
 		$out = new QuarkCollection(new Author());
-		$limit = 0;
+		$limit = 50;
 		if (isset($request->limit)) $limit = $request->limit;
 		$i = $limit;
 		foreach ($author as $item) {

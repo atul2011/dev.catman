@@ -30,7 +30,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$event = QuarkModel::Find(new Event());
 		$out = new QuarkCollection(new Event());
 		$i = 0;
-		$limit = 0;
+		$limit = 50;
 		if (isset($request->limit)) $limit = $request->limit;
 		$i = $limit;
 		foreach ($event as $item) {

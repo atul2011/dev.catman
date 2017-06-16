@@ -9,7 +9,14 @@
 input[type="text"], input[type="date"], .content {
     width: 100%;
 }
-
+input[type="text"], input[type="date"]{
+    color: black;
+    font-weight: bold;
+}
+input[type="text"]::placeholder, input[type="date"]::placeholder{
+    font-style: italic;
+    font-weight: normal;
+}
 .content {
     margin: 0;
     text-align: left;

@@ -29,7 +29,7 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		 */
 		$categories = QuarkModel::Find(new Category());
 		$out = new QuarkCollection(new Category());
-		$limit = 0;
+		$limit = 50;
 		if (isset($request->limit)) $limit = $request->limit;
 		$i = $limit;
 		foreach ($categories as $category) {
@@ -51,7 +51,7 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 				'sub',
 				'intro'
 			), array(), array(
-					QuarkModel::OPTION_LIMIT => 100
+					QuarkModel::OPTION_LIMIT => 50
 				)
 			));
 	}

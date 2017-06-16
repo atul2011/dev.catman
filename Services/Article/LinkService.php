@@ -9,7 +9,6 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
@@ -36,8 +35,6 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 		 * @var QuarkModel|Category $category
 		 * @var QuarkModel|Articles_has_Categories $link
 		 */
-		Quark::Trace($request->Data()->child);
-		Quark::Trace($request->Data()->parent);
 		$article = QuarkModel::FindOneById(new Article(), $request->Data()->child);
 		if ($article == null) return array(
 			'status' => 404
@@ -46,8 +43,6 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 		if ($category == null) return array(
 			'status' => 404
 		);
-		Quark::Trace($request->Data()->child);
-		Quark::Trace($request->Data()->child);
 		$link = QuarkModel::FindOne(new Articles_has_Categories(), array(
 			'article_id' => $article->id,
 			'category_id' => $category->id

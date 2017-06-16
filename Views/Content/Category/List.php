@@ -18,7 +18,8 @@
 			</div>
 		</div>
 	</div>
-    <div class="quark-presence-container" id="form-add-button">
+    <br/>
+    <div class="quark-presence-container button-div" id="form-add-button">
         <div class="quark-presence-column right button-add-column" id="button-add-column">
             <form action="/category/create" method="GET">
                 <input type="hidden" name="url" id="url">

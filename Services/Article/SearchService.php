@@ -7,6 +7,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
@@ -29,7 +30,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 */
 		$articles = QuarkModel::Find(new Article());
 		$out = new QuarkCollection(new Article());
-		$limit = 0;
+		$limit = 50;
 		if (isset($request->limit)) $limit = $request->limit;
 		$i = $limit;
 		foreach ($articles as $article) {
@@ -40,6 +41,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				}
 			}
 			else {
+				Quark::Trace($i);
 				break;
 			}
 		}
@@ -50,6 +52,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'id',
 				'title',
 				'release_date',
+				'event_id',
 				'txtfield'
 			), array(), array(
 					QuarkModel::OPTION_LIMIT => 50

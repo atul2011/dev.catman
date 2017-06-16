@@ -4,6 +4,7 @@ namespace Services\Article;
 
 use Models\Article;
 use Models\Articles_has_Categories;
+use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
@@ -86,6 +87,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 					'id',
 					'title',
 					'release_date',
+					'event_id',
 					'txtfield'
 				)
 			));
