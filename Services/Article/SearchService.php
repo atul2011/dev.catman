@@ -29,8 +29,14 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Article[] $articles
 		 */
 		$articles = QuarkModel::Find(new Article());
-		$out = new QuarkCollection(new Article());
 		$limit = 10;
+
+		$out = $articles->Select(
+			array('title' => array('$regex' => '#.*' . $request->title . '.*#Uis')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
+		);
+		/*
+		$out = new QuarkCollection(new Article());
 		if (isset($request->limit)) $limit = $request->limit;
 		$i = $limit;
 		foreach ($articles as $article) {
@@ -44,7 +50,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				Quark::Trace($i);
 				break;
 			}
-		}
+		}*/
 
 		return array(
 			'status' => 200,
