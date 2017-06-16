@@ -1,0 +1,193 @@
+/*set atributes for arrow buttons*/
+#article-link, #category-link {
+    border: 0;
+    border-radius: 20%;
+    width: 40px;
+    height: 40px;
+    background-color: white;
+    background-image: url("/static/images/button-left.png");
+    background-size: 40px 40px;
+}
+
+#article-link[type="submit"]:hover, #category-link[type="submit"]:hover {
+    background-image: url("/static/images/button-left-checked.png");
+}
+
+/*clases that wiil change image of buttons*/
+.link-true {
+    background-image: url("/static/images/button-left-true.png") !important;
+}
+
+.link-false {
+    background-image: url("/static/images/button-left-false.png") !important;
+}
+
+.link-none {
+    background-image: url("/static/images/button-left.png");
+}
+
+/*set border to titles of tables with data*/
+.items-body th {
+    border-bottom: 0.5px solid lightgray;
+}
+
+/*set overflow option for items tables*/
+div.items-list {
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 5%;
+}
+
+/*row of each table with data*/
+tr.category-row:hover, tr.article-row:hover {
+    background-color: rgb(51, 122, 183) !important;
+    color: white !important;
+}
+
+/*cell with textarea*/
+td#category-values-content {
+    padding: 0;
+}
+
+/*set border and border for div and table wich contain data*/
+table.items-body {
+    border-right: 1px solid lightgray;
+    width: 100%;
+}
+
+/*set border for cells in right tables*/
+table.items-body {
+    border: 1px solid lightgray;
+}
+
+div.tables-container table, .search-list,td textarea.content ,.quark-presence-column .quark-presence-container {
+    padding: 0;
+    margin: 0;
+}
+
+#list-left, #list-right {
+    min-width: 300px;
+}
+
+#list-center {
+    max-width: 50px;
+}
+
+/*search bar and checkbox*/
+.search-list {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.search-list li {
+    display: inline-block;
+}
+
+/*set width for search area*/
+input.search {
+    min-width: 270px;
+    max-width: 400px;
+}
+
+/*set properties for cells with action buttons*/
+a.content-actions{
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    padding-left: 5px;
+}
+
+.content-actions:hover {
+    color: #ff3300;
+}
+
+/*set height for right tabels*/
+div.items-list {
+    max-height: 325px;
+}
+
+/*set bold font for elements inside left table*/
+table#content-container td#id {
+    padding-right: 10px;
+}
+
+/*set properties for left table in top that contains category path*/
+#route {
+    border: 0.5px solid grey;
+    width: 100%;
+}
+
+/*set border to route points*/
+#route td {
+    text-align: left;
+    border-right: 0.5px solid grey;
+}
+
+/*set style to route points*/
+.route-points {
+    margin-left: 0;
+    margin-right: 0;
+    color: black;
+    padding: 0;
+}
+
+/*set no border for row with values*/
+.category-values, .article-values {
+    border-left: none;
+    border-right: none;
+    padding-left: 0;
+    padding-right: 0;
+    word-wrap: break-word;
+}
+
+#content-container td {
+    border-left: none;
+    border-right: none;
+    border-spacing: 0px;
+}
+
+/*set right padding to in cells and all titles*/
+.category-values#id, .article-values#id, .titles {
+    padding-right: 10px;
+}
+
+/*set left-padding to id of every row*/
+#id {
+    padding-left: 5px;
+}
+
+.content-items {
+    text-align: left;
+}
+
+
+/*----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+/*----------------------------------------------------------------------------------------------------*/
+#options button{
+    font-size: 20px;
+    border: 0;
+}
+.actions-buttons{
+    background: #5F7A96;
+    border-radius: 30px;
+    border: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25184);
+    color: #FFFFFF;
+    font-size: 24px;
+    height: 60px;
+    line-height: 1.428571429;
+    opacity: 1.00;
+    padding: 6px 0;
+    text-align: center;
+    width: 60px;
+}
+.actions-buttons:hover {
+    color: red;
+}
+.actions-forms{
+    display: none;
+}

@@ -27,6 +27,8 @@ use Quark\QuarkModel;
  * @property string  $type
  * @property string  $keywords
  * @property string  $description
+ * @property Author  $author_id
+ * @property Event   $event_id
  *
  * @package Models
  */
@@ -47,7 +49,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'priority' => 0,
             'type' => '',
             'keywords' => '',
-            'description' => ''
+            'description' => '',
+			'author_id' => new Author(),
+			'event_id' => new Event()
         );
     }
 
@@ -55,7 +59,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      * @return mixed
      */
     public function CollectionName() {
-        return 'articles2';
+        return 'articles';
     }
 
     /**

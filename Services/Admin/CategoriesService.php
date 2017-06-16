@@ -1,6 +1,8 @@
 <?php
+
 namespace Services\Admin;
 
+use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithCustomProcessor;
@@ -9,6 +11,7 @@ use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
+use Services\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\CategoriesView;
 
 /**
@@ -16,24 +19,19 @@ use ViewModels\Admin\CategoriesView;
  *
  * @package Services\Admin
  */
-class CategoriesService implements IQuarkGetService,IQuarkServiceWithCustomProcessor{
-    /**
-     * @param QuarkDTO $request
-     * @param QuarkSession $session
-     *
-     * @return mixed
-     */
-    public function Get(QuarkDTO $request, QuarkSession $session) {
-        return QuarkView::InLayout(new CategoriesView(),new QuarkPresenceControl());
-    }
+class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
+	use AuthorizationBehavior;
 
-    /**
-     * @param QuarkDTO $request
-     *
-     * @return IQuarkIOProcessor
-     */
-    public function Processor(QuarkDTO $request) {
-        return new QuarkJSONIOProcessor();
-    }
+	public function Get (QuarkDTO $request, QuarkSession $session) {
+		return QuarkView::InLayout(new CategoriesView(), new QuarkPresenceControl());
+	}
 
+	/**
+	 * @param QuarkDTO $request
+	 *
+	 * @return IQuarkIOProcessor
+	 */
+	public function Processor (QuarkDTO $request) {
+		return new QuarkJSONIOProcessor();
+	}
 }

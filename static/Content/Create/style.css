@@ -1,0 +1,53 @@
+#main_div, #second_div {
+    margin: 0;
+}
+
+.middle {
+    max-width: 500px;
+}
+
+input[type="text"], input[type="date"], .content {
+    width: 100%;
+}
+
+.content {
+    margin: 0;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    resize: none;
+    height:220px;
+    width: 578px;
+}
+.middle, #content{
+    padding: 0;
+}
+#content .content {
+    min-height: 220px;
+}
+.text_field{
+    min-width: 250px;
+    max-width: 250px;
+}
+
+.title_null::placeholder {
+    color: red;
+}
+
+.title p {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: large;
+    vertical-align: bottom;
+}
+
+#form-body {
+    margin: 0;
+    padding: 0;
+}
+#content-container .quark-presence-column{
+    display: block;
+}
+.button-div{
+    padding: 0;
+}

@@ -1,54 +1,68 @@
 <?php
+
 namespace Services\Article;
 
 use Models\Article;
-use Quark\IQuarkGetService;
+use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkIOProcessor;
+use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Quark\Quark;
+use Services\Behaviors\AuthorizationBehavior;
 
-class SearchService implements IQuarkGetService, IQuarkServiceWithCustomProcessor{
-    /**
-     * @param QuarkDTO $request
-     * @param QuarkSession $session
-     *
-     * @return mixed
-     */
-    public function Get(QuarkDTO $request, QuarkSession $session){
-        /**
-         * @var QuarkCollection|Article[] $articles
-         */
-        $articles = QuarkModel::Find(new Article());
-        $out = new QuarkCollection(new Article());
-        foreach ($articles as $article) {
-            if(preg_match('#.*'.$request->title.'.*#Uis',$article->title)>0)
-                $out[] =$article;
-        }
-        return array(
-            'status' => 200,
-            'response' => $out->Extract(array(
-                    'id',
-                    'title',
-                    'release_date',
-                    'txtfield'
-                ),array(),array(
-                    QuarkModel::OPTION_LIMIT =>100
-                )
-            ));
-    }
+class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
+	use AuthorizationBehavior;
 
-    /**
-     * @param QuarkDTO $request
-     *
-     * @return IQuarkIOProcessor
-     */
-    public function Processor(QuarkDTO $request){
-        return new QuarkJSONIOProcessor();
-    }
+	/**
+	 * @param QuarkDTO $request
+	 * @param QuarkSession $session
+	 *
+	 * @return mixed
+	 */
+	public function Post (QuarkDTO $request, QuarkSession $session) {
+		/**
+		 * @var QuarkCollection|Article[] $articles
+		 */
+		$articles = QuarkModel::Find(new Article());
+		$out = new QuarkCollection(new Article());
+		$limit = 0;
+		if (isset($request->limit)) $limit = $request->limit;
+		$i = $limit;
+		foreach ($articles as $article) {
+			if ($i > 0) {
+				if (preg_match('#.*' . $request->title . '.*#Uis', $article->title) > 0) {
+					$out[] = $article;
+					--$i;
+				}
+			}
+			else {
+				break;
+			}
+		}
 
+		return array(
+			'status' => 200,
+			'response' => $out->Extract(array(
+				'id',
+				'title',
+				'release_date',
+				'txtfield'
+			), array(), array(
+					QuarkModel::OPTION_LIMIT => 50
+				)
+			));
+	}
+
+	/**
+	 * @param QuarkDTO $request
+	 *
+	 * @return IQuarkIOProcessor
+	 */
+	public function Processor (QuarkDTO $request) {
+		return new QuarkJSONIOProcessor();
+	}
 }

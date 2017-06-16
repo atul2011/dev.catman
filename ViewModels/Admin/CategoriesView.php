@@ -2,7 +2,7 @@
 
 namespace ViewModels\Admin;
 
-use Middleware\Bootstrap;
+use Middleware\Bootstrap\Bootstrap;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithResources;
@@ -10,6 +10,7 @@ use Quark\IQuarkViewResource;
 use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
+use Quark\ViewResources\TwitterBootstrap\TwitterBootstrap;
 use ViewModels\ViewBehavior;
 
 /**
@@ -38,14 +39,14 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../static/style.css';
+		return __DIR__ . '/../../static/Admin/CategoryStructure/style.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../static/categories_view_script.js';
+		return __DIR__ . '/../../static/Admin/CategoryStructure/script.js';
 	}
 
 	/**
@@ -53,8 +54,8 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	 */
 	public function ViewResources () {
 		return array(
-			new jQueryCore()
-		, new Bootstrap()
+			new jQueryCore(),
+			new TwitterBootstrap()
 		);
 	}
 }

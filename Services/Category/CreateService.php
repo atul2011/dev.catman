@@ -3,11 +3,11 @@
 namespace Services\Category;
 
 use Models\Category;
+use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
@@ -15,14 +15,17 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
-use ViewModels\Content\CategoryEditView;
+use Services\Behaviors\AuthorizationBehavior;
+use ViewModels\Content\Category\CreateView;
 
 /**
  * Class CreateService
  *
  * @package Services\Category
  */
-class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkGetService {
+class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkGetService,IQuarkAuthorizableServiceWithAuthentication {
+	use AuthorizationBehavior;
+
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
@@ -30,7 +33,7 @@ class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CategoryEditView(), new QuarkPresenceControl());
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl());
 	}
 
 	/**
@@ -54,7 +57,7 @@ class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		if (!$category->Create())
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
 
-		return QuarkDTO::ForRedirect('/admin/categories?created=category');
+		return QuarkDTO::ForRedirect('/category/list?created=true');
 	}
 
 	/**
