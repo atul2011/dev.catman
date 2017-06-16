@@ -50,10 +50,7 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 				'title',
 				'sub',
 				'intro'
-			), array(), array(
-					QuarkModel::OPTION_LIMIT => 50
-				)
-			));
+			)));
 	}
 
 	/**
