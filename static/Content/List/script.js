@@ -83,10 +83,10 @@ function CheckSearch(str, model, name, callback, limit){
         LoadContent(false, model, callback);
         return;
     }
-    var url = '/' + model + '/search?' + name + '=' + str;
-    if (limit !== 0) url += '&limit=' + limit;
+    var url = '/' + model + '/search';
+    if (limit !== 0) url += '?limit=' + limit;
     //if not to search in DB items by inserted string
-    $.ajax({url: url,type:'POST'}).then(
+    $.ajax({url: url,type:'POST',data:{ value : str,field: name}}).then(
         function(json){
             if (json.response !== '') {
                 removeItems('.content-row');

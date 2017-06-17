@@ -3,6 +3,7 @@
 		<form action="/category/search" method="POST">
 			<ul class="search-list" type="none">
 				<li><input type="checkbox" name="orfan" class="orfan" id="category">No parents</li>
+                <li><select id="category-select" class="model-select"></select></li>
 				<li><input type="text" class="search" name="category-search" placeholder="insert firsts letters of title wich you search"></li>
 			</ul>
 		</form>

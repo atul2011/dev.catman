@@ -6,19 +6,19 @@ use Models\Articles_has_Categories;
 use Models\Categories_has_Categories;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Exception;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -51,14 +51,5 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		catch (Exception $e) {
 			return $e;
 		}
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

@@ -3,17 +3,17 @@ namespace Services\Event;
 
 use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -30,14 +30,5 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (!$event->Remove())
 			return QuarkDTO::ForRedirect('/event/list?deleted=false');
 		return QuarkDTO::ForRedirect('/event/list?deleted=true');
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

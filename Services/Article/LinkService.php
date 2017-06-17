@@ -6,14 +6,13 @@ use Models\Article;
 use Models\Articles_has_Categories;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 /**
  * Class LinkService
@@ -22,6 +21,7 @@ use Services\Behaviors\AuthorizationBehavior;
  */
 class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -62,14 +62,5 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 			'status' => 200,
 			'category' => $category->id
 		);
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

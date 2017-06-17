@@ -4,13 +4,12 @@ namespace Services\Category;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 /**
  * Class Category_RelationService
@@ -19,6 +18,7 @@ use Services\Behaviors\AuthorizationBehavior;
  */
 class Category_RelationService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -40,14 +40,5 @@ class Category_RelationService implements IQuarkGetService, IQuarkServiceWithCus
 			'category' => $category->Extract(),
 			'children' => $category->Categories()->Extract()
 		);
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

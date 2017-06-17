@@ -1,14 +1,26 @@
 $(document).ready(function(){
-    resizeList(120,130);
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="title">Title</option>' +
+        '<option value="release_date">Release Date</option>' +
+        '<option value="event_id">Event</option>' +
+        '<option value="author_id">Author</option>' +
+        '<option value="keywords">Keywords</option>';
+    $('#article-select').append(model_select);
+    
+    resizeList(120, 236);
     LoadContent(false, 'article', ShowArticles);
+    
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'article', 'title',ShowArticles,50);
+        CheckSearch(this.value, 'article', $('#article-select').val(), ShowArticles, 50);
     });
+    
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles);
     });
+    
     $(document).on('dblclick', '.delete-button-article', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -19,7 +31,6 @@ $(document).ready(function(){
                 removeItems('.content-values');
                 LoadContent(false, 'article', ShowArticles);
             });
-    
         }
     });
     $(document).on('click', '.content-row', function(){

@@ -1,10 +1,18 @@
 $(document).ready(function(){
-    resizeList(120,0);
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="name">Name</option>' +
+        '<option value="type">Type</option>';
+    $('#author-select').append(model_select);
+    
+    resizeList(120,60);
     LoadContent(false, 'author', ShowAuthors);
+    
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'author', 'name',ShowAuthors,50);
+        CheckSearch(this.value, 'author', $('#author-select').val(),ShowAuthors,50);
     });
+    
     $(document).on('dblclick', '.delete-button-author', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -17,6 +25,7 @@ $(document).ready(function(){
             });
         }
     });
+    
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"));
     });

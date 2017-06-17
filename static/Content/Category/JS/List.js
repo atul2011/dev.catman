@@ -1,14 +1,24 @@
 $(document).ready(function(){
-    resizeList(120,55);
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="title">Title</option>' +
+        '<option value="sub">Type</option>' +
+        '<option value="keywords">Keywords</option>' +
+        '<option value="priority">Priority</option>';
+    $('#category-select').append(model_select);
+    resizeList(120,137);
     LoadContent(false, 'category', ShowCategories);
+    
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'category', 'title',ShowCategories,50);
+        CheckSearch(this.value, 'category', $('#category-select').val(),ShowCategories,50);
     });
+    
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories);
     });
+    
     $(document).on('dblclick', '.delete-button-category', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {

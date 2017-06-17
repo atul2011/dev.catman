@@ -4,14 +4,13 @@ namespace Services\Admin;
 
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\IndexView;
 
 /**
@@ -19,9 +18,9 @@ use ViewModels\Admin\IndexView;
  *
  * @package Services\Admin
  */
-class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
-
+	use CustomProcessorBehavior;
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
@@ -30,14 +29,5 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		return QuarkView::InLayout(new IndexView(), new QuarkPresenceControl());
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

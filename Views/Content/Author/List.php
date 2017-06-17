@@ -2,6 +2,7 @@
 	<div class="quark-presence-container presence-block">
 		<form action="/author/search" method="POST">
 			<ul class="search-list" type="none">
+                <li><select id="author-select" class="model-select"></select></li>
 				<li><input type="text" class="search" name="author-search" placeholder="insert firsts letters of title wich you search"></li>
 			</ul>
 		</form>

@@ -4,18 +4,18 @@ namespace Services\Event;
 
 use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -31,7 +31,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$limit = 50;
 
 		$out = $event->Select(
-			array('name' => array('$regex' => '#.*' . $request->name . '.*#Uis')),
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
@@ -44,14 +44,5 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					'keywords'
 				)
 			));
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

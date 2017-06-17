@@ -3,20 +3,24 @@
 namespace Services\Article;
 
 use Models\Article;
+use Models\Articles_has_Categories;
+use Models\Author;
+use Models\Category;
+use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Behaviors\AuthorizationBehavior;
+use Services\Behaviors\CustomProcessorBehavior;
 
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -27,14 +31,42 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkCollection|Article[] $articles
+		 * @var QuarkModel|Event $event
+		 * @var QuarkModel|Category $category
+		 * @var QuarkModel|Articles_has_Categories $relations
+		 * @var QuarkModel|Author $author
 		 */
 		$articles = QuarkModel::Find(new Article());
 		$limit = 50;
 
 		$out = $articles->Select(
-			array('title' => array('$regex' => '#.*' . $request->title . '.*#Uis')),
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value. '.*#Uis')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
+
+		$search_value ='';
+		$fields = explode('_', $request->Data()->field);
+		if (!empty($fields[1])) {
+			if ($fields[1] === 'id') {
+				if ($fields[0] === 'event') {
+					$event = QuarkModel::FindOne(new Event(), array(
+						'name' => $request->Data()->value
+					));
+					$search_value = $event;
+				}
+				elseif ($fields[0] === 'author') {
+					$author = QuarkModel::FindOne(new Author(), array(
+						'name' => $request->Data()->value
+					));
+					$search_value = $author;
+
+				}
+				$out = $articles->Select(
+					array($request->Data()->field =>$search_value),
+					array(QuarkModel::OPTION_LIMIT => $limit)
+				);
+			}
+		}
 
 		return array(
 			'status' => 200,
@@ -45,14 +77,5 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'event_id',
 				'txtfield'
 			)));
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }

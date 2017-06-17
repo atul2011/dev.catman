@@ -1,9 +1,14 @@
 $(document).ready(function(){
-    resizeList(120,0);
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="name">Name</option>' +
+        '<option value="startdate">Start Date</option>';
+    $('#event-select').append(model_select);
+    resizeList(120,83);
     LoadContent(false, 'event', ShowEvents);
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'event', 'name',ShowEvents,50);
+        CheckSearch(this.value, 'event', $('#event-select').val(),ShowEvents,50);
     });
     $(document).on('dblclick', '.delete-button-event', function(){
         response = prompt('Do you want to delete this y/n ?', '');

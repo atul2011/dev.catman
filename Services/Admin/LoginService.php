@@ -3,16 +3,16 @@
 namespace Services\Admin;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
-use Quark\IQuarkIOProcessor;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkSession;
 use Quark\QuarkView;
+use Services\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\LoginView;
 
 class LoginService implements IQuarkGetService ,IQuarkPostService ,IQuarkServiceWithCustomProcessor ,IQuarkAuthorizableService {
+	use CustomProcessorBehavior;
 	/**
 	 * @param QuarkDTO $request
 	 *
@@ -42,14 +42,5 @@ class LoginService implements IQuarkGetService ,IQuarkPostService ,IQuarkService
 		if(!$session->Login($request,10))
 			return new QuarkView(new LoginView());
 		return QuarkDTO::ForRedirect('/admin/');
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
 	}
 }
