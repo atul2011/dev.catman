@@ -124,19 +124,10 @@
     color: red;
 }
 
-#nav-bar .quark-presence-column,
-#list-options .quark-presence-column,
-#button-add-column,
-.current-pages .quark-presence-column
+#nav-bar .quark-presence-column
+,#list-options .quark-presence-column
+,#button-add-column
+,.current-pages .quark-presence-column
 {
     margin: 0;
-}
-
-.nav-button {
-    background-color: transparent;
-    border: 0px solid black;
-    border-right: 1px solid black;
-}
-#last{
-    border: none;
 }

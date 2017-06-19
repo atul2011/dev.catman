@@ -41,7 +41,8 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 		 * @var QuarkModel|Author $author
 		 */
 		$author = QuarkModel::Find(new Author(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50
+			QuarkModel::OPTION_LIMIT => 50,
+			QuarkModel::OPTION_SKIP =>$request->skip
 		));
 		$model = 'author';
 		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;

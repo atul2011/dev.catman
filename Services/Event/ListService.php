@@ -41,7 +41,8 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 		 * @var QuarkModel|Event $event
 		 */
 		$event = QuarkModel::Find(new Event(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50
+			QuarkModel::OPTION_LIMIT => 50,
+			QuarkModel::OPTION_SKIP =>$request->skip
 		));
 		$model = 'event';
 		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;

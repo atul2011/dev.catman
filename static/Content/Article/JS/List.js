@@ -7,9 +7,8 @@ $(document).ready(function(){
         '<option value="author_id">Author</option>' +
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(model_select);
-    
     resizeList(120, 236);
-    LoadContent(false, 'article', ShowArticles);
+    LoadContent(false, 'article', ShowArticles,1);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
@@ -29,13 +28,16 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'article', ShowArticles);
+                LoadContent(false, 'article', ShowArticles,1);
             });
         }
     });
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"));
     });
+    ////////////////////////////navigation bar//////////////////////////////////////////
+    LoadNavigationBar('article',ShowArticles);
+
 });
 //fucntion to show the articles
 function ShowArticles(response){

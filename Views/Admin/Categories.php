@@ -6,7 +6,7 @@ use ViewModels\Admin\CategoriesView;
 use Quark\QuarkView;
 
 ?>
-<div class="quark-presence-column left tables-container" id="list-left">
+<div class="quark-presence-column center tables-container" id="list-left">
     <Div class="quark-presence-container presence-block main search-bar">
         <form action="" method="POST">
             <table id="route">
@@ -43,7 +43,7 @@ use Quark\QuarkView;
 </div>
 <!--items-->
 
-<div class="quark-presence-column right tables-container" id="list-right">
+<div class="quark-presence-column center tables-container" id="list-right">
     <!--    categories-->
     <form action="/category/search" method="POST">
         <ul class="search-list">

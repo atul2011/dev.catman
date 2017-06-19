@@ -3,6 +3,7 @@ namespace Models;
 
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
+use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
@@ -17,8 +18,15 @@ use Quark\QuarkModel;
  *
  * @package Models
  */
-class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract{
-    /**
+class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	/**
+	 * @return string
+	 */
+	public function CollectionName () {
+		return 'categories_has_categories';
+	}
+
+	/**
      * @return mixed
      */
     public function Fields() {

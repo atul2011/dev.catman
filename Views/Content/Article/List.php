@@ -25,29 +25,26 @@
     <div class="quark-presence-container presence-block" id="list-options">
         <div class="quark-presence-column">
             <div class="quark-presence-container presence-block" id="nav-bar">
-                <form action="/article/next">
+                <form action="" class="navigation_form" method="GET">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="first" value="0"><<</button>
+                        <button type="submit" class="nav-button" id="first" value="1"><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="prev" value="-50"><</button>
+                        <button type="submit" class="nav-button" id="prev"><</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="nothing_prev" value="-">...</button>
+                        <button class="nav-button space_buttons" id="space_prev" disabled>...</button>
                     </div>
                     <div class="quark-presence-column current-pages">
-                        <div class="quark-presence-column">
-                            <button type="submit" class="nav-button">...</button>
-                        </div>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="nothing_next" value="-">...</button>
+                        <button class="nav-button space_buttons" id="space_next" disabled>...</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="next" value="+50">></button>
+                        <button type="submit" class="nav-button" id="next">></button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="last" value="">>></button>
+                        <button type="submit" class="nav-button" id="last" value="0">>></button>
                     </div>
                 </form>
             </div>

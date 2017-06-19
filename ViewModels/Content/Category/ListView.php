@@ -8,9 +8,10 @@ use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Content\Behaviors\IListView;
+use ViewModels\Content\Behaviors\INavigationBar;
 use ViewModels\ViewBehavior;
 
-class ListView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IListView,IQuarkViewModelWithCustomizableLayout {
+class ListView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IListView,IQuarkViewModelWithCustomizableLayout,INavigationBar {
 	use ViewBehavior;
 
 	/**

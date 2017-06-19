@@ -48,9 +48,9 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		 * @var QuarkCollection|Article[] $article
 		 * @var QuarkCollection|Articles_has_Categories $links
 		 */
-
 		$article = QuarkModel::Find(new Article(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50
+			QuarkModel::OPTION_LIMIT => 50,
+			QuarkModel::OPTION_SKIP =>$request->skip
 		));
 		$orfans = new QuarkCollection(new Article());
 		//define variables that we will get from page.if not we will define default values
