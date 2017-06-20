@@ -34,7 +34,9 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl());
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(),array(
+			'number'=>QuarkModel::Count(new Article())
+		));
 	}
 
 	/**
@@ -48,11 +50,19 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		 * @var QuarkCollection|Article[] $article
 		 * @var QuarkCollection|Articles_has_Categories $links
 		 */
+		$limit = 50;
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
+
 		$article = QuarkModel::Find(new Article(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50,
-			QuarkModel::OPTION_SKIP =>$request->skip
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkModel::OPTION_SKIP => $skip
 		));
 		$orfans = new QuarkCollection(new Article());
+
 		//define variables that we will get from page.if not we will define default values
 		$model = 'article';
 		$orfan = false;

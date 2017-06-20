@@ -36,15 +36,21 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkModel|Articles_has_Categories $relations
 		 * @var QuarkModel|Author $author
 		 */
-		$articles = QuarkModel::Find(new Article());
 		$limit = 50;
-
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
+		$articles = QuarkModel::Find(new Article());
 		$out = $articles->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value. '.*#Uis')),
-			array(QuarkModel::OPTION_LIMIT => $limit)
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
+				array(
+				QuarkModel::OPTION_LIMIT => $limit,
+				QuarkModel::OPTION_SKIP => $skip
+			)
 		);
-
-		$search_value ='';
+		$search_value = '';
 		$fields = explode('_', $request->Data()->field);
 		if (!empty($fields[1])) {
 			if ($fields[1] === 'id') {
@@ -59,11 +65,13 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 						'name' => $request->Data()->value
 					));
 					$search_value = $author;
-
 				}
 				$out = $articles->Select(
-					array($request->Data()->field =>$search_value),
-					array(QuarkModel::OPTION_LIMIT => $limit)
+					array($request->Data()->field => $search_value),
+					array(
+						QuarkModel::OPTION_LIMIT => $limit,
+						QuarkModel::OPTION_SKIP => $skip
+					)
 				);
 			}
 		}
@@ -76,6 +84,8 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'release_date',
 				'event_id',
 				'txtfield'
-			)));
+			))
+//		, 'number' =>$out->Count()
+		);
 	}
 }

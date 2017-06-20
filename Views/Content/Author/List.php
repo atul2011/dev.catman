@@ -1,6 +1,15 @@
+<?php
+/**
+ * @var QuarkView|ListView $this
+ * @var int $number
+ */
+use Quark\QuarkView;
+use ViewModels\Content\Category\ListView;
+
+?>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
-        <form action="/author/search" method="POST">
+        <form>
             <ul class="search-list" type="none">
                 <li><select id="author-select" class="model-select"></select></li>
                 <li><input type="text" class="search" name="author-search"
@@ -24,6 +33,7 @@
         <div class="quark-presence-column">
             <div class="quark-presence-container presence-block" id="nav-bar">
                 <form action="" class="navigation_form" method="GET">
+                    <input type="hidden" id="number" value="<?php echo $number; ?>">
                     <div class="quark-presence-column">
                         <button type="submit" class="nav-button" id="first" value="1"><<</button>
                     </div>
@@ -31,12 +41,12 @@
                         <button type="submit" class="nav-button" id="prev"><</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons" id="space_prev">...</button>
+                        <button class="nav-button space_buttons" id="space_prev" disabled>...</button>
                     </div>
                     <div class="quark-presence-column current-pages">
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons" id="space_next">...</button>
+                        <button class="nav-button space_buttons" id="space_next" disabled>...</button>
                     </div>
                     <div class="quark-presence-column">
                         <button type="submit" class="nav-button" id="next">></button>

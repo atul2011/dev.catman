@@ -6,6 +6,7 @@ use Models\Author;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -27,12 +28,19 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		/**
 		 * @var QuarkCollection|Author[] $author
 		 */
-		$author = QuarkModel::Find(new Author());
 		$limit = 50;
-
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
+		$author = QuarkModel::Find(new Author());
 		$out = $author->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-			array(QuarkModel::OPTION_LIMIT => $limit)
+			array(
+				QuarkModel::OPTION_LIMIT => $limit,
+				QuarkModel::OPTION_SKIP => $skip
+			)
 		);
 
 		return array(
@@ -42,6 +50,8 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'name',
 				'type',
 				'keywords'
-			)));
+			))
+//		, 'number' => $out->Count()
+		);
 	}
 }

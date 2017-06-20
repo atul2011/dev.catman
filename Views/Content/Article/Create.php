@@ -3,7 +3,7 @@
  * @var QuarkView|CreateView $this
  * @var QuarkModel|Article $article
  */
-use Models\Content\Article;
+use Models\Article;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Content\Article\CreateView;

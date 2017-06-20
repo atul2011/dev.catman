@@ -7,16 +7,16 @@ $(document).ready(function(){
         '<option value="priority">Priority</option>';
     $('#category-select').append(model_select);
     resizeList(120,137);
-    LoadContent(false, 'category', ShowCategories,1);
+    LoadContent(false, 'category', ShowCategories,1,'list',null,null);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'category', $('#category-select').val(),ShowCategories,50);
+        LoadContent(false, 'category', ShowCategories,1,'search',$('#category-select').val(),this.value);
     });
     
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories);
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,'none');
     });
     
     $(document).on('dblclick', '.delete-button-category', function(){
@@ -27,7 +27,7 @@ $(document).ready(function(){
             $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'category', ShowCategories,1);
+                LoadContent(false, 'category', ShowCategories,1,'list',null,null);
             });
         }
     });

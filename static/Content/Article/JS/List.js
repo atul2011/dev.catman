@@ -8,16 +8,16 @@ $(document).ready(function(){
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(model_select);
     resizeList(120, 236);
-    LoadContent(false, 'article', ShowArticles,1);
+    LoadContent(false, 'article', ShowArticles,1,'list',null,null);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'article', $('#article-select').val(), ShowArticles, 50);
+        LoadContent(false, 'article',ShowArticles,1,'search',$('#article-select').val(),this.value);
     });
     
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles);
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,'none');
     });
     
     $(document).on('dblclick', '.delete-button-article', function(){
@@ -28,7 +28,7 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'article', ShowArticles,1);
+                LoadContent(false, 'article', ShowArticles,1,'list',null,null);
             });
         }
     });

@@ -1,8 +1,13 @@
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 $(document).ready(function(){
-    $('.navigation_form').submit(function (e) {
+    $('.navigation_form').submit(function(e){
         e.preventDefault();
+    });
+    $('input[type="text"]').keypress(function(event){
+        if (event.which === 13) {
+            event.preventDefault();
+        }
     });
 });
 function resizeList(height_difference, width_difference){
@@ -29,24 +34,32 @@ function checkTitle(name){
     return true;
 }
 //function to load content
-function LoadContent(state, model, callback,skip){
-    console.log(skip+'laodc');
+function LoadContent(state, model, callback,skip,service, name,str){
     var start = (parseInt(skip) - 1) * 50;
+    if (isNaN(start))
+    
+    console.log(state, model,start,service, name,str);
     if (model === null || model === undefined) model = 'none';
-    $.ajax({url: '/' + model + '/list?skip='+start, data: {orfan: state, model: model}, type: 'POST'}).then(function(json){
-        if (json.response !== null) {
-            removeItems('.content-row');
-            json.response.forEach(callback);
-        }
+    $.ajax({url: '/' + model + '/'+service+'?skip='+start, data: {orfan: state, model: model,value : str,field: name}, type: 'POST'}).then(
+        function(json){
+            if (json.response !== null) {
+                removeItems('.content-row');
+                json.response.forEach(callback);
+                // $('#number').val(json.number);
+            } else {
+                removeItems('.content-row');
+            }
     });
 }
 
 //function to search in db items without relations
-function noParents(state, model, callback){
-    LoadContent(state, model, callback,1);
+function noParents(state, model, callback, start){
+    if (isNaN(start))
+        start = parseInt($('.current-page .selected-page').val());
+    LoadContent(state, model, callback, start,'list',null,null);
 }
 
-//fucntion to add to each item in actions column the anchors-icons for redirecting
+//function to add to each item in actions column the anchors-icons for redirecting
 function setActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
@@ -82,25 +95,8 @@ function paintRow(id){
         $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
 }
-
-//function to check when you want to find items
-function CheckSearch(str, model, name, callback, limit,skip){
-    //if search bar is empty, we load default list
-    if (str.length === 0) {
-        LoadContent(false, model, callback,skip);
-        return;
-    }
-    var url = '/' + model + '/search';
-    if (limit !== 0) url += '?limit=' + limit;
-    //if not to search in DB items by inserted string
-    $.ajax({url: url,type:'POST',data:{ value : str,field: name}}).then(
-        function(json){
-            if (json.response !== '') {
-                removeItems('.content-row');
-                json.response.forEach(callback);
-            } else {
-                removeItems('.content-row');
-            }
-        }
-    );
+function CheckService(){
+    var service=$('.search').val();
+    if(service === '') return 'list';
+    else if(service !== '')return 'search';
 }

@@ -8,6 +8,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -23,7 +24,7 @@ use ViewModels\Content\Category\ListView;
  *
  * @package Services\Categories
  */
-class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication,IQuarkPostService {
+class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication, IQuarkPostService {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -38,11 +39,17 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		 * @var QuarkCollection|Category[] $category
 		 * @var QuarkCollection|Categories_has_Categories[] $status
 		 */
-
+		$limit = 50;
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
 		$category = QuarkModel::Find(new Category(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50,
-			QuarkModel::OPTION_SKIP =>$request->skip
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkModel::OPTION_SKIP => $skip
 		));
+
 		$orfans = new QuarkCollection(new Category());
 		//define variables that we will get from page.if not we will define default values
 		$model = 'category';
@@ -69,6 +76,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		elseif ($orfan === 'false' && $model === 'none' || $model === 'category') {
 			$orfans = $category;
 		}
+
 		return array(
 			'status' => 200,
 			'response' => $orfans->Extract(array(
@@ -77,7 +85,9 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 					'sub',
 					'intro'
 				)
-			));
+			)
+//		, 'number' =>$category->Count()
+		);
 	}
 
 	/**
@@ -87,6 +97,8 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(),new QuarkPresenceControl());
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
+			'number' => QuarkModel::Count(new Category())
+		));
 	}
 }

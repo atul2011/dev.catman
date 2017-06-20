@@ -27,12 +27,19 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		/**
 		 * @var QuarkCollection|Event[] $event
 		 */
-		$event = QuarkModel::Find(new Event());
 		$limit = 50;
-
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
+		$event = QuarkModel::Find(new Event());
 		$out = $event->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-			array(QuarkModel::OPTION_LIMIT => $limit)
+			array(
+				QuarkModel::OPTION_LIMIT => $limit,
+				QuarkModel::OPTION_SKIP => $skip
+			)
 		);
 
 		return array(
@@ -43,6 +50,8 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					'type',
 					'keywords'
 				)
-			));
+			)
+//		, 'number' => $out->Count()
+		);
 	}
 }

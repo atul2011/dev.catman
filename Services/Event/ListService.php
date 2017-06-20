@@ -7,6 +7,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -27,7 +28,9 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl());
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
+			'number' => QuarkModel::Count(new Event())
+		));
 	}
 
 	/**
@@ -38,13 +41,19 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkModel|Event $event
+		 * @var QuarkCollection|Event $event
 		 */
-		$event = QuarkModel::Find(new Event(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50,
-			QuarkModel::OPTION_SKIP =>$request->skip
-		));
+		$limit = 50;
+		$skip = 0;
 		$model = 'event';
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
+		$event = QuarkModel::Find(new Event(), array(), array(
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkModel::OPTION_SKIP => $skip
+		));
 		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
 		//if is another model, go out
 		if ($model !== 'event') {
@@ -61,6 +70,8 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 					'name',
 					'startdate'
 				)
-			));
+			)
+//		, 'number' =>$event->Count()
+		);
 	}
 }

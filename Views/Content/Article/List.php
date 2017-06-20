@@ -1,6 +1,15 @@
+<?php
+/**
+ * @var QuarkView|ListView $this
+ * @var int $number
+ */
+use Quark\QuarkView;
+use ViewModels\Content\Category\ListView;
+
+?>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
-        <form action="/articles/search" method="POST">
+        <form>
             <ul class="search-list" type="none">
                 <li><input type="checkbox" name="orfan" class="orfan" id="article">No categories linked</li>
                 <li><select id="article-select" class="model-select"></select></li>
@@ -25,6 +34,7 @@
     <div class="quark-presence-container presence-block" id="list-options">
         <div class="quark-presence-column">
             <div class="quark-presence-container presence-block" id="nav-bar">
+                <input type="hidden" id="number" value="<?php echo $number; ?>">
                 <form action="" class="navigation_form" method="GET">
                     <div class="quark-presence-column">
                         <button type="submit" class="nav-button" id="first" value="1"><<</button>

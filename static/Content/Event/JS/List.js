@@ -5,10 +5,10 @@ $(document).ready(function(){
         '<option value="startdate">Start Date</option>';
     $('#event-select').append(model_select);
     resizeList(120,83);
-    LoadContent(false, 'event', ShowEvents,1);
+    LoadContent(false, 'event', ShowEvents,1,'list',null,null);
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'event', $('#event-select').val(),ShowEvents,50);
+        LoadContent(false, 'event', ShowEvents,1,'search', $('#event-select').val(),this.value);
     });
     $(document).on('dblclick', '.delete-button-event', function(){
         response = prompt('Do you want to delete this y/n ?', '');
@@ -18,7 +18,7 @@ $(document).ready(function(){
             $.ajax({url: "/event/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'event', ShowEvents,1);
+                LoadContent(false, 'event', ShowEvents,1,'list',null,null);
             });
         }
     });

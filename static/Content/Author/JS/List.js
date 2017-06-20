@@ -6,11 +6,11 @@ $(document).ready(function(){
     $('#author-select').append(model_select);
     
     resizeList(120,60);
-    LoadContent(false, 'author', ShowAuthors,1);
+    LoadContent(false, 'author', ShowAuthors,1,'list',null,null);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'author', $('#author-select').val(),ShowAuthors,50);
+        LoadContent(false, 'author', ShowAuthors,1,'search',$('#author-select').val(),this.value);
     });
     
     $(document).on('dblclick', '.delete-button-author', function(){
@@ -21,7 +21,7 @@ $(document).ready(function(){
             $.ajax({url: "/author/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'author', ShowAuthors,1);
+                LoadContent(false, 'author', ShowAuthors,1,'list',null,null);
             });
         }
     });

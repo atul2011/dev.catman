@@ -7,6 +7,8 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -27,7 +29,9 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl());
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
+			'number' => QuarkModel::Count(new Author())
+		));
 	}
 
 	/**
@@ -38,11 +42,17 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkModel|Author $author
+		 * @var QuarkCollection|Author $author
 		 */
+		$limit = 50;
+		$skip = 0;
+		if (isset($request->limit) && ($request->limit !== null))
+			$limit = $request->limit;
+		if (isset($request->skip) && ($request->skip !== null))
+			$skip = $request->skip;
 		$author = QuarkModel::Find(new Author(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50,
-			QuarkModel::OPTION_SKIP =>$request->skip
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkModel::OPTION_SKIP => $skip
 		));
 		$model = 'author';
 		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
@@ -56,11 +66,12 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 		return array(
 			'status' => 200,
 			'response' => $author->Extract(array(
-					'id',
-					'name',
-					'type',
-					'keywords'
-				)
-			));
+				'id',
+				'name',
+				'type',
+				'keywords'
+			))
+//		   , 'number' => $author->Count()
+		);
 	}
 }
