@@ -1,0 +1,99 @@
+/*--------------------------------------------------------------*/
+/*!*align all text from registration half to right*!*/
+body, #submit-button {
+    color: black;
+}
+
+#button-div {
+    text-align: center;
+}
+#content-half #title {
+    color: #1F4F5D;
+    font-family: "Montserrat", sans-serif;
+    font-size: 32px;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0.845714px;
+    line-height: 100%;
+    opacity: 1.00;
+}
+
+.body {
+    text-align: right;
+}
+
+#login, #password {
+    color: #434646;
+    font-family: "Montserrat", sans-serif;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: normal;
+    letter-spacing: 0.37px;
+    line-height: 100%;
+    opacity: 1.00;
+}
+
+.login-form, .password-form , .error-image,.body.quark-presence-column {
+    margin: 0;
+}
+.errors, .error-image {
+    text-align: center;
+    visibility: hidden;
+}
+
+.errors-items {
+    color: #FF8100;
+    font-size: 13px;
+    font-style: italic;
+    margin-top: 5px;
+}
+
+.fields {
+    width: 100%;
+}
+
+.form-images {
+    margin-top: 5px;
+}
+
+.input-fields {
+    background: #FFFFFF;
+    border: 1px solid #D9F0FA;
+    opacity: 1.00;
+    width: 300px;
+}
+
+.input-fields::placeholder {
+    font-style: italic;
+}
+
+#content-half {
+    min-height: 100%;
+}
+
+#submit-button {
+    background: linear-gradient(180deg, #0D5A70, #263447);
+    border-radius: 10px;
+    box-shadow: 0px 2px 13px rgba(0, 0, 0, 0.228091), inset 0px 2px 1px rgba(255, 255, 255, 0.243829), inset 0px -4px 0px rgba(0, 0, 0, 0.110139);
+    color: #FFFFFF;
+    font-family: "Montserrat", sans-serif;
+    font-size: 18px;
+    font-style: normal;
+    font-weight: 500;
+    letter-spacing: 1px;
+    line-height: 100%;
+    opacity: 1.00;
+    padding: 5% 30%;
+    text-shadow: 1px 1px 1px rgba(167, 136, 136, 0.5);
+}
+
+.quark-presence-column {
+    vertical-align: middle;
+}
+.content-items#title{
+    text-align: center;
+}
+
+#content-screen {
+    text-align: center;
+}

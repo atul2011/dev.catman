@@ -1,0 +1,12 @@
+.main2{
+    max-width:500px;
+}
+
+.keywords{
+    max-width: 100px;
+    min-width: 100px;
+}
+.edit-button-author{
+    display: none;
+}
+
