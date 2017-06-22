@@ -8,11 +8,13 @@ $(document).ready(function(){
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(model_select);
     resizeList(120, 236);
-    LoadContent(false, 'article', ShowArticles,1,'list',null,null);
+    LoadContent(false, 'article', ShowArticles,1,50);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        LoadContent(false, 'article',ShowArticles,1,'search',$('#article-select').val(),this.value);
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50);
     });
     
     //add event listener to checkbox "no parents"
@@ -28,7 +30,7 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'article', ShowArticles,1,'list',null,null);
+                LoadContent(false, 'article', ShowArticles,1,50);
             });
         }
     });
@@ -50,4 +52,5 @@ function ShowArticles(response){
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+    $('#loading-circle').css('display','none');
 }

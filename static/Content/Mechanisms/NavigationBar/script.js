@@ -1,25 +1,38 @@
+$(document).ready(function(){
+    $('.navigation_form').submit(function(e){
+        e.preventDefault();
+    });
+    // $('#loading-circle').css('')
+});
 function LoadNavigationBar(model, callback){
-    getMaxPages(1, model, callback);
+    var data = $('#number').val();
+    var endpoint = parseInt(parseInt(data) / 50) + 1;
+    getMaxPages(1, endpoint);
     //set events to created negigation buttons
     $(document).on('click', '.current-page .nav-button', function(){
-        LoadContent(false, model, callback, $(this).val(), CheckService(),null,null);
-        getMaxPages($(this).val(), model, callback);
+        LoadContent(false, model, callback, $(this).val(),50);
+        getMaxPages($(this).val(), endpoint);
     });
     $(document).on('click', '.nav-button#prev', function(){
         var skip = parseInt($('.current-page .selected-page').val());
         --skip;
-        LoadContent(false, model, callback, skip,CheckService(),null,null);
-        getMaxPages(skip, model, callback);
+        LoadContent(false, model, callback, skip,50);
+        getMaxPages(skip, endpoint);
     });
     $(document).on('click', '.nav-button#next', function(){
         var skip = parseInt($('.current-page .selected-page').val());
         ++skip;
-        LoadContent(false, model, callback, skip,CheckService(),null,null);
-        getMaxPages(skip, model, callback);
+        LoadContent(false, model, callback, skip,50);
+        getMaxPages(skip, endpoint);
     });
     $(document).on('click', '.nav-button#first', function(){
-        LoadContent(false, model, callback, 1,CheckService(),null,null);
-        getMaxPages(1, model, callback);
+        LoadContent(false, model, callback, 1,50);
+        getMaxPages(1, endpoint);
+    });
+    
+    $(document).on('click', '.nav-button#last', function(){
+        LoadContent(false, model, callback, endpoint,50);
+        getMaxPages(endpoint, endpoint);
     });
 }
 //////////////////////////////////    | |    ///////////////////////////
@@ -27,15 +40,9 @@ function LoadNavigationBar(model, callback){
 //////////////////////////////////   \   /   ///////////////////////////
 //////////////////////////////////    \ /    ///////////////////////////
 //////////////////////////////////     V     ///////////////////////////
-function getMaxPages(current,model,callback){
+function getMaxPages(current,endpoint){
     $(".orfan").prop('checked', false);
-    var data = $('#number').val();
-    var endpoint = parseInt(data / 50 + 1);
     
-    $(document).on('click', '.nav-button#last', function(){
-        LoadContent(false, model, callback, endpoint,'list',null,null);
-        getMaxPages(endpoint, model);
-    });
     
     if (parseInt(current) === endpoint) {
         $('.nav-button#next').prop('disabled', true).addClass('inactive-page');
@@ -69,14 +76,14 @@ function getPages(current, endpoint){
         stop = endpoint;
     } else if (endpoint >= 6) {
         //calculte first-button-page
-         start = current - 2;
+        start = current - 2;
         if (start > 1) $('#space_prev').css('display', 'inline');
         else if (start <= 1) {
             $('#space_prev').css('display', 'none');
             start = 1;
         }
         //calculte last-button-page
-         stop = start + 4;
+        stop = start + 4;
         if (stop >= endpoint) {
             $('#space_next').css('display', 'none');
             stop = endpoint;

@@ -26,6 +26,7 @@ use ViewModels\Content\Category\ListView;
                 <div id="keywords" class="quark-presence-column  content-titles keywords">Keywords</div>
                 <div id="actions" class="quark-presence-column  content-titles actions">Actions</div>
             </div>
+            <div class="loader" id="loading-circle"></div>
         </div>
     </div>
     <br/>
@@ -62,7 +63,7 @@ use ViewModels\Content\Category\ListView;
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
                     <form action="/author/create" method="GET">
                         <input type="hidden" name="url" id="url">
-                        <button type="submit" class=" button-add" onclick="return seturl()">+</button>
+                        <button type="submit" class="button-add">+</button>
                     </form>
                 </div>
             </div>

@@ -5,10 +5,12 @@ $(document).ready(function(){
         '<option value="startdate">Start Date</option>';
     $('#event-select').append(model_select);
     resizeList(120,83);
-    LoadContent(false, 'event', ShowEvents,1,'list',null,null);
+    LoadContent(false, 'event', ShowEvents,1,50);
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        LoadContent(false, 'event', ShowEvents,1,'search', $('#event-select').val(),this.value);
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50);
     });
     $(document).on('dblclick', '.delete-button-event', function(){
         response = prompt('Do you want to delete this y/n ?', '');
@@ -18,7 +20,7 @@ $(document).ready(function(){
             $.ajax({url: "/event/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'event', ShowEvents,1,'list',null,null);
+                LoadContent(false, 'event', ShowEvents,50);
             });
         }
     });
@@ -37,4 +39,5 @@ function ShowEvents(response) {
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'event') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+    $('#loading-circle').css('display','none');
 }

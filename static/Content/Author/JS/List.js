@@ -6,11 +6,13 @@ $(document).ready(function(){
     $('#author-select').append(model_select);
     
     resizeList(120,60);
-    LoadContent(false, 'author', ShowAuthors,1,'list',null,null);
+    LoadContent(false, 'author', ShowAuthors,1,50);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        LoadContent(false, 'author', ShowAuthors,1,'search',$('#author-select').val(),this.value);
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50);
     });
     
     $(document).on('dblclick', '.delete-button-author', function(){
@@ -21,7 +23,7 @@ $(document).ready(function(){
             $.ajax({url: "/author/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'author', ShowAuthors,1,'list',null,null);
+                LoadContent(false, 'author', ShowAuthors,1,50);
             });
         }
     });
@@ -42,4 +44,5 @@ function ShowAuthors(response) {
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'author') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+    $('#loading-circle').css('display','none');
 }

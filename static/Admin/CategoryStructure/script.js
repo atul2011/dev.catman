@@ -3,10 +3,50 @@ var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 var rootPoint = '<td id="0" class="route-points">></td>';
 $(document).ready(function () {
-    LoadContent(false, 'none');
+    
+    $('input[type="text"]').keypress(function(event){
+        if (event.which === 13) {
+            event.preventDefault();
+        }
+    });
+    $('.navigation_form').submit(function(e){
+        e.preventDefault();
+    });
+    //load content
+    LoadContent(false, 'article',ShowArticles,1,50);
+    LoadContent(false, 'category',ShowCategories,1,50);
+    /////////////////////////////////////////////////////////////////
+    
+    //load selects with columns of models
+    var category_select =
+        '<option value="id">ID</option>' +
+        '<option value="title">Title</option>' +
+        '<option value="sub">Type</option>' +
+        '<option value="keywords">Keywords</option>' +
+        '<option value="priority">Priority</option>';
+    $('#category-select').append(category_select);
+    
+    var article_select =
+        '<option value="id">ID</option>' +
+        '<option value="title">Title</option>' +
+        '<option value="release_date">Release Date</option>' +
+        '<option value="event_id">Event</option>' +
+        '<option value="author_id">Author</option>' +
+        '<option value="keywords">Keywords</option>';
+    $('#article-select').append(article_select);
+    /////////////////////////////////////////////////////////////////
+    var list=$('.items-list');
+    $('.loader').css('left',(list.width()/3.3)).css('top',(list.height()/6));
     //add event listener on input in search bars
-    $(document).on("input", '.search', function () {
-        CheckSearch(this.value, this.id);
+    $(document).on("input", '#category-search', function () {
+        removeItems('.category-row');
+        $('#loading-circle-category').css('display','block');
+        CheckSearch($('#category-select').val(),this.value,'category', ShowCategories,50);
+    });
+    $(document).on("input", '#article-search', function () {
+        removeItems('.article-row');
+        $('#loading-circle-article').css('display','block');
+        CheckSearch($('#article-select').val(),this.value,'article', ShowArticles,50);
     });
 
     //stop refreshing when submit
@@ -28,7 +68,7 @@ $(document).ready(function () {
                 if (data !== null && data !== '')
                     console.log(data);
             });
-            LoadContent(false, 'none');
+            LoadContent(false, 'category',ShowCategories,1,50);
             setCategory($(".route-points").last().attr('id'));
         } else {
             return false;
@@ -43,7 +83,7 @@ $(document).ready(function () {
                 if (data !== null && data !== '')
                     console.log(data);
             });
-            LoadContent(false, 'none');
+            LoadContent(false, 'article',ShowArticles,1,50);
             setCategory($(".route-points").last().attr('id'));
         }
     });
@@ -82,57 +122,57 @@ $(document).ready(function () {
         $(this).css("background-color", 'white').css("color", 'black');
     });
     $("#route-row").append(rootPoint);
+    
+    ////////////////////////////navigation bar//////////////////////////////////////////
+    LoadNavigationBar('category',ShowCategories);
+    LoadNavigationBar('article',ShowArticles);
 });
 
 function noParents(orfan, model) {
     LoadContent(orfan, model);
 }
-
 //function to load content
-function LoadContent(orfan, model) {
+function LoadContent(state, model, callback,skip,limit){
+    var start = (parseInt(skip) - 1) * 50;
+    if (isNaN(start))
+        start = (parseInt($('#number'))-1)*50;
     if (model === null || model === undefined) model = 'none';
-    //search in db all categories
-    $.ajax({url: "/category/list", data: {orfan: orfan, model: model},type:'POST'}).then(function (json) {
-        if (json.response !== null) {
-            removeItems('.category-row');
-            json.response.forEach(ShowCategories);
-        }
-        //resize the left-table
-        getHeight();
-        //this script will load after loading of all categories all articles which it contains
-        $.ajax({url: "/article/list", data: {orfan: orfan, model: model},type:'POST'}).then(function (json) {
+    $.ajax({url: '/' + model + '/list?skip='+start+'&limit='+limit, data: {orfan: state, model: model}, type: 'POST'}).then(
+        function(json){
             if (json.response !== null) {
-                removeItems('.article-row');
-                json.response.forEach(ShowArticles);
+                removeItems('.'+model+'-row');
+                json.response.forEach(callback);
+                getHeight();
+            } else {
+                removeItems('.'+model+'-row');
             }
-//resize the left-table
-            getHeight();
         });
-    });
 }
 
 //fucntion to show categories
 function ShowCategories(response) {
-    str = '<tr id="category-values-' + response.id + '" class="category-row">' +
-        '<td class="category-values" id="id">' + response.id + '</td>' +
-        '<td class="category-values" id="title">' + response.title.substr(0, 30)  + '</td>' +
-        '<td class="category-values" id="type">' + response.sub + '</td>' +
-        '<td class="category-values" id="content">' + '<textarea rows="3" cols="25" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</td>' +
-        '<td class="category-values" id="actions">' + setActions('category', response.id) + '</td>' +
-        '</tr>';
-    $("#category-container").append(str);
+    str = '<div class="quark-presence-container presence-block category-row" id="category-values-' + response.id + '">' +
+        '<div class="category-values quark-presence-column ids" id="id">' + response.id + '</div>' +
+        '<div class="category-values quark-presence-column titles" id="title">' + response.title.substr(0, 70)  + '</div>' +
+        '<div class="category-values quark-presence-column types" id="type">' + response.sub + '</div>' +
+        '<div class="category-values quark-presence-column contents" id="content">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="category-values quark-presence-column actions" id="actions">' + setActions(response.id,'category') + '</div>' +
+        '</div>';
+    $("#category-column").append(str);
+    $('#loading-circle-category').css('display','none');
 }
 
 //fucntion to show the articles
 function ShowArticles(response) {
-    str = '<tr id="article-values-' + response.id + '" class="article-row">' +
-        '<td class="article-values" id="id">' + response.id + '</td>' +
-        '<td class="article-values" id="title">' + response.title.substr(0, 30)  + '</td>' +
-        '<td class="article-values" id="date">' + response.release_date + '</td>' +
-        '<td class="article-values" id="content">' + '<textarea rows="3" cols="25" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</td>' +
-        '<td class="article-values" id="actions">' + setActions('article', response.id) + '</td>' +
-        '</tr>';
-    $("#articles-container").append(str);
+    str = '<div class="quark-presence-container presence-block article-row" id="article-values-' + response.id + '">' +
+        '<div class="article-values quark-presence-column ids" id="id">' + response.id + '</div>' +
+        '<div class="article-values quark-presence-column titles" id="title">' + response.title.substr(0, 50) + '</div>' +
+        '<div class="article-values quark-presence-column dates" id="date">' + response.release_date + '</div>' +
+        '<div class="article-values quark-presence-column contents" id="content">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="article-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
+        '</div>';
+    $("#article-column").append(str);
+    $('#loading-circle-article').css('display','none');
 }
 
 //fucntion to add to each item in actions column the anchors-icons for redirecting
@@ -160,37 +200,25 @@ function getHeight() {
 }
 
 //function to check when you want to find items
-function CheckSearch(str, id) {
+function CheckSearch(name, str, model, callback, limit){
     //if search bar is empty, we load default list
     if (str.length === 0) {
-        LoadContent(false, type);
+        LoadContent(false, model, callback, 1,50);
         return;
     }
-    var type = '';
-    if (id === 'categories') type = 'category'; else type = 'article';
     //if not to search in DB items by inserted string
-    $.ajax({url: "/" + type + "/search?title=" + str,type:'POST'}).then(function (json) {
-            if (id === 'categories') {
-                if (json.response !== '') {
-                    //remove all old search and put new
-                    removeItems('.category-row');
-                    json.response.forEach(ShowCategories);
-                }
-                else {
-                    removeItems('.category-row');
-                }
-            }
-            else if (id === 'articles') {
-                if (json.response !== '') {
-                    removeItems('.article-row');
-                    json.response.forEach(ShowArticles);
-                } else {
-                    removeItems('.article-row');
-                }
+    $.ajax({url: '/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
+        function(json){
+            if (json.response !== '') {
+                removeItems('.'+model+'-row');
+                json.response.forEach(callback);
+            } else {
+                removeItems('.'+model+'-row');
             }
         }
     );
 }
+
 //clear all items from left-table
 function removeItems(selector) {
     $(selector).remove();
@@ -198,9 +226,10 @@ function removeItems(selector) {
 //function to paint checked row
 function paintRow(id, type) {
     status = true;
-    var default_class = type + "-row";
+    var selector = type + "-row";
+    var row = $("." + selector );
     //ceck if any another row has checked
-    $("tr." + default_class).each(function () {
+    row.each(function () {
         if ($(this).css("background-color") === selectedColor) {
             status = false;
         }
@@ -211,8 +240,8 @@ function paintRow(id, type) {
     }
     //if yes, we paint in white all another rows before paint current row
     else if (status === "false") {
-        $("tr." + default_class).each(function () {
-            $(this).css("background-color", "white").css("color", 'black').removeClass('selected').addClass(default_class);
+        row.each(function () {
+            $(this).css("background-color", "white").css("color", 'black').removeClass('selected').addClass(selector);
         });
 
         $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
@@ -287,12 +316,12 @@ function button_none(type) {
 }
 
 //function ceck link between current category and selected item
-function Link(service, type) {
-    if ($("#" + type + "-link").attr("class") !== "link-true")
+function Link(service) {
+    if ($("#" + service + "-link").attr("class") !== "link-true")
         return;
     var parentId = $(".route-points").last().attr('id');
-    var childId = $(".selected." + type + "-row td").first().text();
-    if (parentId === childId && type === "category") {
+    var childId = $(".selected ." + service + "-values#id").text();
+    if (parentId === childId && service === "category") {
         checkResponse(409);
         return;
     }
@@ -382,4 +411,133 @@ function showCurrentItems(response, service) {
 //function to redirect to clicked category in root bar
 function routeRedirect(id) {
     setCategory(id);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+////////////////////////navbar
+function LoadNavigationBar(model, callback){
+    var special_model ='';
+    if($('#number-'+model).val() !== undefined)
+        special_model='-'+model;
+    var data = $('#number'+special_model).val();
+    var endpoint = parseInt(parseInt(data) / 50) + 1;
+    
+    getMaxPages(1, endpoint,special_model);
+    
+    $(document).on('click', '.current-page'+special_model+' .nav-button'+special_model, function(){
+        LoadContent(false, model, callback, $(this).val(),50);
+        getMaxPages($(this).val(), endpoint,special_model);
+    });
+    $(document).on('click', '.nav-button'+special_model+'#prev', function(){
+        var skip = parseInt($('.current-page'+special_model+' .selected-page').val());
+        --skip;
+        LoadContent(false, model, callback, skip,50);
+        getMaxPages(skip,endpoint,special_model);
+    });
+    $(document).on('click', '.nav-button'+special_model+'#next', function(){
+        var skip = parseInt($('.current-page'+special_model+' .selected-page').val());
+        ++skip;
+        LoadContent(false, model, callback, skip,50);
+        getMaxPages(skip, endpoint,special_model);
+    });
+    $(document).on('click', '.nav-button'+special_model+'#first', function(){
+        LoadContent(false, model, callback, 1,50);
+        getMaxPages(1,endpoint,special_model);
+    });
+   
+    
+    $(document).on('click', '.nav-button'+special_model+'#last', function(){
+        LoadContent(false, model, callback, endpoint,50);
+        getMaxPages(endpoint,endpoint,special_model);
+    });
+}
+//////////////////////////////////    | |    ///////////////////////////
+//////////////////////////////////   _| |_   ///////////////////////////
+//////////////////////////////////   \   /   ///////////////////////////
+//////////////////////////////////    \ /    ///////////////////////////
+//////////////////////////////////     V     ///////////////////////////
+function getMaxPages(current,endpoint,special_model){
+    $(".orfan").prop('checked', false);
+    
+    if (parseInt(current) === endpoint) {
+        $('.nav-button'+special_model+'#next').prop('disabled', true).addClass('inactive-page');
+        $('.nav-button'+special_model+'#last').prop('disabled', true).addClass('inactive-page');
+    }
+    else {
+        $('.nav-button'+special_model+'#next').prop('disabled', false).removeClass('inactive-page');
+        $('.nav-button'+special_model+'#last').prop('disabled', false).removeClass('inactive-page');
+    }
+    if (parseInt(current) === 1) {
+        $('.nav-button'+special_model+'#first').prop('disabled', true).addClass('inactive-page');
+        $('.nav-button'+special_model+'#prev').prop('disabled', true).addClass('inactive-page');
+    } else {
+        $('.nav-button'+special_model+'#first').prop('disabled', false).removeClass('inactive-page');
+        $('.nav-button'+special_model+'#prev').prop('disabled', false).removeClass('inactive-page');
+    }
+    getPages(current, endpoint,special_model);
+}
+//////////////////////////////////    | |    ///////////////////////////
+//////////////////////////////////   _| |_   ///////////////////////////
+//////////////////////////////////   \   /   ///////////////////////////
+//////////////////////////////////    \ /    ///////////////////////////
+//////////////////////////////////     V     ///////////////////////////
+function getPages(current, endpoint,special_model){
+    var start = 1,
+        stop = endpoint;
+    if (endpoint < 6) {
+        $('.space_buttons'+'.nav-button'+special_model).css('display', 'none');
+        removeItems('.current-page'+special_model);
+        start = 1;
+        stop = endpoint;
+    } else if (endpoint >= 6) {
+        //calculte first-button-page
+        start = current - 2;
+        if (start > 1) $('#space_prev'+'.nav-button'+special_model).css('display', 'inline');
+        else if (start <= 1) {
+            $('#space_prev'+'.nav-button'+special_model).css('display', 'none');
+            start = 1;
+        }
+        //calculte last-button-page
+        stop = start + 4;
+        if (stop >= endpoint) {
+            $('#space_next'+'.nav-button'+special_model).css('display', 'none');
+            stop = endpoint;
+            start = stop - 5;
+        } else if (stop < endpoint) $('#space_next'+'.nav-button'+special_model).css('display', 'inline');
+        removeItems('.current-page'+special_model);
+    }
+    setPages(current, start, stop,special_model);
+}
+//////////////////////////////////    | |    ///////////////////////////
+//////////////////////////////////   _| |_   ///////////////////////////
+//////////////////////////////////   \   /   ///////////////////////////
+//////////////////////////////////    \ /    ///////////////////////////
+//////////////////////////////////     V     ///////////////////////////
+function setPages(current, start, stop,special_model){
+    var string = '';
+    while (start <= stop) {
+        string += '<div class="quark-presence-column  current-page'+special_model+'">' +
+            '<button type="submit" class="nav-button '+'nav-button'+special_model +'" value="' + start + '" id="' + start + '">' + start + '</button>' +
+            '</div>';
+        ++start;
+    }
+    $('.current-pages'+special_model).append(string);
+    $('.nav-button'+'.nav-button'+special_model).removeClass('selected-page');
+    $('.nav-button'+special_model+'.nav-button#' + current).addClass('selected-page');
 }

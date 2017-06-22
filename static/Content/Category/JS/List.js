@@ -7,11 +7,14 @@ $(document).ready(function(){
         '<option value="priority">Priority</option>';
     $('#category-select').append(model_select);
     resizeList(120,137);
-    LoadContent(false, 'category', ShowCategories,1,'list',null,null);
+    LoadContent(false, 'category', ShowCategories,1,50);
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
-        LoadContent(false, 'category', ShowCategories,1,'search',$('#category-select').val(),this.value);
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#category-select').val(),this.value,'category', ShowCategories,50);
+        
     });
     
     //add event listener to checkbox "no parents"
@@ -27,7 +30,7 @@ $(document).ready(function(){
             $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'category', ShowCategories,1,'list',null,null);
+                LoadContent(false, 'category', ShowCategories,50);
             });
         }
     });
@@ -47,4 +50,5 @@ function ShowCategories(response) {
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'category') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+    $('#loading-circle').css('display','none');
 }

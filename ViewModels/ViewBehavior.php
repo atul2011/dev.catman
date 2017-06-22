@@ -8,6 +8,7 @@ use Quark\QuarkModel;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControlComponent;
 use ViewModels\Content\Behaviors\ICreateView;
 use ViewModels\Content\Behaviors\IListView;
+use ViewModels\Content\Behaviors\ILoader;
 use ViewModels\Content\Behaviors\INavigationBar;
 
 trait ViewBehavior {
@@ -82,7 +83,9 @@ trait ViewBehavior {
 			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../static/Content/List/style.css') : null,
 			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/List/script.js') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../static/Content/Mechanisms/NavigationBar/style.css') : null,
-			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/Mechanisms/NavigationBar/script.js') : null
+			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/Mechanisms/NavigationBar/script.js') : null,
+			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../static/Content/Mechanisms/Loader/style.css') : null,
+			$this instanceof ILoader ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/Mechanisms/Loader/script.js') : null
 			//$this instanceof IListView ? $this->GenericCSS() : null,
 		);
 	}

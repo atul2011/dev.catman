@@ -37,17 +37,13 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkModel|Author $author
 		 */
 		$limit = 50;
-		$skip = 0;
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
-		if (isset($request->skip) && ($request->skip !== null))
-			$skip = $request->skip;
 		$articles = QuarkModel::Find(new Article());
 		$out = $articles->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
 				array(
-				QuarkModel::OPTION_LIMIT => $limit,
-				QuarkModel::OPTION_SKIP => $skip
+				QuarkModel::OPTION_LIMIT => $limit
 			)
 		);
 		$search_value = '';
@@ -69,8 +65,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				$out = $articles->Select(
 					array($request->Data()->field => $search_value),
 					array(
-						QuarkModel::OPTION_LIMIT => $limit,
-						QuarkModel::OPTION_SKIP => $skip
+						QuarkModel::OPTION_LIMIT => $limit
 					)
 				);
 			}
@@ -84,8 +79,6 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'release_date',
 				'event_id',
 				'txtfield'
-			))
-//		, 'number' =>$out->Count()
-		);
+			)));
 	}
 }

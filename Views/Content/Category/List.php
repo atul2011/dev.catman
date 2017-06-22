@@ -27,6 +27,7 @@ use ViewModels\Content\Category\ListView;
                 <div id="txtfield" class="quark-presence-column  content-titles contents">Content</div>
                 <div id="redaction" class="quark-presence-column  content-titles actions">Actions</div>
             </div>
+            <div class="loader" id="loading-circle"></div>
         </div>
     </div>
     <br/>
@@ -36,7 +37,7 @@ use ViewModels\Content\Category\ListView;
                 <form action="" class="navigation_form" method="GET">
                     <input type="hidden" id="number" value="<?php echo $number; ?>">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="first" value="1"><<</button>
+                        <button type="submit" class="nav-button" id="first"><<</button>
                     </div>
                     <div class="quark-presence-column">
                         <button type="submit" class="nav-button" id="prev"><</button>
@@ -53,7 +54,7 @@ use ViewModels\Content\Category\ListView;
                         <button type="submit" class="nav-button" id="next">></button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="last" value="0">>></button>
+                        <button type="submit" class="nav-button" id="last">>></button>
                     </div>
                 </form>
             </div>
@@ -63,7 +64,7 @@ use ViewModels\Content\Category\ListView;
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
                     <form action="/category/create" method="GET">
                         <input type="hidden" name="url" id="url">
-                        <button type="submit" class=" button-add" onclick="return seturl()">+</button>
+                        <button type="submit" class=" button-add">+</button>
                     </form>
                 </div>
             </div>
