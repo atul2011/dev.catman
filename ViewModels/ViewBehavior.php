@@ -25,7 +25,7 @@ trait ViewBehavior {
 	 * @return string
 	 */
 	public function PresenceLogo () {
-		return 'Home';
+		return 'Admin Panel';
 	}
 
 	/**
@@ -49,6 +49,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/category/list', 'Category', 'fa-edit')
 		, $this->MenuWidgetItem('/author/list', 'Author', 'fa-edit')
 		, $this->MenuWidgetItem('/event/list', 'Event', 'fa-edit')
+		, $this->MenuWidgetItem('/user/list', 'User', 'fa-edit')
 		));
 	}
 

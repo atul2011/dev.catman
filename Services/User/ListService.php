@@ -1,8 +1,14 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: boagh
+ * Date: 26.06.2017
+ * Time: 13:59
+ */
 
-namespace Services\Author;
+namespace Services\User;
 
-use Models\Author;
+use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -14,13 +20,40 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
-use Services\Behaviors\AuthorizationBehavior;
 use Services\Behaviors\CustomProcessorBehavior;
-use ViewModels\Content\Author\ListView;
+use ViewModels\Admin\User\ListView;
 
 class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
-	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
+
+	/**
+	 * @param QuarkDTO $request
+	 *
+	 * @return string
+	 */
+	public function AuthorizationProvider (QuarkDTO $request) {
+		return MP_SESSION;
+	}
+
+	/**
+	 * @param QuarkDTO $request
+	 * @param QuarkSession $session
+	 *
+	 * @return bool|mixed
+	 */
+	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
+		return 		$session->User()->rights === 'A';
+	}
+
+	/**
+	 * @param QuarkDTO $request
+	 * @param $criteria
+	 *
+	 * @return mixed
+	 */
+	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
+		return QuarkDTO::ForRedirect('/admin/?error=InvalidRights');
+	}
 
 	/**
 	 * @param QuarkDTO $request
@@ -29,9 +62,12 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'number' => QuarkModel::Count(new Author())
-		));
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(),
+			array(
+				'users' => QuarkModel::Find(new User()),
+				'number' => QuarkModel::Count(new User())
+			)
+		);
 	}
 
 	/**
@@ -42,7 +78,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Author $author
+		 * @var QuarkCollection|User $user
 		 */
 		$limit = 50;
 		$skip = 0;
@@ -50,22 +86,23 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
-		$author = QuarkModel::Find(new Author(), array(), array(
+		$user = QuarkModel::Find(new User(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
-		$model = 'author';
+		$model = 'user';
 		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
 		//if is another model, go out
-		if ($model !== 'author') {
+		if ($model !== 'user') {
 			return array(
 				'status' => 200,
 				'response' => null
 			);
 		}
+
 		return array(
 			'status' => 200,
-			'response' => $author->Extract(array(
+			'response' => $user->Extract(array(
 				'id',
 				'name',
 				'type',

@@ -36,6 +36,7 @@ use ViewModels\Content\Category\ListView;
             <div class="quark-presence-container presence-block" id="nav-bar">
                 <form action="" class="navigation_form" method="GET">
                     <input type="hidden" id="number" value="<?php echo $number; ?>">
+                    <input type="hidden" id="current-number" value="">
                     <div class="quark-presence-column">
                         <button type="submit" class="nav-button" id="first"><<</button>
                     </div>

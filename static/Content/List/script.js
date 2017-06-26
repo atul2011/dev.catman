@@ -56,7 +56,7 @@ function LoadContent(state, model, callback,skip,limit){
 function noParents(state, model, callback, start){
     if (isNaN(start))
         start = parseInt($('.current-page .selected-page').val());
-    LoadContent(state, model, callback, start,'list',null,null);
+    LoadContent(state, model, callback, start,50);
 }
 
 //function to add to each item in actions column the anchors-icons for redirecting
