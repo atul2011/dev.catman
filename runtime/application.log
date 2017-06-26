@@ -967,3 +967,73 @@
 [info] 2017-06-17 08:53:11 [MySQL] Query error "SELECT COUNT(*) FROM `Categories_has_Categories` WHERE `child_id1`=78 LIMIT 1 OFFSET 0". Error: Table 'catman.Categories_has_Categories' doesn't exist
 [info] 2017-06-17 08:53:11 [MySQL] Query error "SELECT COUNT(*) FROM `Categories_has_Categories` WHERE `child_id1`=79 LIMIT 1 OFFSET 0". Error: Table 'catman.Categories_has_Categories' doesn't exist
 [info] 2017-06-17 08:53:12 [MySQL] Query error "SELECT COUNT(*) FROM `Categories_has_Categories` WHERE `child_id1`=80 LIMIT 1 OFFSET 0". Error: Table 'catman.Categories_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=12 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=13 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=14 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=15 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=16 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=17 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=18 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=19 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=20 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=21 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=22 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=23 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=24 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=25 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=26 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=27 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=28 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=29 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=30 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=31 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=32 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=33 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=34 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=35 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=36 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=37 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=38 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=39 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=40 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=41 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=42 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=43 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=44 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=45 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=46 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=47 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=48 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=49 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=50 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=51 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=52 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=53 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=54 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=55 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=56 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=57 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=58 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=59 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=60 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[info] 2017-06-17 09:21:48 [MySQL] Query error "SELECT COUNT(*) FROM `Articles_has_Categories` WHERE `article_id`=71 LIMIT 1 OFFSET 0". Error: Table 'catman.Articles_has_Categories' doesn't exist
+[fatal] 2017-06-17 12:09:45 [/event/list] Unable to connect to mysql://root@localhost:3306/catman. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:09:48 [/article/list] Unable to connect to mysql://root@localhost:3306/catman. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:10:02 [/] Unknown service file /usr/share/nginx/dev.catman/Services/IndexService.php
+[fatal] 2017-06-17 12:10:15 [/admin] Unable to connect to mysql://root@localhost:3306/catman. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:11:06 [/admin/login] Unable to connect to mysql://root@localhost:3306/catman. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:12:01 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:12:02 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:12:02 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:12:03 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:12:09 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:35 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:36 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:36 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:37 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:37 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:37 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:13:38 [/admin/login] Unable to connect to mysql://root@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1045): Access denied for user 'root'@'localhost' (using password: NO)
+[fatal] 2017-06-17 12:14:56 [/admin/login] Unable to connect to mysql://catman:aqXgJ11aSu6pTKkr@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1044): Access denied for user 'catman'@'localhost' to database 'categories_manager'
+[fatal] 2017-06-17 12:15:19 [/admin/login] Unable to connect to mysql://catman:aqXgJ11aSu6pTKkr@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1044): Access denied for user 'catman'@'localhost' to database 'categories_manager'
+[fatal] 2017-06-17 12:15:20 [/admin/login] Unable to connect to mysql://catman:aqXgJ11aSu6pTKkr@localhost:3306/categories_manager. mysqli::real_connect(): (HY000/1044): Access denied for user 'catman'@'localhost' to database 'categories_manager'

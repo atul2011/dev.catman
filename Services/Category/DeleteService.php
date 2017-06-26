@@ -6,19 +6,33 @@ use Models\Articles_has_Categories;
 use Models\Categories_has_Categories;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
+<<<<<<< HEAD
 use Quark\IQuarkIOProcessor;
+=======
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
+<<<<<<< HEAD
 use Quark\QuarkJSONIOProcessor;
+=======
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Exception;
 use Services\Behaviors\AuthorizationBehavior;
+<<<<<<< HEAD
 
 class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
+=======
+use Services\Behaviors\CustomProcessorBehavior;
+
+class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 
 	/**
 	 * @param QuarkDTO $request
@@ -52,6 +66,7 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 			return $e;
 		}
 	}
+<<<<<<< HEAD
 
 	/**
 	 * @param QuarkDTO $request
@@ -61,4 +76,6 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 	public function Processor (QuarkDTO $request) {
 		return new QuarkJSONIOProcessor();
 	}
+=======
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

@@ -1,10 +1,29 @@
 $(document).ready(function(){
+<<<<<<< HEAD
     resizeList(120,0);
     LoadContent(false, 'author', ShowAuthors);
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
         CheckSearch(this.value, 'author', 'name',ShowAuthors,50);
     });
+=======
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="name">Name</option>' +
+        '<option value="type">Type</option>';
+    $('#author-select').append(model_select);
+    
+    resizeList(120,60);
+    LoadContent(false, 'author', ShowAuthors,1,50);
+    
+    // add event listener on input in search bars
+    $(document).on("input", '.search', function(){
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50);
+    });
+    
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     $(document).on('dblclick', '.delete-button-author', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -13,6 +32,7 @@ $(document).ready(function(){
             $.ajax({url: "/author/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
+<<<<<<< HEAD
                 LoadContent(false, 'author', ShowAuthors);
             });
         }
@@ -20,6 +40,18 @@ $(document).ready(function(){
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"));
     });
+=======
+                LoadContent(false, 'author', ShowAuthors,1,50);
+            });
+        }
+    });
+    
+    $(document).on('click', '.content-row', function(){
+        paintRow($(this).attr("id"));
+    });
+    ////////////////////////////navigation bar//////////////////////////////////////////
+    LoadNavigationBar('author',ShowAuthors);
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 });
 //function to show categories
 function ShowAuthors(response) {
@@ -31,4 +63,8 @@ function ShowAuthors(response) {
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'author') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+<<<<<<< HEAD
+=======
+    $('#loading-circle').css('display','none');
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

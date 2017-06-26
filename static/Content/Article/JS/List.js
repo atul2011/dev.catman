@@ -1,4 +1,5 @@
 $(document).ready(function(){
+<<<<<<< HEAD
     resizeList(120,130);
     LoadContent(false, 'article', ShowArticles);
     // add event listener on input in search bars
@@ -9,6 +10,31 @@ $(document).ready(function(){
     $(document).on("change", ".orfan", function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles);
     });
+=======
+    var model_select =
+        '<option value="id">ID</option>' +
+        '<option value="title">Title</option>' +
+        '<option value="release_date">Release Date</option>' +
+        '<option value="event_id">Event</option>' +
+        '<option value="author_id">Author</option>' +
+        '<option value="keywords">Keywords</option>';
+    $('#article-select').append(model_select);
+    resizeList(120, 236);
+    LoadContent(false, 'article', ShowArticles,1,50);
+    
+    // add event listener on input in search bars
+    $(document).on("input", '.search', function(){
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
+        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50);
+    });
+    
+    //add event listener to checkbox "no parents"
+    $(document).on("change", ".orfan", function(){
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,'none');
+    });
+    
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     $(document).on('dblclick', '.delete-button-article', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -17,14 +43,25 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
+<<<<<<< HEAD
                 LoadContent(false, 'article', ShowArticles);
             });
     
+=======
+                LoadContent(false, 'article', ShowArticles,1,50);
+            });
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         }
     });
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"));
     });
+<<<<<<< HEAD
+=======
+    ////////////////////////////navigation bar//////////////////////////////////////////
+    LoadNavigationBar('article',ShowArticles);
+
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 });
 //fucntion to show the articles
 function ShowArticles(response){
@@ -37,4 +74,8 @@ function ShowArticles(response){
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#list-content").append(str);
+<<<<<<< HEAD
+=======
+    $('#loading-circle').css('display','none');
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

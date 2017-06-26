@@ -3,7 +3,11 @@
  * @var QuarkView|CreateView $this
  * @var QuarkModel|Article $article
  */
+<<<<<<< HEAD
 use Models\Content\Article;
+=======
+use Models\Article;
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Content\Article\CreateView;

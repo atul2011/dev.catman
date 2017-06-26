@@ -40,37 +40,72 @@
     padding: 0;
 }
 
+<<<<<<< HEAD
 .content-titles{
+=======
+.content-titles {
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     font-size: 15px;
     font-weight: bold;
     margin-left: 5px;
 }
+<<<<<<< HEAD
+=======
+
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 #content-column {
     margin: 0;
 }
 
 .ids {
+<<<<<<< HEAD
     max-width: 20px;
     min-width: 20px;
     margin-left: 5px;
 }
+=======
+    max-width: 35px;
+    min-width: 35px;
+    margin-left: 5px;
+}
+
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 .content-values {
     word-wrap: break-word;
     font-size: 15px;
 }
+<<<<<<< HEAD
 .contents{
     max-width: 190px;
     min-width: 190px;
 }
 .contents textarea{
+=======
+
+.contents {
+    max-width: 190px;
+    min-width: 190px;
+}
+
+.contents textarea {
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     min-width: 190px;
     max-width: 190px;
     text-align: left;
 }
+<<<<<<< HEAD
 .items-list {
     border:1px solid lightgray;
 }
 .search{
+=======
+
+.items-list {
+    border: 1px solid lightgray;
+}
+
+.search {
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     width: 100%;
 }
 
@@ -79,7 +114,11 @@
     min-width: 150px;
 }
 
+<<<<<<< HEAD
 .content-titles.dates{
+=======
+.content-titles.dates {
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     margin-left: 10px !important;
 }
 
@@ -87,7 +126,12 @@
     max-width: 80px;
     min-width: 80px;
 }
+<<<<<<< HEAD
 .types{
+=======
+
+.types {
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     max-width: 30px;
     min-width: 30px;
 }
@@ -96,6 +140,7 @@
     max-width: 190px;
     min-width: 190px;
 }
+<<<<<<< HEAD
 
 /*button to add new item*/
 .button-add {
@@ -104,6 +149,18 @@
     border: 0;
     box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25184);
     color: #FFFFFF;
+=======
+.actions{
+    max-width: 53px;
+}
+/*button to add new item*/
+.button-add {
+    background: #5f7a96;
+    border-radius: 30px;
+    border: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25184);
+    color: #ffffff;
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     font-size: 24px;
     height: 60px;
     line-height: 1.428571429;
@@ -116,6 +173,15 @@
 .button-add:hover {
     color: red;
 }
+<<<<<<< HEAD
 #button-add-column{
+=======
+
+#nav-bar .quark-presence-column
+,#list-options .quark-presence-column
+,#button-add-column
+,.current-pages .quark-presence-column
+{
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     margin: 0;
 }

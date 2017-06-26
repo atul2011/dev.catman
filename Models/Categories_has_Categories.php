@@ -3,6 +3,10 @@ namespace Models;
 
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
+<<<<<<< HEAD
+=======
+use Quark\IQuarkModelWithCustomCollectionName;
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
@@ -17,8 +21,20 @@ use Quark\QuarkModel;
  *
  * @package Models
  */
+<<<<<<< HEAD
 class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract{
     /**
+=======
+class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	/**
+	 * @return string
+	 */
+	public function CollectionName () {
+		return 'categories_has_categories';
+	}
+
+	/**
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
      * @return mixed
      */
     public function Fields() {

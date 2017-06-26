@@ -1,5 +1,20 @@
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
+<<<<<<< HEAD
+=======
+$(document).ready(function(){
+    $('.navigation_form').submit(function(e){
+        e.preventDefault();
+    });
+    $('input[type="text"]').keypress(function(event){
+        if (event.which === 13) {
+            event.preventDefault();
+        }
+    });
+    var list=$('.items-list');
+    $('#loading-circle').css('left',(list.width()/3.3)).css('top',(list.height()*1.8));
+});
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 function resizeList(height_difference, width_difference){
     var height = $('body').height() - (height_difference+72), list = $('.items-list'),
         width = list.width() - width_difference;
@@ -24,6 +39,7 @@ function checkTitle(name){
     return true;
 }
 //function to load content
+<<<<<<< HEAD
 function LoadContent(state, model, callback){
     if (model === null || model === undefined) model = 'none';
     $.ajax({url: '/' + model + '/list', data: {orfan: state, model: model}, type: 'POST'}).then(function(json){
@@ -31,15 +47,40 @@ function LoadContent(state, model, callback){
             removeItems('.content-row');
             json.response.forEach(callback);
         }
+=======
+function LoadContent(state, model, callback,skip,limit){
+    var start = (parseInt(skip) - 1) * 50;
+    if (isNaN(start))
+        start = (parseInt($('#number'))-1)*50;
+    if (model === null || model === undefined) model = 'none';
+    $.ajax({url: '/' + model + '/list?skip='+start+'&limit='+limit, data: {orfan: state, model: model}, type: 'POST'}).then(
+        function(json){
+            if (json.response !== null) {
+                removeItems('.content-row');
+                json.response.forEach(callback);
+            } else {
+                removeItems('.content-row');
+            }
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     });
 }
 
 //function to search in db items without relations
+<<<<<<< HEAD
 function noParents(state, model, callback){
     LoadContent(state, model, callback);
 }
 
 //fucntion to add to each item in actions column the anchors-icons for redirecting
+=======
+function noParents(state, model, callback, start){
+    if (isNaN(start))
+        start = parseInt($('.current-page .selected-page').val());
+    LoadContent(state, model, callback, start,'list',null,null);
+}
+
+//function to add to each item in actions column the anchors-icons for redirecting
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 function setActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
@@ -75,6 +116,7 @@ function paintRow(id){
         $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
 }
+<<<<<<< HEAD
 
 //function to check when you want to find items
 function CheckSearch(str, model, name, callback, limit){
@@ -87,6 +129,17 @@ function CheckSearch(str, model, name, callback, limit){
     if (limit !== 0) url += '&limit=' + limit;
     //if not to search in DB items by inserted string
     $.ajax({url: url,type:'POST'}).then(
+=======
+//function to check when you want to find items
+function CheckSearch(name, str, model, callback, limit){
+    //if search bar is empty, we load default list
+    if (str.length === 0) {
+        LoadContent(false, model, callback, 1,50);
+        return;
+    }
+    //if not to search in DB items by inserted string
+    $.ajax({url: '/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         function(json){
             if (json.response !== '') {
                 removeItems('.content-row');
@@ -95,5 +148,9 @@ function CheckSearch(str, model, name, callback, limit){
                 removeItems('.content-row');
             }
         }
+<<<<<<< HEAD
     );
+=======
+        );
+>>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }
