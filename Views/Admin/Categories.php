@@ -152,12 +152,13 @@ use Quark\QuarkView;
         <div class="quark-presence-column left">
             <div class="quark-presence-container presence-block" id="nav-bar-category">
                 <input type="hidden" id="number-category" value="<?php echo $number_categories; ?>">
+                <input type="hidden" id="current-number-category" value="">
                 <form class="navigation_form">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="first" value="1"><<</button>
+                        <button type="submit" class="nav-button nav-button-category" id="first" value="1" disabled><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="prev"><</button>
+                        <button type="submit" class="nav-button nav-button-category" id="prev" disabled><</button>
                     </div>
                     <div class="quark-presence-column">
                         <button class="nav-button space_buttons nav-button-category" id="space_prev" disabled>...
@@ -223,12 +224,13 @@ use Quark\QuarkView;
         <div class="quark-presence-column left">
             <div class="quark-presence-container presence-block" id="nav-bar-article">
                 <input type="hidden" id="number-article" value="<?php echo $number_articles; ?>">
+                <input type="hidden" id="current-number-article" value="">
                 <form class="navigation_form">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="first" value="1"><<</button>
+                        <button type="submit" class="nav-button nav-button-article" id="first" value="1"disabled><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="prev"><</button>
+                        <button type="submit" class="nav-button nav-button-article" id="prev" disabled><</button>
                     </div>
                     <div class="quark-presence-column">
                         <button class="nav-button space_buttons nav-button-article" id="space_prev" disabled>...

@@ -1,0 +1,19 @@
+.logins {
+    max-width: 80px;
+    min-width: 80px;
+}
+.names{
+    max-width: 140px;
+    min-width: 140px;
+}
+.emails{
+    max-width: 180px;
+    min-width: 180px;
+}
+.rights {
+     max-width: 40px;
+     min-width: 40px;
+ }
+.main4{
+    max-width: 660px;
+}

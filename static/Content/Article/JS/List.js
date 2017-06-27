@@ -31,6 +31,8 @@ $(document).ready(function(){
     
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
+        removeItems('.content-row');
+        $('#loading-circle').css('display','block');
         noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,'none');
     });
     

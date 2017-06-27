@@ -1,3 +1,4 @@
-/**
- * Created by boagh on 13.06.2017.
- */
+$(document).ready(function(){
+    editor = new MediumEditor($('.content'));
+    
+});

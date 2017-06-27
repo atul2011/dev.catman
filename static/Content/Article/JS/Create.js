@@ -7,6 +7,8 @@ $(document).ready(function(){
         removeItems('#authorlist');
         CheckSearch(this.value, 'author', 'name', 5, 'authorlist');
     });
+    
+    editor = new MediumEditor($('.content'));
 });
 //function to check when you want to find items
 function CheckSearch(str, model, name, limit, listname){
