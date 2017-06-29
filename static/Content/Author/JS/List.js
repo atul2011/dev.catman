@@ -23,7 +23,7 @@ $(document).ready(function(){
             $.ajax({url: "/author/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'author', ShowAuthors,1,50);
+                LoadContent(false, 'author', ShowAuthors,$('#current-number').val(),50);
             });
         }
     });
@@ -32,7 +32,7 @@ $(document).ready(function(){
         paintRow($(this).attr("id"));
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('author',ShowAuthors);
+    LoadNavigationBar('single','author',ShowAuthors);
 });
 //function to show categories
 function ShowAuthors(response) {

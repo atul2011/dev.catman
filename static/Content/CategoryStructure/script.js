@@ -78,7 +78,7 @@ $(document).ready(function(){
                 if (data !== null && data !== '')
                     console.log(data);
             });
-            LoadContent(false, 'category', ShowCategories, 1, 50);
+            LoadContent(false, 'category', ShowCategories, $('#current-number-category').val(), 50);
             setCategory($(".route-points").last().attr('id'));
         } else {
             return false;
@@ -93,7 +93,7 @@ $(document).ready(function(){
                 if (data !== null && data !== '')
                     console.log(data);
             });
-            LoadContent(false, 'article', ShowArticles, 1, 50);
+            LoadContent(false, 'article', ShowArticles, $('#current-number-article').val(), 50);
             setCategory($(".route-points").last().attr('id'));
         }
     });
@@ -134,8 +134,8 @@ $(document).ready(function(){
     $("#route-row").append(rootPoint);
     
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('category', ShowCategories);
-    LoadNavigationBar('article', ShowArticles);
+    LoadNavigationBar('multiple','category', ShowCategories);
+    LoadNavigationBar('multiple','article', ShowArticles);
 });
 
 function noParents(state, model, callback, skip, limit){
@@ -165,7 +165,7 @@ function LoadContent(state, model, callback, skip, limit){
 
 //fucntion to show categories
 function ShowCategories(response){
-    str = '<div class="quark-presence-container presence-block category-row" id="category-values-' + response.id + '">' +
+    str = '<div class="quark-presence-container presence-block content-row-category" id="category-values-' + response.id + '">' +
         '<div class="category-values quark-presence-column ids" id="id">' + response.id + '</div>' +
         '<div class="category-values quark-presence-column titles" id="title">' + response.title.substr(0, 70) + '</div>' +
         '<div class="category-values quark-presence-column types" id="type">' + response.sub + '</div>' +
@@ -178,7 +178,7 @@ function ShowCategories(response){
 
 //fucntion to show the articles
 function ShowArticles(response){
-    str = '<div class="quark-presence-container presence-block article-row" id="article-values-' + response.id + '">' +
+    str = '<div class="quark-presence-container presence-block content-row-article" id="article-values-' + response.id + '">' +
         '<div class="article-values quark-presence-column ids" id="id">' + response.id + '</div>' +
         '<div class="article-values quark-presence-column titles" id="title">' + response.title.substr(0, 50) + '</div>' +
         '<div class="article-values quark-presence-column dates" id="date">' + response.release_date + '</div>' +
@@ -425,139 +425,4 @@ function showCurrentItems(response, service){
 //function to redirect to clicked category in root bar
 function routeRedirect(id){
     setCategory(id);
-}
-///////////////////////////////////////////
-////////////////////////navbar/////////////
-function LoadNavigationBar(model, callback){
-    var special_model = '';
-    //set for every button the event, for model specified
-    if ($('#number-' + model).val() !== undefined)
-        special_model = '-' + model;
-    //number of objects
-    var data = $('#number' + special_model).val();
-    //number of pages
-    var endpoint = parseInt(parseInt(data) / 50) + 1;
-    //load default pages
-    getMaxPages(1, endpoint, special_model);
-    // setCurrentPage(special_model,1);
-    //listener for numbered buttons
-    $(document).on('click', '.current-page' + special_model + ' .nav-button' + special_model, function(){
-        LoadContent(false, model, callback, $(this).val(), 50);
-        getMaxPages($(this).val(), endpoint, special_model);
-        // setCurrentPage(special_model,$(this).val());
-    });
-    //listener for BACK button
-    $(document).on('click', '.nav-button' + special_model + '#prev', function(){
-        var skip = parseInt($('.current-page' + special_model + ' .selected-page').val());
-        --skip;
-        LoadContent(false, model, callback, skip, 50);
-        getMaxPages(skip, endpoint, special_model);
-        
-    });
-    //listener for FORWARD button
-    $(document).on('click', '.nav-button' + special_model + '#next', function(){
-        var skip = parseInt($('.current-page' + special_model + ' .selected-page').val());
-        ++skip;
-        LoadContent(false, model, callback, skip, 50);
-        getMaxPages(skip, endpoint, special_model);
-    });
-    //listener for FIRST button
-    $(document).on('click', '.nav-button' + special_model + '#first', function(){
-        LoadContent(false, model, callback, 1, 50);
-        getMaxPages(1, endpoint, special_model);
-        // setCurrentPage(special_model,1);
-    });
-    //listener for LAST button
-    $(document).on('click', '.nav-button' + special_model + '#last', function(){
-        LoadContent(false, model, callback, endpoint, 50);
-        getMaxPages(endpoint, endpoint, special_model);
-        // setCurrentPage(special_model,endpoint);
-    });
-}
-//////////////////////////////////    | |    ///////////////////////////
-//////////////////////////////////   _| |_   ///////////////////////////
-//////////////////////////////////   \   /   ///////////////////////////
-//////////////////////////////////    \ /    ///////////////////////////
-//////////////////////////////////     V     ///////////////////////////
-function getMaxPages(current, endpoint, special_model){
-    $(".orfan").prop('checked', false);
-    //is we selected the last page, NEXT,LAST buttons are disabled
-    if (parseInt(current) === endpoint) {
-        $('.nav-button' + special_model + '#next').prop('disabled', true).addClass('inactive-page');
-        $('.nav-button' + special_model + '#last').prop('disabled', true).addClass('inactive-page');
-    }
-    if (parseInt(current) !== endpoint){        //else enabled
-        $('.nav-button' + special_model + '#next').prop('disabled', false).removeClass('inactive-page');
-        $('.nav-button' + special_model + '#last').prop('disabled', false).removeClass('inactive-page');
-    }
-    //if we selecterd first page, BACK,FIRST buttons are disabled
-    if (parseInt(current) === 1) {
-        $('.nav-button' + special_model + '#first').prop('disabled', true).addClass('inactive-page');
-        $('.nav-button' + special_model + '#prev').prop('disabled', true).addClass('inactive-page');
-    }
-    if (parseInt(current) !== 1) {//else enabled
-        $('.nav-button' + special_model + '#first').prop('disabled', false).removeClass('inactive-page');
-        $('.nav-button' + special_model + '#prev').prop('disabled', false).removeClass('inactive-page');
-    }
-    getPages(current, endpoint, special_model);
-}
-//////////////////////////////////    | |    ///////////////////////////
-//////////////////////////////////   _| |_   ///////////////////////////
-//////////////////////////////////   \   /   ///////////////////////////
-//////////////////////////////////    \ /    ///////////////////////////
-//////////////////////////////////     V     ///////////////////////////
-function getPages(current, endpoint, special_model){
-    var start = 1,
-        stop = endpoint;
-    //if we have less that 6 pages, we load all they without 3points symbols
-    if (endpoint < 6) {
-        $('.space_buttons' + '.nav-button' + special_model).css('display', 'none');
-        removeItems('.current-page' + special_model);
-        start = 1;
-        stop = endpoint;
-    } else if (endpoint >= 6) {
-        //calculte first-button-page
-        start = current - 2;
-        //calculate
-        if (start > 1) $('#space_prev' + '.nav-button' + special_model).css('display', 'inline');
-        else if (start <= 1) {
-            $('#space_prev' + '.nav-button' + special_model).css('display', 'none');
-            start = 1;
-        }
-        //calculte last-button-page
-        stop = start + 4;
-        if (stop >= endpoint) {
-            $('#space_next' + '.nav-button' + special_model).css('display', 'none');
-            stop = endpoint;
-            start = stop - 5;
-        } else if (stop < endpoint) $('#space_next' + '.nav-button' + special_model).css('display', 'inline');
-        removeItems('.current-page' + special_model);
-    }
-    setPages(current, start, stop, special_model);
-}
-//////////////////////////////////    | |    ///////////////////////////
-//////////////////////////////////   _| |_   ///////////////////////////
-//////////////////////////////////   \   /   ///////////////////////////
-//////////////////////////////////    \ /    ///////////////////////////
-//////////////////////////////////     V     ///////////////////////////
-function setPages(current, start, stop, special_model){
-    var string = '';
-    //after we get all info aboout pages, we generate HTML with pages
-    while (start <= stop) {
-        string += '<div class="quark-presence-column  current-page' + special_model + '">' +
-            '<button type="submit" class="nav-button ' + 'nav-button' + special_model + '" value="' + start + '" id="' + start + '">' + start + '</button>' +
-            '</div>';
-        ++start;
-    }
-    //insert pages in HTMl
-    $('.current-pages' + special_model).append(string);
-    setCurrentPage(special_model,current);
-    PaintCurrentPage(special_model);
-}
-function setCurrentPage(special_model,value){
-    $('#current-number'+special_model).val(value);
-}
-function PaintCurrentPage(special_model){
-    var id = $('#current-number'+special_model).val();
-    $('.nav-button' + special_model + '#' + id).addClass('selected-page');
 }

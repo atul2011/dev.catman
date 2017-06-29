@@ -1,6 +1,6 @@
 <?php
 
-namespace Services\Admin;
+namespace Services\Structures;
 
 use Models\Article;
 use Models\Category;
@@ -14,7 +14,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Behaviors\AuthorizationBehavior;
 use Services\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\CategoriesView;
+use ViewModels\Content\Structures\CategoriesView;
 
 /**
  * Class CategoriesService

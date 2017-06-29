@@ -27,14 +27,6 @@ function resizeList(height_difference, width_difference){
         $('.search').css('max-width', width).css('min-width', width);
     });
 }
-function checkTitle(name){
-    var title = $('#' + name).val();
-    if (title.val() === '') {
-        title.addClass('title_null').attr('placeholder', 'Title must be not null');
-        return false;
-    }
-    return true;
-}
 //function to load content
 function LoadContent(state, model, callback,skip,limit){
     var start = (parseInt(skip) - 1) * 50;

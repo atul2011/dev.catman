@@ -32,7 +32,7 @@ $(document).ready(function(){
             $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'category', ShowCategories,50);
+                LoadContent(false, 'category', ShowCategories,$('#current-number').val(),50);
             });
         }
     });
@@ -40,7 +40,7 @@ $(document).ready(function(){
         paintRow($(this).attr("id"));
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('category',ShowCategories);
+    LoadNavigationBar('single','category',ShowCategories);
 });
 //function to show categories
 function ShowCategories(response) {

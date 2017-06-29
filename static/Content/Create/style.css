@@ -1,36 +1,20 @@
-#main_div, #second_div {
-    margin: 0;
-}
-
 .middle {
     max-width: 500px;
 }
 
-input[type="text"], input[type="date"], .content {
+input[type="text"] {
     width: 100%;
 }
-input[type="text"], input[type="date"]{
+input[type="text"]{
     color: black;
     font-weight: bold;
 }
-input[type="text"]::placeholder, input[type="date"]::placeholder{
+input[type="text"]::placeholder{
     font-style: italic;
     font-weight: normal;
 }
-.content {
-    margin: 0;
-    text-align: left;
-    overflow-x: hidden;
-    overflow-y: scroll;
-    resize: none;
-    height:220px;
-    width: 578px;
-}
-.middle, #content{
+.middle{
     padding: 0;
-}
-#content .content {
-    min-height: 220px;
 }
 .text_field{
     min-width: 250px;
@@ -51,9 +35,6 @@ input[type="text"]::placeholder, input[type="date"]::placeholder{
 #form-body {
     margin: 0;
     padding: 0;
-}
-#content-container .quark-presence-column{
-    display: block;
 }
 .button-div{
     padding: 0;

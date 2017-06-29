@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boagh
- * Date: 26.06.2017
- * Time: 13:59
- */
 
 namespace Services\User;
 use Models\User;

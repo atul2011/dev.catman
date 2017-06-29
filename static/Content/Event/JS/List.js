@@ -20,7 +20,7 @@ $(document).ready(function(){
             $.ajax({url: "/event/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'event', ShowEvents,50);
+                LoadContent(false, 'event', ShowEvents,$('#current-number').val(),50);
             });
         }
     });
@@ -28,7 +28,7 @@ $(document).ready(function(){
         paintRow($(this).attr("id"));
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('event',ShowEvents);
+    LoadNavigationBar('single','event',ShowEvents);
 });
 //function to show categories
 function ShowEvents(response) {

@@ -32,7 +32,7 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-                LoadContent(false, 'article', ShowArticles,1,50);
+                LoadContent(false, 'article', ShowArticles,$('#current-number').val(),50);
             });
         }
     });
@@ -40,7 +40,7 @@ $(document).ready(function(){
         paintRow($(this).attr("id"));
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('article',ShowArticles);
+    LoadNavigationBar('single','article',ShowArticles);
 
 });
 //fucntion to show the articles

@@ -1,6 +1,6 @@
 <div class="quark-presence-column">
     <div class="quark-presence-container content-container presence-block " id="form-body">
-        <form method="POST" id="form" onsubmit="return checkTitle('name');" action="/author/create">
+        <form method="POST" id="form" action="/author/create">
             <div class="quark-presence-column left" id="main_div">
                 <div class="quark-presence-container presence-block middle " id="form-div">
                     <div class="title"><p>Name</p>
