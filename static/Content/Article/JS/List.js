@@ -8,20 +8,19 @@ $(document).ready(function(){
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(model_select);
     resizeList(120, 236);
-    LoadContent(false, 'article', ShowArticles,1,50);
-    
+    LoadContent(false, 'article', ShowArticles,1,50,'single');
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50);
+        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50,'single');
     });
     
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,'none');
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,50,'single');
     });
     
     $(document).on('dblclick', '.delete-button-article', function(){
@@ -37,11 +36,13 @@ $(document).ready(function(){
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','article',ShowArticles);
-
+//set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //fucntion to show the articles
 function ShowArticles(response){

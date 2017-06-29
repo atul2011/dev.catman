@@ -10,6 +10,7 @@ use Quark\IQuarkViewResource;
 use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use Quark\ViewResources\TwitterBootstrap\TwitterBootstrap;
+use ViewModels\Content\Behaviors\IListView;
 use ViewModels\Content\Behaviors\ILoader;
 use ViewModels\Content\Behaviors\INavigationBar;
 use ViewModels\ViewBehavior;
@@ -19,7 +20,7 @@ use ViewModels\ViewBehavior;
  *
  * @package ViewModels\Structures\Categories
  */
-class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources,ILoader,IQuarkViewModelWithCustomizableLayout,INavigationBar {
+class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources,ILoader,IQuarkViewModelWithCustomizableLayout,INavigationBar,IListView {
 	use ViewBehavior;
 
 	/**

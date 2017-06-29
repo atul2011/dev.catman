@@ -10,7 +10,7 @@ $(document).ready(function(){
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50);
+        CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
     });
     $(document).on('dblclick', '.delete-button-event', function(){
         response = prompt('Do you want to delete this y/n ?', '');
@@ -25,10 +25,13 @@ $(document).ready(function(){
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','event',ShowEvents);
+    //set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //function to show categories
 function ShowEvents(response) {

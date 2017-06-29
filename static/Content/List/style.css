@@ -45,11 +45,6 @@
     font-weight: bold;
     margin-left: 5px;
 }
-
-#content-column {
-    margin: 0;
-}
-
 .ids {
     max-width: 35px;
     min-width: 35px;
@@ -130,6 +125,7 @@
 ,#list-options .quark-presence-column
 ,#button-add-column
 ,.current-pages .quark-presence-column
+,#content-column
 {
     margin: 0;
 }

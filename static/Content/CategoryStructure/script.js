@@ -3,7 +3,6 @@ var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 var rootPoint = '<td id="0" class="route-points">></td>';
 $(document).ready(function(){
-    
     $('input[type="text"]').keypress(function(event){
         if (event.which === 13) {
             event.preventDefault();
@@ -13,8 +12,8 @@ $(document).ready(function(){
         e.preventDefault();
     });
     //load content
-    LoadContent(false, 'article', ShowArticles, 1, 50);
-    LoadContent(false, 'category', ShowCategories, 1, 50);
+    LoadContent(false, 'article', ShowArticles, 1, 50,'multiple');
+    LoadContent(false, 'category', ShowCategories, 1, 50,'multiple');
     /////////////////////////////////////////////////////////////////
     
     //load selects with columns of models
@@ -39,14 +38,14 @@ $(document).ready(function(){
     $('.loader').css('left', (list.width() / 3.3)).css('top', (list.height() / 6));
     //add event listener on input in search bars
     $(document).on("input", '#category-search', function(){
-        removeItems('.category-row');
+        removeItems('.content-row-category');
         $('#loading-circle-category').css('display', 'block');
-        CheckSearch($('#category-select').val(), this.value, 'category', ShowCategories, 50);
+        CheckSearch($('#category-select').val(), this.value, 'category', ShowCategories, 50,'multiple');
     });
     $(document).on("input", '#article-search', function(){
-        removeItems('.article-row');
+        removeItems('.content-row-article');
         $('#loading-circle-article').css('display', 'block');
-        CheckSearch($('#article-select').val(), this.value, 'article', ShowArticles, 50);
+        CheckSearch($('#article-select').val(), this.value, 'article', ShowArticles, 50,'multiple');
     });
     
     //stop refreshing when submit
@@ -57,16 +56,16 @@ $(document).ready(function(){
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan#category", function(){
         var start = parseInt($('#current-number-category').val());
-        removeItems('.category-row');
+        removeItems('.content-row-category');
         $('#loading-circle-category').css('display', 'block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories, start, 50);
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories, start, 50,'multiple');
     });
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan#article", function(){
         var start = parseInt($('#current-number-article').val());
-        removeItems('.article-row');
+        removeItems('.content-row-article');
         $('#loading-circle-article').css('display', 'block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles, start, 50);
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles, start, 50,'multiple');
     });
     ///event listener to delete icons for delete content
     $(document).on('dblclick', '.delete-button-category', function(){
@@ -78,7 +77,7 @@ $(document).ready(function(){
                 if (data !== null && data !== '')
                     console.log(data);
             });
-            LoadContent(false, 'category', ShowCategories, $('#current-number-category').val(), 50);
+            LoadContent(false, 'category', ShowCategories, $('#current-number-category').val(), 50,'multiple');
             setCategory($(".route-points").last().attr('id'));
         } else {
             return false;
@@ -99,12 +98,12 @@ $(document).ready(function(){
     });
     
     //event listener to set paint property to selected rows
-    $(document).on('click', '.category-row', function(){
+    $(document).on('click', '.content-row-category', function(){
         paintRow($(this).attr("id"), 'category');
         checkRow($(this).find("td:first").text(), 'category');
     });
     
-    $(document).on('click', '.article-row', function(){
+    $(document).on('click', '.content-row-article', function(){
         paintRow($(this).attr("id"), 'article');
         checkRow($(this).find("td:first").text(), 'article');
     });
@@ -138,34 +137,9 @@ $(document).ready(function(){
     LoadNavigationBar('multiple','article', ShowArticles);
 });
 
-function noParents(state, model, callback, skip, limit){
-    LoadContent(state, model, callback, skip, limit);
-}
-//function to load content
-function LoadContent(state, model, callback, skip, limit){
-    var start = (parseInt(skip) - 1) * 50;
-    if (isNaN(start))
-        start = (parseInt($('#number')) - 1) * 50;
-    if (model === null || model === undefined) model = 'none';
-    $.ajax({
-               url: '/' + model + '/list?skip=' + start + '&limit=' + limit,
-               data: {orfan: state, model: model},
-               type: 'POST'
-           }).then(
-        function(json){
-            if (json.response !== null) {
-                removeItems('.' + model + '-row');
-                json.response.forEach(callback);
-                getHeight();
-            } else {
-                removeItems('.' + model + '-row');
-            }
-        });
-}
-
 //fucntion to show categories
 function ShowCategories(response){
-    str = '<div class="quark-presence-container presence-block content-row-category" id="category-values-' + response.id + '">' +
+    str = '<div class="quark-presence-container presence-block content-row-category content-row" id="category-values-' + response.id + '">' +
         '<div class="category-values quark-presence-column ids" id="id">' + response.id + '</div>' +
         '<div class="category-values quark-presence-column titles" id="title">' + response.title.substr(0, 70) + '</div>' +
         '<div class="category-values quark-presence-column types" id="type">' + response.sub + '</div>' +
@@ -178,7 +152,7 @@ function ShowCategories(response){
 
 //fucntion to show the articles
 function ShowArticles(response){
-    str = '<div class="quark-presence-container presence-block content-row-article" id="article-values-' + response.id + '">' +
+    str = '<div class="quark-presence-container presence-block content-row-article content-row" id="article-values-' + response.id + '">' +
         '<div class="article-values quark-presence-column ids" id="id">' + response.id + '</div>' +
         '<div class="article-values quark-presence-column titles" id="title">' + response.title.substr(0, 50) + '</div>' +
         '<div class="article-values quark-presence-column dates" id="date">' + response.release_date + '</div>' +
@@ -189,13 +163,6 @@ function ShowArticles(response){
     $('#loading-circle-article').css('display', 'none');
 }
 
-//fucntion to add to each item in actions column the anchors-icons for redirecting
-function setActions(model, id){
-    //define edit and remove buttons for all rows
-    return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="' + id + '" href="/' + model + '/edit/' + id + '""></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions " id="' + id + '" "></a>';
-}
 //function to create an ICon for category as folder
 function setCategoryIcon(){
     //define icon for category
@@ -213,63 +180,13 @@ function getHeight(){
     $("div#list-center , div#list-center table").outerHeight(height);
 }
 
-//function to check when you want to find items
-function CheckSearch(name, str, model, callback, limit){
-    //if search bar is empty, we load default list
-    if (str.length === 0) {
-        LoadContent(false, model, callback, 1, 50);
-        return;
-    }
-    //if not to search in DB items by inserted string
-    $.ajax({url: '/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
-        function(json){
-            if (json.response !== '') {
-                removeItems('.' + model + '-row');
-                json.response.forEach(callback);
-            } else {
-                removeItems('.' + model + '-row');
-            }
-        }
-    );
-}
-
-//clear all items from left-table
-function removeItems(selector){
-    $(selector).remove();
-}
-//function to paint checked row
-function paintRow(id, type){
-    status = true;
-    var selector = type + "-row";
-    var row = $("." + selector);
-    //ceck if any another row has checked
-    row.each(function(){
-        if ($(this).css("background-color") === selectedColor) {
-            status = false;
-        }
-    });
-    //if not, we paint selected row
-    if (status === "true") {
-        $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
-    }
-    //if yes, we paint in white all another rows before paint current row
-    else if (status === "false") {
-        row.each(function(){
-            $(this).css("background-color", "white").css("color", 'black').removeClass('selected').addClass(selector);
-        });
-        
-        $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
-    }
-}
-
 //fuction to ceck row
 function checkRow(data, type){
     var
         categoryParentId = $(".route-points").last().attr('id'),
         childId = data,
         url = "",
-        dataGiven = "",
-        service = "";
+        dataGiven = "";
     //define default valuses
     if (type === 'category') {
         url = "/category/category_relation/";

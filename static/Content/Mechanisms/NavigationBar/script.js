@@ -2,7 +2,6 @@
 ////////////////////////navbar/////////////
 function LoadNavigationBar(state, model, callback){
     var special_model = '';
-    //set for every button the event, for model specified
     if (state === 'multiple') special_model = '-' + model;
     //number of objects
     var data = $('#number' + special_model).val();
@@ -15,7 +14,7 @@ function LoadNavigationBar(state, model, callback){
     $(document).on('click', '.current-page' + special_model + ' .nav-button', function(){
         removeItems('.content-row'+special_model);
         $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, $(this).val(), 50);
+        LoadContent(false, model, callback, $(this).val(), 50,state);
         getMaxPages($(this).val(), endpoint, special_model);
     });
     //listener for BACK button
@@ -23,7 +22,7 @@ function LoadNavigationBar(state, model, callback){
         var skip = parseInt($('#current-number' + special_model).val()) - 1;
         removeItems('.content-row'+special_model);
         $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, skip, 50);
+        LoadContent(false, model, callback, skip, 50,state);
         getMaxPages(skip, endpoint, special_model);
         
     });
@@ -32,21 +31,21 @@ function LoadNavigationBar(state, model, callback){
         var skip = parseInt($('#current-number' + special_model).val()) + 1;
         removeItems('.content-row'+special_model);
         $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, skip, 50);
+        LoadContent(false, model, callback, skip, 50,state);
         getMaxPages(skip, endpoint, special_model);
     });
     //listener for FIRST button
     $(document).on('click', '#first' + special_model, function(){
         removeItems('.content-row'+special_model);
         $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, 1, 50);
+        LoadContent(false, model, callback, 1, 50,state);
         getMaxPages(1, endpoint, special_model);
     });
     //listener for LAST button
     $(document).on('click', '#last' + special_model, function(){
         removeItems('.content-row'+special_model);
         $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, endpoint, 50);
+        LoadContent(false, model, callback, endpoint, 50,state);
         getMaxPages(endpoint, endpoint, special_model);
     });
 }

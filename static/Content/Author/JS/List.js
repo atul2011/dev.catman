@@ -12,7 +12,7 @@ $(document).ready(function(){
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50);
+        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50,'single');
     });
     
     $(document).on('dblclick', '.delete-button-author', function(){
@@ -29,10 +29,13 @@ $(document).ready(function(){
     });
     
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','author',ShowAuthors);
+    //set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //function to show categories
 function ShowAuthors(response) {

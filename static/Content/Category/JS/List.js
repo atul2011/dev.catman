@@ -21,7 +21,7 @@ $(document).ready(function(){
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,'none');
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,50,'single','single');
     });
     
     $(document).on('dblclick', '.delete-button-category', function(){
@@ -37,10 +37,13 @@ $(document).ready(function(){
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','category',ShowCategories);
+    //set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //function to show categories
 function ShowCategories(response) {

@@ -26,21 +26,15 @@
     background-image: url("/static/images/button-left.png");
 }
 /*set overflow option for items tables*/
-.items-list ,#elements-list{
+#elements-list{
     text-align: left;
     overflow-x: hidden;
     overflow-y: scroll;
     padding-top: 5%;
 }
 
-/*row of each table with data*/
-.category-row:hover, .article-row:hover {
-    background-color: rgb(51, 122, 183) !important;
-    color: white !important;
-}
-
 /*cell with textarea*/
-#category-values-content, input, .route-points {
+input, .route-points {
     padding: 0;
 }
 
@@ -57,35 +51,12 @@
     max-width: 50px;
 }
 
-/*search bar and checkbox*/
-.search-list {
-    list-style-type: none;
-    text-align: left;
-    padding: 0;
-    margin: 0;
-}
-
-.search-list li {
-    display: inline-block;
-}
-
 /*set width for search area*/
 input.search {
     min-width: 270px;
     max-width: 400px;
 }
 
-/*set properties for cells with action buttons*/
-a.content-actions {
-    font-size: 20px;
-    text-decoration: none;
-    color: black;
-    padding-left: 5px;
-}
-
-.content-actions:hover {
-    color: #ff3300;
-}
 
 /*set height for right tabels*/
 .items-list {
@@ -185,7 +156,10 @@ table#content-container td#id {
 #nav-bar-category .quark-presence-column,
 #nav-bar-article .quark-presence-column,
 .navigation-container .quark-presence-column,
-.current-pages {
+.current-pages,
+#category-column,
+#article-column
+{
     margin: 0;
 }
 
@@ -236,16 +210,6 @@ table#content-container td#id {
     padding: 0;
 }
 
-.titles {
-    max-width: 150px;
-    min-width: 150px;
-}
-
-.content-values {
-    word-wrap: break-word;
-    font-size: 15px;
-}
-
 
 .contents, .contents textarea {
     max-width: 150px;
@@ -257,25 +221,7 @@ table#content-container td#id {
     min-width: 200px;
 }
 
-.content-values {
-    font-size: 13px;
-}
-
-.dates {
-    max-width: 80px;
-    min-width: 80px;
-}
-
-.types {
-    max-width: 30px;
-    min-width: 30px;
-}
-
-.actions {
-    max-width: 53px;
-}
-
-.category-row .quark-presence-column,.article-row .quark-presence-column , .category-titles,.article-titles{
+.content-row .quark-presence-column , .category-titles,.article-titles{
     margin: 5px;
     text-align: left;
 }
