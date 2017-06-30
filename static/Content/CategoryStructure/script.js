@@ -1,13 +1,73 @@
 //function what will run at end of loading of page
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
-var rootPoint = '<td id="0" class="route-points">></td>';
-$(document).ready(function(){
-    $('input[type="text"]').keypress(function(event){
-        if (event.which === 13) {
-            event.preventDefault();
+var rootPoint = '<div id="0" class="route-points quark-presence-column">></div>';
+var category_select =
+    '<option value="id">ID</option>' +
+    '<option value="title">Title</option>' +
+    '<option value="sub">Type</option>' +
+    '<option value="keywords">Keywords</option>' +
+    '<option value="priority">Priority</option>';
+var article_select =
+    '<option value="id">ID</option>' +
+    '<option value="title">Title</option>' +
+    '<option value="release_date">Release Date</option>' +
+    '<option value="event_id">Event</option>' +
+    '<option value="author_id">Author</option>' +
+    '<option value="keywords">Keywords</option>';
+
+function setDefaultEvents(model,callback){
+    $(document).on("input", '#'+model+'-search', function(){
+        removeItems('.content-row-'+model);
+        $('#loading-circle-'+model).css('display', 'block');
+        CheckSearch($('#'+model+'-select').val(), this.value, model, callback, 50,'multiple');
+    });
+    
+    $(document).on("change", '#'+model+'-orfan', function(){
+        removeItems('.content-row-'+model);
+        $('#loading-circle-'+model).css('display', 'block');
+        noParents($(this).is(':checked'), model, callback, 50,'multiple');
+    });
+    $(document).on('dblclick', '.delete-button-'+model, function(e){
+        console.log(1);
+        response = prompt('Do you want to delete this y/n ?', '');
+        if (response === 'n') {
+            e.preventDefault();
+        } else if (response === 'y') {
+            $.ajax({url: '/'+model+'/delete/' + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(data){
+                if (data !== null && data !== '')
+                    console.log(data);
+                LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
+                setCategory($(".route-points").last().attr('id'));
+            });
+        } else {
+            return false;
         }
     });
+    $(document).on('dblclick', '.special-delete-button-'+model, function(e){
+        console.log(1);
+        response = prompt('Do you want to delete this y/n ?', '');
+        if (response === 'n') {
+            e.preventDefault();
+        } else if (response === 'y') {
+            $.ajax({url: '/'+model+'/delete/' + $(this).attr('id'), type: "POST",data:{type_of_delete:'link'}}).then(function(data){
+                if (data !== null && data !== '')
+                    console.log(data);
+                LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
+                setCategory($(".route-points").last().attr('id'));
+            });
+        } else {
+            return false;
+        }
+    });
+    $(document).on('click', '.content-row-'+model, function(){
+        paintRow($(this).attr("id"), model);
+        checkRow($(this).find("td:first").text(), model);
+    });
+    ////////////////////////////navigation bar//////////////////////////////////////////
+    LoadNavigationBar('multiple',model, callback);
+}
+$(document).ready(function(){
     $('.navigation_form').submit(function(e){
         e.preventDefault();
     });
@@ -15,97 +75,17 @@ $(document).ready(function(){
     LoadContent(false, 'article', ShowArticles, 1, 50,'multiple');
     LoadContent(false, 'category', ShowCategories, 1, 50,'multiple');
     /////////////////////////////////////////////////////////////////
-    
+    setDefaultEvents('category',ShowCategories);
+    setDefaultEvents('article',ShowArticles);
     //load selects with columns of models
-    var category_select =
-        '<option value="id">ID</option>' +
-        '<option value="title">Title</option>' +
-        '<option value="sub">Type</option>' +
-        '<option value="keywords">Keywords</option>' +
-        '<option value="priority">Priority</option>';
     $('#category-select').append(category_select);
-    
-    var article_select =
-        '<option value="id">ID</option>' +
-        '<option value="title">Title</option>' +
-        '<option value="release_date">Release Date</option>' +
-        '<option value="event_id">Event</option>' +
-        '<option value="author_id">Author</option>' +
-        '<option value="keywords">Keywords</option>';
     $('#article-select').append(article_select);
     /////////////////////////////////////////////////////////////////
     var list = $('.items-list');
     $('.loader').css('left', (list.width() / 3.3)).css('top', (list.height() / 6));
-    //add event listener on input in search bars
-    $(document).on("input", '#category-search', function(){
-        removeItems('.content-row-category');
-        $('#loading-circle-category').css('display', 'block');
-        CheckSearch($('#category-select').val(), this.value, 'category', ShowCategories, 50,'multiple');
-    });
-    $(document).on("input", '#article-search', function(){
-        removeItems('.content-row-article');
-        $('#loading-circle-article').css('display', 'block');
-        CheckSearch($('#article-select').val(), this.value, 'article', ShowArticles, 50,'multiple');
-    });
-    
     //stop refreshing when submit
     $(".submit-buttons").submit(function(e){
         e.preventDefault();
-    });
-    
-    //add event listener to checkbox "no parents"
-    $(document).on("change", ".orfan#category", function(){
-        var start = parseInt($('#current-number-category').val());
-        removeItems('.content-row-category');
-        $('#loading-circle-category').css('display', 'block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories, start, 50,'multiple');
-    });
-    //add event listener to checkbox "no parents"
-    $(document).on("change", ".orfan#article", function(){
-        var start = parseInt($('#current-number-article').val());
-        removeItems('.content-row-article');
-        $('#loading-circle-article').css('display', 'block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles, start, 50,'multiple');
-    });
-    ///event listener to delete icons for delete content
-    $(document).on('dblclick', '.delete-button-category', function(){
-        response = prompt('Do you want to delete this y/n ?', '');
-        if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(data){
-                if (data !== null && data !== '')
-                    console.log(data);
-            });
-            LoadContent(false, 'category', ShowCategories, $('#current-number-category').val(), 50,'multiple');
-            setCategory($(".route-points").last().attr('id'));
-        } else {
-            return false;
-        }
-    });
-    $(document).on('dblclick', '.delete-button-article', function(){
-        response = prompt('Do you want to delete this y/n ?', '');
-        if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(data){
-                if (data !== null && data !== '')
-                    console.log(data);
-            });
-            LoadContent(false, 'article', ShowArticles, $('#current-number-article').val(), 50);
-            setCategory($(".route-points").last().attr('id'));
-        }
-    });
-    
-    //event listener to set paint property to selected rows
-    $(document).on('click', '.content-row-category', function(){
-        paintRow($(this).attr("id"), 'category');
-        checkRow($(this).find("td:first").text(), 'category');
-    });
-    
-    $(document).on('click', '.content-row-article', function(){
-        paintRow($(this).attr("id"), 'article');
-        checkRow($(this).find("td:first").text(), 'article');
     });
 
 //event listener that will permite redirect when click to route node
@@ -121,7 +101,7 @@ $(document).ready(function(){
     });
 // event listener that will permite open category in left table
     $(document).on("dblclick", ".current-category", function(){
-        openCategory($(this).find("td#id").text());
+        openCategory($(this).find("#id").text());
     });
 //set mouse over and out events to list of items in left table
     $(document).on("mouseover", '.current-category', function(){
@@ -131,12 +111,13 @@ $(document).ready(function(){
         $(this).css("background-color", 'white').css("color", 'black');
     });
     $("#route-row").append(rootPoint);
-    
-    ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('multiple','category', ShowCategories);
-    LoadNavigationBar('multiple','article', ShowArticles);
+    //set max with lo left-list
+    $(window).resize(function(){
+        $('#list-left').css('max-width',$(this).width()-950);
+        console.log($(this).width()-1000);
+    });
+    $('#list-left').css('max-width',$(this).width()-950);
 });
-
 //fucntion to show categories
 function ShowCategories(response){
     str = '<div class="quark-presence-container presence-block content-row-category content-row" id="category-values-' + response.id + '">' +
@@ -289,10 +270,10 @@ function setCategory(id){
         $("#route-row").append(rootPoint);
     } else {
         $.ajax({type: "GET", url: "/category/" + id}).then(function(json){
-            str = '<td id="' + json.item.id + '" class="route-points" >' + json.item.title + '</td>';
+            str = '<div id="' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
             var status = true;
             //check if that category is already in path
-            $("tr#route-row td").each(function(){
+            $(".route-points").each(function(){
                 if ($(this).text() === json.item.title) {
                     $(".route-points").remove();
                     $("#route-row").append(rootPoint);
@@ -331,15 +312,22 @@ function showCurrentItems(response, service){
     } else {
         setIcon = setArticleIcon();
     }
-    str = '<tr id="' + service + '-' + response.id + '" class="current-items current-' + service + '">' +
-        '<td class="' + service + '" id="icon">' + setIcon + '</td>' +
-        '<td class="' + service + '" id="id">' + response.id + '</td>' +
-        '<td class="' + service + '" id="title">' + response.title + '</td>' +
-        '<td class="' + service + '" id="actions">' + setActions(service, response.id) + '</td>' +
-        '</tr>';
+    str = '<div id="' + service + '-' + response.id + '" class="quark-presence-container current-items current-' + service + '">' +
+            '<div class="quark-presence-column icons ' + service + '" id="icon">' + setIcon + '</div>' +
+            '<div class="quark-presence-column ids ' + service + '" id="id">' + response.id + '</div>' +
+            '<div class="quark-presence-column titles ' + service + '" id="title">' + response.title + '</div>' +
+            '<div class="quark-presence-column actions ' + service + '" id="actions">' + setSpecialActions(response.id,service) + '</div>' +
+          '</div>';
     $("#content-container").append(str);
 }
 //function to redirect to clicked category in root bar
 function routeRedirect(id){
     setCategory(id);
+}
+//action for management items in left column
+function setSpecialActions(id, model){
+    //define edit and remove buttons for all rows
+    return actions =
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="' + id + '" href="/' + model + '/edit/' + id + '?source=EditContent""></a>' +
+        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions "  id="' + id + '" "></a>';
 }

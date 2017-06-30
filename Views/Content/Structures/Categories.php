@@ -9,18 +9,15 @@ use Quark\QuarkView;
 
 ?>
 <div class="quark-presence-column center tables-container" id="list-left">
-    <Div class="quark-presence-container presence-block middle search-bar">
-        <form action="" method="POST">
-            <table id="route">
-                <tr id="route-row">
-                </tr>
-            </table>
-        </form>
-    </Div>
-    <Div class="quark-presence-container presence-block middle" id="elements-list">
-        <table class="items-body" id="content-container">
+    <form action="" method="POST">
+    <Div class="quark-presence-container presence-block middle search-bar"id="route-row">
 
-        </table>
+    </Div>
+    </form>
+    <Div class="quark-presence-container presence-block middle" id="elements-list">
+        <div class="items-body quark-presence-column" id="content-container">
+
+        </div>
     </Div>
 </div>
 
@@ -47,7 +44,7 @@ use Quark\QuarkView;
     <div class="quark-presence-container presence-block main">
         <form>
             <div class="quark-presence-column list-options">
-                <input type="checkbox" name="orfan" class="orfan" id="category">No parents
+                <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
                 <select id="category-select" class="model-select"></select>
@@ -114,11 +111,11 @@ use Quark\QuarkView;
         </div>
     </div>
     <br/>
-    <br/>
+    <hr class="delimitator"/>
     <div class="quark-presence-container presence-block">
         <form>
             <div class="quark-presence-column list-options">
-                <input type="checkbox" name="orfan" class="orfan" id="article">No parents
+                <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
                 <select id="article-select" class="model-select"></select>

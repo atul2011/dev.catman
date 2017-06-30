@@ -1,5 +1,3 @@
-///////////////////////////////////////////
-////////////////////////navbar/////////////
 function LoadNavigationBar(state, model, callback){
     var special_model = '';
     if (state === 'multiple') special_model = '-' + model;
@@ -12,16 +10,14 @@ function LoadNavigationBar(state, model, callback){
     setCurrentPage(special_model, 1);
     //listener for numbered buttons
     $(document).on('click', '.current-page' + special_model + ' .nav-button', function(){
-        removeItems('.content-row'+special_model);
-        $('#loading-circle' + special_model).css('display', 'block');
+        ShowLoader(special_model);
         LoadContent(false, model, callback, $(this).val(), 50,state);
         getMaxPages($(this).val(), endpoint, special_model);
     });
     //listener for BACK button
     $(document).on('click', '#prev' + special_model, function(){
         var skip = parseInt($('#current-number' + special_model).val()) - 1;
-        removeItems('.content-row'+special_model);
-        $('#loading-circle' + special_model).css('display', 'block');
+        ShowLoader(special_model);
         LoadContent(false, model, callback, skip, 50,state);
         getMaxPages(skip, endpoint, special_model);
         
@@ -29,25 +25,25 @@ function LoadNavigationBar(state, model, callback){
     //listener for FORWARD button
     $(document).on('click', '#next' + special_model, function(){
         var skip = parseInt($('#current-number' + special_model).val()) + 1;
-        removeItems('.content-row'+special_model);
-        $('#loading-circle' + special_model).css('display', 'block');
+        ShowLoader(special_model);
         LoadContent(false, model, callback, skip, 50,state);
         getMaxPages(skip, endpoint, special_model);
     });
     //listener for FIRST button
-    $(document).on('click', '#first' + special_model, function(){
-        removeItems('.content-row'+special_model);
-        $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, 1, 50,state);
-        getMaxPages(1, endpoint, special_model);
-    });
+    setEventToNavButton('#first',1,endpoint,special_model,model,callback,state);
     //listener for LAST button
-    $(document).on('click', '#last' + special_model, function(){
-        removeItems('.content-row'+special_model);
-        $('#loading-circle' + special_model).css('display', 'block');
-        LoadContent(false, model, callback, endpoint, 50,state);
-        getMaxPages(endpoint, endpoint, special_model);
+    setEventToNavButton('#last',endpoint,endpoint,special_model,model,callback,state);
+}
+function setEventToNavButton(selector,start,endpoint,special_model,model,callback,state){
+    $(document).on('click', selector + special_model, function(){
+        ShowLoader(special_model);
+        LoadContent(false, model, callback, start, 50,state);
+        getMaxPages(start, endpoint, special_model);
     });
+}
+function ShowLoader(special_model){
+    removeItems('.content-row'+special_model);
+    $('#loading-circle' + special_model).css('display', 'block');
 }
 //////////////////////////////////    | |    ///////////////////////////
 //////////////////////////////////   _| |_   ///////////////////////////

@@ -40,9 +40,6 @@ $(document).ready(function(){
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','article',ShowArticles);
-//set loader position
-    var list = $('.items-list');
-    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //fucntion to show the articles
 function ShowArticles(response){

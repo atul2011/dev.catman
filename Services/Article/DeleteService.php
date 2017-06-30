@@ -37,6 +37,7 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 */
 		$id = $request->URI()->Route(2);
 		try {
+			if($request->Data()->type_of_delete === 'all')
 			QuarkModel::Delete(new Article(), array(
 				'id' => $id
 			));

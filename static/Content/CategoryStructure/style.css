@@ -30,15 +30,10 @@
     text-align: left;
     overflow-x: hidden;
     overflow-y: scroll;
-    padding-top: 5%;
 }
 
 /*cell with textarea*/
-input, .route-points {
-    padding: 0;
-}
-
-.route, .search-list, .quark-presence-column .quark-presence-container, .list-options {
+.search-list, .quark-presence-column .quark-presence-container, .list-options {
     padding: 0;
     margin: 0;
 }
@@ -52,7 +47,7 @@ input, .route-points {
 }
 
 /*set width for search area*/
-input.search {
+.search {
     min-width: 270px;
     max-width: 400px;
 }
@@ -65,65 +60,33 @@ input.search {
 }
 
 /*set bold font for elements inside left table*/
-table#content-container td#id {
-    padding-right: 10px;
+#content-container{
+    margin: 0;
 }
 
 /*set properties for left table in top that contains category path*/
-#route {
+#route-row {
     border: 0.5px solid grey;
     width: 100%;
 }
 
-/*set border to route points*/
-#route td {
-    text-align: left;
-    border-right: 0.5px solid grey;
-}
-
 /*set style to route points*/
 .route-points {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
+    padding: 0 3px 0 3px;
     color: black;
+    border-right: 0.5px solid grey;
+    text-align: left;
 }
 
 /*set no border for row with values*/
 .category-values, .article-values {
-    border-left: none;
-    border-right: none;
     padding-left: 0;
     padding-right: 0;
     word-wrap: break-word;
 }
 
-#content-container td {
-    border-left: none;
-    border-right: none;
-    border-spacing: 0px;
-}
-
-/*set right padding to in cells and all titles*/
-.category-values#id, .article-values#id  {
-    padding-right: 10px;
-}
-
-/*set left-padding to id of every row*/
-#id {
-    padding-left: 5px;
-}
-
-.content-items {
-    text-align: left;
-}
-
 /*----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------------------------*/
-#options button {
-    font-size: 20px;
-    border: 0;
-}
 
 .actions-buttons {
     background: #5f7a96;
@@ -149,8 +112,6 @@ table#content-container td#id {
 }
 
 /*-----------------------------------------------------------------------------------------*/
-.current-pages-article,
-.current-pages-category,
 .current-pages-article .quark-presence-column,
 .current-pages-category .quark-presence-column,
 #nav-bar-category .quark-presence-column,
@@ -227,4 +188,21 @@ table#content-container td#id {
 }
 .middle{
     max-width: 500px;
+}
+.content-actions:hover{
+    text-decoration: none;
+}
+.current-items .quark-presence-column{
+    margin: 5px;
+}
+.current-items .titles{
+    max-width: 200px;
+    min-width: 200px;
+}
+.current-items .ids{
+    max-width: 40px;
+}
+.delimitator{
+    margin: 20px 0 10px 0;
+    border-top: 2px solid grey;
 }

@@ -9,6 +9,9 @@ $(document).ready(function(){
             event.preventDefault();
         }
     });
+    //set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 function resizeList(height_difference, width_difference){
     var height = $('body').height() - (height_difference + 72), list = $('.items-list'),

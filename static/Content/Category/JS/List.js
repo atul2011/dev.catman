@@ -41,9 +41,6 @@ $(document).ready(function(){
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','category',ShowCategories);
-    //set loader position
-    var list = $('.items-list');
-    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 //function to show categories
 function ShowCategories(response) {
