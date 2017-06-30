@@ -7,6 +7,19 @@ $(document).ready(function(){
         removeItems('#authorlist');
         CheckSearch(this.value, 'author', 'name', 5, 'authorlist');
     });
+    $(document).on("submit",'#form',function(e){
+        var title =$('input#title'),
+            author = $('input#input_author');
+        
+        if(title.val()=== ''){
+            title.addClass('title_null').attr('placeholder', 'Title must be not null');
+            e.preventDefault();
+        }
+        if(author.val()=== ''){
+            author.addClass('title_null').attr('placeholder', 'Author must be not null');
+            e.preventDefault();
+        }
+    });
     
     editor = new MediumEditor($('.content'));
 });

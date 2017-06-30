@@ -12,15 +12,13 @@ use ViewModels\Content\Event\CreateView;
 $item = new QuarkModel(new User);
 $service = 'create';
 $button_name = 'Create';
-$onsubmit ='return CheckData();';
 if (isset($user)) {
 	$item = $user;
 	$service = 'edit/' . $item->id;
 	$button_name = 'Update';
-	$onsubmit = '';
 }
 ?>
-<form method="POST" id="form" onsubmit="<?php echo $onsubmit; ?>" action="/user/<?php echo $service; ?>">
+<form method="POST" id="form" action="/user/<?php echo $service; ?>">
     <div class="quark-presence-column">
         <div class="quark-presence-container content-container presence-block " id="form-body">
             <div class="quark-presence-column left" id="main_div">

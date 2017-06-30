@@ -20,7 +20,7 @@ $(document).ready(function(){
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50);
+        CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50,'single');
     });
     
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
@@ -33,6 +33,7 @@ $(document).ready(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 LoadContent(false, 'author', ShowAuthors);
             });
         }
@@ -42,16 +43,23 @@ $(document).ready(function(){
     });
 =======
                 LoadContent(false, 'author', ShowAuthors,1,50);
+=======
+                LoadContent(false, 'author', ShowAuthors,$('#current-number').val(),50);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
         }
     });
     
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
     ////////////////////////////navigation bar//////////////////////////////////////////
+<<<<<<< HEAD
     LoadNavigationBar('author',ShowAuthors);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    LoadNavigationBar('single','author',ShowAuthors);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //function to show categories
 function ShowAuthors(response) {

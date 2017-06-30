@@ -16,6 +16,7 @@ use Quark\QuarkView;
     <Div class="quark-presence-container presence-block main search-bar">
 =======
 <div class="quark-presence-column center tables-container" id="list-left">
+<<<<<<< HEAD:Views/Admin/Categories.php
     <Div class="quark-presence-container presence-block middle search-bar">
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         <form action="" method="POST">
@@ -31,8 +32,17 @@ use Quark\QuarkView;
     <Div class="quark-presence-container presence-block middle" id="elements-list">
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         <table class="items-body" id="content-container">
+=======
+    <form action="" method="POST">
+    <Div class="quark-presence-container presence-block middle search-bar"id="route-row">
 
-        </table>
+    </Div>
+    </form>
+    <Div class="quark-presence-container presence-block middle" id="elements-list">
+        <div class="items-body quark-presence-column" id="content-container">
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:Views/Content/Structures/Categories.php
+
+        </div>
     </Div>
 </div>
 
@@ -125,7 +135,7 @@ use Quark\QuarkView;
     <div class="quark-presence-container presence-block main">
         <form>
             <div class="quark-presence-column list-options">
-                <input type="checkbox" name="orfan" class="orfan" id="category">No parents
+                <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
                 <select id="category-select" class="model-select"></select>
@@ -155,26 +165,26 @@ use Quark\QuarkView;
                 <input type="hidden" id="current-number-category" value="">
                 <form class="navigation_form">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="first" value="1" disabled><<</button>
+                        <button type="submit" class="nav-button" id="first-category"  disabled><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="prev" disabled><</button>
+                        <button type="submit" class="nav-button" id="prev-category" disabled><</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons nav-button-category" id="space_prev" disabled>...
+                        <button class="nav-button space_buttons" id="space_prev-category" disabled>...
                         </button>
                     </div>
                     <div class="quark-presence-column current-pages-category">
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons nav-button-category" id="space_next" disabled>...
+                        <button class="nav-button space_buttons" id="space_next-category" disabled>...
                         </button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="next">></button>
+                        <button type="submit" class="nav-button" id="next-category">></button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-category" id="last" value="0">>></button>
+                        <button type="submit" class="nav-button" id="last-category">>></button>
                     </div>
                 </form>
             </div>
@@ -192,11 +202,11 @@ use Quark\QuarkView;
         </div>
     </div>
     <br/>
-    <br/>
+    <hr class="delimitator"/>
     <div class="quark-presence-container presence-block">
         <form>
             <div class="quark-presence-column list-options">
-                <input type="checkbox" name="orfan" class="orfan" id="article">No parents
+                <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
                 <select id="article-select" class="model-select"></select>
@@ -227,26 +237,26 @@ use Quark\QuarkView;
                 <input type="hidden" id="current-number-article" value="">
                 <form class="navigation_form">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="first" value="1"disabled><<</button>
+                        <button type="submit" class="nav-button" id="first-article" ><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="prev" disabled><</button>
+                        <button type="submit" class="nav-button" id="prev-article" ><</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons nav-button-article" id="space_prev" disabled>...
+                        <button class="nav-button space_buttons" id="space_prev-article" disabled>...
                         </button>
                     </div>
                     <div class="quark-presence-column current-pages-article">
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons nav-button-article" id="space_next" disabled>...
+                        <button class="nav-button space_buttons" id="space_next-article" disabled>...
                         </button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="next">></button>
+                        <button type="submit" class="nav-button" id="next-article">></button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button nav-button-article" id="last" value="0">>></button>
+                        <button type="submit" class="nav-button" id="last-article" >>></button>
                     </div>
                 </form>
             </div>

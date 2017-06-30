@@ -25,7 +25,7 @@ if (isset($article)) {
 }
 if(isset($_REQUEST['source']))$service.='?source=EditContent'
 ?>
-<form method="POST" id="form" onsubmit="return checkTitle('title');" action="/article/<?php echo $service; ?>">
+<form method="POST" id="form"action="/article/<?php echo $service; ?>">
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">
             <div class="quark-presence-column left" id="main_div">

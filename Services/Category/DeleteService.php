@@ -50,17 +50,19 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$id = $request->URI()->Route(2);
 		try {
 			QuarkModel::Delete(new Categories_has_Categories(), array(
-				'parent_id' => $id
-			));
-			QuarkModel::Delete(new Categories_has_Categories(), array(
 				'child_id1' => $id
 			));
-			QuarkModel::Delete(new Articles_has_Categories(), array(
-				'category_id' => $id
-			));
-			QuarkModel::Delete(new Category(), array(
-				'id' => $id
-			));
+			if($request->Data()->type_of_delete === 'all') {
+				QuarkModel::Delete(new Categories_has_Categories(), array(
+					'parent_id' => $id
+				));
+				QuarkModel::Delete(new Articles_has_Categories(), array(
+					'category_id' => $id
+				));
+				QuarkModel::Delete(new Category(), array(
+					'id' => $id
+				));
+			}
 		}
 		catch (Exception $e) {
 			return $e;

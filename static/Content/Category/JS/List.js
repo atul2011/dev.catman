@@ -33,7 +33,7 @@ $(document).ready(function(){
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,'none');
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,50,'single','single');
     });
     
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
@@ -46,21 +46,29 @@ $(document).ready(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 LoadContent(false, 'category', ShowCategories);
 =======
                 LoadContent(false, 'category', ShowCategories,50);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+                LoadContent(false, 'category', ShowCategories,$('#current-number').val(),50);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
 <<<<<<< HEAD
 =======
     ////////////////////////////navigation bar//////////////////////////////////////////
+<<<<<<< HEAD
     LoadNavigationBar('category',ShowCategories);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    LoadNavigationBar('single','category',ShowCategories);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //function to show categories
 function ShowCategories(response) {

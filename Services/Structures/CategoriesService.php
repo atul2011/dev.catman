@@ -1,6 +1,6 @@
 <?php
 
-namespace Services\Admin;
+namespace Services\Structures;
 
 <<<<<<< HEAD
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
@@ -25,8 +25,12 @@ use Services\Behaviors\AuthorizationBehavior;
 <<<<<<< HEAD
 =======
 use Services\Behaviors\CustomProcessorBehavior;
+<<<<<<< HEAD:Services/Admin/CategoriesService.php
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use ViewModels\Admin\CategoriesView;
+=======
+use ViewModels\Content\Structures\CategoriesView;
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:Services/Structures/CategoriesService.php
 
 /**
  * Class CategoriesService

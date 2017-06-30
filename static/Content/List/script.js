@@ -11,12 +11,13 @@ $(document).ready(function(){
             event.preventDefault();
         }
     });
-    var list=$('.items-list');
-    $('#loading-circle').css('left',(list.width()/3.3)).css('top',(list.height()*1.8));
+    //set loader position
+    var list = $('.items-list');
+    $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 function resizeList(height_difference, width_difference){
-    var height = $('body').height() - (height_difference+72), list = $('.items-list'),
+    var height = $('body').height() - (height_difference + 72), list = $('.items-list'),
         width = list.width() - width_difference;
     
     list.css('max-height', height).css('min-height', height);
@@ -30,15 +31,8 @@ function resizeList(height_difference, width_difference){
         $('.search').css('max-width', width).css('min-width', width);
     });
 }
-function checkTitle(name){
-    var title = $('#' + name).val();
-    if (title.val() === '') {
-        title.addClass('title_null').attr('placeholder', 'Title must be not null');
-        return false;
-    }
-    return true;
-}
 //function to load content
+<<<<<<< HEAD
 <<<<<<< HEAD
 function LoadContent(state, model, callback){
     if (model === null || model === undefined) model = 'none';
@@ -49,18 +43,27 @@ function LoadContent(state, model, callback){
         }
 =======
 function LoadContent(state, model, callback,skip,limit){
+=======
+function LoadContent(alone, model, callback, skip, limit,state){
+    var special_model = '';
+    if (state === 'multiple') special_model = '-' + model;
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
     var start = (parseInt(skip) - 1) * 50;
     if (isNaN(start))
-        start = (parseInt($('#number'))-1)*50;
+        start = (parseInt($('#number'+special_model)) - 1) * 50;
     if (model === null || model === undefined) model = 'none';
-    $.ajax({url: '/' + model + '/list?skip='+start+'&limit='+limit, data: {orfan: state, model: model}, type: 'POST'}).then(
+    $.ajax({
+               url: '/' + model + '/list?skip=' + start + '&limit=' + limit,
+               data: {orfan: alone, model: model},
+               type: 'POST'
+           }).then(
         function(json){
+            removeItems('.content-row'+special_model);
             if (json.response !== null) {
-                removeItems('.content-row');
                 json.response.forEach(callback);
-            } else {
-                removeItems('.content-row');
+                if(state === 'multiple')getHeight();
             }
+<<<<<<< HEAD
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     });
 }
@@ -77,6 +80,16 @@ function noParents(state, model, callback, start){
     if (isNaN(start))
         start = parseInt($('.current-page .selected-page').val());
     LoadContent(state, model, callback, start,50);
+=======
+        });
+}
+function noParents(alone, model, callback, limit, state){
+    var special_model = '';
+    if(state === 'multiple') special_model = '-' + model;
+    
+    var start = parseInt($('#current-number' + special_model).val());
+    LoadContent(alone, model, callback, start, limit, state);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 }
 
 //function to add to each item in actions column the anchors-icons for redirecting
@@ -91,12 +104,12 @@ function setActions(id, model){
 function removeItems(selector){
     $(selector).remove();
 }
-
 //function to paint checked row
-function paintRow(id){
-    var selector = "content-row",
-        row = $('.' + selector);
+function paintRow(id, type){
     status = true;
+    var selector = "content-row";
+    if (type !== '') selector = "content-row-"+type;
+    var row = $("." + selector);
     //ceck if any another row has checked
     row.each(function(){
         if ($(this).css("background-color") === selectedColor) {
@@ -117,6 +130,7 @@ function paintRow(id){
     }
 }
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 //function to check when you want to find items
 function CheckSearch(str, model, name, callback, limit){
@@ -132,25 +146,32 @@ function CheckSearch(str, model, name, callback, limit){
 =======
 //function to check when you want to find items
 function CheckSearch(name, str, model, callback, limit){
+=======
+function CheckSearch(name, str, model, callback, limit,state){
+    var special_model = '';
+    if (state === 'multiple') special_model = '-' + model;
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
     //if search bar is empty, we load default list
     if (str.length === 0) {
-        LoadContent(false, model, callback, 1,50);
+        LoadContent(false, model, callback, 1, 50,state);
         return;
     }
     //if not to search in DB items by inserted string
     $.ajax({url: '/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         function(json){
+            removeItems('.content-row'+ special_model);
             if (json.response !== '') {
-                removeItems('.content-row');
                 json.response.forEach(callback);
-            } else {
-                removeItems('.content-row');
             }
         }
+<<<<<<< HEAD
 <<<<<<< HEAD
     );
 =======
         );
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    );
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 }

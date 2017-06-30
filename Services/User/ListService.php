@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boagh
- * Date: 26.06.2017
- * Time: 13:59
- */
 
 namespace Services\User;
 
@@ -13,7 +7,6 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;

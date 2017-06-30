@@ -47,7 +47,7 @@ trait ViewBehavior {
 	public function PresenceMenuSide () {
 		return $this->MenuSideWidget(array(
 			$this->MenuWidgetItem('/admin/', 'Dashboard', 'fa-bars')
-		, $this->MenuWidgetItem('/admin/categories', 'CategoryStructure', 'fa-align-left ')
+		, $this->MenuWidgetItem('/structures/categories', 'CategoryStructure', 'fa-align-left ')
 		, $this->MenuWidgetItem('/article/list', 'Article', 'fa-edit')
 		, $this->MenuWidgetItem('/category/list', 'Category', 'fa-edit')
 		, $this->MenuWidgetItem('/author/list', 'Author', 'fa-edit')

@@ -20,20 +20,19 @@ $(document).ready(function(){
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(model_select);
     resizeList(120, 236);
-    LoadContent(false, 'article', ShowArticles,1,50);
-    
+    LoadContent(false, 'article', ShowArticles,1,50,'single');
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50);
+        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50,'single');
     });
     
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,'none');
+        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,50,'single');
     });
     
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
@@ -46,24 +45,32 @@ $(document).ready(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 LoadContent(false, 'article', ShowArticles);
             });
     
 =======
                 LoadContent(false, 'article', ShowArticles,1,50);
+=======
+                LoadContent(false, 'article', ShowArticles,$('#current-number').val(),50);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
 <<<<<<< HEAD
 =======
     ////////////////////////////navigation bar//////////////////////////////////////////
+<<<<<<< HEAD
     LoadNavigationBar('article',ShowArticles);
 
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    LoadNavigationBar('single','article',ShowArticles);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //fucntion to show the articles
 function ShowArticles(response){

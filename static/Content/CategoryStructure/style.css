@@ -36,6 +36,7 @@
 div.items-list {
 =======
 /*set overflow option for items tables*/
+<<<<<<< HEAD:static/Admin/CategoryStructure/style.css
 .items-list ,#elements-list{
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     text-align: left;
@@ -79,6 +80,16 @@ div.tables-container table, .search-list,td textarea.content ,.quark-presence-co
 
 .route, .search-list, .quark-presence-column .quark-presence-container, .list-options {
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+#elements-list{
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+
+/*cell with textarea*/
+.search-list, .quark-presence-column .quark-presence-container, .list-options {
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:static/Content/CategoryStructure/style.css
     padding: 0;
     margin: 0;
 }
@@ -91,24 +102,13 @@ div.tables-container table, .search-list,td textarea.content ,.quark-presence-co
     max-width: 50px;
 }
 
-/*search bar and checkbox*/
-.search-list {
-    list-style-type: none;
-    text-align: left;
-    padding: 0;
-    margin: 0;
-}
-
-.search-list li {
-    display: inline-block;
-}
-
 /*set width for search area*/
-input.search {
+.search {
     min-width: 270px;
     max-width: 400px;
 }
 
+<<<<<<< HEAD:static/Admin/CategoryStructure/style.css
 /*set properties for cells with action buttons*/
 <<<<<<< HEAD
 a.content-actions{
@@ -124,6 +124,8 @@ a.content-actions {
 .content-actions:hover {
     color: #ff3300;
 }
+=======
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:static/Content/CategoryStructure/style.css
 
 /*set height for right tabels*/
 <<<<<<< HEAD
@@ -137,42 +139,40 @@ div.items-list {
 }
 
 /*set bold font for elements inside left table*/
-table#content-container td#id {
-    padding-right: 10px;
+#content-container{
+    margin: 0;
 }
 
 /*set properties for left table in top that contains category path*/
-#route {
+#route-row {
     border: 0.5px solid grey;
     width: 100%;
 }
 
-/*set border to route points*/
-#route td {
-    text-align: left;
-    border-right: 0.5px solid grey;
-}
-
 /*set style to route points*/
 .route-points {
-    margin-left: 0;
-    margin-right: 0;
+    margin: 0;
+    padding: 0 3px 0 3px;
     color: black;
+<<<<<<< HEAD:static/Admin/CategoryStructure/style.css
 <<<<<<< HEAD
     padding: 0;
 =======
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    border-right: 0.5px solid grey;
+    text-align: left;
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:static/Content/CategoryStructure/style.css
 }
 
 /*set no border for row with values*/
 .category-values, .article-values {
-    border-left: none;
-    border-right: none;
     padding-left: 0;
     padding-right: 0;
     word-wrap: break-word;
 }
 
+<<<<<<< HEAD:static/Admin/CategoryStructure/style.css
 #content-container td {
     border-left: none;
     border-right: none;
@@ -214,12 +214,9 @@ table#content-container td#id {
     color: #FFFFFF;
 =======
 /*----------------------------------------------------------------------------------------------------*/
+=======
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:static/Content/CategoryStructure/style.css
 /*----------------------------------------------------------------------------------------------------*/
-/*----------------------------------------------------------------------------------------------------*/
-#options button {
-    font-size: 20px;
-    border: 0;
-}
 
 .actions-buttons {
     background: #5f7a96;
@@ -253,14 +250,15 @@ table#content-container td#id {
 }
 
 /*-----------------------------------------------------------------------------------------*/
-.current-pages-article,
-.current-pages-category,
 .current-pages-article .quark-presence-column,
 .current-pages-category .quark-presence-column,
 #nav-bar-category .quark-presence-column,
 #nav-bar-article .quark-presence-column,
 .navigation-container .quark-presence-column,
-.current-pages {
+.current-pages,
+#category-column,
+#article-column
+{
     margin: 0;
 }
 
@@ -311,16 +309,6 @@ table#content-container td#id {
     padding: 0;
 }
 
-.titles {
-    max-width: 150px;
-    min-width: 150px;
-}
-
-.content-values {
-    word-wrap: break-word;
-    font-size: 15px;
-}
-
 
 .contents, .contents textarea {
     max-width: 150px;
@@ -332,29 +320,31 @@ table#content-container td#id {
     min-width: 200px;
 }
 
-.content-values {
-    font-size: 13px;
-}
-
-.dates {
-    max-width: 80px;
-    min-width: 80px;
-}
-
-.types {
-    max-width: 30px;
-    min-width: 30px;
-}
-
-.actions {
-    max-width: 53px;
-}
-
-.category-row .quark-presence-column,.article-row .quark-presence-column , .category-titles,.article-titles{
+.content-row .quark-presence-column , .category-titles,.article-titles{
     margin: 5px;
     text-align: left;
 }
 .middle{
     max-width: 500px;
+<<<<<<< HEAD:static/Admin/CategoryStructure/style.css
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+}
+.content-actions:hover{
+    text-decoration: none;
+}
+.current-items .quark-presence-column{
+    margin: 5px;
+}
+.current-items .titles{
+    max-width: 200px;
+    min-width: 200px;
+}
+.current-items .ids{
+    max-width: 40px;
+}
+.delimitator{
+    margin: 20px 0 10px 0;
+    border-top: 2px solid grey;
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283:static/Content/CategoryStructure/style.css
 }

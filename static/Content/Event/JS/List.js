@@ -17,8 +17,12 @@ $(document).ready(function(){
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
+<<<<<<< HEAD
         CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+        CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
     });
     $(document).on('dblclick', '.delete-button-event', function(){
         response = prompt('Do you want to delete this y/n ?', '');
@@ -29,21 +33,29 @@ $(document).ready(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
 <<<<<<< HEAD
+<<<<<<< HEAD
                 LoadContent(false, 'event', ShowEvents);
 =======
                 LoadContent(false, 'event', ShowEvents,50);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+                LoadContent(false, 'event', ShowEvents,$('#current-number').val(),50);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
         }
     });
     $(document).on('click', '.content-row', function(){
-        paintRow($(this).attr("id"));
+        paintRow($(this).attr("id"),'');
     });
 <<<<<<< HEAD
 =======
     ////////////////////////////navigation bar//////////////////////////////////////////
+<<<<<<< HEAD
     LoadNavigationBar('event',ShowEvents);
 >>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
+=======
+    LoadNavigationBar('single','event',ShowEvents);
+>>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //function to show categories
 function ShowEvents(response) {
