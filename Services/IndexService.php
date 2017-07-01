@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boagh
- * Date: 17.06.2017
- * Time: 12:58
- */
 
 namespace Services;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
