@@ -23,12 +23,12 @@ $(document).ready(function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,50,'single');
     });
     
-    $(document).on('dblclick', '.delete-button-article', function(){
+    $(document).on('dblclick', '.delete-button-article', function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
-            return false;
+            e.preventDefault();
         } else if (response === 'y') {
-            $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
+            $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'article', ShowArticles,$('#current-number').val(),50);
