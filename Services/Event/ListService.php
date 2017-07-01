@@ -69,9 +69,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 					'id',
 					'name',
 					'startdate'
-				)
-			)
-//		, 'number' =>$event->Count()
+				))
 		);
 	}
 }
