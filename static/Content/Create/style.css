@@ -36,6 +36,17 @@ input[type="text"]::placeholder{
     margin: 0;
     padding: 0;
 }
-.button-div{
+.button-div,#content{
     padding: 0;
+}
+.content{
+    max-width: 550px;
+    width: 550px;
+    max-height: 300px;
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+}
+#content{
+    margin: 10px;
 }
