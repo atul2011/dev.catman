@@ -29,7 +29,7 @@ $(document).ready(function(){
         if (response === 'n') {
             return false;
         } else if (response === 'y') {
-            $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
+            $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'category', ShowCategories,$('#current-number').val(),50);
