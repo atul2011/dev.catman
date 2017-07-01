@@ -5,27 +5,16 @@ namespace Services\Category;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-<<<<<<< HEAD
-use Quark\IQuarkIOProcessor;
-=======
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
-<<<<<<< HEAD
-use Quark\QuarkJSONIOProcessor;
-=======
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Behaviors\AuthorizationBehavior;
-<<<<<<< HEAD
-=======
 use Services\Behaviors\CustomProcessorBehavior;
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use ViewModels\Content\Category\CreateView;
 
 /**
@@ -35,10 +24,7 @@ use ViewModels\Content\Category\CreateView;
  */
 class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkGetService,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
-<<<<<<< HEAD
-=======
 	use CustomProcessorBehavior;
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 
 	/**
 	 * @param QuarkDTO $request
@@ -73,16 +59,4 @@ class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 
 		return QuarkDTO::ForRedirect('/category/list?created=true');
 	}
-<<<<<<< HEAD
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
-	}
-=======
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

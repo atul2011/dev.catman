@@ -7,15 +7,6 @@ use Models\Articles_has_Categories;
 use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-use Quark\IQuarkIOProcessor;
-use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
-use Quark\QuarkCollection;
-use Quark\QuarkDTO;
-use Quark\QuarkJSONIOProcessor;
-use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
@@ -61,11 +52,6 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		 * @var QuarkCollection|Article[] $article
 		 * @var QuarkCollection|Articles_has_Categories $links
 		 */
-
-		$article = QuarkModel::Find(new Article(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50
-		));
-		$orfans = new QuarkCollection(new Article());
 		$limit = 50;
 		$skip = 0;
 		if (isset($request->limit) && ($request->limit !== null))
@@ -115,17 +101,5 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 					'txtfield'
 				)
 			));
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();=
-			),
-			'items' => $orfans->Count()
-		);
 	}
 }

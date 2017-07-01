@@ -6,28 +6,16 @@ use Models\Category;
 use Models\Categories_has_Categories;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-<<<<<<< HEAD
-use Quark\IQuarkIOProcessor;
-=======
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
-<<<<<<< HEAD
-use Quark\QuarkJSONIOProcessor;
-=======
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Behaviors\AuthorizationBehavior;
-<<<<<<< HEAD
-=======
 use Services\Behaviors\CustomProcessorBehavior;
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 use ViewModels\Content\Category\ListView;
 
 /**
@@ -35,14 +23,9 @@ use ViewModels\Content\Category\ListView;
  *
  * @package Services\Categories
  */
-<<<<<<< HEAD
-class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication,IQuarkPostService {
-	use AuthorizationBehavior;
-=======
 class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication, IQuarkPostService {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 
 	/**
 	 * @param QuarkDTO $request
@@ -55,12 +38,6 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		 * @var QuarkCollection|Category[] $category
 		 * @var QuarkCollection|Categories_has_Categories[] $status
 		 */
-<<<<<<< HEAD
-
-		$category = QuarkModel::Find(new Category(), array(), array(
-			QuarkModel::OPTION_LIMIT => 50
-		));
-=======
 		$limit = 50;
 		$skip = 0;
 		if (isset($request->limit) && ($request->limit !== null))
@@ -72,7 +49,6 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 			QuarkModel::OPTION_SKIP => $skip
 		));
 
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 		$orfans = new QuarkCollection(new Category());
 		//define variables that we will get from page.if not we will define default values
 		$model = 'category';
@@ -99,10 +75,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		elseif ($orfan === 'false' && $model === 'none' || $model === 'category') {
 			$orfans = $category;
 		}
-<<<<<<< HEAD
-=======
 
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 		return array(
 			'status' => 200,
 			'response' => $orfans->Extract(array(
@@ -110,14 +83,8 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 					'title',
 					'sub',
 					'intro'
-				)
-<<<<<<< HEAD
-			));
-=======
-			)
-//		, 'number' =>$category->Count()
+				))
 		);
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 	}
 
 	/**
@@ -127,21 +94,8 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-<<<<<<< HEAD
-		return QuarkView::InLayout(new ListView(),new QuarkPresenceControl());
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return IQuarkIOProcessor
-	 */
-	public function Processor (QuarkDTO $request) {
-		return new QuarkJSONIOProcessor();
-=======
 		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
 			'number' => QuarkModel::Count(new Category())
 		));
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 	}
 }
