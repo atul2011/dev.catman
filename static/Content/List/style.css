@@ -95,9 +95,11 @@
     max-width: 190px;
     min-width: 190px;
 }
+
 .actions{
     max-width: 53px;
 }
+
 /*button to add new item*/
 .button-add {
     background: #5f7a96;
