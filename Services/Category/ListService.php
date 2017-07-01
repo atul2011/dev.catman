@@ -83,9 +83,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 					'title',
 					'sub',
 					'intro'
-				)
-			)
-//		, 'number' =>$category->Count()
+				))
 		);
 	}
 
