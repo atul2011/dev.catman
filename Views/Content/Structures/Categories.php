@@ -20,26 +20,18 @@ use Quark\QuarkView;
         </div>
     </Div>
 </div>
-
 <div class="quark-presence-column center buttons-list" id="list-center">
-    <table class="buttons">
-        <tr>
-            <td>
-                <form onsubmit="Link('category');" class="submit-buttons">
-                    <button name="link-category" id="category-link" class="" type="submit"></button>
-                </form>
-            </td>
-        </tr>
-        <tr>
-            <td>
-                <form onsubmit="Link('article');" class="submit-buttons">
-                    <button name="link-article" id="article-link" class="" type="submit"></button>
-                </form>
-            </td>
-        </tr>
-    </table>
+    <div class="quark-presence-container" id="button-link-category">
+        <form onsubmit="Link('category');" class="submit-buttons">
+            <button name="link-category" id="category-link" class="" type="submit"></button>
+        </form>
+    </div>
+    <div class="quark-presence-container" id="button-link-article">
+        <form onsubmit="Link('article');" class="submit-buttons">
+            <button name="link-article" id="article-link" class="" type="submit"></button>
+        </form>
+    </div>
 </div>
-
 <div class="quark-presence-column center tables-container" id="list-right">
     <div class="quark-presence-container presence-block main">
         <form>

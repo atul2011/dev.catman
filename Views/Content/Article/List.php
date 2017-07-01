@@ -9,14 +9,15 @@ use ViewModels\Content\Category\ListView;
 ?>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
-        <form>
-            <ul class="search-list" type="none">
-                <li><input type="checkbox" name="orfan" class="orfan" id="article">No categories linked</li>
-                <li><select id="article-select" class="model-select"></select></li>
-                <li><input type="text" class="search" name="article-search"
-                           placeholder="insert firsts letters of title wich you search"></li>
-            </ul>
-        </form>
+                <div class="quark-presence-column search-list">
+                    <input type="checkbox" name="orfan" class="orfan" id="article">No categories linked
+                </div>
+                <div class="quark-presence-column search-list">
+                    <select id="article-select" class="model-select"></select>
+                </div>
+                <div class="quark-presence-column search-list">
+                    <input type="text" class="search" name="article-search"placeholder="insert firsts letters of title wich you search">
+                </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="article-list">
         <div class="quark-presence-column" id="content-column">

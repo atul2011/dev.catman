@@ -9,12 +9,12 @@ use ViewModels\Content\Category\ListView;
 ?>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
-        <form>
-            <ul class="search-list" type="none">
-                <li><select id="author-select" class="model-select"></select></li>
-                <li><input type="text" class="search" name="author-search" placeholder="insert firsts letters of title wich you search"></li>
-            </ul>
-        </form>
+                <div class="quark-presence-column search-list">
+                    <select id="author-select" class="model-select"></select>
+                </div>
+                <div class="quark-presence-column search-list">
+                    <input type="text" class="search" name="author-search" placeholder="insert firsts letters of title wich you search">
+                </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="author-list">
         <div class="quark-presence-column" id="content-column">
