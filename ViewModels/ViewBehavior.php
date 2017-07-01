@@ -87,7 +87,6 @@ trait ViewBehavior {
 			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/Mechanisms/NavigationBar/script.js') : null,
 			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../static/Content/Mechanisms/Loader/style.css') : null,
 			$this instanceof ILoader ? QuarkGenericViewResource::JS(__DIR__ . '/../static/Content/Mechanisms/Loader/script.js') : null
-			//$this instanceof IListView ? $this->GenericCSS() : null,
 		);
 	}
 }

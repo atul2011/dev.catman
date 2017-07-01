@@ -98,8 +98,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 					'event_id',
 					'txtfield'
 				)
-			),
-			'items' => $orfans->Count()
+			), 'items' => $orfans->Count()
 		);
 	}
 }
