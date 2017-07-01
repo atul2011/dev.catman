@@ -1,16 +1,4 @@
 $(document).ready(function(){
-<<<<<<< HEAD
-    resizeList(120,130);
-    LoadContent(false, 'article', ShowArticles);
-    // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'article', 'title',ShowArticles,50);
-    });
-    //add event listener to checkbox "no parents"
-    $(document).on("change", ".orfan", function(){
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles);
-    });
-=======
     var model_select =
         '<option value="id">ID</option>' +
         '<option value="title">Title</option>' +
@@ -35,7 +23,6 @@ $(document).ready(function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,50,'single');
     });
     
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     $(document).on('dblclick', '.delete-button-article', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -44,33 +31,15 @@ $(document).ready(function(){
             $.ajax({url: "/article/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-<<<<<<< HEAD
-<<<<<<< HEAD
-                LoadContent(false, 'article', ShowArticles);
-            });
-    
-=======
-                LoadContent(false, 'article', ShowArticles,1,50);
-=======
                 LoadContent(false, 'article', ShowArticles,$('#current-number').val(),50);
->>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         }
     });
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });
-<<<<<<< HEAD
-=======
     ////////////////////////////navigation bar//////////////////////////////////////////
-<<<<<<< HEAD
-    LoadNavigationBar('article',ShowArticles);
-
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
-=======
     LoadNavigationBar('single','article',ShowArticles);
->>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //fucntion to show the articles
 function ShowArticles(response){
@@ -83,8 +52,5 @@ function ShowArticles(response){
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#list-content").append(str);
-<<<<<<< HEAD
-=======
     $('#loading-circle').css('display','none');
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

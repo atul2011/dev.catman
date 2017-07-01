@@ -1,11 +1,3 @@
-<<<<<<< HEAD
-<div class="quark-presence-column " id="content-container">
-    <div class="quark-presence-container presence-block">
-        <form action="/articles/search" method="POST">
-            <ul class="search-list" type="none">
-                <li><input type="checkbox" name="orfan" class="orfan" id="article">No categories linked </li>
-                <li><input type="text" class="search" name="article-search" placeholder="insert firsts letters of title wich you search"></li>
-=======
 <?php
 /**
  * @var QuarkView|ListView $this
@@ -17,15 +9,15 @@ use ViewModels\Content\Category\ListView;
 ?>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
-        <form>
-            <ul class="search-list" type="none">
-                <li><input type="checkbox" name="orfan" class="orfan" id="article">No categories linked</li>
-                <li><select id="article-select" class="model-select"></select></li>
-                <li><input type="text" class="search" name="article-search"
-                           placeholder="insert firsts letters of title wich you search"></li>
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
-            </ul>
-        </form>
+                <div class="quark-presence-column search-list">
+                    <input type="checkbox" name="orfan" class="orfan" id="article">No categories linked
+                </div>
+                <div class="quark-presence-column search-list">
+                    <select id="article-select" class="model-select"></select>
+                </div>
+                <div class="quark-presence-column search-list">
+                    <input type="text" class="search" name="article-search"placeholder="insert firsts letters of title wich you search">
+                </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="article-list">
         <div class="quark-presence-column" id="content-column">
@@ -37,17 +29,6 @@ use ViewModels\Content\Category\ListView;
                 <div id="txtfield" class="quark-presence-column  content-titles contents">Content</div>
                 <div id="redaction" class="quark-presence-column  content-titles actions">Actions</div>
             </div>
-<<<<<<< HEAD
-        </div>
-    </div>
-    <br/>
-    <div class="quark-presence-container button-div" id="form-add-button">
-        <div class="quark-presence-column right button-add-column" id="button-add-column">
-            <form action="/article/create" method="GET">
-                <input type="hidden" name="url" id="url">
-                <button type="submit" class=" button-add" onclick="return seturl()">+</button>
-            </form>
-=======
             <div class="loader" id="loading-circle"></div>
         </div>
     </div>
@@ -90,7 +71,6 @@ use ViewModels\Content\Category\ListView;
                     </form>
                 </div>
             </div>
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
         </div>
     </div>
 </div>

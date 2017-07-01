@@ -1,16 +1,4 @@
 $(document).ready(function(){
-<<<<<<< HEAD
-    resizeList(120,55);
-    LoadContent(false, 'category', ShowCategories);
-    // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        CheckSearch(this.value, 'category', 'title',ShowCategories,50);
-    });
-    //add event listener to checkbox "no parents"
-    $(document).on("change", ".orfan", function(){
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories);
-    });
-=======
     var model_select =
         '<option value="id">ID</option>' +
         '<option value="title">Title</option>' +
@@ -36,7 +24,6 @@ $(document).ready(function(){
         noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,50,'single','single');
     });
     
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
     $(document).on('dblclick', '.delete-button-category', function(){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
@@ -45,30 +32,15 @@ $(document).ready(function(){
             $.ajax({url: "/category/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
-<<<<<<< HEAD
-<<<<<<< HEAD
-                LoadContent(false, 'category', ShowCategories);
-=======
-                LoadContent(false, 'category', ShowCategories,50);
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
-=======
                 LoadContent(false, 'category', ShowCategories,$('#current-number').val(),50);
->>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
             });
         }
     });
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });
-<<<<<<< HEAD
-=======
     ////////////////////////////navigation bar//////////////////////////////////////////
-<<<<<<< HEAD
-    LoadNavigationBar('category',ShowCategories);
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
-=======
     LoadNavigationBar('single','category',ShowCategories);
->>>>>>> 0c443798c3d3437785fe0ed756bac941c799f283
 });
 //function to show categories
 function ShowCategories(response) {
@@ -80,8 +52,5 @@ function ShowCategories(response) {
         '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'category') + '</div>' +
         '</div>';
     $("#list-content").append(str);
-<<<<<<< HEAD
-=======
     $('#loading-circle').css('display','none');
->>>>>>> 870b27ccbd3ae15e497f7464e0a2c2e5474356b4
 }

@@ -29,7 +29,6 @@ function setDefaultEvents(model,callback){
         noParents($(this).is(':checked'), model, callback, 50,'multiple');
     });
     $(document).on('dblclick', '.delete-button-'+model, function(e){
-        console.log(1);
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
@@ -45,7 +44,6 @@ function setDefaultEvents(model,callback){
         }
     });
     $(document).on('dblclick', '.special-delete-button-'+model, function(e){
-        console.log(1);
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
@@ -114,9 +112,13 @@ $(document).ready(function(){
     //set max with lo left-list
     $(window).resize(function(){
         $('#list-left').css('max-width',$(this).width()-950);
-        console.log($(this).width()-1000);
     });
     $('#list-left').css('max-width',$(this).width()-950);
+
+    //link-buttons
+    var list_height = $('#list-right').height();
+    $('#button-link-category').css('margin-top',list_height/4);
+    $('#button-link-article').css('margin-top',list_height/2.5);
 });
 //fucntion to show categories
 function ShowCategories(response){
