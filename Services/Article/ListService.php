@@ -4,7 +4,6 @@ namespace Services\Article;
 
 use Models\Article;
 use Models\Articles_has_Categories;
-use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -35,7 +34,6 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl());
 		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(),array(
 			'number'=>QuarkModel::Count(new Article())
 		));
@@ -100,6 +98,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 					'event_id',
 					'txtfield'
 				)
-			));
+			), 'items' => $orfans->Count()
+		);
 	}
 }
