@@ -117,7 +117,6 @@ $(document).ready(function(){
     
     //link-buttons
     var list_height = $('#list-right').height();
-    console.log(list_height);
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
 });
