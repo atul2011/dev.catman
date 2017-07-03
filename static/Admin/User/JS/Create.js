@@ -7,6 +7,7 @@ $(document).ready(function(){
             re_password = $('#re_password'),
             rights = $('#rights'),
             action = $.trim($('.submit-button').text());
+        
         if (login.val() === '') {
             login.val('').addClass('title_null').attr('placeholder', 'Login must be not null');
             e.preventDefault();
