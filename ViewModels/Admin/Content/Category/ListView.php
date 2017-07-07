@@ -1,7 +1,7 @@
 <?php
 
+namespace ViewModels\Admin\Content\Category;
 
-namespace ViewModels\Admin\User;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
@@ -12,34 +12,34 @@ use ViewModels\Admin\Content\Behaviors\ILoader;
 use ViewModels\Admin\Content\Behaviors\INavigationBar;
 use ViewModels\Admin\ViewBehavior;
 
-class ListView implements IQuarkViewModel ,IQuarkPresenceControlViewModel , IQuarkViewModelWithComponents , IQuarkViewModelWithCustomizableLayout ,IListView,INavigationBar,ILoader {
+class ListView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IListView,IQuarkViewModelWithCustomizableLayout,INavigationBar,ILoader {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return  'User List';
+		return 'Categories List';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/User/List';
+		return 'Admin/Content/Category/List';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../static/Admin/User/CSS/List.css';
+		return __DIR__ . '/../../../../static/Admin/Content/Category/CSS/List.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../static/Admin/User/JS/List.js';
+		return __DIR__ . '/../../../../static/Admin/Content/Category/JS/List.js';
 	}
 }
