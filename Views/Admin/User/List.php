@@ -7,7 +7,7 @@
 use Models\User;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Content\Category\ListView;
+use ViewModels\Admin\User\ListView;
 
 ?>
 <div class="quark-presence-column " id="content-container">
@@ -66,7 +66,7 @@ use ViewModels\Content\Category\ListView;
 		<div class="quark-presence-column right">
 			<div class="quark-presence-container button-div" id="form-add-button">
 				<div class="quark-presence-column right button-add-column" id="button-add-column">
-					<form action="/user/create" method="GET">
+					<form action="/admin/user/create" method="GET">
 						<input type="hidden" name="url" id="url">
 						<button type="submit" class="button-add">+</button>
 					</form>

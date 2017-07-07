@@ -1,18 +1,27 @@
 <?php
 
-namespace Services\Admin;
+namespace Services\Admin\Structures;
+
+use Models\Article;
+use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
+use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\User\IndexView;
+use ViewModels\Admin\Content\Structures\CategoriesView;
 
-class IndexService implements IQuarkGetService ,IQuarkServiceWithCustomProcessor ,IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class CategoriesService
+ *
+ * @package Services\Admin
+ */
+class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -20,9 +29,12 @@ class IndexService implements IQuarkGetService ,IQuarkServiceWithCustomProcessor
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
 	 *
-	 * @return mixed
+	 * @return QuarkView
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new IndexView(),new QuarkPresenceControl());
+		return QuarkView::InLayout(new CategoriesView(), new QuarkPresenceControl(),array(
+			'number_categories'=>QuarkModel::Count(new Category()),
+			'number_articles'=>QuarkModel::Count(new Article())
+		));
 	}
 }

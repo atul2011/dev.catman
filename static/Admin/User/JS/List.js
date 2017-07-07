@@ -22,7 +22,7 @@ $(document).ready(function(){
         if (response === 'n') {
             return false;
         } else if (response === 'y') {
-            $.ajax({url: "/user/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
+            $.ajax({url: "/admin/user/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'user', ShowUsers,1,50);
