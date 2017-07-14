@@ -161,10 +161,10 @@ function checkRow(data, type){
         dataGiven = "";
     //define default valuses
     if (type === 'category') {
-        url = "/admin/category/category_relation/";
+        url = "/admin/category/relation/categories/";
     }
     else if (type === 'article') {
-        url = "/admin/category/article_relation/";
+        url = "/admin/category/relation/articles/";
     }
     //if we are in root, we go on in selected category
     if (categoryParentId === "0") {
@@ -270,13 +270,15 @@ function setCategory(id){
 function ListCategory(categoryId){
     removeItems('.current-items');
     if (categoryId === '0')return;
-    $.ajax({url: "/admin/category/Category_Relation/" + categoryId}).then(function(json){
+    $.ajax({url: "/admin/category/relation/categories/" + categoryId}).then(function(json){
+        if (json.status == 404) return false;
         json.children.forEach(function(data){
             showCurrentItems(data, 'category');
         });
         
     });
-    $.ajax({url: "/admin/category/Article_Relation/" + categoryId}).then(function(json){
+    $.ajax({url: "/admin/category/relation/articles/" + categoryId}).then(function(json){
+        if (json.status == 404) return false;
         json.articles.forEach(function(data){
             showCurrentItems(data, 'article');
         });
