@@ -7,7 +7,6 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
-use Quark\Quark;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
@@ -29,7 +28,6 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		Quark::Trace($request->URI()->Route());
 		return array(
 			'status' => 200,
 			'item' => QuarkModel::FindOneById(new Category(), $request->URI()->Route(2))->Extract(
