@@ -7,7 +7,6 @@ use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
-use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use Quark\ViewResources\TwitterBootstrap\TwitterBootstrap;
 use ViewModels\Admin\Content\Behaviors\IListView;
@@ -56,7 +55,6 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	 */
 	public function ViewResources () {
 		return array(
-			new jQueryCore(),
 			new TwitterBootstrap()
 		);
 	}

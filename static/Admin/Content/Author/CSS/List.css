@@ -1,10 +1,6 @@
-.main2{
-    max-width:515px;
-}
-
 .keywords{
-    max-width: 100px;
-    min-width: 100px;
+    max-width: 80px;
+    min-width: 80px;
 }
 .edit-button-author{
     display: none;

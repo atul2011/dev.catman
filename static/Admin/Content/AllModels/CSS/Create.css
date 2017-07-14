@@ -39,14 +39,20 @@ input[type="text"]::placeholder{
 .button-div,#content{
     padding: 0;
 }
-.content{
+.content, .large_text_field{
     max-width: 550px;
     width: 550px;
+}
+.content{
     max-height: 300px;
     text-align: left;
     overflow-x: hidden;
     overflow-y: scroll;
 }
-#content{
-    margin: 10px;
+#content-container{
+    padding: 0;
+    margin: 0;
+}
+#main_div, #content, #second_div{
+    margin: 0;
 }

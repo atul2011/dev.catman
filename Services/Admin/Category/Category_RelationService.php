@@ -38,7 +38,8 @@ class Category_RelationService implements IQuarkGetService, IQuarkServiceWithCus
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'children' => $category->Categories()->Extract()
+			'children' => $category->ChildCategories()->Extract(),
+			'parent' => $category->ParentCategories()->Extract()
 		);
 	}
 }

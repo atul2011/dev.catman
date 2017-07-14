@@ -33,6 +33,18 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 *
 	 * @return mixed
 	 */
+	public function Get (QuarkDTO $request, QuarkSession $session) {
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
+			'number' => QuarkModel::Count(new Category())
+		));
+	}
+
+	/**
+	 * @param QuarkDTO $request
+	 * @param QuarkSession $session
+	 *
+	 * @return mixed
+	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkCollection|Category[] $category
@@ -85,17 +97,5 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 					'intro'
 				))
 		);
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 * @param QuarkSession $session
-	 *
-	 * @return mixed
-	 */
-	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'number' => QuarkModel::Count(new Category())
-		));
 	}
 }

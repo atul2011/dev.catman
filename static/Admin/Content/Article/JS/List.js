@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    var model_select =
+    var fields =
         '<option value="id">ID</option>' +
         '<option value="title">Title</option>' +
         '<option value="release_date">Release Date</option>' +
         '<option value="event_id">Event</option>' +
         '<option value="author_id">Author</option>' +
         '<option value="keywords">Keywords</option>';
-    $('#article-select').append(model_select);
+    $('#article-select').append(fields);
     resizeList(120, 236);
     LoadContent(false, 'article', ShowArticles,1,50,'single');
     // add event listener on input in search bars
@@ -20,7 +20,7 @@ $(document).ready(function(){
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowArticles,50,'single');
+        noParents($(this).is(':checked'), $(this).attr('id').split('-')[0], ShowArticles,50,'single');
     });
     
     $(document).on('dblclick', '.delete-button-article', function(e){
@@ -28,7 +28,7 @@ $(document).ready(function(){
         if (response === 'n') {
             e.preventDefault();
         } else if (response === 'y') {
-            $.ajax({url: "/admin/article/delete/" + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(){
+            $.ajax({url: "/admin/article/delete/" + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'all'}}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'article', ShowArticles,$('#current-number').val(),50);

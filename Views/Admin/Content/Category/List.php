@@ -10,10 +10,10 @@ use ViewModels\Admin\Content\Category\ListView;
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
                 <div class="quark-presence-column search-list">
-                    <input type="checkbox" name="orfan" class="orfan" id="category">No parents
+                    <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
                 </div>
                 <div class="quark-presence-column search-list">
-                    <select id="category-select" class="model-select"></select>
+                    <select id="category-select" class="field-select"></select>
                 </div>
                 <div class="quark-presence-column search-list">
                     <input type="text" class="search" name="category-search" placeholder="insert firsts letters of title wich you search">
@@ -34,29 +34,29 @@ use ViewModels\Admin\Content\Category\ListView;
     <br/>
     <div class="quark-presence-container presence-block" id="list-options">
         <div class="quark-presence-column">
-            <div class="quark-presence-container presence-block" id="nav-bar">
+            <div class="quark-presence-container presence-block" id="navbutton-nav-bar">
                 <form action="" class="navigation_form" method="GET">
                     <input type="hidden" id="number" value="<?php echo $number; ?>">
                     <input type="hidden" id="current-number" value="">
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="first"><<</button>
+                        <button type="submit" class="nav-button" id="navbutton-first"><<</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="prev"><</button>
+                        <button type="submit" class="nav-button" id="navbutton-prev"><</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons" id="space_prev" disabled>...</button>
+                        <button class="nav-button space_buttons" id="navbutton-space_prev" disabled>...</button>
                     </div>
                     <div class="quark-presence-column current-pages">
                     </div>
                     <div class="quark-presence-column">
-                        <button class="nav-button space_buttons" id="space_next" disabled>...</button>
+                        <button class="nav-button space_buttons" id="navbutton-space_next" disabled>...</button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="next">></button>
+                        <button type="submit" class="nav-button" id="navbutton-next">></button>
                     </div>
                     <div class="quark-presence-column">
-                        <button type="submit" class="nav-button" id="last">>></button>
+                        <button type="submit" class="nav-button" id="navbutton-last">>></button>
                     </div>
                 </form>
             </div>
@@ -65,7 +65,6 @@ use ViewModels\Admin\Content\Category\ListView;
             <div class="quark-presence-container button-div" id="form-add-button">
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
                     <form action="/admin/category/create" method="GET">
-                        <input type="hidden" name="url" id="url">
                         <button type="submit" class=" button-add">+</button>
                     </form>
                 </div>

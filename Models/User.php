@@ -3,6 +3,7 @@
 namespace Models;
 
 use Quark\IQuarkAuthorizableModel;
+use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeCreate;
 use Quark\IQuarkModelWithBeforeExtract;
@@ -23,9 +24,9 @@ use Quark\QuarkModel;
  * @property string $email
  * @property string $rights
  *
- * @package Models\Admin
+ * @package AllModels\Admin
  */
-class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomCollectionName, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkModelWithDataProvider, IQuarkAuthorizableModel, IQuarkModelWithDefaultExtract {
+class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomCollectionName, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkModelWithDataProvider, IQuarkAuthorizableModel, IQuarkModelWithDefaultExtract,IQuarkLinkedModel {
 	/**
 	 * @return string
 	 */
@@ -142,5 +143,21 @@ class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomColle
 	public static function Password ($login, $pass) {
 		//hasing the password
 		return sha1($login . md5($login . $pass) . $pass);
+	}
+
+	/**
+	 * @param $raw
+	 *
+	 * @return mixed
+	 */
+	public function Link ($raw) {
+		return QuarkModel::FindOneById(new User(),$raw);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function Unlink () {
+		return (string)$this->id;
 	}
 }

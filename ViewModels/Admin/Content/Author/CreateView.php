@@ -6,7 +6,6 @@ use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
-use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\Content\Behaviors\ICreateView;
@@ -49,9 +48,7 @@ class CreateView implements IQuarkViewModel , IQuarkPresenceControlViewModel , I
 	 */
 	public function ViewResources() {
 		return array(
-			new jQueryCore(),
 			new MediumEditor()
 		);
-
 	}
 }

@@ -16,7 +16,7 @@ use Quark\QuarkModel;
  * @property Category $child_id1
  * @property int  $priority
  *
- * @package Models
+ * @package AllModels
  */
 class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
 	/**

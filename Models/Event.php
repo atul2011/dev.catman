@@ -18,7 +18,7 @@ use Quark\QuarkModel;
  * @property string $name
  * @property QuarkDate $startdate
  *
- * @package Models\Content
+ * @package AllModels\Content
  */
 class Event implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName,IQuarkLinkedModel {
 	/**

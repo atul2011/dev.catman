@@ -36,8 +36,7 @@ function LoadContent(alone, model, callback, skip, limit,state){
     if (isNaN(start))
         start = (parseInt($('#number'+special_model)) - 1) * 50;
     if (model === null || model === undefined) model = 'none';
-    $.ajax({
-               url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit,
+    $.ajax({   url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit,
                data: {orfan: alone, model: model},
                type: 'POST'
            }).then(
@@ -61,8 +60,8 @@ function noParents(alone, model, callback, limit, state){
 function setActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="' + id + '" href="/admin/' + model + '/edit/' + id + '?source=EditContent""></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="' + id + '" "></a>';
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '?source=EditContent""></a>' +
+        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" "></a>';
 }
 //clear all items from left-table
 function removeItems(selector){

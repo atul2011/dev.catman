@@ -3,6 +3,7 @@
 namespace Services\Admin\Author;
 
 use Models\Author;
+use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -53,15 +54,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
-		$model = 'author';
-		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
-		//if is another model, go out
-		if ($model !== 'author') {
-			return array(
-				'status' => 200,
-				'response' => null
-			);
-		}
+
 		return array(
 			'status' => 200,
 			'response' => $author->Extract(array(

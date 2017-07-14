@@ -3,11 +3,14 @@
 namespace Services\Admin\Category;
 
 use Models\Category;
+use Models\Category_has_Tag;
+use Models\Tag;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\Quark;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -28,8 +31,22 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+		/**
+		 * @var QuarkModel|Category $category
+		 */
+		$id = $request->URI()->Route(3);
+		if(!is_numeric($id))
+			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+
+		$category = QuarkModel::FindOneById(new Category(),$id);
+
+		if($category == null)
+			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+
+
 		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
-			'category' => QuarkModel::FindOneById(new Category(), $request->URI()->Route(3))
+			'category' => $category->Extract(),
+			'tags' => $category->getTags()->Extract()
 		));
 	}
 
@@ -48,7 +65,12 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		$category = QuarkModel::FindOneById(new Category(),$id );
 
 		if ($category === null) return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+
 		$category->PopulateWith($request->Data());
+		$request->Data()->tag_list != '' ? $tags = explode(',', $request->Data()->tag_list)
+										 : $tags = array();
+
+		$category->setTags($tags);
 
 		if (!$category->Save())
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);

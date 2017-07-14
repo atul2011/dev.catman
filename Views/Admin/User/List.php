@@ -67,7 +67,6 @@ use ViewModels\Admin\User\ListView;
 			<div class="quark-presence-container button-div" id="form-add-button">
 				<div class="quark-presence-column right button-add-column" id="button-add-column">
 					<form action="/admin/user/create" method="GET">
-						<input type="hidden" name="url" id="url">
 						<button type="submit" class="button-add">+</button>
 					</form>
 				</div>
