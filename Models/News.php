@@ -3,6 +3,7 @@
 namespace Models;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
+use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkDate;
@@ -22,7 +23,14 @@ use Quark\QuarkDate;
  *
  * @package AllModels
  */
-class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract {
+class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	/**
+	 * @return string
+	 */
+	public function CollectionName () {
+		return 'news';
+	}
+
 	/**
 	 * @return mixed
 	 */
