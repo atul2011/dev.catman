@@ -1,8 +1,8 @@
 <?php
 
-namespace Services\Admin\Article;
+namespace Services\Admin\Category\Relation;
 
-use Models\Article;
+use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
@@ -13,11 +13,11 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
 /**
- * Class Category_RelationService
+ * Class ArticlesService
  *
- * @package Services\Article
+ * @package Services\Admin\Category\Relation
  */
-class Category_RelationService implements IQuarkServiceWithCustomProcessor, IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
+class ArticlesService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -29,17 +29,17 @@ class Category_RelationService implements IQuarkServiceWithCustomProcessor, IQua
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkModel|Article $article
+		 * @var QuarkModel|Category $category
 		 */
-		$article = QuarkModel::FindOneById(new Article(), $request->URI()->Route(3));
-		if ($article == null) return array(
+		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(4));
+		if ($category == null) return array(
 			'status' => 404
 		);
 
 		return array(
 			'status' => 200,
-			'article' => $article->Extract(),
-			'categories' => $article->Categories()
+			'category' => $category->Extract(),
+			'articles' => $category->Articles()->Extract()
 		);
 	}
 }
