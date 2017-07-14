@@ -1,0 +1,26 @@
+.main2{
+    max-width: 700px;
+}
+.ids{
+    max-width: 35px;
+    min-width: 35px;
+}
+.content-values {
+    font-size: 13px;
+}
+.events{
+    max-width: 100px;
+    min-width: 100px;
+}
+.titles {
+    max-width: 110px;
+    min-width: 110px;
+}
+.users{
+    max-width: 55px;
+    min-width: 55px;
+}
+.contents , .contents textarea{
+    max-width: 160px;
+    min-width: 160px;
+}

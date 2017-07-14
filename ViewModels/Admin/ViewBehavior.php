@@ -5,6 +5,7 @@ namespace ViewModels\Admin;
 use Quark\IQuarkViewResource;
 use Quark\QuarkGenericViewResource;
 use Quark\QuarkModel;
+use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControlComponent;
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\Content\Behaviors\IListView;
@@ -49,6 +50,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/admin/category/list', 'Category', 'fa-edit')
 		, $this->MenuWidgetItem('/admin/author/list', 'Author', 'fa-edit')
 		, $this->MenuWidgetItem('/admin/event/list', 'Event', 'fa-edit')
+		, $this->MenuWidgetItem('/admin/news/list', 'News', 'fa-edit')
 		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-edit')
 		));
 	}
@@ -79,10 +81,11 @@ trait ViewBehavior {
 	 */
 	public function ViewLayoutResources () {
 		return array(
-			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Create/style.css') : null,
-			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/Create/script.js') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/List/style.css') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/List/script.js') : null,
+			new jQueryCore(),
+			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/AllModels/CSS/Create.css') : null,
+			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/AllModels/JS/Create.js') : null,
+			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/AllModels/CSS/List.css') : null,
+			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/AllModels/JS/List.js') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/style.css') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/script.js') : null,
 			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/Loader/style.css') : null,

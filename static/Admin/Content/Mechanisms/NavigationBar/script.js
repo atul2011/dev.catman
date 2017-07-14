@@ -15,7 +15,7 @@ function LoadNavigationBar(state, model, callback){
         getMaxPages($(this).val(), endpoint, special_model);
     });
     //listener for BACK button
-    $(document).on('click', '#prev' + special_model, function(){
+    $(document).on('click', '#navbutton-prev' + special_model, function(){
         var skip = parseInt($('#current-number' + special_model).val()) - 1;
         ShowLoader(special_model);
         LoadContent(false, model, callback, skip, 50,state);
@@ -23,16 +23,16 @@ function LoadNavigationBar(state, model, callback){
         
     });
     //listener for FORWARD button
-    $(document).on('click', '#next' + special_model, function(){
+    $(document).on('click', '#navbutton-next' + special_model, function(){
         var skip = parseInt($('#current-number' + special_model).val()) + 1;
         ShowLoader(special_model);
         LoadContent(false, model, callback, skip, 50,state);
         getMaxPages(skip, endpoint, special_model);
     });
     //listener for FIRST button
-    setEventToNavButton('#first',1,endpoint,special_model,model,callback,state);
+    setEventToNavButton('#navbutton-first',1,endpoint,special_model,model,callback,state);
     //listener for LAST button
-    setEventToNavButton('#last',endpoint,endpoint,special_model,model,callback,state);
+    setEventToNavButton('#navbutton-last',endpoint,endpoint,special_model,model,callback,state);
 }
 function setEventToNavButton(selector,start,endpoint,special_model,model,callback,state){
     $(document).on('click', selector + special_model, function(){
@@ -56,21 +56,21 @@ function getMaxPages(current, endpoint, special_model){
     endpoint = parseInt(endpoint);
     //is we selected the last page, NEXT,LAST buttons are disabled
     if (current === endpoint) {
-        InactiveButton('#next', special_model);
-        InactiveButton('#last', special_model);
+        InactiveButton('#navbutton-next', special_model);
+        InactiveButton('#navbutton-last', special_model);
     }
     if (current !== endpoint) { //else enabled
-        ActiveButton('#next', special_model);
-        ActiveButton('#last', special_model);
+        ActiveButton('#navbutton-next', special_model);
+        ActiveButton('#navbutton-last', special_model);
     }
     //if we selecterd first page, BACK,FIRST buttons are disabled
     if (current === 1) {
-        InactiveButton('#first', special_model);
-        InactiveButton('#prev', special_model);
+        InactiveButton('#navbutton-first', special_model);
+        InactiveButton('#navbutton-prev', special_model);
     }
     if (current !== 1) {//else enabled
-        ActiveButton('#first', special_model);
-        ActiveButton('#prev', special_model);
+        ActiveButton('#navbutton-first', special_model);
+        ActiveButton('#navbutton-prev', special_model);
     }
     getPages(current, endpoint, special_model);
 }
@@ -99,18 +99,18 @@ function getPages(current, endpoint, special_model){
         //calculte first-button-page
         start = current - 2;
         //calculate
-        if (start > 1) $('#space_prev' + special_model).css('display', 'inline');
+        if (start > 1) $('#navbutton-space_prev' + special_model).css('display', 'inline');
         else if (start <= 1) {
-            $('#space_prev' + special_model).css('display', 'none');
+            $('#navbutton-space_prev' + special_model).css('display', 'none');
             start = 1;
         }
         //calculte last-button-page
         stop = start + 4;
         if (stop >= endpoint) {
-            $('#space_next' + special_model).css('display', 'none');
+            $('#navbutton-space_next' + special_model).css('display', 'none');
             stop = endpoint;
             start = stop - 5;
-        } else if (stop < endpoint) $('#space_next' + special_model).css('display', 'inline');
+        } else if (stop < endpoint) $('#navbutton-space_next' + special_model).css('display', 'inline');
         removeItems('.current-page' + special_model);
     }
     setPages(current, start, stop, special_model);
@@ -125,7 +125,7 @@ function setPages(current, start, stop, special_model){
     //after we get all info aboout pages, we generate HTML with pages
     while (start <= stop) {
         string += '<div class="quark-presence-column  current-page' + special_model + '">' +
-            '<button type="submit" class="nav-button " value="' + start + '" id="' + start + special_model + '">' + start + '</button>' +
+            '<button type="submit" class="nav-button " value="' + start + '" id="navbutton-' + start + special_model + '">' + start + '</button>' +
             '</div>';
         ++start;
     }
@@ -141,5 +141,5 @@ function setCurrentPage(special_model, value){
 }
 function PaintCurrentPage(special_model){
     var id = $('#current-number' + special_model).val();
-    $('#' + id + special_model).addClass('selected-page');
+    $('#navbutton-' + id + special_model).addClass('selected-page');
 }

@@ -7,6 +7,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -45,7 +46,6 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 		 */
 		$limit = 50;
 		$skip = 0;
-		$model = 'event';
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
@@ -54,14 +54,6 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
-		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
-		//if is another model, go out
-		if ($model !== 'event') {
-			return array(
-				'status' => 200,
-				'response' => null
-			);
-		}
 
 		return array(
 			'status' => 200,

@@ -1,7 +1,7 @@
 //function what will run at end of loading of page
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
-var rootPoint = '<div id="0" class="route-points quark-presence-column">></div>';
+var rootPoint = '<div id="route-point-0" class="route-points quark-presence-column">></div>';
 var category_select =
     '<option value="id">ID</option>' +
     '<option value="title">Title</option>' +
@@ -28,16 +28,17 @@ function setDefaultEvents(model,callback){
         $('#loading-circle-'+model).css('display', 'block');
         noParents($(this).is(':checked'), model, callback, 50,'multiple');
     });
+    
     $(document).on('dblclick', '.delete-button-'+model, function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
         } else if (response === 'y') {
-            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(data){
+            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'all'}}).then(function(data){
                 if (data !== null && data !== '')
                     console.log(data);
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id'));
+                setCategory($(".route-points").last().attr('id').split('-')[2]);
             });
         } else {
             return false;
@@ -48,11 +49,10 @@ function setDefaultEvents(model,callback){
         if (response === 'n') {
             e.preventDefault();
         } else if (response === 'y') {
-            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id'), type: "POST",data:{type_of_delete:'link'}}).then(function(data){
+            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'link'}}).then(function(data){
                 if (data !== null && data !== '')
-                    console.log(data);
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id'));
+                setCategory($(".route-points").last().attr('id').split('-')[2]);
             });
         } else {
             return false;
@@ -88,7 +88,7 @@ $(document).ready(function(){
 
 //event listener that will permite redirect when click to route node
     $(document).on("dblclick", '.route-points', function(){
-        routeRedirect($(this).attr('id'));
+        setCategory($(this).attr('id').split('-')[2]);
     });
     //set mouse over and out events to route points
     $(document).on("mouseover", '.route-points', function(){
@@ -98,8 +98,8 @@ $(document).ready(function(){
         $(this).css("background-color", 'white').css("color", 'black');
     });
 // event listener that will permite open category in left table
-    $(document).on("dblclick", ".current-category", function(){
-        openCategory($(this).find("#id").text());
+    $(document).on("dblclick", '.actions-categories', function(){
+        setCategory($(this).attr('id').split('-')[2]);
     });
 //set mouse over and out events to list of items in left table
     $(document).on("mouseover", '.current-category', function(){
@@ -123,11 +123,11 @@ $(document).ready(function(){
 //fucntion to show categories
 function ShowCategories(response){
     str = '<div class="quark-presence-container presence-block content-row-category content-row" id="category-values-' + response.id + '">' +
-        '<div class="category-values quark-presence-column ids" id="id">' + response.id + '</div>' +
-        '<div class="category-values quark-presence-column titles" id="title">' + response.title.substr(0, 70) + '</div>' +
-        '<div class="category-values quark-presence-column types" id="type">' + response.sub + '</div>' +
-        '<div class="category-values quark-presence-column contents" id="content">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</div>' +
-        '<div class="category-values quark-presence-column actions" id="actions">' + setActions(response.id, 'category') + '</div>' +
+        '<div class="category-values quark-presence-column ids" id="category-id-' + response.id + '">' + response.id + '</div>' +
+        '<div class="category-values quark-presence-column titles" id="category-title-' + response.id + '">' + response.title.substr(0, 70) + '</div>' +
+        '<div class="category-values quark-presence-column types" id="category-type-' + response.id + '">' + response.sub + '</div>' +
+        '<div class="category-values quark-presence-column contents" id="category-content-' + response.id + '">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="category-values quark-presence-column actions" id="category-actions-' + response.id + '">' + setActions(response.id, 'category') + '</div>' +
         '</div>';
     $("#category-column").append(str);
     $('#loading-circle-category').css('display', 'none');
@@ -136,25 +136,14 @@ function ShowCategories(response){
 //fucntion to show the articles
 function ShowArticles(response){
     str = '<div class="quark-presence-container presence-block content-row-article content-row" id="article-values-' + response.id + '">' +
-        '<div class="article-values quark-presence-column ids" id="id">' + response.id + '</div>' +
-        '<div class="article-values quark-presence-column titles" id="title">' + response.title.substr(0, 50) + '</div>' +
-        '<div class="article-values quark-presence-column dates" id="date">' + response.release_date + '</div>' +
-        '<div class="article-values quark-presence-column contents" id="content">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
-        '<div class="article-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
+        '<div class="article-values quark-presence-column ids" id="article-id-' + response.id + '">' + response.id + '</div>' +
+        '<div class="article-values quark-presence-column titles" id="article-title-' + response.id + '">' + response.title.substr(0, 50) + '</div>' +
+        '<div class="article-values quark-presence-column dates" id="article-date-' + response.id + '">' + response.release_date + '</div>' +
+        '<div class="article-values quark-presence-column contents" id="article-content-' + response.id + '">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="article-values quark-presence-column actions" id="article-actions-' + response.id + '">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#article-column").append(str);
     $('#loading-circle-article').css('display', 'none');
-}
-
-//function to create an ICon for category as folder
-function setCategoryIcon(){
-    //define icon for category
-    return '<a class="fa actions fa-folder-open actions-categories" id="modify"></a>';
-}
-//function to create an ICon for article as file
-function setArticleIcon(){
-    //define icon for category
-    return '<a class="fa actions  fa-file-text  actions-articles" id="modify"></a>';
 }
 //return height of right div for resizing left div
 function getHeight(){
@@ -166,7 +155,7 @@ function getHeight(){
 //fuction to ceck row
 function checkRow(data, type){
     var
-        categoryParentId = $(".route-points").last().attr('id'),
+        categoryParentId = $(".route-points").last().attr('id').split('-')[2],
         childId = data,
         url = "",
         dataGiven = "";
@@ -233,35 +222,26 @@ function button_none(type){
 function Link(service){
     if ($("#" + service + "-link").attr("class") !== "link-true")
         return;
-    var parentId = $(".route-points").last().attr('id');
-    var childId = $(".selected ." + service + "-values#id").text();
+    var parentId = $(".route-points").last().attr('id').split('-')[2];
+    var childId = $(".selected ." + service + "-values").attr('id').split('-')[2];
     if (parentId === childId && service === "category") {
-        checkResponse(409);
+        checkResponse(409,'');
         return;
     }
     //if is root category and we select service, we show that category
     if ((parentId === "0" ) && (service === "category")) {
-        checkResponse(200, childId, "set", service);
+        checkResponse(200, childId);
         return;
     }
     //if not, we link curent category with current item
-    status = $.ajax({
-                        type: 'POST',
-                        url: "/admin/" + service + "/link",
-                        data: {parent: parentId, child: childId}
-                    }).then(function(json){
-        checkResponse(json.status, json.category, "add");
+    $.ajax({type: 'POST', url: "/admin/" + service + "/link",data: {parent: parentId, child: childId}})
+     .then(function(json){
+        checkResponse(json.status, json.category);
     });
 }
 //function to make decisions after get response message
-function checkResponse(status, id, type){
-    if (status === 200) {
-        if (type === "set") {
-            setCategory(id);
-        } else if (type === "add") {
-            openCategory(id);
-        }
-    }
+function checkResponse(status, id){
+    if (status === 200) setCategory(id);
 }
 //function that set in route the selected category and show all items of this
 function setCategory(id){
@@ -272,11 +252,11 @@ function setCategory(id){
         $("#route-row").append(rootPoint);
     } else {
         $.ajax({type: "GET", url: "/admin/category/" + id}).then(function(json){
-            str = '<div id="' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
+            str = '<div id="route-point-' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
             var status = true;
             //check if that category is already in path
             $(".route-points").each(function(){
-                if ($(this).text() === json.item.title) {
+                if ( $(this).text().substr(0,10) === json.item.title.substr(0,10)) {
                     $(".route-points").remove();
                     $("#route-row").append(rootPoint);
                 }
@@ -290,46 +270,48 @@ function setCategory(id){
 function ListCategory(categoryId){
     removeItems('.current-items');
     if (categoryId === '0')return;
-    var categories = $.ajax({url: "/admin/category/Category_Relation/" + categoryId}).then(function(json){
+    $.ajax({url: "/admin/category/Category_Relation/" + categoryId}).then(function(json){
         json.children.forEach(function(data){
             showCurrentItems(data, 'category');
         });
         
     });
-    var articles = $.ajax({url: "/admin/category/Article_Relation/" + categoryId}).then(function(json){
+    $.ajax({url: "/admin/category/Article_Relation/" + categoryId}).then(function(json){
         json.articles.forEach(function(data){
             showCurrentItems(data, 'article');
         });
     });
 }
-//function that will permite open category from list
-function openCategory(id){
-    setCategory(id);
-}
 //fucntion to show categories
 function showCurrentItems(response, service){
     var setIcon;
     if (service === 'category') {
-        setIcon = setCategoryIcon();
+        setIcon = setCategoryIcon(response.id);
     } else {
-        setIcon = setArticleIcon();
+        setIcon = setArticleIcon(response.id);
     }
     str = '<div id="' + service + '-' + response.id + '" class="quark-presence-container current-items current-' + service + '">' +
-            '<div class="quark-presence-column icons ' + service + '" id="icon">' + setIcon + '</div>' +
-            '<div class="quark-presence-column ids ' + service + '" id="id">' + response.id + '</div>' +
-            '<div class="quark-presence-column titles ' + service + '" id="title">' + response.title + '</div>' +
-            '<div class="quark-presence-column actions ' + service + '" id="actions">' + setSpecialActions(response.id,service) + '</div>' +
+            '<div class="quark-presence-column icons ' + service + '" id="current-category-icon-'+response.id+'">' + setIcon + '</div>' +
+            '<div class="quark-presence-column ids ' + service + '" id="current-category-id-'+response.id+'">' + response.id + '</div>' +
+            '<div class="quark-presence-column titles ' + service + '" id="current-category-title-'+response.id+'">' + response.title + '</div>' +
+            '<div class="quark-presence-column actions ' + service + '" id="current-category-actions-'+response.id+'">' + setSpecialActions(response.id,service) + '</div>' +
           '</div>';
     $("#content-container").append(str);
-}
-//function to redirect to clicked category in root bar
-function routeRedirect(id){
-    setCategory(id);
 }
 //action for management items in left column
 function setSpecialActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="' + id + '" href="/' + model + '/edit/' + id + '?source=EditContent""></a>' +
-        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions "  id="' + id + '" "></a>';
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/' + model + '/edit/' + id + '?source=EditContent""></a>' +
+        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions "  id="current-category-delete-' + id + '" "></a>';
+}
+//function to create an ICon for category as folder
+function setCategoryIcon(id){
+    //define icon for category
+    return '<a class="fa actions fa-folder-open actions-categories" id="category-icon-'+id+'"></a>';
+}
+//function to create an ICon for article as file
+function setArticleIcon(id){
+    //define icon for category
+    return '<a class="fa actions  fa-file-text  actions-articles" id="article-icon-'+id+'"></a>';
 }

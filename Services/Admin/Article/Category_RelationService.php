@@ -39,7 +39,7 @@ class Category_RelationService implements IQuarkServiceWithCustomProcessor, IQua
 		return array(
 			'status' => 200,
 			'article' => $article->Extract(),
-			'categories' => $article->Categories()->Extract()
+			'categories' => $article->Categories()
 		);
 	}
 }

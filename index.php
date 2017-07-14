@@ -13,4 +13,6 @@ $config = new QuarkConfig(__DIR__ . '/runtime/application.ini');
 $config->DataProvider(MP_DATA, new MySQL());
 $config->AllowIndexFallback(true);
 $config->AuthorizationProvider(MP_SESSION,new Session(),new User());
+$config->Localization(__DIR__.'/runtime/localization.ini');
+
 Quark::Run($config);

@@ -1,13 +1,13 @@
 $(document).ready(function(){
-    var model_select =
+    var fields =
         '<option value="id">ID</option>' +
         '<option value="title">Title</option>' +
         '<option value="sub">Type</option>' +
         '<option value="keywords">Keywords</option>' +
         '<option value="priority">Priority</option>';
-    $('#category-select').append(model_select);
+    $('#category-select').append(fields);
     resizeList(120,137);
-    LoadContent(false, 'category', ShowCategories,1,50);
+    LoadContent(false, 'category', ShowCategories,1,50,'single');
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
@@ -21,7 +21,7 @@ $(document).ready(function(){
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
-        noParents($(this).is(':checked'), $(this).attr('id'), ShowCategories,50,'single','single');
+        noParents($(this).is(':checked'), $(this).attr('id').split('-')[0], ShowCategories,50,'single','single');
     });
     
     $(document).on('dblclick', '.delete-button-category', function(){
@@ -29,7 +29,7 @@ $(document).ready(function(){
         if (response === 'n') {
             return false;
         } else if (response === 'y') {
-            $.ajax({url: "/admin/category/delete/" + $(this).attr('id'), type: "POST",data:{type_of_delete:'all'}}).then(function(){
+            $.ajax({url: "/admin/category/delete/" + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'all'}}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'category', ShowCategories,$('#current-number').val(),50);

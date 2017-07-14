@@ -10,6 +10,7 @@ use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkCollection;
 use Quark\QuarkDate;
+use Quark\QuarkDTO;
 use Quark\QuarkModel;
 
 /**
@@ -30,7 +31,7 @@ use Quark\QuarkModel;
  * @property Author  $author_id
  * @property Event   $event_id
  *
- * @package Models
+ * @package AllModels
  */
 class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
     /**
@@ -40,8 +41,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         return array(
             'id' => 0,
             'title' => '',
-            'release_date' => QuarkDate::GMTNow('Y-m-d'),
-            'publish_date' => QuarkDate::GMTNow('Y-m-d'),
+            'release_date' => QuarkDate::GMTNow('d/m/y'),
+            'publish_date' => QuarkDate::GMTNow('d/m/y'),
             'note' => '',
             'resume' => '',
             'txtfield' => '',
@@ -149,4 +150,87 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 
         return $out;
     }
+
+	/**
+	 * @return array|QuarkCollection
+	 */
+    public function getTags(){
+		/**
+		 * @var QuarkCollection|Articles_has_Categories[] $articles
+		 */
+		$articles = QuarkModel::Find(new Article_has_Tag(),array(
+			'article_id' => $this->id
+		));
+
+		$tags = new QuarkCollection(new Tag());
+
+		foreach ($articles as $item) {
+			$tags[] = $item->tag_id;
+		}
+
+		return $tags;
+	}
+
+	public function setTags($tags){
+		foreach ($tags  as $item) {
+			if(trim($item,' ') == '')continue;
+			/**
+			 * @var QuarkModel|Tag $tag
+			 */
+			$tag = QuarkModel::FindOne(new Tag(), array(
+				'name' => $item
+			));
+
+			if ($tag === null) {
+				$tag = new QuarkModel(new Tag());
+				$tag->name = $item;
+
+				if (!$tag->Create())
+					return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			}
+			/**
+			 * @var QuarkModel|Article_has_Tag $article_has_tag
+			 */
+			$article_has_tag = QuarkModel::FindOne(new Article_has_Tag(),array(
+				'article_id' => $this->id,
+				'tag_id' => $tag->id
+			));
+			if($article_has_tag != null) continue;
+
+			$article_has_tag = new QuarkModel(new Article_has_Tag(),array(
+				'article_id' => $this->id,
+				'tag_id' => $tag->id
+			));
+			if(!$article_has_tag->Create())
+				return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+
+		}
+
+		//check if user delete some tags from category
+		/**
+		 * @var QuarkCollection|Article_has_Tag[] $articles
+		 */
+
+		$articles = QuarkModel::Find(new Article_has_Tag(),array(
+			'article_id' => $this->id
+		));
+		$saved_tags = array();
+		foreach ($articles as $item)
+			$saved_tags[] = $item->tag_id->name;
+
+		foreach ($saved_tags as $item) {
+			/**
+			 * @var QuarkModel|Tag $tag
+			 */
+			$tag = QuarkModel::FindOne(new Tag(), array(
+				'name' => $item
+			));
+			if (!in_array($item, $tags)) {
+				QuarkModel::Delete(new Article_has_Tag(), array(
+					'article_id' => $this->id,
+					'tag_id' =>$tag->id
+				));
+			}
+		}
+	}
 }

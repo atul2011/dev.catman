@@ -9,6 +9,8 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
+use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -30,9 +32,20 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$id = $request->URI()->Route(3);
+		if(!is_numeric($id))
+			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+		/**
+		 * @var QuarkModel|Article $article
+		 */
+		$article =  QuarkModel::FindOneById(new Article(),$id);
+
+		if($article == null)
+			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+
 
 		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
-			'article' => QuarkModel::FindOneById(new Article(), $id)
+			'article' => QuarkModel::FindOneById(new Article(), $id),
+			'tags' => $article->getTags()
 		));
 	}
 
@@ -63,6 +76,15 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;
+
+		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->publish_date);
+		$article->release_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->release_date);
+
+		//set tags
+		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)
+			: $tags  = array();
+
+		$article->setTags($tags);
 
 		if (!$article->Save())
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);

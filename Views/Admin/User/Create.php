@@ -18,7 +18,7 @@ if (isset($user)) {
 }
 ?>
 <form method="POST" id="form" action="/admin/user/<?php echo $service; ?>">
-    <div class="quark-presence-column">
+    <div class="quark-presence-column left">
         <div class="quark-presence-container content-container presence-block " id="form-body">
             <div class="quark-presence-column left" id="main_div">
 				<div class="quark-presence-container presence-block middle " id="form-div">

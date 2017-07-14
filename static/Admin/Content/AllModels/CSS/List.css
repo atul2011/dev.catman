@@ -57,17 +57,17 @@
     font-size: 15px;
 }
 
-.contents {
+.contents,.contents textarea  {
     max-width: 190px;
     min-width: 190px;
 }
 
 .contents textarea {
-    min-width: 190px;
-    max-width: 190px;
     text-align: left;
 }
-
+.middle {
+    max-width: 500px;
+}
 .items-list {
     border: 1px solid lightgray;
 }
@@ -87,8 +87,8 @@
 }
 
 .types {
-    max-width: 30px;
-    min-width: 30px;
+    max-width: 35px;
+    min-width: 35px;
 }
 
 .names {

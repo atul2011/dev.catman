@@ -1,12 +1,12 @@
 $(document).ready(function(){
-    var model_select =
+    var fields =
         '<option value="id">ID</option>' +
         '<option value="name">Name</option>' +
         '<option value="type">Type</option>';
-    $('#author-select').append(model_select);
+    $('#author-select').append(fields);
     
     resizeList(120,60);
-    LoadContent(false, 'author', ShowAuthors,1,50);
+    LoadContent(false, 'author', ShowAuthors,1,50,'single');
     
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
@@ -20,7 +20,7 @@ $(document).ready(function(){
         if (response === 'n') {
             return false;
         } else if (response === 'y') {
-            $.ajax({url: "/admin/author/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
+            $.ajax({url: "/admin/author/delete/" + $(this).attr('id').split('-')[2], type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'author', ShowAuthors,$('#current-number').val(),50);

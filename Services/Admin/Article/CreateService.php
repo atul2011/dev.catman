@@ -4,7 +4,9 @@ namespace Services\Admin\Article;
 
 use Models\Article;
 use Models\Author;
+use Models\Category_has_Tag;
 use Models\Event;
+use Models\Tag;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -57,6 +59,12 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkServic
 
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;
+
+		//set tags
+		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)
+			: $tags  = array();
+
+		$article->setTags($tags);
 
 		if (!$article->Create())
 			return QuarkDTO::ForRedirect('/admin/article/create?created=false');

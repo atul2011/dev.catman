@@ -49,7 +49,7 @@ class EditService implements IQuarkPostService, IQuarkServiceWithCustomProcessor
 
 		$event->PopulateWith($request->Data());
 		if(!$event->Save())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/event/list/'.$id.'?edited=false');
 
 		return QuarkDTO::ForRedirect('/admin/event/list/'.$id.'?edited=true');
 	}

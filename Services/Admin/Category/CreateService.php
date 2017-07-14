@@ -3,6 +3,8 @@
 namespace Services\Admin\Category;
 
 use Models\Category;
+use Models\Category_has_Tag;
+use Models\Tag;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -45,7 +47,6 @@ class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Category $category
-		 * @var QuarkCollection|Category $categories
 		 */
 		//ceck if category is already exist
 		$category = QuarkModel::FindOne(new Category(), array(
@@ -54,6 +55,13 @@ class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		if ($category != null)
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
 		$category = new QuarkModel(new Category(), $request->Data());
+
+		//set tags
+		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)
+										 : $tags  = array();
+
+		$category->setTags($tags);
+
 		if (!$category->Create())
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
 

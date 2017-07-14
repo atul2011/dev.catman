@@ -6,12 +6,16 @@ use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
-use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\ViewBehavior;
 
+/**
+ * Class CreateView
+ *
+ * @package ViewModels\Admin\Content\Article
+ */
 class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IQuarkViewModelWithResources,IQuarkViewModelWithCustomizableLayout,ICreateView {
 	use ViewBehavior;
 
@@ -47,9 +51,7 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 */
 	public function ViewResources() {
 		return array(
-			new jQueryCore(),
 			new MediumEditor()
 		);
-
 	}
 }

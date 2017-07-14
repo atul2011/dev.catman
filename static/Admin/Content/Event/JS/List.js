@@ -1,11 +1,11 @@
 $(document).ready(function(){
-    var model_select =
+    var fields =
         '<option value="id">ID</option>' +
         '<option value="name">Name</option>' +
         '<option value="startdate">Start Date</option>';
-    $('#event-select').append(model_select);
+    $('#event-select').append(fields);
     resizeList(120,83);
-    LoadContent(false, 'event', ShowEvents,1,50);
+    LoadContent(false, 'event', ShowEvents,1,50,'single');
     // add event listener on input in search bars
     $(document).on("input", '.search', function(){
         removeItems('.content-row');
@@ -17,7 +17,7 @@ $(document).ready(function(){
         if (response === 'n') {
             return false;
         } else if (response === 'y') {
-            $.ajax({url: "/admin/event/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
+            $.ajax({url: "/admin/event/delete/" + $(this).attr('id').split('-')[2], type: "POST"}).then(function(){
                 removeItems('.content-row');
                 removeItems('.content-values');
                 LoadContent(false, 'event', ShowEvents,$('#current-number').val(),50);

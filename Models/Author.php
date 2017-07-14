@@ -19,7 +19,7 @@ use Quark\QuarkModel;
  * @property string $type
  * @property string $keywords
  *
- * @package Models\Content
+ * @package AllModels\Content
  */
 class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExtract ,IQuarkModelWithDefaultExtract ,IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName,IQuarkLinkedModel {
 	/**

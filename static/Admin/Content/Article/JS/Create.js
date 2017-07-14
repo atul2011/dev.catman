@@ -1,15 +1,15 @@
 $(document).ready(function(){
-    $(document).on("input", '#input_event', function(){
+    $(document).on("input", '#item-event', function(){
         removeItems('#eventlist');
         CheckSearch(this.value, 'event', 'name', 5, 'eventlist');
     });
-    $(document).on("input", '#input_author', function(){
+    $(document).on("input", '#item-author', function(){
         removeItems('#authorlist');
         CheckSearch(this.value, 'author', 'name', 5, 'authorlist');
     });
-    $(document).on("submit",'#form',function(e){
-        var title =$('input#title'),
-            author = $('input#input_author');
+    $(document).on("submit",'#item-form',function(e){
+        var title =$('#item-title'),
+            author = $('input#item-author');
         
         if(title.val()=== ''){
             title.addClass('title_null').attr('placeholder', 'Title must be not null');

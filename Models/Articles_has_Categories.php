@@ -13,7 +13,7 @@ use Quark\IQuarkStrongModel;
  * @property Article $article_id
  * @property Category $category_id
  *
- * @package Models
+ * @package AllModels
  */
 class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract {
     /**
