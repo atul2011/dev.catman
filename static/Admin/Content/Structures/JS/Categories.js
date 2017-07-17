@@ -29,7 +29,7 @@ function setDefaultEvents(model,callback){
         noParents($(this).is(':checked'), model, callback, 50,'multiple');
     });
     
-    $(document).on('dblclick', '.delete-button-'+model, function(e){
+    $(document).on('click', '.delete-button-'+model, function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
@@ -44,7 +44,7 @@ function setDefaultEvents(model,callback){
             return false;
         }
     });
-    $(document).on('dblclick', '.special-delete-button-'+model, function(e){
+    $(document).on('click', '.special-delete-button-'+model, function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
