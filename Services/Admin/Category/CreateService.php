@@ -3,20 +3,15 @@
 namespace Services\Admin\Category;
 
 use Models\Category;
-use Models\Category_has_Tag;
-use Models\Tag;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\Content\Category\CreateView;
 
 /**
@@ -24,9 +19,8 @@ use ViewModels\Admin\Content\Category\CreateView;
  *
  * @package Services\Category
  */
-class CreateService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkGetService,IQuarkAuthorizableServiceWithAuthentication {
+class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
-	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request

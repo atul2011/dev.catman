@@ -3,18 +3,15 @@
 namespace Services\Admin;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
-use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\User\IndexView;
 
-class IndexService implements IQuarkGetService ,IQuarkServiceWithCustomProcessor ,IQuarkAuthorizableServiceWithAuthentication {
+class IndexService implements IQuarkGetService ,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
-	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request

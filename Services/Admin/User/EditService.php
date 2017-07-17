@@ -4,17 +4,14 @@ use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\User\CreateView;
 
-class EditService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
-	use CustomProcessorBehavior;
+class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
 
 	/**
 	 * @param QuarkDTO $request

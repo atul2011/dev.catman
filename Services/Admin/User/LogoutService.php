@@ -5,13 +5,10 @@ namespace Services\Admin\User;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkSession;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 
-class LogoutService implements IQuarkPostService,IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableService {
-	use CustomProcessorBehavior;
+class LogoutService implements IQuarkPostService,IQuarkGetService, IQuarkAuthorizableService {
 	/**
 	 * @param QuarkDTO $request
 	 *

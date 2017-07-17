@@ -5,8 +5,6 @@ use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -14,11 +12,9 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\Content\News\CreateView;
 
-class CreateService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWithCustomProcessor ,IQuarkAuthorizableServiceWithAuthentication {
-	use CustomProcessorBehavior;
+class CreateService implements IQuarkGetService,IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**

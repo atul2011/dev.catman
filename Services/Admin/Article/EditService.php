@@ -8,8 +8,6 @@ use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -17,12 +15,10 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\Content\Article\CreateView;
 
-class EditService implements IQuarkPostService, IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
+class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
-	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request

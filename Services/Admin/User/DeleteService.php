@@ -4,15 +4,11 @@ namespace Services\Admin\User;
 use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
-use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Services\Admin\Behaviors\CustomProcessorBehavior;
 
-class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
-	use CustomProcessorBehavior;
-
+class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	/**
 	 * @param QuarkDTO $request
 	 *
