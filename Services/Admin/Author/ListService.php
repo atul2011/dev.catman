@@ -3,7 +3,6 @@
 namespace Services\Admin\Author;
 
 use Models\Author;
-use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
