@@ -12,7 +12,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Event\CreateView;
+use ViewModels\Admin\Content\Event\EditView;
 
 class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
 	use AuthorizationBehavior;
@@ -24,7 +24,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(),New QuarkPresenceControl(),array(
+		return QuarkView::InLayout(new EditView(),New QuarkPresenceControl(),array(
 			'event'=> QuarkModel::FindOneById(new Event(), $request->URI()->Route(3))
 		));
 	}

@@ -37,7 +37,7 @@ class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkM
      * @return mixed
      */
     public function DataProvider() {
-        return MP_DATA;
+        return CM_DATA;
     }
 
     /**

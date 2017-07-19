@@ -53,7 +53,7 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

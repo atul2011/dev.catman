@@ -16,6 +16,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\Article\CreateView;
+use ViewModels\Admin\Content\Article\EditView;
 
 class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
@@ -39,7 +40,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
 
 
-		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
+		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'article' => QuarkModel::FindOneById(new Article(), $id),
 			'tags' => $article->getTags()
 		));
@@ -84,8 +85,6 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		if (!$article->Save())
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
-		if (isset($request->source) && $request->source === 'EditContent')
-			return QuarkDTO::ForRedirect('/admin/article/list/' . $id . '?edited=true');
 
 		return QuarkDTO::ForRedirect('/admin/structures/categories?edited=article');
 	}

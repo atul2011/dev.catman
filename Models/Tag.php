@@ -38,7 +38,7 @@ class Tag implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

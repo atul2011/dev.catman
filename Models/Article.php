@@ -74,7 +74,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      * @return mixed
      */
     public function DataProvider() {
-        return MP_DATA;
+        return CM_DATA;
     }
 
     /**

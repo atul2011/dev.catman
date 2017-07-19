@@ -11,7 +11,7 @@ trait AuthorizationBehavior {
 	 * @return string
 	 */
 	public function AuthorizationProvider (QuarkDTO $request) {
-		return MP_SESSION;
+		return CM_SESSION;
 	}
 
 	/**

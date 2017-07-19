@@ -36,7 +36,7 @@ class Category_has_Tag implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWit
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

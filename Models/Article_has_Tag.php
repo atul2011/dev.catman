@@ -36,7 +36,7 @@ class Article_has_Tag implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWith
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

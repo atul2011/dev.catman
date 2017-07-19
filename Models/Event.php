@@ -50,7 +50,7 @@ class Event implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvid
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**
