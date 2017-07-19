@@ -1,6 +1,13 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: boagh
+ * Date: 19.07.2017
+ * Time: 10:41
+ */
 
 namespace ViewModels\Admin\Content\Category;
+
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
@@ -11,35 +18,35 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewMode
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\ViewBehavior;
 
-class CreateView implements IQuarkViewModel ,IQuarkPresenceControlViewModel ,IQuarkViewModelWithResources ,IQuarkViewModelWithComponents,IQuarkViewModelWithCustomizableLayout,ICreateView {
+class EditView implements IQuarkViewModel ,IQuarkPresenceControlViewModel ,IQuarkViewModelWithResources ,IQuarkViewModelWithComponents,IQuarkViewModelWithCustomizableLayout,ICreateView {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Category Create';
+		return 'Category Update';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Content/Category/Create';
+		return 'Admin/Content/Category/Edit';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../../static/Admin/Content/Category/CSS/Create.css';
+		return __DIR__ . '/../../../../static/Admin/Content/Category/CSS/Edit.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../../static/Admin/Content/Category/JS/Create.js';
+		return __DIR__ . '/../../../../static/Admin/Content/Category/JS/Edit.js';
 	}
 
 	/**

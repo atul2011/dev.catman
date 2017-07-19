@@ -10,18 +10,11 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
+use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\User\CreateView;
 
 class CreateService implements IQuarkGetService ,IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return string
-	 */
-	public function AuthorizationProvider (QuarkDTO $request) {
-		return MP_SESSION;
-	}
-
+	use AuthorizationBehavior;
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session

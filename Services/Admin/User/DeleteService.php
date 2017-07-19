@@ -7,16 +7,10 @@ use Quark\IQuarkPostService;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Services\Admin\Behaviors\AuthorizationBehavior;
 
 class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return string
-	 */
-	public function AuthorizationProvider (QuarkDTO $request) {
-		return MP_SESSION;
-	}
+	use AuthorizationBehavior;
 
 	/**
 	 * @param QuarkDTO $request

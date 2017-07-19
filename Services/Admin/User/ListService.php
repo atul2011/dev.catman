@@ -13,21 +13,13 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
+use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\User\ListView;
 
 class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use CustomProcessorBehavior;
-
-	/**
-	 * @param QuarkDTO $request
-	 *
-	 * @return string
-	 */
-	public function AuthorizationProvider (QuarkDTO $request) {
-		return MP_SESSION;
-	}
-
+	use AuthorizationBehavior;
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session

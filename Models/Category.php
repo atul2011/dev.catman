@@ -62,7 +62,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return mixed
      */
     public function DataProvider() {
-        return MP_DATA;
+        return CM_DATA;
     }
 
     /**

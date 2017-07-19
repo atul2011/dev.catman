@@ -59,7 +59,7 @@ class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomColle
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

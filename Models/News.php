@@ -40,11 +40,11 @@ class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvide
 			'title' => '0',
 			'type' => '',
 			'text' => '',
-			'publish_date' => QuarkDate::FromFormat('d/m/y'),
+			'publish_date' => QuarkDate::FromFormat('Y-m-d'),
 			'link_url' => '',
 			'link_text' => '',
 			'lastediteby_userid' => new User(),
-			'lastedited_date' => QuarkDate::GMTNow('d/m/y')
+			'lastedited_date' => QuarkDate::GMTNow('Y-m-d')
 		);
 	}
 
@@ -59,7 +59,7 @@ class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvide
 	 * @return string
 	 */
 	public function DataProvider () {
-		return MP_DATA;
+		return CM_DATA;
 	}
 
 	/**

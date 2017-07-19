@@ -6,13 +6,13 @@ use Quark\Quark;
 use Quark\QuarkConfig;
 use Quark\DataProviders\MySQL;
 
-const MP_DATA = 'data';
-const MP_SESSION = 'session';
+const CM_DATA = 'data';
+const CM_SESSION = 'session';
 $config = new QuarkConfig(__DIR__ . '/runtime/application.ini');
 
-$config->DataProvider(MP_DATA, new MySQL());
+$config->DataProvider(CM_DATA, new MySQL());
 $config->AllowIndexFallback(true);
-$config->AuthorizationProvider(MP_SESSION,new Session(),new User());
+$config->AuthorizationProvider(CM_SESSION,new Session(),new User());
 $config->Localization(__DIR__.'/runtime/localization.ini');
 
 Quark::Run($config);

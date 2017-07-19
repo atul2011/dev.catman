@@ -10,34 +10,34 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewMode
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\ViewBehavior;
 
-class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout,ICreateView {
+class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout,ICreateView {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Event Create';
+		return 'Event Edit';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Content/Event/Create';
+		return 'Admin/Content/Event/Edit';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../../static/Admin/Content/Event/CSS/Create.css';
+		return __DIR__ . '/../../../../static/Admin/Content/Event/CSS/Edit.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../../static/Admin/Content/Event/JS/Create.js';
+		return __DIR__ . '/../../../../static/Admin/Content/Event/JS/Edit.js';
 	}
 }

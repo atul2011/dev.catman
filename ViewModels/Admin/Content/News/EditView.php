@@ -1,6 +1,7 @@
 <?php
 
-namespace ViewModels\Admin\Content\Category;
+namespace ViewModels\Admin\Content\News;
+
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
@@ -11,41 +12,46 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewMode
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\ViewBehavior;
 
-class CreateView implements IQuarkViewModel ,IQuarkPresenceControlViewModel ,IQuarkViewModelWithResources ,IQuarkViewModelWithComponents,IQuarkViewModelWithCustomizableLayout,ICreateView {
+/**
+ * Class EditView
+ *
+ * @package ViewModels\Admin\Content\News
+ */
+class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources, IQuarkViewModelWithCustomizableLayout,ICreateView {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Category Create';
+		return 'News Edit';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Content/Category/Create';
+		return 'Admin/Content/News/Edit';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../../static/Admin/Content/Category/CSS/Create.css';
+		return __DIR__.'/../../../../static/Admin/Content/News/CSS/Edit.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../../static/Admin/Content/Category/JS/Create.js';
+		return __DIR__.'/../../../../static/Admin/Content/News/JS/Edit.js';
 	}
 
 	/**
 	 * @return IQuarkViewResource[]
 	 */
-	public function ViewResources() {
+	public function ViewResources () {
 		return array(
 			new MediumEditor()
 		);

@@ -56,3 +56,7 @@ input[type="text"]::placeholder{
 #main_div, #content, #second_div{
     margin: 0;
 }
+.page-title{
+    text-align: left;
+    font-family: "Montserrat",sans-serif;
+}

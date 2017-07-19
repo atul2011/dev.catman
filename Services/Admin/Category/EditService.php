@@ -12,7 +12,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Category\CreateView;
+use ViewModels\Admin\Content\Category\EditView;
 
 class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
@@ -37,7 +37,7 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
 
 
-		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
+		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'category' => $category->Extract(),
 			'tags' => $category->getTags()->Extract()
 		));
