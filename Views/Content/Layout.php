@@ -141,7 +141,6 @@ foreach ($news as $item){
 						<li><a href="#">архив</a></li>
 						<li><a href="#">форум</a></li>
 						<li><a href="#">звезда свободы</a></li>
-						<li><a href="#">C чего начать?</a></li>
 
 					</ul>
 				</div>
