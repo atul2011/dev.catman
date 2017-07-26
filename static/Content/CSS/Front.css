@@ -788,7 +788,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .main-site-menu .category-bottom-item a { color: #792852 }
 
-.slide-menu-open { background: url(/static/Content/resources/Layout/img/menu_icon.png) no-repeat; background-size: contain; height: 17px; width: 20px; color: #fff; display: none; position: absolute; right: 0; margin-left: 10px }
+.slide-menu-open { background: url(/static/Content/resources/img/menu_icon.png) no-repeat; background-size: contain; height: 17px; width: 20px; color: #fff; display: none; position: absolute; right: 0; margin-left: 10px }
 
 .slide-menu-open:hover { color: #fff; text-decoration: underline }
 
@@ -814,7 +814,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .top_mnu li a, h1 { font-family: Comfortaa, cursive; color: #fff }
 
-#custom-search-form button { border: 0; background: url(/static/Content/resources/Layout/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-top: 2px; right: 13px; top: 2px; margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
+#custom-search-form button { border: 0; background: url(/static/Content/resources/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-top: 2px; right: 13px; top: 2px; margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
 
 .search-query:focus + button { z-index: 3 }
 
@@ -828,7 +828,7 @@ h1 { font-size: 48px; font-weight: 700 }
 
 .inner_mnu li a, .item-main-headline, .town_about span { color: #9c4d7e; font-family: Comfortaa, cursive }
 
-section.content { background: url(/static/Content/resources/Layout/img/top_img.png) }
+section.content { background: url(/static/Content/resources/img/top_img.png) }
 
 .inner_mnu { margin: 0; padding: 0; background-color: rgba(255, 255, 255, .5) }
 
@@ -838,7 +838,7 @@ section.content { background: url(/static/Content/resources/Layout/img/top_img.p
 
 .inner_mnu li a { font-size: 14px; font-weight: 700 }
 
-.dropdown { background: url(/static/Content/resources/Layout/img/dots.png) 0 14px no-repeat; width: 20px; height: 20px; background-size: contain }
+.dropdown { background: url(/static/Content/resources/img/dots.png) 0 14px no-repeat; width: 20px; height: 20px; background-size: contain }
 
 .dropdown-content { display: none; position: absolute; z-index: 1; top: 34px; right: 0; background-color: #f9f9f9; -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2); box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2) }
 
