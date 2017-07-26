@@ -43,7 +43,7 @@ class CreateService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 		$ok = $file->UploadTo(__DIR__ . '/../../../storage/banner/' . Quark::GuID());
 
 		if (!$ok)
-			return QuarkDTO::ForRedirect('/admin/banner/create?create=false');
+			return QuarkDTO::ForRedirect('/admin/banner/create?create=none');
 
 		/**
 		 * @var QuarkModel|Banner $banner
