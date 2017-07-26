@@ -33,10 +33,10 @@ $(document).ready(function(){
 //function to show categories
 function ShowEvents(response) {
     str = '<div class="quark-presence-container presence-block content-row" id="event-values-' + response.id + '">' +
-        '<div class="content-values quark-presence-column ids" id="id">' + response.id + '</div>' +
-        '<div class="content-values quark-presence-column names" id="name">' + response.name.substr(0, 70)  + '</div>' +
-        '<div class="content-values quark-presence-column dates" id="date">' + response.startdate + '</div>' +
-        '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'event') + '</div>' +
+        '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
+        '<div class="content-values quark-presence-column names">' + response.name.substr(0, 70)  + '</div>' +
+        '<div class="content-values quark-presence-column dates">' + response.startdate + '</div>' +
+        '<div class="content-values quark-presence-column actions">' + setActions(response.id,'event') + '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');

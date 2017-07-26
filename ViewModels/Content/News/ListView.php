@@ -1,10 +1,4 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boagh
- * Date: 12.07.2017
- * Time: 12:02
- */
 
 namespace ViewModels\Content\News;
 use Quark\IQuarkViewModel;

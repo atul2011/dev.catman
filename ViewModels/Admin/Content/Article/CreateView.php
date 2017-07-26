@@ -23,7 +23,7 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Article Management';
+		return 'Article Create';
 	}
 
 	/**

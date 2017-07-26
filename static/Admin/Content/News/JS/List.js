@@ -37,13 +37,13 @@ $(document).ready(function(){
 //function to show categories
 function ShowNews(response) {
     str = '<div class="quark-presence-container presence-block content-row" id="news-values-' + response.id + '">' +
-        '<div class="content-values quark-presence-column ids" id="item-id-' + response.id + '">' + response.id + '</div>' +
-        '<div class="content-values quark-presence-column titles" id="item-title-' + response.id + '">' + response.title.substr(0, 70)  + '</div>' +
-        '<div class="content-values quark-presence-column types" id="item-type-' + response.id + '">' + response.type + '</div>' +
-        '<div class="content-values quark-presence-column contents" id="item-content-' + response.id + '">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.text.substr(0, 200) + '</textarea>' + '</div>' +
-        '<div class="content-values quark-presence-column users" id="item-user-' + response.id + '">' + response.lastediteby_userid.id + '</div>' +
-        '<div class="content-values quark-presence-column dates" id="item-date-' + response.id + '">' + response.lastedited_date + '</div>' +
-        '<div class="content-values quark-presence-column actions" id="item-actions-' + response.id + '">' + setActions(response.id,'news') + '</div>' +
+        '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
+        '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 70)  + '</div>' +
+        '<div class="content-values quark-presence-column types">' + response.type + '</div>' +
+        '<div class="content-values quark-presence-column contents">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.text.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="content-values quark-presence-column users">' + response.lastediteby_userid.id + '</div>' +
+        '<div class="content-values quark-presence-column dates">' + response.lastedited_date + '</div>' +
+        '<div class="content-values quark-presence-column actions">' + setActions(response.id,'news') + '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');

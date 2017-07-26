@@ -37,23 +37,40 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		 * @var QuarkModel|Event $event
 		 */
 		//ceck if new article is already exist
+
 		$article = QuarkModel::FindOne(new Article(), array(
-			'title' => $request->Data()->title
+			'title' => $request->title
 		));
 		if ($article !== null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/article/create?create=false');
 		//create new article
+
 		$article = new QuarkModel(new Article(), $request->Data());
 
-		$author = QuarkModel::FindOne(new Author(), array(
-			'name' => $request->Data()->author
-		));
-		$event = QuarkModel::FindOne(new Event(), array(
-			'name' => $request->Data()->event
-		));
+		$publish_date = $request->Data()->publishdate;
+		$release_date = $request->Data()->releasedate;
 
-		$article->event_id = $event->id;
-		$article->author_id = $author->id;
+		if($publish_date !== '')
+			$article->publish_date = $publish_date;
+
+		if($release_date !== '')
+			$article->release_date = $release_date;
+
+		if($request->Data()->author !== ''){
+			$author = QuarkModel::FindOne(new Author(), array(
+				'name' => $request->Data()->author
+			));
+
+			$article->author_id = $author->id;
+		}
+
+		if($request->Data()->event !== ''){
+			$event = QuarkModel::FindOne(new Event(), array(
+				'name' => $request->Data()->event
+			));
+
+			$article->event_id = $event->id;
+		}
 
 		//set tags
 		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)

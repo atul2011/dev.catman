@@ -45,7 +45,8 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 	public function ViewResources () {
 		return array(
 			QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Content/CSS/Front.css'),
-			QuarkGenericViewResource::JS(__DIR__ . '/../../static/Content/JS/Front.js')
+			QuarkGenericViewResource::JS(__DIR__ . '/../../static/Content/JS/Front.js'),
+			QuarkGenericViewResource::CSS(__DIR__ . $this->getBackground())
 		);
 	}
 
@@ -100,5 +101,18 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 				QuarkModel::OPTION_LIMIT => 3
 			)
 		);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function getBackground(){
+		$background_container = array();
+		$background_container[0] = '/../../static/Content/CSS/BlueBackground.css';
+		$background_container[1] = '/../../static/Content/CSS/YellowBackground.css';
+		$background_container[2] = '/../../static/Content/CSS/WhiteBackground.css';
+		$background_container[3] = '/../../static/Content/CSS/PinkBackground.css';
+
+		return $background_container[rand(0,3)];
 	}
 }

@@ -41,8 +41,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         return array(
             'id' => 0,
             'title' => '',
-            'release_date' => QuarkDate::GMTNow('d/m/y'),
-            'publish_date' => QuarkDate::GMTNow('d/m/y'),
+            'release_date' => QuarkDate::FromFormat('Y-m-d'),
+            'publish_date' => QuarkDate::FromFormat('Y-m-d'),
             'note' => '',
             'resume' => '',
             'txtfield' => '',

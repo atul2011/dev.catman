@@ -47,7 +47,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 			'title' => $request->Data()->title
 		));
 		if ($category != null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/category/list/create=false');
 		$category = new QuarkModel(new Category(), $request->Data());
 
 		//set tags
@@ -57,7 +57,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 		$category->setTags($tags);
 
 		if (!$category->Create())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/category/list?create=false');
 
 		return QuarkDTO::ForRedirect('/admin/category/list?created=true');
 	}

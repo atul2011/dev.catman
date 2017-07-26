@@ -47,7 +47,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Category[] $category
+		 * @var QuarkCollection|Category[] $categories
 		 * @var QuarkCollection|Categories_has_Categories[] $status
 		 */
 		$limit = 50;
@@ -56,7 +56,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
-		$category = QuarkModel::Find(new Category(), array(), array(
+		$categories = QuarkModel::Find(new Category(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
@@ -76,7 +76,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 			//if is roght model and want orfans, we give orfans
 		}
 		elseif ($orfan === 'true' && $model === 'category') {
-			foreach ($category as $item) {
+			foreach ($categories as $item) {
 				$status = QuarkModel::Count(new Categories_has_Categories(), array(
 					'child_id1' => $item->id
 				));
@@ -85,7 +85,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 			//if is not another model, and do not want orfans, we not gice orfans
 		}
 		elseif ($orfan === 'false' && $model === 'none' || $model === 'category') {
-			$orfans = $category;
+			$orfans = $categories;
 		}
 
 		return array(

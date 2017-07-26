@@ -25,13 +25,13 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Author[] $author
+		 * @var QuarkCollection|Author[] $authors
 		 */
 		$limit = 50;
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
-		$author = QuarkModel::Find(new Author());
-		$out = $author->Select(
+		$authors = QuarkModel::Find(new Author());
+		$out = $authors->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
 			array(
 				QuarkModel::OPTION_LIMIT => $limit

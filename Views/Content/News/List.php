@@ -14,7 +14,7 @@ foreach ($news as $item){
 
 	$item->link_url != '' ? $link_url = $item->link_url : $link_url = '/news/' . $item->id;
 	$i == 1 ? $link_text = $item->link_text :  $link_text = $this->CurrentLocalizationOf('Catman.News.Open');
-	$i == 1 ? $img = '<img src="/static/Content/resources/Layout/img/news-img.png" alt=""><div class="news__description news__wrap clearfix">'
+	$i == 1 ? $img = '<img src="/static/Content/resources/img/news-img.png" alt=""><div class="news__description news__wrap clearfix">'
 			: $img = '<div class="news__description clearfix">';
 	$i == 1 ? $news_text = substr($item->text,0,300) : $news_text = $item->title;
 	if ($news_text == '') $news_text = substr($item->text,0,150);

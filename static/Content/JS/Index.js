@@ -1,3 +1,3 @@
-/**
- * Created by boagh on 14.07.2017.
- */
+$(document).ready(function(){
+    $('.main-page-banner').css('width',$('.item-head').width());
+});

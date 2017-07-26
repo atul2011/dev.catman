@@ -44,12 +44,12 @@ $(document).ready(function(){
 //fucntion to show the articles
 function ShowArticles(response){
     str = '<div class="quark-presence-container presence-block content-row" id="article-values-' + response.id + '">' +
-        '<div class="content-values quark-presence-column ids" id="id">' + response.id + '</div>' +
-        '<div class="content-values quark-presence-column titles" id="title">' + response.title.substr(0, 50) + '</div>' +
-        '<div class="content-values quark-presence-column dates" id="date">' + response.release_date + '</div>' +
-        '<div class="content-values quark-presence-column events" id="event">' + response.event_id.name + '</div>' +
-        '<div class="content-values quark-presence-column contents" id="content">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
-        '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id, 'article') + '</div>' +
+        '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
+        '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 50) + '</div>' +
+        '<div class="content-values quark-presence-column dates">' + response.release_date + '</div>' +
+        '<div class="content-values quark-presence-column events">' + response.event_id.name + '</div>' +
+        '<div class="content-values quark-presence-column contents">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
+        '<div class="content-values quark-presence-column actions">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');
