@@ -41,8 +41,10 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 			'name' => $request->Data()->name
 		));
 		if ($author !== null)
-			return QuarkDTO::ForRedirect('/admin/author/edit?create=false');
+			return QuarkDTO::ForRedirect('/admin/author/edit?create=none');
+
 		$author = new QuarkModel(new Author(), $request->Data());
+
 		if (!$author->Create())
 			return QuarkDTO::ForRedirect('/admin/author/edit?create=false');
 
