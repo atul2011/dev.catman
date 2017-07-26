@@ -29,12 +29,12 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		 */
 		$id = $request->URI()->Route(3);
 		if(!is_numeric($id))
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/category/list?status=404');
 
 		$category = QuarkModel::FindOneById(new Category(),$id);
 
 		if($category == null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/category/list?status=404');
 
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
@@ -66,7 +66,7 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		$category->setTags($tags);
 
 		if (!$category->Save())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/category/list?update=false');
 
 		if(isset($request->source) && $request->source === 'EditContent')
 			return QuarkDTO::ForRedirect('/admin/category/list/'.$id.'?edited=true');

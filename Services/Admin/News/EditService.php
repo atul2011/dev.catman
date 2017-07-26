@@ -42,7 +42,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		$id = $request->URI()->Route(3);
 		$news = QuarkModel::FindOneById(new News(),$id);
 		if($news === null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/news/list?status=404');
 
 		$news->PopulateWith($request->Data());
 		$news->lastedited_date = QuarkDate::GMTNow('Y-m-d');

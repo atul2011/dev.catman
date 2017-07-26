@@ -47,7 +47,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Article[] $article
+		 * @var QuarkCollection|Article[] $articles
 		 * @var QuarkCollection|Articles_has_Categories $links
 		 */
 		$limit = 50;
@@ -57,7 +57,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
 
-		$article = QuarkModel::Find(new Article(), array(), array(
+		$articles = QuarkModel::Find(new Article(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
@@ -77,7 +77,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 			//if is roght model and want orfans, we give orfans
 		}
 		elseif ($orfan === 'true' && $model === 'article') {
-			foreach ($article as $item) {
+			foreach ($articles as $item) {
 				$links = QuarkModel::Count(new Articles_has_Categories(), array(
 					'article_id' => $item->id
 				));
@@ -86,7 +86,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 			//if is not another model, and do not want orfans, we not gice orfans
 		}
 		elseif ($orfan === 'false' && ($model === 'none' || $model === 'article')) {
-			$orfans = $article;
+			$orfans = $articles;
 		}
 
 		return array(

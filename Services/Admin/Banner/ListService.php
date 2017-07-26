@@ -1,23 +1,23 @@
 <?php
 
-namespace Services\Admin\Author;
-
-use Models\Author;
+namespace Services\Admin\Banner;
+use Models\Banner;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\QuarkDTO;
+use Quark\Quark;
 use Quark\QuarkCollection;
+use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Content\Author\ListView;
+use ViewModels\Admin\Content\Banner\ListView;
 
-class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
+class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -28,8 +28,8 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'number' => QuarkModel::Count(new Author())
+		return QuarkView::InLayout(new ListView(),new QuarkPresenceControl(),array(
+			'number' => QuarkModel::Count(new Banner())
 		));
 	}
 
@@ -41,29 +41,23 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Author $authors
+		 * @var QuarkCollection|Banner[] $banners
 		 */
 		$limit = 50;
 		$skip = 0;
-
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
 
-		$authors = QuarkModel::Find(new Author(), array(), array(
+		$banners = QuarkModel::Find(new Banner(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
 
 		return array(
 			'status' => 200,
-			'response' => $authors->Extract(array(
-				'id',
-				'name',
-				'type',
-				'keywords'
-			))
+			'response' => $banners->Extract()
 		);
 	}
 }

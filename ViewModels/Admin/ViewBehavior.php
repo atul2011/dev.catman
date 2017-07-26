@@ -52,6 +52,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/admin/event/list', 'Event', 'fa-edit')
 		, $this->MenuWidgetItem('/admin/news/list', 'News', 'fa-edit')
 		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-edit')
+		, $this->MenuWidgetItem('/admin/banner/list', 'Banner', 'fa-edit')
 		));
 	}
 
@@ -82,10 +83,10 @@ trait ViewBehavior {
 	public function ViewLayoutResources () {
 		return array(
 			new jQueryCore(),
-			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/AllModels/CSS/Create.css') : null,
-			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/AllModels/JS/Create.js') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/AllModels/CSS/List.css') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/AllModels/JS/List.js') : null,
+			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/Create.css') : null,
+			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/JS/Create.js') : null,
+			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/List.css') : null,
+			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/JS/List.js') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/style.css') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/script.js') : null,
 			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/Loader/style.css') : null,

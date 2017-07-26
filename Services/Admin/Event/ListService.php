@@ -42,7 +42,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|Event $event
+		 * @var QuarkCollection|Event $events
 		 */
 		$limit = 50;
 		$skip = 0;
@@ -50,14 +50,14 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
-		$event = QuarkModel::Find(new Event(), array(), array(
+		$events = QuarkModel::Find(new Event(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
 
 		return array(
 			'status' => 200,
-			'response' => $event->Extract(array(
+			'response' => $events->Extract(array(
 					'id',
 					'name',
 					'startdate'

@@ -39,12 +39,12 @@ $(document).ready(function(){
 //function to show categories
 function ShowUsers(response) {
     str = '<div class="quark-presence-container presence-block content-row" id="user-values-' + response.id + '">' +
-        '<div class="content-values quark-presence-column ids" id="id">' + response.id + '</div>' +
-        '<div class="content-values quark-presence-column logins" id="login">' + response.login + '</div>' +
-        '<div class="content-values quark-presence-column names" id="name">' + response.name + '</div>' +
-        '<div class="content-values quark-presence-column emails" id="email">' + response.email + '</div>' +
-        '<div class="content-values quark-presence-column rights" id="rights">' + response.rights + '</div>' +
-        '<div class="content-values quark-presence-column actions" id="actions">' + setActions(response.id,'user') + '</div>' +
+        '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
+        '<div class="content-values quark-presence-column logins">' + response.login + '</div>' +
+        '<div class="content-values quark-presence-column names">' + response.name + '</div>' +
+        '<div class="content-values quark-presence-column emails">' + response.email + '</div>' +
+        '<div class="content-values quark-presence-column rights">' + response.rights + '</div>' +
+        '<div class="content-values quark-presence-column actions">' + setActions(response.id,'user') + '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');

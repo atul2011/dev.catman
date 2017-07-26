@@ -7,7 +7,7 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Article\CreateView;
 ?>
 <h1 class="page-title">Add new Article</h1>
-<form method="POST" id="item-form"action="/admin/article/create">
+<form method="POST" id="item-form" action="/admin/article/create">
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">
             <div class="quark-presence-column left" id="main_div">
@@ -18,7 +18,7 @@ use ViewModels\Admin\Content\Article\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Release Date</p>
-                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="release_date" id="item-release">
+                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="releasedate" id="item-release">
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block  middle">
@@ -49,7 +49,7 @@ use ViewModels\Admin\Content\Article\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Publish Date</p>
-                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="publish_date" id="item-publish">
+                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="publishdate" id="item-publish">
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block  middle">

@@ -1,5 +1,6 @@
 <?php
 use Models\Categories_has_Categories;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkView;
 use ViewModels\Content\LayoutView;
@@ -51,7 +52,7 @@ foreach ($news as $item){
 	$link_text= '';
     $item->link_url != '' ? $link_url = $item->link_url : $link_url = '/news/' . $item->id;
     $item->link_text != '' ? $link_text = $item->link_text :  $link_text = $this->CurrentLocalizationOf('Catman.News.Open');
-
+    Quark::Trace($item->text);
 	$news_item ='<div class="news">'.
 		'<div class="news__main">'.
             '<div class="news__description news__wrap clearfix">'.
@@ -62,7 +63,7 @@ foreach ($news as $item){
                 '</div>'.
                 '<div class="news__content">'.
                     '<span>'.
-                        substr($item->text,0,100).
+                        substr(trim($item->text,' '),0,100).
                     '</span>'.
                 '</div>'.
                 '<div class="news__more">'.
@@ -89,10 +90,10 @@ foreach ($news as $item){
     <meta name="msapplication-navbutton-color" content="#000">
     <meta name="apple-mobile-web-app-status-bar-style" content="#000">
 
-	<link rel="shortcut icon" href="/static/Content/resources/Layout/img/favicon/favicon.ico" type="image/x-icon">
-	<link rel="apple-touch-icon" href="/static/Content/resources/Layout/img/favicon/apple-touch-icon.png">
-	<link rel="apple-touch-icon" sizes="72x72" href="/static/Content/resources/Layout/img/favicon/apple-touch-icon-72x72.png">
-	<link rel="apple-touch-icon" sizes="114x114" href="/static/Content/resources/Layout/img/favicon/apple-touch-icon-114x114.png">
+	<link rel="shortcut icon" href="/static/Content/resources/img/favicon/favicon.ico" type="image/x-icon">
+	<link rel="apple-touch-icon" href="/static/Content/resources/img/favicon/apple-touch-icon.png">
+	<link rel="apple-touch-icon" sizes="72x72" href="/static/Content/resources/img/favicon/apple-touch-icon-72x72.png">
+	<link rel="apple-touch-icon" sizes="114x114" href="/static/Content/resources/img/favicon/apple-touch-icon-114x114.png">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Open+Sans:300,400,600,600i,700" rel="stylesheet">
     <?php echo $this->Resources();?>
     <title id="page-title"></title>
@@ -107,7 +108,7 @@ foreach ($news as $item){
 		<div class="row">
 			<div class="col-lg-9 col-md-9" id="nav-bar-menu">
 				<ul class="top_mnu" id="nav-bar-menu-list">
-					<li><a href="/" class="home"><img src="/static/Content/resources/Layout/img/home.png" alt=""></a></li>
+					<li><a href="/" class="home"><img src="/static/Content/resources/img/home.png" alt=""></a></li>
 					<li><a href="#">о сайте</a></li>
 					<li><a href="#">книги</a></li>
 					<li><a href="#">архив</a></li>

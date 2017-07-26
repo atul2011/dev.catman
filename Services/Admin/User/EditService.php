@@ -58,11 +58,11 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		$id=$request->URI()->Route(3);
 		$event = QuarkModel::FindOneById(new User(),$id);
 		if($event === null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/user/list?status=404');
 
 		$event->PopulateWith($request->Data());
 		if(!$event->Save())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/user/list?update=false');
 
 		return QuarkDTO::ForRedirect('/admin/user/list/'.$id.'?edited=true');
 	}

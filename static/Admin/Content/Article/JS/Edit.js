@@ -8,15 +8,10 @@ $(document).ready(function(){
         CheckSearch(this.value, 'author', 'name', 5, 'authorlist');
     });
     $(document).on("submit",'#item-form',function(e){
-        var title =$('#item-title'),
-            author = $('input#item-author');
+        var title =$('#item-title');
         
         if(title.val()=== ''){
             title.addClass('title_null').attr('placeholder', 'Title must be not null');
-            e.preventDefault();
-        }
-        if(author.val()=== ''){
-            author.addClass('title_null').attr('placeholder', 'Author must be not null');
             e.preventDefault();
         }
     });

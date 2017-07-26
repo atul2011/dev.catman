@@ -29,15 +29,16 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$id = $request->URI()->Route(3);
+
 		if(!is_numeric($id))
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/article/list?status=404');
 		/**
 		 * @var QuarkModel|Article $article
 		 */
 		$article =  QuarkModel::FindOneById(new Article(),$id);
 
 		if($article == null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkDTO::ForRedirect('/admin/article/list?status=404');
 
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
@@ -74,6 +75,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;
 
+
 		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->publish_date);
 		$article->release_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->release_date);
 
@@ -84,8 +86,8 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article->setTags($tags);
 
 		if (!$article->Save())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/article/list?update=false');
 
-		return QuarkDTO::ForRedirect('/admin/structures/categories?edited=article');
+		return QuarkDTO::ForRedirect('/admin/article/list?update=true');
 	}
 }

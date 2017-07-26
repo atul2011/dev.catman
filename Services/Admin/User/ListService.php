@@ -63,7 +63,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkCollection|User $user
+		 * @var QuarkCollection|User $users
 		 */
 		$limit = 50;
 		$skip = 0;
@@ -71,7 +71,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 			$limit = $request->limit;
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
-		$user = QuarkModel::Find(new User(), array(), array(
+		$users = QuarkModel::Find(new User(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
@@ -87,7 +87,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 
 		return array(
 			'status' => 200,
-			'response' => $user->Extract(array(
+			'response' => $users->Extract(array(
 				'id',
 				'name',
 				'type',

@@ -40,11 +40,14 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 		$event = QuarkModel::FindOne(new Event(), array(
 			'name' => $request->Data()->name
 		));
+
 		if ($event !== null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/event/list?create=false');
+
 		$event = new QuarkModel(new Event(), $request->Data());
+
 		if (!$event->Create())
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
+			return QuarkDTO::ForRedirect('/admin/event/list?create=false');
 
 		return QuarkDTO::ForRedirect('/admin/event/list?create=true');
 	}
