@@ -38,6 +38,7 @@ class LoginService implements IQuarkGetService ,IQuarkPostService ,IQuarkAuthori
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		if(!$session->Login($request,10))
 			return new QuarkView(new LoginView());
+
 		return QuarkDTO::ForRedirect('/admin/user/');
 	}
 }

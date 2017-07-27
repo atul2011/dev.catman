@@ -38,6 +38,7 @@ class CreateService implements IQuarkGetService,IQuarkPostService, IQuarkAuthori
 		 * @var QuarkModel|News $news
 		 */
 		$news = new QuarkModel(new News(),$request->Data());
+
 		$news->lastediteby_userid = $session->User()->id;
 		$news->lastedited_date = QuarkDate::GMTNow();
 

@@ -29,7 +29,9 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$limit = 50;
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		$news= QuarkModel::Find(new News());
+
 		$out = $news->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
 			array(

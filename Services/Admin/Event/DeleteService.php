@@ -23,9 +23,12 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 		 * @var QuarkModel|Event $event
 		 */
 		$id = $request->URI()->Route(3);
+
 		$event = QuarkModel::FindOneById(new Event(), $id);
+
 		if (!$event->Remove())
 			return QuarkDTO::ForRedirect('/admin/event/list?deleted=false');
+
 		return QuarkDTO::ForRedirect('/admin/event/list?deleted=true');
 	}
 }
