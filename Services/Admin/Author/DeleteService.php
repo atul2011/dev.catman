@@ -24,7 +24,9 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 		 * @var QuarkModel|Author $author
 		 */
 		$id = $request->URI()->Route(3);
+
 		$author = QuarkModel::FindOneById(new Author(), $id);
+
 		if (!$author->Remove())
 			QuarkDTO::ForRedirect('/admin/author/list?deleted=false&id=' . $id);
 

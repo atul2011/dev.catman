@@ -304,7 +304,7 @@ function showCurrentItems(response, service){
 function setSpecialActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/' + model + '/edit/' + id + '?source=EditContent""></a>' +
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/' + model + '/edit/' + id + '""></a>' +
         '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions "  id="current-category-delete-' + id + '" "></a>';
 }
 //function to create an ICon for category as folder

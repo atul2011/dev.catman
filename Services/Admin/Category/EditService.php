@@ -13,6 +13,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\Category\EditView;
+use ViewModels\Admin\Status\NotFoundView;
 
 class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
@@ -29,12 +30,16 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		 */
 		$id = $request->URI()->Route(3);
 		if(!is_numeric($id))
-			return QuarkDTO::ForRedirect('/admin/category/list?status=404');
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'Category'
+			));
 
 		$category = QuarkModel::FindOneById(new Category(),$id);
 
 		if($category == null)
-			return QuarkDTO::ForRedirect('/admin/category/list?status=404');
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'Category'
+			));
 
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(

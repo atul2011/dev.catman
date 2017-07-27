@@ -13,6 +13,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\News\EditView;
+use ViewModels\Admin\Status\NotFoundView;
 
 class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
 	use AuthorizationBehavior;
@@ -41,8 +42,11 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		 */
 		$id = $request->URI()->Route(3);
 		$news = QuarkModel::FindOneById(new News(),$id);
+
 		if($news === null)
-			return QuarkDTO::ForRedirect('/admin/news/list?status=404');
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'News'
+			));
 
 		$news->PopulateWith($request->Data());
 		$news->lastedited_date = QuarkDate::GMTNow('Y-m-d');

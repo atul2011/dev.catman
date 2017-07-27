@@ -60,7 +60,7 @@ function noParents(alone, model, callback, limit, state){
 function setActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '?source=EditContent""></a>' +
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '""></a>' +
         '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" "></a>';
 }
 //clear all items from left-table

@@ -52,21 +52,27 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		 */
 		$limit = 50;
 		$skip = 0;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
+
 		$categories = QuarkModel::Find(new Category(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
 
 		$orfans = new QuarkCollection(new Category());
+
 		//define variables that we will get from page.if not we will define default values
 		$model = 'category';
 		$orfan = false;
+
 		if (isset($request->Data()->orfan)) $orfan = $request->Data()->orfan;
 		if (isset($request->Data()->model)) $model = $request->Data()->model;
+
 		//if is another model, go out
 		if ($model !== 'none' && $model !== 'category') {
 			return array(

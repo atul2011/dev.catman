@@ -13,8 +13,9 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\Event\EditView;
+use ViewModels\Admin\Status\NotFoundView;
 
-class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
+class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication, IQuarkGetService {
 	use AuthorizationBehavior;
 
 	/**
@@ -41,8 +42,11 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		 */
 		$id=$request->URI()->Route(3);
 		$event = QuarkModel::FindOneById(new Event(),$id);
+
 		if($event === null)
-			return QuarkDTO::ForRedirect('/admin/event/list?status=404');
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'Event'
+			));
 
 		$event->PopulateWith($request->Data());
 		if(!$event->Save())

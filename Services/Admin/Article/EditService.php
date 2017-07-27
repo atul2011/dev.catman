@@ -17,6 +17,7 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\Article\CreateView;
 use ViewModels\Admin\Content\Article\EditView;
+use ViewModels\Admin\Status\NotFoundView;
 
 class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
@@ -31,14 +32,16 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$id = $request->URI()->Route(3);
 
 		if(!is_numeric($id))
-			return QuarkDTO::ForRedirect('/admin/article/list?status=404');
+			return QuarkDTO::ForRedirect('/admin/article/list?status=400');
 		/**
 		 * @var QuarkModel|Article $article
 		 */
 		$article =  QuarkModel::FindOneById(new Article(),$id);
 
 		if($article == null)
-			return QuarkDTO::ForRedirect('/admin/article/list?status=404');
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'Article'
+			));
 
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
@@ -61,8 +64,12 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		 */
 		$id = $request->URI()->Route(3);
 		$article = QuarkModel::FindOneById(new Article(), $id);
+
 		if ($article === null)
-			return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
+				'model' => 'Article'
+			));
+
 		$article->PopulateWith($request->Data());
 
 		$author = QuarkModel::FindOne(new Author(), array(

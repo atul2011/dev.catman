@@ -30,7 +30,9 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$limit = 50;
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		$events = QuarkModel::Find(new Event());
+
 		$out = $events->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
 			array(
@@ -45,7 +47,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					'name',
 					'type',
 					'keywords'
-				)
-			));
+				))
+		);
 	}
 }

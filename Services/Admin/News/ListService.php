@@ -50,10 +50,13 @@ class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWi
 		 */
 		$limit = 50;
 		$skip = 0;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
+
 		$news = QuarkModel::Find(new News(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
