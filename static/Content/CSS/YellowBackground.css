@@ -1,3 +1,5 @@
 .main-section{
-    background: url('/static/Content/resources/img/bg_yellow.png') rgb(253,226,193) no-repeat;
+    background: url('/static/Content/resources/img/bg_yellow.png') rgb(253,226,193) no-repeat center;
+    background-size: cover;
+
 }

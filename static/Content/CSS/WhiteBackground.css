@@ -1,3 +1,4 @@
 .main-section{
-    background: url('/static/Content/resources/img/bg_white.png') #FFFFFF no-repeat;
+    background: url('/static/Content/resources/img/bg_white.png') #FFFFFF no-repeat center;
+    background-size: cover;
 }
