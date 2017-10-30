@@ -34,7 +34,7 @@ trait ViewBehavior {
 	 */
 	public function PresenceMenuHeader () {
 		return $this->MenuHeaderWidget(array(
-				$this->MenuWidgetItem('/', ' statistic', 'fa-area-chart')
+//				$this->MenuWidgetItem('/', ' statistic', 'fa-area-chart')
 			)) . $this->SearchWidget('/admin/articles/link', 'POST', 'search', '')
 			. $this->MenuWidgetItem('/admin/user/logout', 'SignOut', ' fa-sign-ou');
 	}
