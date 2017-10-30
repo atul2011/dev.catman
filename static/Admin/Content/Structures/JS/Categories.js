@@ -2,12 +2,14 @@
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 var rootPoint = '<div id="route-point-' + root_id + '" class="route-points quark-presence-column">' + root_name + '</div>';
+
 var category_select =
     '<option value="id">ID</option>' +
     '<option value="title">Title</option>' +
     '<option value="sub">Type</option>' +
     '<option value="keywords">Keywords</option>' +
     '<option value="priority">Priority</option>';
+
 var article_select =
     '<option value="id">ID</option>' +
     '<option value="title">Title</option>' +
@@ -75,6 +77,8 @@ $(document).ready(function(){
 
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
+
+    setCategory($(this).attr('id').split('-')[2]);
     //load selects with columns of models
     $('#category-select').append(category_select);
     $('#article-select').append(article_select);
