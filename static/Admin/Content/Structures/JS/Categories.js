@@ -40,7 +40,7 @@ function setDefaultEvents(model,callback){
                 if (data !== null && data !== '')
                     console.log(data);
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2], '');
+                setCategory($(".route-points").last().attr('id').split('-')[2]);
             });
         } else {
             return false;
@@ -54,7 +54,7 @@ function setDefaultEvents(model,callback){
             $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'link'}}).then(function(data){
                 if (data !== null && data !== '')
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2], '');
+                setCategory($(".route-points").last().attr('id').split('-')[2]);
             });
         } else {
             return false;
@@ -78,7 +78,7 @@ $(document).ready(function(){
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
 
-    setCategory(root_id, 'on-load');
+    setCategory(root_id);
 
     //load selects with columns of models
     $('#category-select').append(category_select);
@@ -93,7 +93,7 @@ $(document).ready(function(){
 
 //event listener that will permite redirect when click to route node
     $(document).on("dblclick", '.route-points', function(){
-        setCategory($(this).attr('id').split('-')[2], '');
+        setCategory($(this).attr('id').split('-')[2]);
     });
     //set mouse over and out events to route points
     $(document).on("mouseover", '.route-points', function(){
@@ -104,7 +104,7 @@ $(document).ready(function(){
     });
 // event listener that will permite open category in left table
     $(document).on("dblclick", '.actions-categories', function(){
-        setCategory($(this).attr('id').split('-')[2], '');
+        setCategory($(this).attr('id').split('-')[2]);
     });
 //set mouse over and out events to list of items in left table
     $(document).on("mouseover", '.current-category', function(){
@@ -248,35 +248,32 @@ function Link(service){
 }
 //function to make decisions after get response message
 function checkResponse(status, id){
-    if (status === 200) setCategory(id, '');
+    if (status === 200) setCategory(id);
 }
 //function that set in route the selected category and show all items of this
-function setCategory(id, type){
+function setCategory(id){
     button_none('category');
     button_none('article');
-    if (type !== 'on-load' && id === root_id) {
-        removeItems('.route-points');
-        $("#route-row").append(rootPoint);
-    } else {
-        $.ajax({type: "GET", url: "/admin/category/" + id}).then(function(json){
-            str = '<div id="route-point-' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
-            var status = true;
-            //check if that category is already in path
-            $(".route-points").each(function(){
-                if ( $(this).text().substr(0,10) === json.item.title.substr(0,10)) {
-                    $(".route-points").remove();
-                    $("#route-row").append(rootPoint);
-                }
-            });
-            $("#route-row").append(str);
+
+    $.ajax({type: "GET", url: "/admin/category/" + id}).then(function(json){
+        str = '<div id="route-point-' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
+
+        $(".route-points").each(function(){//check if that category is already in path
+            if ($(this).text().substr(0,10) === json.item.title.substr(0,10)) {
+                $(".route-points").remove();
+                $("#route-row").append(rootPoint);
+            }
         });
-    }
+
+        $("#route-row").append(str);
+    });
+
     ListCategory(id);
 }
 //function to load in left table data about category
 function ListCategory(categoryId){
     removeItems('.current-items');
-    if (categoryId === root_id)return;
+
     $.ajax({url: "/admin/category/relation/categories/" + categoryId}).then(function(json){
         if (json.status === 404) return false;
         json.children.forEach(function(data){
@@ -295,7 +292,7 @@ function ListCategory(categoryId){
 function showCurrentItems(response, service){
     var setIcon;
     if (service === 'category') {
-        setIcon = setCategoryIcon(response.id, '');
+        setIcon = setCategoryIcon(response.id);
     } else {
         setIcon = setArticleIcon(response.id);
     }
