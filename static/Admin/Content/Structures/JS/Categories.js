@@ -124,7 +124,7 @@ $(document).ready(function(){
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
 
-    setCategory($(this).attr('id').split('-')[2]);
+    setCategory($('.route-points').last().attr('id').split('-')[2]);
 });
 
 //fucntion to show categories
