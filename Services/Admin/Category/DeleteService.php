@@ -48,6 +48,9 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if ($category == null)
 			return array('status' => 404);
 
+		if (!$category->Remove())
+			return array('status' => 500);
+
 		try {
 			QuarkModel::Delete(new Categories_has_Categories(), array('child_id1' => $id));
 
@@ -55,9 +58,6 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				QuarkModel::Delete(new Categories_has_Categories(), array('parent_id' => $id));
 				QuarkModel::Delete(new Articles_has_Categories(), array('category_id' => $id));
 			}
-
-			if (!$category->Remove());
-				return array('status' => 500);
 		}
 		catch (Exception $e) {
 			return $e;
