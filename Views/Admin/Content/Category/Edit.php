@@ -1,9 +1,4 @@
 <?php
-/**
- * @var QuarkView|CreateView $this
- * @var QuarkModel|Category $category
- * @var QuarkCollection|Tag[] $tags
- */
 use Models\Category;
 use Models\Tag;
 use Quark\QuarkCollection;
@@ -11,6 +6,11 @@ use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\CreateView;
 
+/**
+ * @var QuarkView|CreateView $this
+ * @var QuarkModel|Category $category
+ * @var QuarkCollection|Tag[] $tags
+ */
 ?>
 <h2 class="page-title">Update Selected Category</h2>
 <h5>Insert data for update selected category</h5>
@@ -23,17 +23,41 @@ use ViewModels\Admin\Content\Category\CreateView;
 						<input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title" value="<?php echo $category->title; ?>"/>
 					</div>
 				</div>
-				<div class="quark-presence-container presence-block middle">
-					<div class="title"><p>Type</p>
-						<input type="text" placeholder="Type" maxlength="1" class="quark-input text_field" name="sub" id="item-sub" value="<?php echo $category->sub; ?>"/>
-					</div>
-				</div>
-				<div class="quark-presence-container presence-block middle">
-					<div class="title"><p>Note</p>
-						<input placeholder="Note" type="text" class="quark-input text_field" name="note" id="item-note" value="<?php echo $category->note; ?>"/>
-					</div>
-				</div>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Role</p>
+                        <select name="sub" class="quark-input text_field">
+                            <option value="<?php echo Category::ROLE_CUSTOM;?>" <?php if ($category->role == Category::ROLE_CUSTOM) echo 'selected';?>>Custom</option>
+                            <option value="<?php echo Category::ROLE_SYSTEM;?>" <?php if ($category->role == Category::ROLE_SYSTEM) echo 'selected';?>>System</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Type</p>
+                        <select name="sub" class="quark-input text_field">
+                            <option value="<?php echo Category::TYPE_CATEGORY;?>" <?php if ($category->type == Category::TYPE_CATEGORY) echo 'selected';?>>Category</option>
+                            <option value="<?php echo Category::TYPE_SUBCATEGORY;?>" <?php if ($category->type == Category::TYPE_SUBCATEGORY) echo 'selected';?>>Sub-Category</option>
+							<?php
+								if (Category::RootCategory() != null)
+									echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_ROOT_CATEGORY ? 'selected' : '' , '>Root Category</option>';
+
+								if (Category::TopMenuCategory() != null)
+									echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY ? 'selected' : '' , '">Top Menu Category</option>';
+
+								if (Category::MainMenuCategory() != null)
+									echo '<option value="' , Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY ? 'selected' : '' , '">Main Menu Category</option>';
+
+								if (Category::BottomMenuCategory() != null)
+									echo '<option value="' , Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY ? 'selected' : '' , '">Bottom Menu Category</option>';
+							?>
+                        </select>
+                    </div>
+                </div>
 			</div><div class="quark-presence-column right" id="second_div">
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Note</p>
+                        <input placeholder="Note" type="text" class="quark-input text_field" name="note" id="item-note" value="<?php echo $category->note; ?>"/>
+                    </div>
+                </div>
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Priority</p>
 						<input placeholder="Priority" type="text" class="quark-input text_field" name="priority" id="item-priority" value="<?php echo $category->priority; ?>"/>
@@ -44,14 +68,14 @@ use ViewModels\Admin\Content\Category\CreateView;
 						<input type="text" placeholder="Type" class="quark-input text_field" name="keywords" id="item-keywords" value="<?php echo $category->keywords; ?>"/>
 					</div>
 				</div>
-				<div class="quark-presence-container presence-block middle">
-					<div class="title"><p>Description</p>
-						<input type="text" PLACEHOLDER="Description" class="quark-input text_field" name="description" id="item-description" value="<?php echo $category->description; ?>"/>
-					</div>
-				</div>
 			</div>
 		</div>
 		<div class="quark-presence-container presence-block main" id="content-container">
+            <div class="quark-presence-container presence-block middle">
+                <div class="title"><p>Description</p>
+                    <input type="text" PLACEHOLDER="Description" class="quark-input large_text_field" name="description" id="item-description" value="<?php echo $category->description; ?>"/>
+                </div>
+            </div>
 			<div class="title"><p>Tags</p>
 				<input type="text" placeholder="Tags, divided by [,]" class="large_text_field quark-input" name="tag_list" id="item-tags" value="<?php foreach ($tags as $tag) echo $tag->name . ',';?>">
 			</div>

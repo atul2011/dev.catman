@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Articles_has_Categories;
@@ -16,6 +15,11 @@ use Exception;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class DeleteService
+ *
+ * @package Services\Admin\Category
+ */
 class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -34,20 +38,22 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Articles_has_Categories[] $article_links
 		 */
 		$id = $request->URI()->Route(3);
+		/**
+		 * @var QuarkModel|Category $category
+		 */
+		$category = QuarkModel::FindOneById(new Category(), $id);
+
+		if ($category->id == Category::RootCategory())
+
+		if ($category == null)
+			return array('status' => 404);
+
 		try {
-			QuarkModel::Delete(new Categories_has_Categories(), array(
-				'child_id1' => $id
-			));
-			if($request->Data()->type_of_delete === 'all') {
-				QuarkModel::Delete(new Categories_has_Categories(), array(
-					'parent_id' => $id
-				));
-				QuarkModel::Delete(new Articles_has_Categories(), array(
-					'category_id' => $id
-				));
-				QuarkModel::Delete(new Category(), array(
-					'id' => $id
-				));
+			QuarkModel::Delete(new Categories_has_Categories(), array('child_id1' => $id));
+
+			if ($request->Data()->type_of_delete === 'all') {
+				QuarkModel::Delete(new Categories_has_Categories(), array('parent_id' => $id));
+				QuarkModel::Delete(new Articles_has_Categories(), array('category_id' => $id));
 			}
 		}
 		catch (Exception $e) {

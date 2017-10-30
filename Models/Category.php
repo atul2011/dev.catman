@@ -8,10 +8,10 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class Category
@@ -24,10 +24,25 @@ use Quark\QuarkModel;
  * @property int    $priority
  * @property string $keywords
  * @property string $description
+ * @property string $type
+ * @property string $role
  *
  * @package AllModels
  */
 class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
+    use QuarkModelBehavior;
+
+    const TYPE_CATEGORY = 'F';
+    const TYPE_SUBCATEGORY = 'T';
+
+    const ROLE_SYSTEM = 'system';
+    const ROLE_CUSTOM = 'custom';
+
+    const TYPE_SYSTEM_ROOT_CATEGORY = 'root-category';
+    const TYPE_SYSTEM_TOP_MENU_CATEGORY = 'top-menu';
+    const TYPE_SYSTEM_MAIN_MENU_CATEGORY = 'main-menu';
+    const TYPE_SYSTEM_BOTTOM_MENU_CATEGORY = 'bottom-menu';
+
     /**
      * @return mixed
      */
@@ -40,7 +55,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'sub' => '',
             'priority' =>0,
             'keywords' => '',
-            'description' => ''
+            'description' => '',
+            'type' => self::TYPE_CATEGORY,
+            'role' => self::ROLE_CUSTOM
         );
     }
 
@@ -55,7 +72,10 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return mixed
      */
     public function Rules() {
-        // TODO: Implement Rules() method.
+	    return array(
+		    $this->LocalizedAssert(in_array($this->role, array(self::ROLE_CUSTOM, self::ROLE_SYSTEM)), 'Catman.Validation.Category.UnsupportedRole', 'role'),
+		    $this->LocalizedAssert(in_array($this->type, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_SUBCATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY)), 'Catman.Validation.Category.UnsupportedType', 'type')
+	    );
     }
 
     /**
@@ -123,17 +143,15 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(),array(
-            'parent_id' => $this->id
-        ),array(
+        $links = QuarkModel::Find(new Categories_has_Categories(),array('parent_id' => (string)$this->id),array(
             QuarkModel::OPTION_LIMIT => $limit,
             QuarkModel::OPTION_SKIP => $offset
         ));
 
         $out = new QuarkCollection(new Category());
-        foreach ($links as $item){
+
+        foreach ($links as $item)
             $out[] = $item->child_id1;
-        }
 
         return $out;
     }
@@ -147,17 +165,15 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(),array(
-            'child_id1' => $this->id
-        ),array(
+        $links = QuarkModel::Find(new Categories_has_Categories(),array('child_id1' => $this->id),array(
             QuarkModel::OPTION_LIMIT => $limit,
             QuarkModel::OPTION_SKIP => $offset
         ));
 
         $out = new QuarkCollection(new Category());
-        foreach ($links as $item){
+
+        foreach ($links as $item)
             $out[] = $item->parent_id;
-        }
 
         return $out;
     }
@@ -273,5 +289,84 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 				));
 			}
 		}
+	}
+
+	/**
+	 * @return QuarkModel|Category
+	 */
+	public static function RootCategory () {
+		return QuarkModel::FindOne(new Category(), array(
+			'role' => self::ROLE_SYSTEM,
+			'type' => self::TYPE_CATEGORY
+		));
+	}
+
+	/**
+	 * @return QuarkModel|Category
+	 */
+	public static function TopMenuCategory () {
+		return QuarkModel::FindOne(new Category(), array(
+			'role' => self::ROLE_SYSTEM,
+			'type' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY
+		));
+	}
+
+	/**
+	 * @return QuarkCollection|Category[]
+	 */
+	public static function TopMenuSubCategories () {
+		/**
+		 * @var QuarkModel|Category $parent_category
+		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
+		 */
+		$parent_category = self::TopMenuCategory();
+
+		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+	}
+
+	/**
+	 * @return QuarkModel|Category
+	 */
+	public static function MainMenuCategory () {
+		return QuarkModel::FindOne(new Category(), array(
+			'role' => self::ROLE_SYSTEM,
+			'type' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY
+		));
+	}
+
+	/**
+	 * @return QuarkCollection|Category[]
+	 */
+	public static function MainMenuSubCategories () {
+		/**
+		 * @var QuarkModel|Category $parent_category
+		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
+		 */
+		$parent_category = self::MainMenuCategory();
+
+		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+	}
+
+	/**
+	 * @return QuarkModel|Category
+	 */
+	public static function BottomMenuCategory () {
+		return QuarkModel::FindOne(new Category(), array(
+			'role' => self::ROLE_SYSTEM,
+			'type' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY
+		));
+	}
+
+	/**
+	 * @return QuarkCollection|Category[]
+	 */
+	public static function BottomMenuSubCategories () {
+		/**
+		 * @var QuarkModel|Category $parent_category
+		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
+		 */
+		$parent_category = self::BottomMenuCategory();
+
+		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
 	}
 }

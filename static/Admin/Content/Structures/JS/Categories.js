@@ -1,7 +1,7 @@
 //function what will run at end of loading of page
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
-var rootPoint = '<div id="route-point-0" class="route-points quark-presence-column">></div>';
+var rootPoint = '<div id="route-point-' + route_id + '" class="route-points quark-presence-column">></div>';
 var category_select =
     '<option value="id">ID</option>' +
     '<option value="title">Title</option>' +
@@ -72,13 +72,13 @@ $(document).ready(function(){
     //load content
     LoadContent(false, 'article', ShowArticles, 1, 50,'multiple');
     LoadContent(false, 'category', ShowCategories, 1, 50,'multiple');
-    /////////////////////////////////////////////////////////////////
+
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
     //load selects with columns of models
     $('#category-select').append(category_select);
     $('#article-select').append(article_select);
-    /////////////////////////////////////////////////////////////////
+
     var list = $('.items-list');
     $('.loader').css('left', (list.width() / 3.3)).css('top', (list.height() / 6));
     //stop refreshing when submit
@@ -111,7 +111,7 @@ $(document).ready(function(){
     $("#route-row").append(rootPoint);
     //set max with lo left-list
     $(window).resize(function(){
-        $('#list-left').css('max-width',$(this).width()-950);
+        $('#list-left').css('max-width',$(this).width() - 950);
     });
     $('#list-left').css('max-width',$(this).width()-950);
 
@@ -168,12 +168,12 @@ function checkRow(data, type){
         url = "/admin/category/relation/articles/";
     }
     //if we are in root, we go on in selected category
-    if (categoryParentId === "0") {
+    if (categoryParentId === root_id) {
         button_true('category');
         button_false('article');
     }
     //if not
-    else if (categoryParentId !== "0") {
+    else if (categoryParentId !== root_id) {
         if (categoryParentId === childId) {
             button_false(type);
             return;
@@ -248,7 +248,7 @@ function checkResponse(status, id){
 function setCategory(id){
     button_none('category');
     button_none('article');
-    if (id === '0') {
+    if (id === root_id) {
         removeItems('.route-points');
         $("#route-row").append(rootPoint);
     } else {
@@ -270,16 +270,16 @@ function setCategory(id){
 //function to load in left table data about category
 function ListCategory(categoryId){
     removeItems('.current-items');
-    if (categoryId === '0')return;
+    if (categoryId === root_id)return;
     $.ajax({url: "/admin/category/relation/categories/" + categoryId}).then(function(json){
-        if (json.status == 404) return false;
+        if (json.status === 404) return false;
         json.children.forEach(function(data){
             showCurrentItems(data, 'category');
         });
         
     });
     $.ajax({url: "/admin/category/relation/articles/" + categoryId}).then(function(json){
-        if (json.status == 404) return false;
+        if (json.status === 404) return false;
         json.articles.forEach(function(data){
             showCurrentItems(data, 'article');
         });

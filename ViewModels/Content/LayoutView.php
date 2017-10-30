@@ -51,43 +51,6 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 	}
 
 	/**
-	 * @return array|QuarkCollection
-	 */
-	public function getTopCategories () {
-		/**
-		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
-		 */
-		$parent_category = QuarkModel::FindOne(new Category(), array(
-			'title' => 'category-top-list'
-		));
-		return QuarkModel::Find(new Categories_has_Categories(), array(
-			'parent_id' => $parent_category->id
-		));
-	}
-
-	public function getBottomCategories () {
-		/**
-		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_relations_parent
-		 */
-		$parent_category = QuarkModel::FindOne(new Category(), array(
-			'title' => 'category-bottom-list'
-		));
-		$category_relations_parent = QuarkModel::Find(new Categories_has_Categories(), array(
-			'parent_id' => $parent_category->id
-		));
-		$out = array();
-		foreach ($category_relations_parent as $item) {
-			$out[] = QuarkModel::Find(new Categories_has_Categories(), array(
-				'parent_id' => $item->child_id1->id
-			));
-		}
-
-		return $out;
-	}
-
-	/**
 	 * @return QuarkCollection|News[]
 	 */
 	public function getCurrentNews () {

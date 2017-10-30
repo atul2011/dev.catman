@@ -1,12 +1,6 @@
 <?php
-/**
- * Created by PhpStorm.
- * User: boagh
- * Date: 19.07.2017
- * Time: 10:16
- */
-
 namespace ViewModels\Admin\Content\Article;
+
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
@@ -17,6 +11,11 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewMode
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\ViewBehavior;
 
+/**
+ * Class EditView
+ *
+ * @package ViewModels\Admin\Content\Article
+ */
 class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents,IQuarkViewModelWithResources,IQuarkViewModelWithCustomizableLayout,ICreateView {
 	use ViewBehavior;
 

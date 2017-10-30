@@ -4,14 +4,17 @@
  * @var int $number_categories
  * @var int $number_articles
  */
-use ViewModels\Admin\Content\Structures\CategoriesView;
+	use Models\Category;
+	use ViewModels\Admin\Content\Structures\CategoriesView;
 use Quark\QuarkView;
 ?>
 <h2>Categories Structure</h2>
 <h5>Set for each category his own sub-category and articles</h5>
 <div class="quark-presence-column center tables-container" id="list-left">
     <form action="" method="POST">
-    <div class="quark-presence-container presence-block middle search-bar"id="route-row"></div>
+    <div class="quark-presence-container presence-block middle search-bar" id="route-row">
+        <?php if (Category::RootCategory() != null) ?>
+    </div>
     </form>
     <Div class="quark-presence-container presence-block middle" id="elements-list">
         <div class="items-body quark-presence-column" id="content-container"></div>

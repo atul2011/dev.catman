@@ -1,6 +1,6 @@
 <?php
-
 namespace ViewModels\Admin\Content\Article;
+
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;

@@ -73,9 +73,6 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		if (!$category->Save())
 			return QuarkDTO::ForRedirect('/admin/category/list?update=false');
 
-		if(isset($request->source) && $request->source === 'EditContent')
-			return QuarkDTO::ForRedirect('/admin/category/list/'.$id.'?edited=true');
-
-		return QuarkDTO::ForRedirect('/admin/structures/categories?edited=category');
+		return QuarkDTO::ForRedirect('/admin/category/list/'.$id.'?edited=true');
 	}
 }
