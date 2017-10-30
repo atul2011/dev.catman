@@ -46,13 +46,13 @@ trait ViewBehavior {
 		return $this->MenuSideWidget(array(
 			$this->MenuWidgetItem('/admin/user/', 'Dashboard', 'fa-bars')
 		, $this->MenuWidgetItem('/admin/structures/categories', 'Structures', 'fa-align-left ')
-		, $this->MenuWidgetItem('/admin/article/list', 'Article', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/category/list', 'Category', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/author/list', 'Author', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/event/list', 'Event', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/news/list', 'News', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-edit')
-		, $this->MenuWidgetItem('/admin/banner/list', 'Banner', 'fa-edit')
+		, $this->MenuWidgetItem('/admin/article/list', 'Article', 'fa-file-text-o')
+		, $this->MenuWidgetItem('/admin/category/list', 'Category', 'fa-list-ul')
+		, $this->MenuWidgetItem('/admin/author/list', 'Author', 'fa-user-secret')
+		, $this->MenuWidgetItem('/admin/event/list', 'Event', 'fa-birthday-cake')
+		, $this->MenuWidgetItem('/admin/news/list', 'News', 'fa-bullhorn')
+		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-users')
+		, $this->MenuWidgetItem('/admin/banner/list', 'Banner', 'fa-cc-discover')
 		));
 	}
 
