@@ -78,7 +78,7 @@ $(document).ready(function(){
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
 
-    setCategory(root_id, 'onload');
+    setCategory(root_id, 'on-load');
 
     //load selects with columns of models
     $('#category-select').append(category_select);
@@ -254,7 +254,7 @@ function checkResponse(status, id){
 function setCategory(id, type){
     button_none('category');
     button_none('article');
-    if (id === root_id && type !== 'onload') {
+    if (type !== 'on-load' && id === root_id) {
         removeItems('.route-points');
         $("#route-row").append(rootPoint);
     } else {
