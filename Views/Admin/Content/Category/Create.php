@@ -2,7 +2,8 @@
 /**
  * @var QuarkView|CreateView $this
  */
-	use Models\Category;
+use Models\Category;
+	use Quark\Quark;
 	use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\CreateView;
 
@@ -32,9 +33,10 @@ use ViewModels\Admin\Content\Category\CreateView;
                             <option value="<?php echo Category::TYPE_CATEGORY;?>">Category</option>
                             <option value="<?php echo Category::TYPE_SUBCATEGORY;?>">Sub-Category</option>
                             <?php
+                            Quark::Trace(Category::RootCategory());
                             if (Category::RootCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '">Root Category</option>';
-
+                            Quark::Trace(Category::TopMenuCategory());
                             if (Category::TopMenuCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '">Top Menu Category</option>';
 
