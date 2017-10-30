@@ -2,6 +2,7 @@
 
 namespace ViewModels\Admin;
 
+use Models\User;
 use Quark\IQuarkViewResource;
 use Quark\QuarkGenericViewResource;
 use Quark\QuarkModel;
@@ -35,8 +36,10 @@ trait ViewBehavior {
 	public function PresenceMenuHeader () {
 		return $this->MenuHeaderWidget(array(
 //				$this->MenuWidgetItem('/', ' statistic', 'fa-area-chart')
-			)) . $this->SearchWidget('/admin/articles/link', 'POST', 'search', '')
-			. $this->MenuWidgetItem('/admin/user/logout', 'SignOut', ' fa-sign-ou');
+			))
+//			. $this->SearchWidget('/admin/articles/link', 'POST', 'search', '')
+//			. $this->MenuWidgetItem('/admin/user/logout', 'SignOut', ' fa-sign-out')
+			;
 	}
 
 	/**
@@ -62,6 +65,13 @@ trait ViewBehavior {
 	 * @return string
 	 */
 	public function PresenceUser (QuarkModel $user = null) {
+		/**
+		 * @var QuarkModel|User $user
+		 */
+		if ($this->User() == null)
+			return '';
+
+		return $this->UserWidget( $user->email, '', 'Logout', '/admin/user/logout');
 	}
 
 	/**
