@@ -61,13 +61,13 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 		$category->setTags($tags);
 
 		if ($category->role == Category::ROLE_SYSTEM) {//check if admin want to create an system category
-			if ($category->type == Category::TYPE_CATEGORY) {//check if admin want to create an root system category
+			if ($category->sub == Category::TYPE_CATEGORY) {//check if admin want to create an root system category
 				if (Category::RootCategory() == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 409: Conflict',
 						'error_message' => 'Cannot crete more than 2 root categories(role:system, type:category)!'
 					));
-			}else if($category->type == Category::TYPE_SUBCATEGORY){
+			}else if($category->sub == Category::TYPE_SUBCATEGORY){
 				if (Category::RootCategory() != null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 404: Not found',
