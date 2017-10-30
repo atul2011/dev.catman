@@ -112,7 +112,7 @@ $(document).ready(function(){
     $(document).on("mouseout", '.current-category', function(){
         $(this).css("background-color", 'white').css("color", 'black');
     });
-    $("#route-row").append(rootPoint);
+
     //set max with lo left-list
     $(window).resize(function(){
         $('#list-left').css('max-width',$(this).width() - 950);
@@ -124,7 +124,7 @@ $(document).ready(function(){
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
 
-    setCategory($('.route-points').last().attr('id').split('-')[2]);
+    setCategory(root_id);
 });
 
 //fucntion to show categories
