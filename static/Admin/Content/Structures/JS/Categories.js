@@ -78,7 +78,7 @@ $(document).ready(function(){
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
 
-    setCategory($(this).attr('id').split('-')[2]);
+
     //load selects with columns of models
     $('#category-select').append(category_select);
     $('#article-select').append(article_select);
@@ -123,6 +123,8 @@ $(document).ready(function(){
     var list_height = $('#list-right').height();
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
+
+    setCategory($(this).attr('id').split('-')[2]);
 });
 
 //fucntion to show categories
