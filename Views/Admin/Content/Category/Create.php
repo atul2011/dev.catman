@@ -32,16 +32,16 @@ use ViewModels\Admin\Content\Category\CreateView;
                             <option value="<?php echo Category::TYPE_CATEGORY;?>">Category</option>
                             <option value="<?php echo Category::TYPE_SUBCATEGORY;?>">Sub-Category</option>
                             <?php
-                            if (Category::RootCategory() != null)
+                            if (Category::RootCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '">Root Category</option>';
 
-                            if (Category::TopMenuCategory() != null)
+                            if (Category::TopMenuCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '">Top Menu Category</option>';
 
-                            if (Category::MainMenuCategory() != null)
+                            if (Category::MainMenuCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY , '">Main Menu Category</option>';
 
-                            if (Category::BottomMenuCategory() != null)
+                            if (Category::BottomMenuCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY , '">Bottom Menu Category</option>';
                             ?>
                         </select>
