@@ -42,13 +42,13 @@ use ViewModels\Admin\Content\Category\CreateView;
 								if (Category::RootCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_ROOT_CATEGORY ? 'selected' : '' , '>Root Category</option>';
 
-								if (Category::TopMenuCategory()->id ==  $category->id)
+//								if (Category::TopMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY ? 'selected' : '' , '">Top Menu Category</option>';
 
-								if (Category::MainMenuCategory()->id ==  $category->id)
+//								if (Category::MainMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY ? 'selected' : '' , '">Main Menu Category</option>';
 
-								if (Category::BottomMenuCategory()->id ==  $category->id)
+//								if (Category::BottomMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY ? 'selected' : '' , '">Bottom Menu Category</option>';
 							?>
                         </select>
