@@ -7,6 +7,7 @@ use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -47,10 +48,10 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 
 		if ($category == null)
 			return array('status' => 404);
-
+		Quark::Trace($category);
 		if (!$category->Remove())
 			return array('status' => 500);
-
+		Quark::Trace($category);
 		try {
 			QuarkModel::Delete(new Categories_has_Categories(), array('child_id1' => $id));
 
@@ -62,5 +63,7 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		catch (Exception $e) {
 			return $e;
 		}
+
+		return array('status' => 200);
 	}
 }
