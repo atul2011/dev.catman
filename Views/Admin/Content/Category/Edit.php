@@ -37,16 +37,16 @@ use ViewModels\Admin\Content\Category\CreateView;
                             <option value="<?php echo Category::TYPE_CATEGORY;?>" <?php if ($category->type == Category::TYPE_CATEGORY) echo 'selected';?>>Category</option>
                             <option value="<?php echo Category::TYPE_SUBCATEGORY;?>" <?php if ($category->type == Category::TYPE_SUBCATEGORY) echo 'selected';?>>Sub-Category</option>
 							<?php
-								if (Category::RootCategory() != null)
+								if (Category::RootCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_ROOT_CATEGORY ? 'selected' : '' , '>Root Category</option>';
 
-								if (Category::TopMenuCategory() != null)
+								if (Category::TopMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY ? 'selected' : '' , '">Top Menu Category</option>';
 
-								if (Category::MainMenuCategory() != null)
+								if (Category::MainMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY ? 'selected' : '' , '">Main Menu Category</option>';
 
-								if (Category::BottomMenuCategory() != null)
+								if (Category::BottomMenuCategory()->id ==  $category->id)
 									echo '<option value="' , Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY , '"' , $category->type == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY ? 'selected' : '' , '">Bottom Menu Category</option>';
 							?>
                         </select>
