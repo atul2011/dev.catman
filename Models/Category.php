@@ -295,7 +295,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function RootCategory () {
 		return QuarkModel::FindOne(new Category(), array(
 			'role' => self::ROLE_SYSTEM,
-			'sub' => self::TYPE_CATEGORY
+			'sub' => self::TYPE_SYSTEM_ROOT_CATEGORY
 		));
 	}
 
