@@ -6,7 +6,8 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Event\CreateView;
 
 ?>
-<h1 class="page-title">Create new Event</h1>
+<h2 class="page-title">Create New Event</h2>
+<h5>Insert data to create an new event</h5>
 <div class="quark-presence-column left">
     <div class="quark-presence-container content-container presence-block" id="form-body">
         <form method="POST" id="item-form" onsubmit="return checkTitle('name');" action="/admin/event/create">

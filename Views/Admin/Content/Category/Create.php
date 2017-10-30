@@ -6,7 +6,8 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\CreateView;
 
 ?>
-<h1 class="page-title">Add new Category</h1>
+<h2 class="page-title">Add New Category</h2>
+<h5>Insert data to create an new category</h5>
 <form method="POST" id="item-form"  action="/admin/category/create">
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">

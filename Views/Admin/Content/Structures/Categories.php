@@ -7,6 +7,8 @@
 use ViewModels\Admin\Content\Structures\CategoriesView;
 use Quark\QuarkView;
 ?>
+<h2>Categories Structure</h2>
+<h5>Set for each category his own sub-category and articles</h5>
 <div class="quark-presence-column center tables-container" id="list-left">
     <form action="" method="POST">
     <div class="quark-presence-container presence-block middle search-bar"id="route-row"></div>

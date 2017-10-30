@@ -1,3 +1,5 @@
+<h2 class="page-title">Add New Author</h2>
+<h5>Insert data to create an new author</h5>
 <div class="quark-presence-column left">
     <div class="quark-presence-container content-container presence-block " id="form-body">
         <form method="POST" id="item-form" action="/admin/author/create">

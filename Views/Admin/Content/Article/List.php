@@ -7,6 +7,8 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\ListView;
 
 ?>
+<h2>Article List</h2>
+<h5>Navigate through articles</h5>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
                 <div class="quark-presence-column search-list">
