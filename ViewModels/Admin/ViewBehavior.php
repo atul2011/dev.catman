@@ -13,6 +13,11 @@ use ViewModels\Admin\Content\Behaviors\IListView;
 use ViewModels\Admin\Content\Behaviors\ILoader;
 use ViewModels\Admin\Content\Behaviors\INavigationBar;
 
+/**
+ * Class ViewBehavior
+ *
+ * @package ViewModels\Admin
+ */
 trait ViewBehavior {
 	use QuarkPresenceControlComponent;
 
@@ -27,19 +32,14 @@ trait ViewBehavior {
 	 * @return string
 	 */
 	public function PresenceLogo () {
-		return 'Admin Panel';
+		return 'Universal Path Admin Panel';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function PresenceMenuHeader () {
-		return $this->MenuHeaderWidget(array(
-//				$this->MenuWidgetItem('/', ' statistic', 'fa-area-chart')
-			))
-//			. $this->SearchWidget('/admin/articles/link', 'POST', 'search', '')
-//			. $this->MenuWidgetItem('/admin/user/logout', 'SignOut', ' fa-sign-out')
-			;
+		return $this->MenuHeaderWidget(array());
 	}
 
 	/**

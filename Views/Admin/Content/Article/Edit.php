@@ -13,7 +13,8 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Article\CreateView;
 
 ?>
-<h1 class="page-title">Update Article</h1>
+<h2 class="page-title">Update Article</h2>
+<h5>Insert data for update selected article</h5>
 <form method="POST" id="item-form"action="/admin/article/edit/<?php echo $article->id; ?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

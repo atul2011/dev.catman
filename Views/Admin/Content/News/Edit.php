@@ -8,7 +8,8 @@ use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Content\News\CreateView;
 ?>
-<h1 class="page-title">Edit current News</h1>
+<h2 class="page-title">Edit Current News</h2>
+<h5>Insert data for update selected news</h5>
 <form method="POST" id="item-form"  action="/admin/news/edit/<?php echo $news->id; ?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

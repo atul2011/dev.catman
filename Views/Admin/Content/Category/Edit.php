@@ -12,7 +12,8 @@ use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\CreateView;
 
 ?>
-<h1 class="page-title">Update selected Category</h1>
+<h2 class="page-title">Update Selected Category</h2>
+<h5>Insert data for update selected category</h5>
 <form method="POST" id="item-form"  action="/admin/category/edit/<?php echo $category->id; ?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">
