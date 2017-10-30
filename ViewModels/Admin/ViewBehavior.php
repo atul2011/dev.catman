@@ -1,5 +1,4 @@
 <?php
-
 namespace ViewModels\Admin;
 
 use Models\User;
@@ -78,13 +77,14 @@ trait ViewBehavior {
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
+		return __DIR__ . '/../../static/Admin/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		// TODO: Implement ViewLayoutController() method.
+		return __DIR__ . '/../../static/Admin/index.js';
 	}
 
 	/**
