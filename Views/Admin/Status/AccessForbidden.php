@@ -1,8 +1,8 @@
 <div class="quark-presence-column center">
     <div class="quark-presence-container status-code">
-        <h1>Status 404: Not found</h1>
+        <h1>Status 403: Forbidden</h1>
     </div>
     <div class="quark-presence-container status-message">
-        <h3>The page that you searched not found. Please check your reques data</h3>
+        <h3>Your don't have permission to acces this page!</h3>
     </div>
 </div>

@@ -1,25 +1,40 @@
 <?php
 use Models\Categories_has_Categories;
+use Models\Category;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkView;
 use ViewModels\Content\LayoutView;
+
 /**
  * @var QuarkView|LayoutView $this
  */
+
 //top categories
 /**
  * @var QuarkCollection|Categories_has_Categories[] $top_categories
  */
-$top_categories = $this->getTopCategories();
-$top_categories_list_mini = '';
-$top_categories_list_max = '';
+$top_categories = Category::MainMenuSubCategories();
+$top_categories_list = array();
+foreach ($main_categories as $item)
+	$top_categories_list[] = '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
+
+
+//main categories
+/**
+ * @var QuarkCollection|Categories_has_Categories[] $main_categories
+ */
+$main_categories = Category::MainMenuSubCategories();
+$main_categories_list_mini = '';
+$main_categories_list_max = '';
 $i = 0;
-const VISIBLE_CATEGORIES = 3;//number of visible categories in top-menu of categories
-foreach ($top_categories as $item){
+const VISIBLE_CATEGORIES = 3;//number of visible categories in main-menu of categories
+
+foreach ($main_categories as $item){
     if($i < VISIBLE_CATEGORIES)
-        $top_categories_list_mini .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
-    $top_categories_list_max .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
+	    $main_categories_list_mini .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
+
+	$main_categories_list_max .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
     ++$i;
 }
 
@@ -27,32 +42,48 @@ foreach ($top_categories as $item){
 /**
  * @var QuarkCollection|Categories_has_Categories[] $bottom_categories
  */
-$bottom_categories = $this->getBottomCategories();
+$bottom_categories = Category::BottomMenuSubCategories();
 $bottom_categories_container = array();
-foreach ($bottom_categories as $collection){
+$iterator = 1;
+foreach ($bottom_categories as $collection) {
+    if ($iterator > 4)
+        break;
+
     $bottom_category_list =
         '<div class="col-sm-3 category-bottom-container">'.
             '<div class="main-site-menu category-bottom-subcontainer">'.
                 '<div class="category-bottom-list">';
 
-    foreach ($collection as $item)
-        $bottom_category_list .=  '<div class="category-bottom-item">'.
-                                      '<a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a>'.
-                                  '</div>';
+    $block_iterator = 1;
+    foreach ($collection as $item) {
+	    if ($block_iterator > 4)
+		    break;
+
+	    $bottom_category_list .=
+	        '<div class="category-bottom-item">'.
+                '<a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a>'.
+		    '</div>';
+        $block_iterator++;
+    }
+
 
     $bottom_category_list .= '</div></div></div>';
 
     $bottom_categories_container[] = $bottom_category_list;
+
+    $iterator++;
+
 }
 
 //news
 $news = $this->getCurrentNews();
+$news_list = array();
 foreach ($news as $item){
 	$link_url ='';
 	$link_text= '';
     $item->link_url != '' ? $link_url = $item->link_url : $link_url = '/news/' . $item->id;
     $item->link_text != '' ? $link_text = $item->link_text :  $link_text = $this->CurrentLocalizationOf('Catman.News.Open');
-    Quark::Trace($item->text);
+
 	$news_item ='<div class="news">'.
 		'<div class="news__main">'.
             '<div class="news__description news__wrap clearfix">'.
@@ -79,7 +110,6 @@ foreach ($news as $item){
 ?>
 <!DOCTYPE html>
 <html>
-
 <head>
 	<meta charset="utf-8">
 	<meta name="description" content="">
@@ -167,12 +197,12 @@ foreach ($news as $item){
 							<div class="row">
 								<div class="col-md-12" id="category-top-container">
 									<ul class="inner_mnu" id="category-top-list">
-                                        <?php  echo $top_categories_list_mini;?>
+                                        <?php  echo $main_categories_list_mini;?>
 										<li class="dropdown-item" id="category-top-list-dropdown">
 											<div class="dropdown">
 												<div class="dropdown-content">
 													<ul>
-														<?php  echo $top_categories_list_max;?>
+														<?php  echo $main_categories_list_max;?>
 													</ul>
 												</div>
 											</div>
@@ -245,7 +275,6 @@ foreach ($news as $item){
 					</div>
 				</div>
 			</div>
-
 		</div>
 	</div>
 </footer>

@@ -5,15 +5,16 @@ use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewResource;
+use Quark\QuarkModel;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
 
 /**
- * Class NotFoundView
+ * Class CustomErrorView
  *
  * @package ViewModels\Admin\Status
  */
-class NotFoundView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLayout, IQuarkViewModelWithComponents, IQuarkPresenceControlViewModel {
+class CustomErrorView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout, IQuarkPresenceControlViewModel {
 	use ViewBehavior;
 
 	/**
@@ -31,30 +32,39 @@ class NotFoundView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLa
 	}
 
 	/**
+	 * @param QuarkModel $user = null
+	 *
+	 * @return string
+	 */
+	public function PresenceUser (QuarkModel $user = null) {
+		// TODO: Implement PresenceUser() method.
+	}
+
+	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Status: 404';
+		return 'Custom Error';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Status/NotFound';
+		return 'Admin/Status/CustomError';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Status/NotFound/index.css';
+		return __DIR__ . '/../../../static/Admin/Status/CustomError/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../static/Admin/Status/NotFound/index.js';
+		return __DIR__ . '/../../../static/Admin/Status/CustomError/index.js';
 	}
 }

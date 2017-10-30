@@ -2,10 +2,12 @@
 
 namespace ViewModels\Admin\Content\Structures;
 
+use Models\Category;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
+use Quark\IQuarkViewModelWithVariableProxy;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use Quark\ViewResources\TwitterBootstrap\TwitterBootstrap;
@@ -19,7 +21,7 @@ use ViewModels\Admin\ViewBehavior;
  *
  * @package ViewModels\Structures\Categories
  */
-class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources,ILoader,IQuarkViewModelWithCustomizableLayout,INavigationBar,IListView {
+class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources,ILoader,IQuarkViewModelWithCustomizableLayout,INavigationBar,IListView, IQuarkViewModelWithVariableProxy {
 	use ViewBehavior;
 
 	/**
@@ -56,6 +58,17 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	public function ViewResources () {
 		return array(
 			new TwitterBootstrap()
+		);
+	}
+
+	/**
+	 * @param $vars
+	 *
+	 * @return mixed
+	 */
+	public function ViewVariableProxy ($vars) {
+		return array(
+			'root_id' => Category::RootCategory()->id
 		);
 	}
 }
