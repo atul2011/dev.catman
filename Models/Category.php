@@ -290,7 +290,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	}
 
 	/**
-	 * @return QuarkModel|Category
+	 * @return mixed
 	 */
 	public static function RootCategory () {
 		return QuarkModel::FindOne(new Category(), array(
@@ -300,7 +300,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	}
 
 	/**
-	 * @return QuarkModel|Category
+	 * @return mixed
 	 */
 	public static function TopMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
@@ -323,7 +323,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	}
 
 	/**
-	 * @return QuarkModel|Category
+	 * @return mixed
 	 */
 	public static function MainMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
@@ -346,7 +346,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	}
 
 	/**
-	 * @return QuarkModel|Category
+	 * @return mixed
 	 */
 	public static function BottomMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
