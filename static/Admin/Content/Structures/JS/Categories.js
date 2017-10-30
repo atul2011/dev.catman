@@ -40,7 +40,7 @@ function setDefaultEvents(model,callback){
                 if (data !== null && data !== '')
                     console.log(data);
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2]);
+                setCategory($(".route-points").last().attr('id').split('-')[2], '');
             });
         } else {
             return false;
@@ -54,7 +54,7 @@ function setDefaultEvents(model,callback){
             $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'link'}}).then(function(data){
                 if (data !== null && data !== '')
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2]);
+                setCategory($(".route-points").last().attr('id').split('-')[2], '');
             });
         } else {
             return false;
@@ -78,6 +78,7 @@ $(document).ready(function(){
     setDefaultEvents('category',ShowCategories);
     setDefaultEvents('article',ShowArticles);
 
+    setCategory(root_id, 'onload');
 
     //load selects with columns of models
     $('#category-select').append(category_select);
@@ -92,7 +93,7 @@ $(document).ready(function(){
 
 //event listener that will permite redirect when click to route node
     $(document).on("dblclick", '.route-points', function(){
-        setCategory($(this).attr('id').split('-')[2]);
+        setCategory($(this).attr('id').split('-')[2], '');
     });
     //set mouse over and out events to route points
     $(document).on("mouseover", '.route-points', function(){
@@ -103,7 +104,7 @@ $(document).ready(function(){
     });
 // event listener that will permite open category in left table
     $(document).on("dblclick", '.actions-categories', function(){
-        setCategory($(this).attr('id').split('-')[2]);
+        setCategory($(this).attr('id').split('-')[2], '');
     });
 //set mouse over and out events to list of items in left table
     $(document).on("mouseover", '.current-category', function(){
@@ -124,7 +125,6 @@ $(document).ready(function(){
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
 
-    setCategory(root_id);
 });
 
 //fucntion to show categories
@@ -248,13 +248,13 @@ function Link(service){
 }
 //function to make decisions after get response message
 function checkResponse(status, id){
-    if (status === 200) setCategory(id);
+    if (status === 200) setCategory(id, '');
 }
 //function that set in route the selected category and show all items of this
-function setCategory(id){
+function setCategory(id, type){
     button_none('category');
     button_none('article');
-    if (id === root_id) {
+    if (id === root_id && type !== 'onload') {
         removeItems('.route-points');
         $("#route-row").append(rootPoint);
     } else {
@@ -295,7 +295,7 @@ function ListCategory(categoryId){
 function showCurrentItems(response, service){
     var setIcon;
     if (service === 'category') {
-        setIcon = setCategoryIcon(response.id);
+        setIcon = setCategoryIcon(response.id, '');
     } else {
         setIcon = setArticleIcon(response.id);
     }
