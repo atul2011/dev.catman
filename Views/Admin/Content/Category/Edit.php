@@ -1,7 +1,8 @@
 <?php
 use Models\Category;
 use Models\Tag;
-use Quark\QuarkCollection;
+	use Quark\Quark;
+	use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Content\Category\CreateView;
@@ -11,6 +12,7 @@ use ViewModels\Admin\Content\Category\CreateView;
  * @var QuarkModel|Category $category
  * @var QuarkCollection|Tag[] $tags
  */
+ Quark::Trace($category);
 ?>
 <h2 class="page-title">Update Selected Category</h2>
 <h5>Insert data for update selected category</h5>
