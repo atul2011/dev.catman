@@ -24,7 +24,6 @@ use Quark\QuarkModelBehavior;
  * @property int    $priority
  * @property string $keywords
  * @property string $description
- * @property string $type
  * @property string $role
  *
  * @package AllModels
@@ -52,11 +51,10 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'title' => '',
             'note' => '',
             'intro' => '',
-            'sub' => '',
+            'sub' => self::TYPE_CATEGORY,
             'priority' =>0,
             'keywords' => '',
             'description' => '',
-            'type' => self::TYPE_CATEGORY,
             'role' => self::ROLE_CUSTOM
         );
     }
@@ -74,7 +72,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     public function Rules() {
 	    return array(
 		    $this->LocalizedAssert(in_array($this->role, array(self::ROLE_CUSTOM, self::ROLE_SYSTEM)), 'Catman.Validation.Category.UnsupportedRole', 'role'),
-		    $this->LocalizedAssert(in_array($this->type, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_SUBCATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY)), 'Catman.Validation.Category.UnsupportedType', 'type')
+		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY)), 'Catman.Validation.Category.UnsupportedType', 'type')
 	    );
     }
 
@@ -297,7 +295,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function RootCategory () {
 		return QuarkModel::FindOne(new Category(), array(
 			'role' => self::ROLE_SYSTEM,
-			'type' => self::TYPE_CATEGORY
+			'sub' => self::TYPE_CATEGORY
 		));
 	}
 
@@ -307,7 +305,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function TopMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
 			'role' => self::ROLE_SYSTEM,
-			'type' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY
+			'sub' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY
 		));
 	}
 
@@ -330,7 +328,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function MainMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
 			'role' => self::ROLE_SYSTEM,
-			'type' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY
+			'sub' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY
 		));
 	}
 
@@ -353,7 +351,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function BottomMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
 			'role' => self::ROLE_SYSTEM,
-			'type' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY
+			'sub' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY
 		));
 	}
 
