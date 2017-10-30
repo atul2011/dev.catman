@@ -61,17 +61,29 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 		$category->setTags($tags);
 
 		if ($category->role == Category::ROLE_SYSTEM) {//check if admin want to create an system category
-			if ($category->sub == Category::TYPE_CATEGORY) {//check if admin want to create an root system category
+			if ($category->sub == Category::TYPE_SYSTEM_ROOT_CATEGORY) {//check if admin want to create an root system category
 				if (Category::RootCategory() == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 409: Conflict',
-						'error_message' => 'Cannot crete more than 2 root categories(role:system, type:category)!'
+						'error_message' => 'Cannot crete more than 2 root categories!'
 					));
-			}else if($category->sub == Category::TYPE_SUBCATEGORY){
-				if (Category::RootCategory() != null)
+			}else if ($category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY) {//check if admin want to create an root system category
+				if (Category::TYPE_SYSTEM_TOP_MENU_CATEGORY == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
-						'error_status' => 'Status 404: Not found',
-						'error_message' => 'Cannot crete an system sub-category, without existing system category!'
+						'error_status' => 'Status 409: Conflict',
+						'error_message' => 'Cannot crete more than 2 top menu categories!'
+					));
+			}else if ($category->sub == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY) {//check if admin want to create an root system category
+				if (Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY == null)
+					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+						'error_status' => 'Status 409: Conflict',
+						'error_message' => 'Cannot crete more than 2 main menu categories!'
+					));
+			}else if ($category->sub == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY) {//check if admin want to create an root system category
+				if (Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY == null)
+					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+						'error_status' => 'Status 409: Conflict',
+						'error_message' => 'Cannot crete more than 2 bottom menu categories!'
 					));
 			}
 		}
