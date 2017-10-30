@@ -6,7 +6,6 @@
  */
 use ViewModels\Admin\Content\Structures\CategoriesView;
 use Quark\QuarkView;
-
 ?>
 <div class="quark-presence-column center tables-container" id="list-left">
     <form action="" method="POST">

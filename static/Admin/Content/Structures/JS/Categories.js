@@ -120,6 +120,7 @@ $(document).ready(function(){
     $('#button-link-category').css('margin-top',list_height/4);
     $('#button-link-article').css('margin-top',list_height/2.5);
 });
+
 //fucntion to show categories
 function ShowCategories(response){
     str = '<div class="quark-presence-container presence-block content-row-category content-row" id="category-values-' + response.id + '">' +

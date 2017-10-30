@@ -7,7 +7,7 @@ $(document).ready(function () {
 function ceckLogin() {
     var login = $('#input-login').val(),
         pass = $('#input-password').val();
-    console.log('1');
+
     if (login=== '' || pass === '') {
         if (login === '') {
             showError('Login should not be null!','#login-error');
