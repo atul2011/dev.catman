@@ -1,7 +1,7 @@
 //function what will run at end of loading of page
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
-var rootPoint = '<div id="route-point-' + root_id + '" class="route-points quark-presence-column">></div>';
+var rootPoint = '<div id="route-point-' + root_id + '" class="route-points quark-presence-column">' + root_name + '</div>';
 var category_select =
     '<option value="id">ID</option>' +
     '<option value="title">Title</option>' +

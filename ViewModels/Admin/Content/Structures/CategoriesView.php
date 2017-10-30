@@ -67,7 +67,8 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	 */
 	public function ViewVariableProxy ($vars) {
 		return array(
-			'root_id' => Category::RootCategory() != null ? Category::RootCategory()->id : 0
+			'root_id' => Category::RootCategory() != null ? Category::RootCategory()->id : 0,
+			'root_name' => Category::RootCategory() != null ? Category::RootCategory()->title : ''
 		);
 	}
 }
