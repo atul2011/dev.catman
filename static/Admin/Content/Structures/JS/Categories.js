@@ -93,6 +93,9 @@ $(document).ready(function(){
 
 //event listener that will permite redirect when click to route node
     $(document).on("dblclick", '.route-points', function(){
+        if ($(this).attr('id').split('-')[2] === root_id)
+            $(".route-points").remove();
+            
         setCategory($(this).attr('id').split('-')[2]);
     });
     //set mouse over and out events to route points
@@ -104,9 +107,6 @@ $(document).ready(function(){
     });
 // event listener that will permite open category in left table
     $(document).on("dblclick", '.actions-categories', function(){
-        if ($(this).attr('id').split('-')[2] === root_id)
-            $(".route-points").remove();
-            
         setCategory($(this).attr('id').split('-')[2]);
     });
 //set mouse over and out events to list of items in left table
