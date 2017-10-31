@@ -12,6 +12,7 @@ use Quark\QuarkCollection;
 use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class Article
@@ -34,6 +35,12 @@ use Quark\QuarkModel;
  * @package AllModels
  */
 class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
+    use QuarkModelBehavior;
+
+    const TYPE_ARTICLE = 'A';
+    const TYPE_DECREE = 'D';
+    const TYPE_ROSARY = 'R';
+
     /**
      * @return mixed
      */
@@ -48,7 +55,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'txtfield' => '',
             'copyright' => '',
             'priority' => 0,
-            'type' => '',
+            'type' => self::TYPE_ARTICLE,
             'keywords' => '',
             'description' => '',
 			'author_id' => new Author(),
@@ -67,7 +74,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      * @return mixed
      */
     public function Rules() {
-        // TODO: Implement Rules() method.
+	    return array(
+		    $this->LocalizedAssert(in_array($this->type, array(self::TYPE_ARTICLE, self::TYPE_ROSARY, self::TYPE_DECREE)), 'Catman.Validation.Article.UnsupportedType', 'type')
+	    );
     }
 
     /**

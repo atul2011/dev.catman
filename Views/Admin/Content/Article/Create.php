@@ -2,8 +2,8 @@
 /**
  * @var QuarkView|CreateView $this
  */
-
-use Quark\QuarkView;
+	use Models\Article;
+	use Quark\QuarkView;
 use ViewModels\Admin\Content\Article\CreateView;
 ?>
 <h2 class="page-title">Add New Article</h2>
@@ -24,7 +24,13 @@ use ViewModels\Admin\Content\Article\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block  middle">
                     <div class="title"><p>Type</p>
-                        <input placeholder="Type" type="text" class="quark-input text_field" name="type" id="item-type">
+                        <select class="quark-input text_field" name="type" id="item-type">
+		                    <?php
+			                    echo '<option value=' , Article::TYPE_ARTICLE , '">Article</option>';
+			                    echo '<option value=' , Article::TYPE_ROSARY , '">Rosary</option>';
+			                    echo '<option value=' , Article::TYPE_DECREE , '">Decree</option>';
+		                    ?>
+                        </select>
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">

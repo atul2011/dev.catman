@@ -9,6 +9,7 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkModel;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class Author
@@ -22,6 +23,11 @@ use Quark\QuarkModel;
  * @package AllModels\Content
  */
 class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExtract ,IQuarkModelWithDefaultExtract ,IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName,IQuarkLinkedModel {
+	use QuarkModelBehavior;
+
+	const TYPE_HUMAN = 'H';
+	const TYPE_MASTER = 'M';
+
 	/**
 	 * @return mixed
 	 */
@@ -30,7 +36,7 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 			'id' => 0,
 			'name'=>'',
 			'description'=>'',
-			'type' => '',
+			'type' => self::TYPE_HUMAN,
 			'keywords'=> ''
 		);
 	}
@@ -46,7 +52,9 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 	 * @return mixed
 	 */
 	public function Rules () {
-		// TODO: Implement Rules() method.
+		return array(
+			$this->LocalizedAssert(in_array($this->type, array(self::TYPE_HUMAN, self::TYPE_MASTER)), 'Catman.Validation.Author.UnsupportedType', 'type')
+		);
 	}
 
 	/**
@@ -63,7 +71,6 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 	 * @return mixed
 	 */
 	public function BeforeExtract ($fields, $weak) {
-//		$this->id=(string)$this->id;
 	}
 
 	/**
@@ -73,7 +80,9 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 	 * @return array
 	 */
 	public function DefaultExtract ($fields, $weak) {
-		if(!$fields=== null) return $fields;
+		if (!$fields=== null)
+			return $fields;
+
 		return array(
 			'id',
 			'name',
