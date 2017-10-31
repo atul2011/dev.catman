@@ -104,6 +104,9 @@ $(document).ready(function(){
     });
 // event listener that will permite open category in left table
     $(document).on("dblclick", '.actions-categories', function(){
+        if ($(this).attr('id').split('-')[2] === root_id)
+            $(".route-points").remove();
+            
         setCategory($(this).attr('id').split('-')[2]);
     });
 //set mouse over and out events to list of items in left table
@@ -238,6 +241,7 @@ function Link(service){
     //if is root category and we select service, we show that category
     if ((parentId === "0" ) && (service === "category")) {
         checkResponse(200, childId);
+
         return;
     }
     //if not, we link curent category with current item
