@@ -8,6 +8,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -294,7 +295,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function RootCategory () {
 		return QuarkModel::FindOne(new Category(), array(
-			'role' => self::ROLE_SYSTEM,
 			'sub' => self::TYPE_SYSTEM_ROOT_CATEGORY
 		));
 	}
@@ -304,7 +304,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function TopMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
-			'role' => self::ROLE_SYSTEM,
 			'sub' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY
 		));
 	}
@@ -327,7 +326,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function MainMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
-			'role' => self::ROLE_SYSTEM,
 			'sub' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY
 		));
 	}
@@ -341,7 +339,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
 		 */
 		$parent_category = self::MainMenuCategory();
-
+		Quark::Trace($parent_category);
 		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
 	}
 
@@ -350,7 +348,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function BottomMenuCategory () {
 		return QuarkModel::FindOne(new Category(), array(
-			'role' => self::ROLE_SYSTEM,
 			'sub' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY
 		));
 	}

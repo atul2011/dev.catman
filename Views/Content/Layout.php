@@ -16,7 +16,7 @@ use ViewModels\Content\LayoutView;
  */
 $top_categories = Category::MainMenuSubCategories();
 $top_categories_list = array();
-foreach ($main_categories as $item)
+foreach ($top_categories as $item)
 	$top_categories_list[] = '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
 
 
