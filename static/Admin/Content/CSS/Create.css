@@ -16,7 +16,7 @@ input[type="text"]::placeholder{
 .middle{
     padding: 0;
 }
-.text_field{
+.text_field, select.text_field{
     min-width: 250px;
     max-width: 250px;
 }

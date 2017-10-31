@@ -110,7 +110,9 @@
 .actions-forms {
     display: none;
 }
-
+.actions-categories {
+    color: black;
+}
 /*-----------------------------------------------------------------------------------------*/
 .current-pages-article .quark-presence-column,
 .current-pages-category .quark-presence-column,
