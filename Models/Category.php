@@ -294,18 +294,14 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return mixed
 	 */
 	public static function RootCategory () {
-		return QuarkModel::FindOne(new Category(), array(
-			'sub' => self::TYPE_SYSTEM_ROOT_CATEGORY
-		));
+		return QuarkModel::FindOne(new Category(), array('sub' => self::TYPE_SYSTEM_ROOT_CATEGORY));
 	}
 
 	/**
 	 * @return mixed
 	 */
 	public static function TopMenuCategory () {
-		return QuarkModel::FindOne(new Category(), array(
-			'sub' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY
-		));
+		return QuarkModel::FindOne(new Category(), array('sub' => self::TYPE_SYSTEM_TOP_MENU_CATEGORY));
 	}
 
 	/**
@@ -339,7 +335,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
 		 */
 		$parent_category = self::MainMenuCategory();
-		Quark::Trace($parent_category);
+
 		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
 	}
 
@@ -347,9 +343,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return mixed
 	 */
 	public static function BottomMenuCategory () {
-		return QuarkModel::FindOne(new Category(), array(
-			'sub' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY
-		));
+		return QuarkModel::FindOne(new Category(), array('sub' => self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY));
 	}
 
 	/**
