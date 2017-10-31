@@ -68,6 +68,7 @@
 #route-row {
     border: 0.5px solid grey;
     width: 100%;
+    height: 21px;
 }
 
 /*set style to route points*/
@@ -75,7 +76,9 @@
     margin: 0;
     padding: 0 3px 0 3px;
     color: black;
-    border-right: 0.5px solid grey;
+    border:0.5px solid grey;
+    border-top-width:0;
+    border-bottom-width:0;
     text-align: left;
 }
 

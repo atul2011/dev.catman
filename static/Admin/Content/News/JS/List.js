@@ -15,16 +15,10 @@ $(document).ready(function(){
         CheckSearch($('#news-select').val(),this.value,'news', ShowNews,50,'single');
     });
     
-    $(document).on('dblclick', '.delete-button-news', function(){
+    $(document).on('dblclick', '.delete-button-news', function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/admin/news/delete/" + $(this).attr('id').split('-')[2], type: "POST"}).then(function(){
-                removeItems('.content-row');
-                removeItems('.content-values');
-                LoadContent(false, 'news', ShowNews,$('#current-number').val(),50);
-            });
+            e.preventDefault();
         }
     });
     

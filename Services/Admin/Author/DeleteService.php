@@ -1,16 +1,25 @@
 <?php
-
 namespace Services\Admin\Author;
 
 use Models\Author;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
+use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
+use ViewModels\Admin\Status\InternalServerErrorView;
+use ViewModels\Admin\Status\NotFoundView;
 
-class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class DeleteService
+ *
+ * @package Services\Admin\Author
+ */
+class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -19,17 +28,18 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 	 *
 	 * @return mixed
 	 */
-	public function Post (QuarkDTO $request, QuarkSession $session) {
+	public function Get (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Author $author
 		 */
-		$id = $request->URI()->Route(3);
+		$author = QuarkModel::FindOneById(new Author(), $request->URI()->Route(3));
 
-		$author = QuarkModel::FindOneById(new Author(), $id);
+		if ($author == null)
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		if (!$author->Remove())
-			QuarkDTO::ForRedirect('/admin/author/list?deleted=false&id=' . $id);
+		if(!$author->Remove())
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		QuarkDTO::ForRedirect('/admin/author/list?deleted=true&id=' . $id);
+		return QuarkDTO::ForRedirect('/admin/author/list');
 	}
 }

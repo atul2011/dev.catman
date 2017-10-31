@@ -1,15 +1,27 @@
 <?php
-
 namespace Services\Admin\User;
+
+use Models\Article;
+use Models\News;
 use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkPostService;
+use Quark\IQuarkGetService;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
+use ViewModels\Admin\Status\CustomErrorView;
+use ViewModels\Admin\Status\InternalServerErrorView;
+use ViewModels\Admin\Status\NotFoundView;
 
-class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class DeleteService
+ *
+ * @package Services\Admin\User
+ */
+class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -19,7 +31,7 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 	 * @return bool|mixed
 	 */
 	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
-		return 		$session->User()->rights === 'A';
+		return 	$session->User()->rights === 'A';
 	}
 
 	/**
@@ -37,15 +49,24 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 	 *
 	 * @return mixed
 	 */
-	public function Post (QuarkDTO $request, QuarkSession $session) {
+	public function Get (QuarkDTO $request, QuarkSession $session) {
 		/**
-		 * @var QuarkModel|User $user
-		 */
-		$id = $request->URI()->Route(3);
-		$user = QuarkModel::FindOneById(new User(), $id);
-		if (!$user->Remove())
-			QuarkDTO::ForRedirect('/admin/user/list?deleted=false&id=' . $id);
+		* @var QuarkModel|User $user
+		*/
+		$user= QuarkModel::FindOneById(new User(), $request->URI()->Route(3));
 
-		QuarkDTO::ForRedirect('/admin/user/list?deleted=true&id=' . $id);
+		if ($user == null)
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
+
+		if(!QuarkModel::Delete(new News(), array('lastediteby_userid' => $user->id)))
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot delete user\'s news'
+			));
+
+		if(!$user->Remove())
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
+
+		return QuarkDTO::ForRedirect('/admin/user/list');
 	}
 }

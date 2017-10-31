@@ -14,8 +14,8 @@
                         <select class="text_field quark-input" name="type" id="item-type">
                             <?php
                             use Models\Author;
-                            echo '<option values"' , Author::TYPE_HUMAN , '">Human</option>';
-                            echo '<option values"' , Author::TYPE_MASTER , '">Master</option>';
+                            echo '<option value="' , strtoupper(Author::TYPE_HUMAN) , '">Human</option>';
+                            echo '<option value="' , strtoupper(Author::TYPE_MASTER) , '">Master</option>';
                             ?>
                         </select>
                     </div>

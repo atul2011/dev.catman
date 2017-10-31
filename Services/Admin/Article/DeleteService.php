@@ -9,8 +9,13 @@ use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
+use ViewModels\Admin\Status\CustomErrorView;
+use ViewModels\Admin\Status\InternalServerErrorView;
+use ViewModels\Admin\Status\NotFoundView;
 
 /**
  * Class DeleteService
@@ -31,11 +36,20 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 		/**
 		 * @var QuarkModel|Article $article
 		 */
-		$id = $request->URI()->Route(3);
+		$article = QuarkModel::FindOneById(new Article(), $request->URI()->Route(3));
 
-		QuarkModel::Delete(new Articles_has_Categories(), array('article_id' => $id));
-		$article = QuarkModel::FindOneById(new Article(), $id);
+		if ($article == null)
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		return array('status' => $article->Remove() ? 200 : 500);
+		if (!QuarkModel::Delete(new Articles_has_Categories(), array('article_id' => $article->id)))
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot delete relationships of article with categories'
+			));
+
+		if (!$article->Remove())
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
+
+		return QuarkDTO::ForRedirect('/admin/article/list');
 	}
 }

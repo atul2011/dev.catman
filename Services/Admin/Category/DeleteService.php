@@ -7,14 +7,17 @@ use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
-use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Exception;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
+use ViewModels\Admin\Status\AccessForbiddenView;
+use ViewModels\Admin\Status\CustomErrorView;
+use ViewModels\Admin\Status\InternalServerErrorView;
+use ViewModels\Admin\Status\NotFoundView;
 
 /**
  * Class DeleteService
@@ -34,36 +37,36 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Category $category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_parent_links
-		 * @var QuarkCollection|Categories_has_Categories[] $category_child_links
-		 * @var QuarkCollection|Articles_has_Categories[] $article_links
 		 */
-		$id = $request->URI()->Route(3);
-		/**
-		 * @var QuarkModel|Category $category
-		 */
-		$category = QuarkModel::FindOneById(new Category(), $id);
+		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(3));
 
-		if ($category->id == Category::RootCategory())
+		if ($category->role == Category::ROLE_SYSTEM)
+			return QuarkView::InLayout(new AccessForbiddenView(), new QuarkPresenceControl());
 
 		if ($category == null)
-			return array('status' => 404);
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		try {
-			QuarkModel::Delete(new Categories_has_Categories(), array('child_id1' => $id));
+		if (!QuarkModel::Delete(new Categories_has_Categories(), array('child_id1' => $category->id)))
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot delete relationships of category as child'
+			));
 
-			if ($request->Data()->type_of_delete === 'all') {
-				QuarkModel::Delete(new Categories_has_Categories(), array('parent_id' => $id));
-				QuarkModel::Delete(new Articles_has_Categories(), array('category_id' => $id));
-			}
-		}
-		catch (Exception $e) {
-			return $e;
-		}
+		if (!QuarkModel::Delete(new Categories_has_Categories(), array('parent_id' => $category->id)))
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot delete relationships of category as parent'
+			));
+
+		if (!QuarkModel::Delete(new Articles_has_Categories(), array('category_id' => $category->id)))
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot delete relationships of category with articles'
+			));
 
 		if (!$category->Remove())
-			return array('status' => 500);
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return array('status' => 200);
+		return QuarkDTO::ForRedirect('/admin/category/list');
 	}
 }

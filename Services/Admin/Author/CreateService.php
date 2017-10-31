@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Author;
 
 use Models\Author;
@@ -13,7 +12,14 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Content\Author\CreateView;
+use ViewModels\Admin\Status\ConflictView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 
+/**
+ * Class CreateService
+ *
+ * @package Services\Admin\Author
+ */
 class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
@@ -37,17 +43,16 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 		/**
 		 * @var QuarkModel|Author $author
 		 */
-		$author = QuarkModel::FindOne(new Author(), array(
-			'name' => $request->Data()->name
-		));
-		if ($author !== null)
-			return QuarkDTO::ForRedirect('/admin/author/edit?create=false');
+		$author = QuarkModel::FindOne(new Author(), array('name' => $request->name));
+
+		if ($author != null)
+			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
 		$author = new QuarkModel(new Author(), $request->Data());
 
 		if (!$author->Create())
-			return QuarkDTO::ForRedirect('/admin/author/edit?create=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/author/list?create=true');
+		return QuarkDTO::ForRedirect('/admin/author/list');
 	}
 }
