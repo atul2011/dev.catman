@@ -48,10 +48,12 @@ function setDefaultEvents(model,callback){
     });
     $(document).on('click', '.special-delete-button-'+model, function(e){
         response = prompt('Do you want to delete this y/n ?', '');
+        var href = $(this).attr('href');
         if (response === 'n') {
             e.preventDefault();
         } else if (response === 'y') {
-            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'link'}}).then(function(data){
+            e.preventDefault();
+            $.ajax({url: href, type: "GET"}).then(function(data){
                 if (data !== null && data !== '')
                 LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
                 setCategory($(".route-points").last().attr('id').split('-')[2]);
@@ -310,10 +312,12 @@ function showCurrentItems(response, service){
 }
 //action for management items in left column
 function setSpecialActions(id, model){
+    var current_category_id = $('.route-points').last().attr('id').split('-')[2];
+
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/admin/' + model + '/edit/' + id + '""></a>' +
-        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions "  id="current-category-delete-' + id + '" "></a>';
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
+        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions" href="/admin/' + model + '/relation/delete/' + current_category_id + '/' + id + '""></a>';
 }
 //function to create an ICon for category as folder
 function setCategoryIcon(id){

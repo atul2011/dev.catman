@@ -1,17 +1,14 @@
 <?php
-
 namespace Services\Admin\Article;
 
 use Models\Article;
 use Models\Articles_has_Categories;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkPostService;
+use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Exception;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
@@ -20,7 +17,7 @@ use Services\Admin\Behaviors\CustomProcessorBehavior;
  *
  * @package Services\Articles
  */
-class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -30,23 +27,15 @@ class DeleteService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 	 *
 	 * @return mixed
 	 */
-	public function Post (QuarkDTO $request, QuarkSession $session) {
+	public function Get (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Article $article
-		 * @var QuarkCollection|Articles_has_Categories[] $article_links
 		 */
 		$id = $request->URI()->Route(3);
-		try {
-			if($request->Data()->type_of_delete === 'all')
-			QuarkModel::Delete(new Article(), array(
-				'id' => $id
-			));
-			QuarkModel::Delete(new Articles_has_Categories(), array(
-				'article_id' => $id
-			));
-		}
-		catch (Exception $e) {
-			return $e;
-		}
+
+		QuarkModel::Delete(new Articles_has_Categories(), array('article_id' => $id));
+		$article = QuarkModel::FindOneById(new Article(), $id);
+
+		return array('status' => $article->Remove() ? 200 : 500);
 	}
 }
