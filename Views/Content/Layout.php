@@ -1,9 +1,11 @@
 <?php
-use Models\Categories_has_Categories;
+	use Models\Article;
+	use Models\Categories_has_Categories;
 use Models\Category;
 use Quark\Quark;
 use Quark\QuarkCollection;
-use Quark\QuarkView;
+	use Quark\QuarkModel;
+	use Quark\QuarkView;
 use ViewModels\Content\LayoutView;
 
 /**
@@ -13,12 +15,22 @@ use ViewModels\Content\LayoutView;
 //top categories
 /**
  * @var QuarkCollection|Categories_has_Categories[] $top_categories
+ * @var QuarkModel|Category $top_category
  */
+$top_category = Category::TopMenuCategory();
 $top_categories = Category::MainMenuSubCategories();
 $top_categories_list = array();
-foreach ($top_categories as $item)
-	$top_categories_list[] = '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
 
+foreach ($top_categories as $item) {
+	$top_categories_list[] = '<li><a href="/category/' . $item->child_id1->id . '">' . $item->child_id1->title . '</a></li>';
+}
+/**
+ * @var QuarkCollection|Article[] $top_articles
+ */
+$top_articles = $top_category->Articles();
+
+foreach ($top_articles as $item)
+	$top_categories_list[] = '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
 
 //main categories
 /**
@@ -37,6 +49,16 @@ foreach ($main_categories as $item){
 	$main_categories_list_max .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
     ++$i;
 }
+/**
+ * @var QuarkCollection|Article[] $main_articles
+ * @var QuarkModel|Category $main_category
+ */
+$main_category = Category::MainMenuCategory();
+
+$main_articles = $main_category->Articles();
+
+foreach ($main_articles as $item)
+	$main_categories_list_max .= '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
 
 //bottom categories
 /**
@@ -45,7 +67,7 @@ foreach ($main_categories as $item){
 $bottom_categories = Category::BottomMenuSubCategories();
 $bottom_categories_container = array();
 $iterator = 1;
-foreach ($bottom_categories as $collection) {
+foreach ($bottom_categories as $bottom_category) {
     if ($iterator > 4)
         break;
 
@@ -139,11 +161,9 @@ foreach ($news as $item){
 			<div class="col-lg-9 col-md-9" id="nav-bar-menu">
 				<ul class="top_mnu" id="nav-bar-menu-list">
 					<li><a href="/" class="home"><img src="/static/Content/resources/img/home.png" alt=""></a></li>
-					<li><a href="#">о сайте</a></li>
-					<li><a href="#">книги</a></li>
-					<li><a href="#">архив</a></li>
-					<li><a href="#">форум</a></li>
-					<li><a href="#">звезда свободы</a></li>
+					<?php
+					foreach ($top_categories_list as $item) echo $item;
+					?>
 				</ul>
 			</div>
 
@@ -159,9 +179,7 @@ foreach ($news as $item){
 				</div>
 			</div>
 			<div class="col-md-4">
-				<!-- mobile mnu -->
 				<a href="#" class="slide-menu-open"></a>
-
 				<div class="side-menu-overlay"></div>
 				<div class="side-menu-wrapper" id="mobile-category-top-container">
 					<a href="#" class="menu-close" id="mobile-category-top-list">&times;</a>
@@ -171,11 +189,8 @@ foreach ($news as $item){
 						<li><a href="#">архив</a></li>
 						<li><a href="#">форум</a></li>
 						<li><a href="#">звезда свободы</a></li>
-
 					</ul>
 				</div>
-
-				<!-- end mobile mnu -->
 			</div>
 		</div>
 	</div>
@@ -197,7 +212,7 @@ foreach ($news as $item){
 							<div class="row">
 								<div class="col-md-12" id="category-top-container">
 									<ul class="inner_mnu" id="category-top-list">
-                                        <?php  echo $main_categories_list_mini;?>
+                                        <?php echo $main_categories_list_mini;?>
 										<li class="dropdown-item" id="category-top-list-dropdown">
 											<div class="dropdown">
 												<div class="dropdown-content">

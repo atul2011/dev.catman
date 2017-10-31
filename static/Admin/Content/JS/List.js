@@ -48,6 +48,7 @@ function LoadContent(alone, model, callback, skip, limit,state){
             }
         });
 }
+
 function noParents(alone, model, callback, limit, state){
     var special_model = '';
     if(state === 'multiple') special_model = '-' + model;
@@ -63,10 +64,12 @@ function setActions(id, model){
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '""></a>' +
         '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" "></a>';
 }
+
 //clear all items from left-table
 function removeItems(selector){
     $(selector).remove();
 }
+
 //function to paint checked row
 function paintRow(id, type){
     status = true;

@@ -26,7 +26,7 @@ $banner = $random_banner[0];
 	<div class="item-content">
 		<div class="item-content-container">
 			<?php
-			echo $article->txtfield;
+            echo $article->txtfield;
 			?>
 		</div>
 	</div>
