@@ -11,7 +11,13 @@
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Type</p>
-                        <input placeholder="Type" type="text" maxlength="1" class="text_field quark-input" name="type" id="item-type" >
+                        <select class="text_field quark-input" name="type" id="item-type">
+                            <?php
+                            use Models\Author;
+                            echo '<option values"' , Author::TYPE_HUMAN , '">Human</option>';
+                            echo '<option values"' , Author::TYPE_MASTER , '">Master</option>';
+                            ?>
+                        </select>
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">
