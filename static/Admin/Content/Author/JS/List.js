@@ -15,22 +15,17 @@ $(document).ready(function(){
         CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50,'single');
     });
     
-    $(document).on('dblclick', '.delete-button-author', function(){
+    $(document).on('click', '.delete-button-author', function(e){
         response = prompt('Do you want to delete this y/n ?', '');
-        if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/admin/author/delete/" + $(this).attr('id').split('-')[2], type: "POST"}).then(function(){
-                removeItems('.content-row');
-                removeItems('.content-values');
-                LoadContent(false, 'author', ShowAuthors,$('#current-number').val(),50);
-            });
-        }
+
+        if (response === 'n')
+            e.preventDefault();
     });
     
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });
+
     ////////////////////////////navigation bar//////////////////////////////////////////
     LoadNavigationBar('single','author',ShowAuthors);
 });

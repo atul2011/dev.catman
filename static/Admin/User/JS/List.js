@@ -17,16 +17,11 @@ $(document).ready(function(){
         CheckSearch($('#user-select').val(),this.value,'user', ShowUsers,50);
     });
     
-    $(document).on('dblclick', '.delete-button-user', function(){
+    $(document).on('click', '.delete-button-user', function(e) {
         response = prompt('Do you want to delete this y/n ?', '');
+
         if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/admin/user/delete/" + $(this).attr('id'), type: "POST"}).then(function(){
-                removeItems('.content-row');
-                removeItems('.content-values');
-                LoadContent(false, 'user', ShowUsers,1,50);
-            });
+            e.preventDefault();
         }
     });
     

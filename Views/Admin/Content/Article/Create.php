@@ -26,9 +26,9 @@ use ViewModels\Admin\Content\Article\CreateView;
                     <div class="title"><p>Type</p>
                         <select class="quark-input text_field" name="type" id="item-type">
 		                    <?php
-			                    echo '<option value=' , Article::TYPE_ARTICLE , '">Article</option>';
-			                    echo '<option value=' , Article::TYPE_ROSARY , '">Rosary</option>';
-			                    echo '<option value=' , Article::TYPE_DECREE , '">Decree</option>';
+			                    echo '<option value="' , Article::TYPE_ARTICLE , '">Article</option>';
+			                    echo '<option value="' , Article::TYPE_ROSARY , '">Rosary</option>';
+			                    echo '<option value="' , Article::TYPE_DECREE , '">Decree</option>';
 		                    ?>
                         </select>
                     </div>

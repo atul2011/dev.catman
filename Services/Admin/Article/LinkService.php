@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Article;
 
 use Models\Article;
@@ -36,27 +35,27 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 		 * @var QuarkModel|Articles_has_Categories $link
 		 */
 		$article = QuarkModel::FindOneById(new Article(), $request->Data()->child);
-		if ($article == null) return array(
-			'status' => 404
-		);
+		if ($article == null)
+			return array('status' => 404);
 		$category = QuarkModel::FindOneById(new Category(), $request->Data()->parent);
-		if ($category == null) return array(
-			'status' => 404
-		);
+		if ($category == null)
+			return array('status' => 404);
+
 		$link = QuarkModel::FindOne(new Articles_has_Categories(), array(
 			'article_id' => $article->id,
 			'category_id' => $category->id
 		));
-		if ($link != null) return array(
-			'status' => 409
-		);
+
+		if ($link != null)
+			return array('status' => 409);
+
 		$link = new QuarkModel(new Articles_has_Categories(), array(
 			'article_id' => $article,
 			"category_id" => $category
 		));
-		if (!$link->Create()) return array(
-			'status' => 409
-		);
+
+		if (!$link->Create())
+			return array('status' => 500);
 
 		return array(
 			'status' => 200,

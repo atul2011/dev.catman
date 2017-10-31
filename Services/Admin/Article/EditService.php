@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Article;
 
 use Models\Article;
@@ -15,10 +14,16 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Article\CreateView;
 use ViewModels\Admin\Content\Article\EditView;
+use ViewModels\Admin\Status\BadRequestView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
 
+/**
+ * Class EditService
+ *
+ * @package Services\Admin\Article
+ */
 class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
@@ -32,16 +37,14 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$id = $request->URI()->Route(3);
 
 		if(!is_numeric($id))
-			return QuarkDTO::ForRedirect('/admin/article/list?status=400');
+			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
 		/**
 		 * @var QuarkModel|Article $article
 		 */
 		$article =  QuarkModel::FindOneById(new Article(),$id);
 
 		if($article == null)
-			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
-				'model' => 'Article'
-			));
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
@@ -66,18 +69,12 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article = QuarkModel::FindOneById(new Article(), $id);
 
 		if ($article === null)
-			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
-				'model' => 'Article'
-			));
+			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array('model' => 'Article'));
 
 		$article->PopulateWith($request->Data());
 
-		$author = QuarkModel::FindOne(new Author(), array(
-			'name' => $request->Data()->author
-		));
-		$event = QuarkModel::FindOne(new Event(), array(
-			'name' => $request->Data()->event
-		));
+		$author = QuarkModel::FindOne(new Author(), array('name' => $request->Data()->author));
+		$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->event));
 
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;
@@ -93,8 +90,8 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article->setTags($tags);
 
 		if (!$article->Save())
-			return QuarkDTO::ForRedirect('/admin/article/list?update=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/article/list?update=true');
+		return QuarkDTO::ForRedirect('/admin/article/list');
 	}
 }

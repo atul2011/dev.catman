@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Article;
 
 use Models\Article;

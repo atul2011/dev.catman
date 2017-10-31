@@ -1,5 +1,6 @@
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
+
 $(document).ready(function(){
     $('.navigation_form').submit(function(e){
         e.preventDefault();
@@ -13,6 +14,7 @@ $(document).ready(function(){
     var list = $('.items-list');
     $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 });
+
 function resizeList(height_difference, width_difference){
     var height = $('body').height() - (height_difference + 72), list = $('.items-list'),
         width = list.width() - width_difference;
@@ -28,8 +30,8 @@ function resizeList(height_difference, width_difference){
         $('.search').css('max-width', width).css('min-width', width);
     });
 }
-//function to load content
-function LoadContent(alone, model, callback, skip, limit,state){
+
+function LoadContent(alone, model, callback, skip, limit,state){//function to load content
     var special_model = '';
     if (state === 'multiple') special_model = '-' + model;
     var start = (parseInt(skip) - 1) * 50;
@@ -57,37 +59,33 @@ function noParents(alone, model, callback, limit, state){
     LoadContent(alone, model, callback, start, limit, state);
 }
 
-//function to add to each item in actions column the anchors-icons for redirecting
-function setActions(id, model){
+function setActions(id, model){//function to add to each item in actions column the anchors-icons for redirecting
     //define edit and remove buttons for all rows
     return actions =
-        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '""></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" "></a>';
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
+        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
 }
 
-//clear all items from left-table
-function removeItems(selector){
+function removeItems(selector){//clear all items from left-table
     $(selector).remove();
 }
 
-//function to paint checked row
-function paintRow(id, type){
+function paintRow(id, type) {//function to paint checked row
     status = true;
     var selector = "content-row";
     if (type !== '') selector = "content-row-"+type;
     var row = $("." + selector);
-    //ceck if any another row has checked
+
     row.each(function(){
-        if ($(this).css("background-color") === selectedColor) {
+        if ($(this).css("background-color") === selectedColor) {//ceck if any another row has checked
             status = false;
         }
     });
-    //if not, we paint selected row
-    if (status === "true") {
+
+    if (status === "true") {//if not, we paint selected row
         $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
-    //if yes, we paint in white all another rows before paint current row
-    else if (status === "false") {
+    else if (status === "false") {//if yes, we paint in white all another rows before paint current row
         row.each(function(){
             $(this).css("background-color", "white").css("color", 'black').removeClass('selected').addClass(selector);
         });
@@ -98,14 +96,14 @@ function paintRow(id, type){
 function CheckSearch(name, str, model, callback, limit,state){
     var special_model = '';
     if (state === 'multiple') special_model = '-' + model;
-    //if search bar is empty, we load default list
-    if (str.length === 0) {
+
+    if (str.length === 0) {//if search bar is empty, we load default list
         LoadContent(false, model, callback, 1, 50,state);
         return;
     }
-    //if not to search in DB items by inserted string
+
     $.ajax({url: '/admin/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
-        function(json){
+        function(json){//if not to search in DB items by inserted string
             removeItems('.content-row'+ special_model);
             if (json.response !== '') {
                 json.response.forEach(callback);

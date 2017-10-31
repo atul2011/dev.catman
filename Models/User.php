@@ -27,6 +27,9 @@ use Quark\QuarkModel;
  * @package AllModels\Admin
  */
 class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomCollectionName, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkModelWithDataProvider, IQuarkAuthorizableModel, IQuarkModelWithDefaultExtract,IQuarkLinkedModel {
+	const RIGHTS_ADMIN = 'A';
+	const RIGHTS_EDITOR = 'E';
+
 	/**
 	 * @return string
 	 */
@@ -44,7 +47,7 @@ class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomColle
 			'name' => '',
 			'pass' => '',
 			'email' => '',
-			'rights' => ''
+			'rights' => self::RIGHTS_EDITOR
 		);
 	}
 

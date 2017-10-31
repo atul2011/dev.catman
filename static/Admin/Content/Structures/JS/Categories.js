@@ -35,15 +35,6 @@ function setDefaultEvents(model,callback){
         response = prompt('Do you want to delete this y/n ?', '');
         if (response === 'n') {
             e.preventDefault();
-        } else if (response === 'y') {
-            $.ajax({url: '/admin/'+model+'/delete/' + $(this).attr('id').split('-')[2], type: "POST",data:{type_of_delete:'all'}}).then(function(data){
-                if (data !== null && data !== '')
-                    console.log(data);
-                LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2]);
-            });
-        } else {
-            return false;
         }
     });
     $(document).on('click', '.special-delete-button-'+model, function(e){
