@@ -69,13 +69,15 @@ $bottom_articles = $bottom_category->Articles(20);
 $bottom_list = '';
 $iterator = 1;
 $bottom_items = array();
+
 foreach ($bottom_categories as $item)
     $bottom_items[] = $item;
-    
+
 foreach ($bottom_articles as $item)
     $bottom_items[] = $item;
 
 $bottom_items = array_slice($bottom_items, 0, 16);
+
 
 foreach ($bottom_items as $item) {
     if ($iterator%4 == 1)
@@ -84,24 +86,24 @@ foreach ($bottom_items as $item) {
             '<div class="main-site-menu category-bottom-subcontainer">'.
                 '<div class="category-bottom-list">';
 
-    if ($item instanceof Category) {
-	    $bottom_list .=
-		    '<div class="category-bottom-item">'.
-                '<a href="/category/'.$item->id.'">'.$item->title . '</a>'.
-		    '</div>';
-    }else if ($item instanceof Article){
-	    $bottom_list .=
-		    '<div class="category-bottom-item">'.
-                '<a href="/article/'.$item->id.'">'.$item->title . '</a>'.
-		    '</div>';
-    }
+
+    $bottom_list .= $item instanceof Category
+        ?
+        '<div class="category-bottom-item">'.
+            '<a href="/category/'.$item->id.'">'.$item->title . '</a>'.
+        '</div>'
+        :
+        '<div class="category-bottom-item">'.
+            '<a href="/article/'.$item->id.'">'.$item->title . '</a>'.
+        '</div>';
+
 
 	if ($iterator%4 == 0)
 		$bottom_list .= '</div></div></div>';
 
     $iterator++;
-
 }
+
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------news--------------------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
