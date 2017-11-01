@@ -5,14 +5,20 @@ $(document).ready(function(){
     $('.navigation_form').submit(function(e){
         e.preventDefault();
     });
+
     $('input[type="text"]').keypress(function(event){
         if (event.which === 13) {
             event.preventDefault();
         }
     });
+
     //set loader position
     var list = $('.items-list');
     $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
+
+    var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
+        success: function(trigger, dialog){}
+    });
 });
 
 function resizeList(height_difference, width_difference){
@@ -47,6 +53,10 @@ function LoadContent(alone, model, callback, skip, limit,state){//function to lo
             if (json.response !== null) {
                 json.response.forEach(callback);
                 if(state === 'multiple')getHeight();
+
+                var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
+                    success: function(trigger, dialog){}
+                });
             }
     });
 }
@@ -63,7 +73,7 @@ function setActions(id, model){//function to add to each item in actions column 
     //define edit and remove buttons for all rows
     return actions =
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions "  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
+        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" quark-dialog="#item-remove"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
 }
 
 function removeItems(selector){//clear all items from left-table
