@@ -195,10 +195,11 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
        ));
 
        $out = new QuarkCollection(new Article());
+
        foreach ($links as $item)
            $out[]= $item->article_id;
 
-       return $out;
+	    return Article::Sort($out);
     }
 
 	/**
@@ -320,7 +321,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		foreach ($category_relations as $link)
 			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
 
-		return $out;
+		return Category::Sort($out);
 	}
 
 	/**
@@ -346,7 +347,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		foreach ($links as $link)
 			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
 
-		return $out;
+		return Category::Sort($out);
 	}
 
 	/**
@@ -371,6 +372,16 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		foreach ($links as $link)
 			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
 
-		return $out;
+		return Category::Sort($out);
+	}
+
+	/**
+	 * @param QuarkCollection|Category[] $categories
+	 * @param string $field
+	 *
+	 * @return QuarkCollection|Category[]
+	 */
+	public static function Sort (QuarkCollection $categories, $field = 'priority') {
+		return $categories->Select(array(), array(QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC)));
 	}
 }
