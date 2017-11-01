@@ -4,8 +4,19 @@
  * @var int $number
  */
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Content\Category\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete article',
+	                     'You are about to delete the article. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The article was deleted',
+	                     'An error occurred. Failed to delete the article',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2>Article List</h2>
 <h5>Navigate through articles</h5>

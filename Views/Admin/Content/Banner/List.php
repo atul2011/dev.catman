@@ -3,9 +3,21 @@
  * @var QuarkView|ListView $this
  * @var int $number
  */
+
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Content\Category\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete banner',
+	                     'You are about to delete the banner. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The banner was deleted',
+	                     'An error occurred. Failed to delete the banner',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2>Banner List</h2>
 <h5>Navigate through banners</h5>

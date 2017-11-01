@@ -4,22 +4,21 @@ namespace Services\Admin\Event;
 use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
+use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Status\InternalServerErrorView;
-use ViewModels\Admin\Status\NotFoundView;
+use Services\Admin\Behaviors\CustomProcessorBehavior;
 
 /**
  * Class DeleteService
  *
  * @package Services\Admin\Event
  */
-class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
+class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
 	use AuthorizationBehavior;
+	use CustomProcessorBehavior;
 
 	/**
 	 * @param QuarkDTO $request
@@ -34,11 +33,11 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 		$event = QuarkModel::FindOneById(new Event(), $request->URI()->Route(3));
 
 		if ($event == null)
-			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
+			return array('status' => 400);
 
 		if(!$event->Remove())
-			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
+			return array('status' => 500);
 
-		return QuarkDTO::ForRedirect('/admin/event/list');
+		return array('status' => 200);
 	}
 }

@@ -1,14 +1,25 @@
 <?php
+use Models\User;
+use Quark\QuarkModel;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\User\ListView;
 /**
  * @var QuarkView|ListView $this
  * @var QuarkModel|User $users
  * @var int $number
  */
-use Models\User;
-use Quark\QuarkModel;
-use Quark\QuarkView;
-use ViewModels\Admin\User\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete item',
+	                     'You are about to delete the item. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The item was deleted',
+	                     'An error occurred. Failed to delete the item',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <div class="quark-presence-column " id="content-container">
 	<div class="quark-presence-container presence-block">
@@ -38,7 +49,7 @@ use ViewModels\Admin\User\ListView;
 		<div class="quark-presence-column">
 			<div class="quark-presence-container presence-block" id="nav-bar">
 				<form action="" class="navigation_form" method="GET">
-					<input type="hidden" id="number" value="<?php echo $number; ?>">
+					<input type="hidden" id="number" value="<?php echo $number;?>">
 					<input type="hidden" id="current-number" value="">
 					<div class="quark-presence-column">
 						<button type="submit" class="nav-button" id="first" value="1"><<</button>

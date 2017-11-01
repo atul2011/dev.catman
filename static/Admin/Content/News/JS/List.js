@@ -31,7 +31,7 @@ function ShowNews(response) {
         '<div class="content-values quark-presence-column contents">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.text.substr(0, 200) + '</textarea>' + '</div>' +
         '<div class="content-values quark-presence-column users">' + response.lastediteby_userid.id + '</div>' +
         '<div class="content-values quark-presence-column dates">' + response.lastedited_date + '</div>' +
-        '<div class="content-values quark-presence-column actions">' + setActions(response.id,'news') + '</div>' +
+        '<div class="content-values quark-presence-column actions">' + setActions(response.id, 'news') + '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');

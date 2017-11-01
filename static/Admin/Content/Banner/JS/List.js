@@ -11,12 +11,7 @@ $(document).ready(function(){
         $('#loading-circle').css('display','block');
         CheckSearch($('#banner-select').val(),this.value,'banner', ShowBanners,50,'single');
     });
-    $(document).on('click', '.delete-button-banner', function(e){
-        response = prompt('Do you want to delete this y/n ?', '');
-        if (response === 'n') {
-            e.preventDefault();
-        }
-    });
+
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });

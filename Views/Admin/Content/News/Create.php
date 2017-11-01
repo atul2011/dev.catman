@@ -24,6 +24,7 @@ use ViewModels\Admin\Content\News\CreateView;
 							<?php
 							echo '<option value="' , strtoupper(News::TYPE_NEW_EVENT) , '">New Event</option>';
 							echo '<option value="' , strtoupper(News::TYPE_NEW_MATERIAL) , '">New Published Material</option>';
+							echo '<option value="' , strtoupper(News::TYPE_CUSTOM) , '">Custom</option>';
 							?>
                         </select>
 					</div>

@@ -16,11 +16,22 @@ $(document).ready(function(){
     var list = $('.items-list');
     $('#loading-circle').css('left', (list.width() / 3.3)).css('top', (list.height() * 1.8));
 
-    var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
-        success: function(trigger, dialog){}
-    });
+    DialogWindow();
 });
+function DialogWindow() {
+    var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
+        success: function(trigger, dialog){
+            trigger.parents('.content-row').remove();
 
+            var redirect = trigger.attr('quark-redirect');
+
+            if (redirect)
+                setTimeout(function(){
+                    window.location.href = redirect
+                }, 1000);
+        }
+    });
+}
 function resizeList(height_difference, width_difference){
     var height = $('body').height() - (height_difference + 72), list = $('.items-list'),
         width = list.width() - width_difference;
@@ -54,9 +65,7 @@ function LoadContent(alone, model, callback, skip, limit,state){//function to lo
                 json.response.forEach(callback);
                 if(state === 'multiple')getHeight();
 
-                var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
-                    success: function(trigger, dialog){}
-                });
+                DialogWindow();
             }
     });
 }
@@ -73,7 +82,7 @@ function setActions(id, model){//function to add to each item in actions column 
     //define edit and remove buttons for all rows
     return actions =
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" quark-dialog="#item-remove"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
+        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/' + model + '/list/"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
 }
 
 function removeItems(selector){//clear all items from left-table
