@@ -30,7 +30,7 @@ function setDefaultEvents(model,callback){
         $('#loading-circle-'+model).css('display', 'block');
         noParents($(this).is(':checked'), model, callback, 50,'multiple');
     });
-    
+
     $(document).on('click', '.special-delete-button-'+model, function(e){
         response = prompt('Do you want to delete this y/n ?', '');
         var href = $(this).attr('href');
