@@ -35,17 +35,20 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkModel|Author $author
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		$articles = QuarkModel::Find(new Article());
+
 		$out = $articles->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-				array(
-				QuarkModel::OPTION_LIMIT => $limit
-			)
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
+
 		$search_value = '';
 		$fields = explode('_', $request->Data()->field);
+
 		if (!empty($fields[1])) {
 			if ($fields[1] === 'id') {
 				if ($fields[0] === 'event') {

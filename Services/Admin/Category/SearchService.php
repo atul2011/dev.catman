@@ -34,10 +34,8 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		$categories = QuarkModel::Find(new Category(),array());
 
 		$out = $categories->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-			array(
-				QuarkModel::OPTION_LIMIT => $limit
-			)
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
 		return array(

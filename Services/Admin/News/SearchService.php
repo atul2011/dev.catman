@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin\News;
+
 use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
@@ -12,6 +12,11 @@ use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class SearchService
+ *
+ * @package Services\Admin\News
+ */
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -33,10 +38,8 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		$news= QuarkModel::Find(new News());
 
 		$out = $news->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-			array(
-				QuarkModel::OPTION_LIMIT => $limit
-			)
+			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
 		return array(
