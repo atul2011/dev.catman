@@ -2,6 +2,7 @@
 /**
  * @var QuarkView|CreateView $this
  */
+use Models\News;
 use Quark\QuarkView;
 use ViewModels\Admin\Content\News\CreateView;
 
@@ -19,7 +20,12 @@ use ViewModels\Admin\Content\News\CreateView;
 				</div>
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Type</p>
-						<input type="text" placeholder="Type" maxlength="1" class="quark-input text_field" name="type" id="item-sub"/>
+                        <select class="text_field quark-input" name="type" id="item-type">
+							<?php
+							echo '<option value="' , strtoupper(News::TYPE_NEW_EVENT) , '">New Event</option>';
+							echo '<option value="' , strtoupper(News::TYPE_NEW_MATERIAL) , '">New Published Material</option>';
+							?>
+                        </select>
 					</div>
 				</div>
 				<div class="quark-presence-container presence-block middle">

@@ -112,7 +112,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'sub',
             'priority',
             'keywords',
-            'description'
+            'description',
+            'role'
         );
     }
 
@@ -313,30 +314,39 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
 		 */
 		$parent_category = self::TopMenuCategory();
+		$category_relations = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		$out = new QuarkCollection(new Category());
 
-		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		foreach ($category_relations as $link)
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+
+		return $out;
 	}
 
 	/**
 	 * @return mixed
 	 */
 	public static function MainMenuCategory () {
-		return QuarkModel::FindOne(new Category(), array(
-			'sub' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY
-		));
+		return QuarkModel::FindOne(new Category(), array('sub' => self::TYPE_SYSTEM_MAIN_MENU_CATEGORY));
 	}
 
 	/**
 	 * @return QuarkCollection|Category[]
 	 */
 	public static function MainMenuSubCategories () {
+
 		/**
 		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
+		 * @var QuarkCollection|Categories_has_Categories[] $links
 		 */
 		$parent_category = self::MainMenuCategory();
+		$links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		$out = new QuarkCollection(new Category());
 
-		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		foreach ($links as $link)
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+
+		return $out;
 	}
 
 	/**
@@ -352,10 +362,15 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public static function BottomMenuSubCategories () {
 		/**
 		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
+		 * @var QuarkCollection|Categories_has_Categories[] $links
 		 */
 		$parent_category = self::BottomMenuCategory();
+		$links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		$out = new QuarkCollection(new Category());
 
-		return QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
+		foreach ($links as $link)
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+
+		return $out;
 	}
 }

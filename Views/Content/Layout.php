@@ -1,28 +1,29 @@
 <?php
-	use Models\Article;
-	use Models\Categories_has_Categories;
+use Models\Article;
 use Models\Category;
 use Quark\Quark;
 use Quark\QuarkCollection;
-	use Quark\QuarkModel;
-	use Quark\QuarkView;
+use Quark\QuarkModel;
+use Quark\QuarkView;
 use ViewModels\Content\LayoutView;
 
 /**
  * @var QuarkView|LayoutView $this
  */
-
-//top categories
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------top categories----------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 /**
- * @var QuarkCollection|Categories_has_Categories[] $top_categories
+ * @var QuarkCollection|Category[] $top_categories
  * @var QuarkModel|Category $top_category
  */
 $top_category = Category::TopMenuCategory();
-$top_categories = Category::MainMenuSubCategories();
-$top_categories_list = array();
+$top_categories = Category::TopMenuSubCategories();
+
+$top_list = array();
 
 foreach ($top_categories as $item) {
-	$top_categories_list[] = '<li><a href="/category/' . $item->child_id1->id . '">' . $item->child_id1->title . '</a></li>';
+	$top_list[] = '<li><a href="/category/' . $item->id . '">' . $item->title . '</a></li>';
 }
 /**
  * @var QuarkCollection|Article[] $top_articles
@@ -30,74 +31,80 @@ foreach ($top_categories as $item) {
 $top_articles = $top_category->Articles();
 
 foreach ($top_articles as $item)
-	$top_categories_list[] = '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
+	$top_list[] = '<li><a href="/article/' . $item->id.'">'. $item->title . '</a></li>';
 
-//main categories
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------main categories---------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 /**
- * @var QuarkCollection|Categories_has_Categories[] $main_categories
- */
-$main_categories = Category::MainMenuSubCategories();
-$main_categories_list_mini = '';
-$main_categories_list_max = '';
-$i = 0;
-const VISIBLE_CATEGORIES = 3;//number of visible categories in main-menu of categories
-
-foreach ($main_categories as $item){
-    if($i < VISIBLE_CATEGORIES)
-	    $main_categories_list_mini .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
-
-	$main_categories_list_max .= '<li><a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a></li>';
-    ++$i;
-}
-/**
- * @var QuarkCollection|Article[] $main_articles
  * @var QuarkModel|Category $main_category
+ * @var QuarkCollection|Category[] $main_categories
  */
 $main_category = Category::MainMenuCategory();
+$main_categories = Category::MainMenuSubCategories();
+$main_list = array();
 
+foreach ($main_categories as $item)
+	    $main_list[] = '<li><a href="/category/'.$item->id.'">'.$item->title . '</a></li>';
+
+/**
+ * @var QuarkCollection|Article[] $main_articles
+ */
 $main_articles = $main_category->Articles();
 
 foreach ($main_articles as $item)
-	$main_categories_list_max .= '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
+	$main_list[] = '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
 
-//bottom categories
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------bottom categories-------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 /**
- * @var QuarkCollection|Categories_has_Categories[] $bottom_categories
+ * @var QuarkModel|Category $bottom_category
+ * @var QuarkCollection|Category[] $bottom_categories
+ * @var QuarkCollection|Article[] $bottom_articles
  */
+$bottom_category = Category::BottomMenuCategory();
 $bottom_categories = Category::BottomMenuSubCategories();
-$bottom_categories_container = array();
+$bottom_articles = $bottom_category->Articles(20);
+$bottom_list = '';
 $iterator = 1;
-foreach ($bottom_categories as $bottom_category) {
-    if ($iterator > 4)
-        break;
+$bottom_items = array();
+foreach ($bottom_categories as $item)
+    $bottom_items[] = $item;
+    
+foreach ($bottom_articles as $item)
+    $bottom_items[] = $item;
 
-    $bottom_category_list =
+$bottom_items = array_slice($bottom_items, 0, 16);
+
+foreach ($bottom_items as $item) {
+    if ($iterator%4 == 1)
+	    $bottom_list .=
         '<div class="col-sm-3 category-bottom-container">'.
             '<div class="main-site-menu category-bottom-subcontainer">'.
                 '<div class="category-bottom-list">';
 
-    $block_iterator = 1;
-    foreach ($collection as $item) {
-	    if ($block_iterator > 4)
-		    break;
-
-	    $bottom_category_list .=
-	        '<div class="category-bottom-item">'.
-                '<a href="/category/'.$item->child_id1->id.'">'.$item->child_id1->title . '</a>'.
+    if ($item instanceof Category) {
+	    $bottom_list .=
+		    '<div class="category-bottom-item">'.
+                '<a href="/category/'.$item->id.'">'.$item->title . '</a>'.
 		    '</div>';
-        $block_iterator++;
+    }else if ($item instanceof Article){
+	    $bottom_list .=
+		    '<div class="category-bottom-item">'.
+                '<a href="/article/'.$item->id.'">'.$item->title . '</a>'.
+		    '</div>';
     }
 
-
-    $bottom_category_list .= '</div></div></div>';
-
-    $bottom_categories_container[] = $bottom_category_list;
+	if ($iterator%4 == 0)
+		$bottom_list .= '</div></div></div>';
 
     $iterator++;
 
 }
-
-//news
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------news--------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
 $news = $this->getCurrentNews();
 $news_list = array();
 foreach ($news as $item){
@@ -161,9 +168,7 @@ foreach ($news as $item){
 			<div class="col-lg-9 col-md-9" id="nav-bar-menu">
 				<ul class="top_mnu" id="nav-bar-menu-list">
 					<li><a href="/" class="home"><img src="/static/Content/resources/img/home.png" alt=""></a></li>
-					<?php
-					foreach ($top_categories_list as $item) echo $item;
-					?>
+					<?php foreach ($top_list as $item) echo $item;?>
 				</ul>
 			</div>
 
@@ -183,13 +188,7 @@ foreach ($news as $item){
 				<div class="side-menu-overlay"></div>
 				<div class="side-menu-wrapper" id="mobile-category-top-container">
 					<a href="#" class="menu-close" id="mobile-category-top-list">&times;</a>
-					<ul>
-						<li><a href="#">о сайте</a></li>
-						<li><a href="#">книги</a></li>
-						<li><a href="#">архив</a></li>
-						<li><a href="#">форум</a></li>
-						<li><a href="#">звезда свободы</a></li>
-					</ul>
+					<ul><?php foreach ($top_list as $item) echo $item;?></ul>
 				</div>
 			</div>
 		</div>
@@ -212,12 +211,19 @@ foreach ($news as $item){
 							<div class="row">
 								<div class="col-md-12" id="category-top-container">
 									<ul class="inner_mnu" id="category-top-list">
-                                        <?php echo $main_categories_list_mini;?>
+										<?php
+										$mini_main_list = array_slice($main_list, 0, 3);
+
+										foreach ($mini_main_list as $item) echo $item;
+										?>
 										<li class="dropdown-item" id="category-top-list-dropdown">
 											<div class="dropdown">
 												<div class="dropdown-content">
 													<ul>
-														<?php  echo $main_categories_list_max;?>
+														<?php
+														$rest_main_list = array_slice($main_list, 3);
+														foreach ($rest_main_list as $item) echo $item;
+														?>
 													</ul>
 												</div>
 											</div>
@@ -271,7 +277,7 @@ foreach ($news as $item){
 					<h3 class="main-headline">ОСНОВНЫЕ РАЗДЕЛЫ САЙТА</h3>
 				</div>
                 <div id="category-bottom-container">
-                    <?php foreach ($bottom_categories_container as $item) echo $item; ?>
+                    <?php echo $bottom_list;?>
                 </div>
             </div>
 		</div>

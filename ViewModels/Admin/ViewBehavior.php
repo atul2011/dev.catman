@@ -6,6 +6,7 @@ use Quark\IQuarkViewResource;
 use Quark\QuarkGenericViewResource;
 use Quark\QuarkModel;
 use Quark\ViewResources\jQuery\jQueryCore;
+use Quark\ViewResources\Quark\QuarkControls\QuarkControls;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControlComponent;
 use ViewModels\Admin\Content\Behaviors\ICreateView;
 use ViewModels\Admin\Content\Behaviors\IListView;
@@ -93,6 +94,7 @@ trait ViewBehavior {
 	public function ViewLayoutResources () {
 		return array(
 			new jQueryCore(),
+			new QuarkControls(),
 			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/Create.css') : null,
 			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/JS/Create.js') : null,
 			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/List.css') : null,

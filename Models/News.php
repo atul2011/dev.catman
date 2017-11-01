@@ -24,6 +24,9 @@ use Quark\QuarkDate;
  * @package AllModels
  */
 class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	const TYPE_NEW_EVENT = 'N';
+	const TYPE_NEW_MATERIAL = 'T';
+
 	/**
 	 * @return string
 	 */
@@ -38,7 +41,7 @@ class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvide
 		return array(
 			'id' => 0,
 			'title' => '0',
-			'type' => '',
+			'type' => self::TYPE_NEW_EVENT,
 			'text' => '',
 			'publish_date' => QuarkDate::FromFormat('Y-m-d'),
 			'link_url' => '',

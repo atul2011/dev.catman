@@ -1,4 +1,4 @@
-.text_field , .content{
+.text_field , .content, select.text_field{
     max-width: 300px;
     min-width: 300px;
 }
