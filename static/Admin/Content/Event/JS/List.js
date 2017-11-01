@@ -12,18 +12,6 @@ $(document).ready(function(){
         $('#loading-circle').css('display','block');
         CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
     });
-    $(document).on('dblclick', '.delete-button-event', function(){
-        response = prompt('Do you want to delete this y/n ?', '');
-        if (response === 'n') {
-            return false;
-        } else if (response === 'y') {
-            $.ajax({url: "/admin/event/delete/" + $(this).attr('id').split('-')[2], type: "POST"}).then(function(){
-                removeItems('.content-row');
-                removeItems('.content-values');
-                LoadContent(false, 'event', ShowEvents,$('#current-number').val(),50);
-            });
-        }
-    });
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });

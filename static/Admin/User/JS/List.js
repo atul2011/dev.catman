@@ -17,14 +17,6 @@ $(document).ready(function(){
         CheckSearch($('#user-select').val(),this.value,'user', ShowUsers,50);
     });
     
-    $(document).on('click', '.delete-button-user', function(e) {
-        response = prompt('Do you want to delete this y/n ?', '');
-
-        if (response === 'n') {
-            e.preventDefault();
-        }
-    });
-    
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"));
     });

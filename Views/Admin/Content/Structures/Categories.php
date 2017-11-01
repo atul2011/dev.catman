@@ -4,9 +4,22 @@
  * @var int $number_categories
  * @var int $number_articles
  */
-	use Models\Category;
-	use ViewModels\Admin\Content\Structures\CategoriesView;
+
+use Models\Category;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Content\Structures\CategoriesView;
 use Quark\QuarkView;
+
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete item',
+	                     'You are about to delete the item. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The item was deleted',
+	                     'An error occurred. Failed to delete the item',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2>Categories Structure</h2>
 <h5>Set for each category his own sub-category and articles</h5>

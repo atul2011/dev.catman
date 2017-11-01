@@ -1,6 +1,6 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithCustomCollectionName;
@@ -26,6 +26,7 @@ use Quark\QuarkDate;
 class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
 	const TYPE_NEW_EVENT = 'N';
 	const TYPE_NEW_MATERIAL = 'T';
+	const TYPE_CUSTOM = 'C';
 
 	/**
 	 * @return string

@@ -3,9 +3,21 @@
  * @var QuarkView|ListView $this
  * @var int $number
  */
+
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Content\Category\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete author',
+	                     'You are about to delete the author. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The author was deleted',
+	                     'An error occurred. Failed to delete the author',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2>Author List</h2>
 <h5>Navigate through authors</h5>

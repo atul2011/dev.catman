@@ -3,9 +3,21 @@
  * @var QuarkView|ListView $this
  * @var int $number
  */
+
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Content\Category\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete category',
+	                     'You are about to delete the category. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The category was deleted',
+	                     'An error occurred. Failed to delete the category',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2>Categories List</h2>
 <h5>Navigate through categories</h5>

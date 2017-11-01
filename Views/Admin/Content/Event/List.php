@@ -3,9 +3,21 @@
  * @var QuarkView|ListView $this
  * @var int $number
  */
+
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Content\Category\ListView;
 
+echo $this->Fragment(new QuarkViewDialogFragment(
+	                     'item-remove',
+	                     'Delete event',
+	                     'You are about to delete the event. This action cannot be undone. Continue?',
+	                     'Please wait...',
+	                     'The event was deleted',
+	                     'An error occurred. Failed to delete the event',
+	                     'Remove',
+	                     'Close'
+                     ));
 ?>
 <h2 class="page-title">Event List</h2>
 <h5>Navigate through events</h5>

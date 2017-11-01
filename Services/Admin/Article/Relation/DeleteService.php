@@ -38,8 +38,7 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(4));
 
 		if ($category == null)
-			return QuarkView::InLayout(
-				new CustomErrorView(), new QuarkPresenceControl(), array('error_status' => 'Status 400: Bad Request', 'error_message' => 'Cannot find category!'));
+			return array('status' => 404);
 
 		/**
 		 * @var QuarkModel|Article $article
@@ -47,8 +46,7 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 		$article = QuarkModel::FindOneById(new Article(), $request->URI()->Route(5));
 
 		if ($article == null)
-			return QuarkView::InLayout(
-				new CustomErrorView(), new QuarkPresenceControl(), array('error_status' => 'Status 400: Bad Request', 'error_message' => 'Cannot find article!'));
+			return array('status' => 400);
 
 		return array('status' => QuarkModel::Delete(new Articles_has_Categories(), array('article_id' => $article->id, 'category_id' => $category->id)) ? 200 : 500);
 	}
