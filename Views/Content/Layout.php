@@ -80,14 +80,17 @@ $bottom_items = array_slice($bottom_items, 0, 16);
 
 
 foreach ($bottom_items as $item) {
+	/**
+	 * @var QuarkModel $item
+	 */
+
     if ($iterator%4 == 1)
 	    $bottom_list .=
         '<div class="col-sm-3 category-bottom-container">'.
             '<div class="main-site-menu category-bottom-subcontainer">'.
                 '<div class="category-bottom-list">';
 
-
-    $bottom_list .= $item instanceof Category
+    $bottom_list .= $item->Model() instanceof Category
         ?
         '<div class="category-bottom-item">'.
             '<a href="/category/'.$item->id.'">'.$item->title . '</a>'.

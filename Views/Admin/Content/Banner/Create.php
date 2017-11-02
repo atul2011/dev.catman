@@ -1,10 +1,10 @@
 <?php
-/**
- * @var QuarkView|CreateView $this
- */
 use Quark\QuarkView;
 use ViewModels\Admin\Content\Banner\CreateView;
 
+/**
+ * @var QuarkView|CreateView $this
+ */
 ?>
 <h2 class="page-title">Add New Banner</h2>
 <h5>Insert data to create an new banner</h5>
@@ -19,16 +19,17 @@ use ViewModels\Admin\Content\Banner\CreateView;
 				</div>
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Active</p>
-						<input type="text" placeholder="Is Active(1 or 0)" maxlength="1" class="quark-input text_field" name="active" id="item-active"/>
+						<select class="quark-input text_field" name="active" id="item-active">
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
 					</div>
 				</div>
 			</div>
 		</div>
 		<div class="quark-presence-container presence-block button-div">
 			<br/>
-			<button class="quark-button block ok submit-button" type="submit">
-				Create
-			</button>
+			<button class="quark-button block ok submit-button" type="submit">Create</button>
 		</div>
 	</div>
 </form>

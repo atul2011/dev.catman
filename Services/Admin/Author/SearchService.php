@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Author;
 
 use Models\Author;
@@ -13,6 +12,11 @@ use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class SearchService
+ *
+ * @package Services\Admin\Author
+ */
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -28,16 +32,16 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Author[] $authors
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		$authors = QuarkModel::Find(new Author());
 
-		$out = $authors->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uis')),
-			array(
-				QuarkModel::OPTION_LIMIT => $limit
-			)
-		);
+		$out = $authors->Select(array(
+			$request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')
+		), array(QuarkModel::OPTION_LIMIT => $limit));
+
 
 		return array(
 			'status' => 200,
