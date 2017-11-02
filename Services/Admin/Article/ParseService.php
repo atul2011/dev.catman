@@ -11,6 +11,11 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 
+/**
+ * Class ParseService
+ *
+ * @package Services\Admin\Article
+ */
 class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
@@ -21,11 +26,15 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		$page = $request->page != '' ? $request->page : 1;
+		$page = $request->page != '' ? $request->page : 0;
+		$limit = $request->limit != '' ? $request->limit : 25;
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
-		$articles = QuarkModel::FindByPage(new Article(), $page , array(), array(QuarkModel::OPTION_LIMIT => 100));
+		$articles = QuarkModel::Find(new Article(), array(), array(
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkModel::OPTION_SKIP => $limit * $page
+		));
 
 		foreach ($articles as $article) {
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $article->txtfield);
