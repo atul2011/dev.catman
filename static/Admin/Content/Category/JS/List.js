@@ -8,13 +8,13 @@ $(document).ready(function(){
     $('#category-select').append(fields);
     resizeList(120,137);
     LoadContent(false, 'category', ShowCategories,1,50,'single');
-    
-    // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        removeItems('.content-row');
-        $('#loading-circle').css('display','block');
-        CheckSearch($('#category-select').val(),this.value,'category', ShowCategories,50);
-        
+
+    $(document).on("keydown", '.search', function(e){// add event listener on input in search bars
+        if (e.keyCode === 13) {
+            removeItems('.content-row');
+            $('#loading-circle').css('display','block');
+            CheckSearch($('#category-select').val(),this.value,'category', ShowCategories,50);
+        }
     });
     
     //add event listener to checkbox "no parents"
