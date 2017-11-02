@@ -54,7 +54,7 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			if ($processed != '')
 				$article->txtfield;
 //III parser
-			$processed = preg_replace('#href=\\\"\\\\\"\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1', $article->txtfield);
+			$processed = preg_replace('#href=\\"\\\\\"\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', '@', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield;
@@ -64,7 +64,7 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			if ($processed != '')
 				$article->txtfield;
 //V parser
-			$processed = preg_replace('#href=\\\"\\\\\"\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1', $article->txtfield);
+			$processed = preg_replace('#href=\\"\\\\\"\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield;
