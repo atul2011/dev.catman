@@ -18,7 +18,7 @@ $(document).ready(function(){
 
     DialogWindow();
 });
-function DialogWindow() {
+function DialogWindow () {
     var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
         success: function(trigger, dialog){
             trigger.parents('.content-row').remove();
