@@ -55,6 +55,11 @@ class ParseService implements IQuarkGetService,IQuarkAuthorizableServiceWithAuth
 			if ($processed != '')
 				$category->intro = $processed;
 
+			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $category->intro);
+
+			if ($processed != '')
+				$category->intro = $processed;
+
 			if (!$category->Save())
 				Quark::Log('Cannot save category:' . $category->id);
 		}
