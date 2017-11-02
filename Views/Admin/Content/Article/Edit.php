@@ -38,6 +38,7 @@ use ViewModels\Admin\Content\Article\CreateView;
                                 echo '<option value="' , Article::TYPE_DECREE , '" ' , $article->type == Article::TYPE_DECREE ? 'selected' : '' , '>Decree</option>';
                                 echo '<option value="' , Article::TYPE_EXCERPT , '" ' , $article->type == Article::TYPE_EXCERPT ? 'selected' : '' , '>Excerpt</option>';
                                 echo '<option value="' , Article::TYPE_QUESTION , '" ' , $article->type == Article::TYPE_QUESTION ? 'selected' : '' , '>Question</option>';
+                                echo '<option value="' , Article::TYPE_MESSAGE , '" ' , $article->type == Article::TYPE_MESSAGE ? 'selected' : '' , '>Message</option>';
                             ?>
                         </select>
 					</div>
