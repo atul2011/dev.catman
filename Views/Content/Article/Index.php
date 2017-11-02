@@ -13,6 +13,9 @@ $categories = $this->getRelatedCategories($article->id);
 foreach ($categories as $category) {
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $category->id . '">' . $category->title . '</div>';
 }
+//<!--        <div class="item-related-categories-container">-->
+//                //echo $related_categories;
+//<!--<!--        </div>-->-->
 ?>
 <div class="block-center__left js-equal-height">
     <div class="item-head">
@@ -21,9 +24,6 @@ foreach ($categories as $category) {
         </h3>
     </div>
     <div class="item-content">
-<!--        <div class="item-related-categories-container">-->
-<!--            --><?php //echo $related_categories; ?>
-<!--        </div>-->
         <div class="item-content-container">
             <?php echo $article->txtfield; ?>
         </div>
