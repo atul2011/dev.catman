@@ -43,31 +43,39 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if (explode('-', $article->publish_date)[0] == '')
 				$article->publish_date = QuarkDate::GMTNow('Y-m-d');
-
+//I parser
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield;
-
+//II parser
 			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield;
+//III parser
+			$processed = preg_replace('#href=\\\"\\\\\"\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1', $article->txtfield);
 
+			if ($processed != '')
+				$article->txtfield;
+//IV parser
 			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield;
+//V parser
+			$processed = preg_replace('#href=\\\"\\\\\"\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1', $article->txtfield);
 
+			if ($processed != '')
+				$article->txtfield;
+//VI parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield = $processed;
 
-			if (!$article->Save()) {
+			if (!$article->Save())
 				Quark::Log('Cannot save article:' . $article->id);
-			}
-
 		}
 
 		return QuarkDTO::ForRedirect('/admin/article/list');
