@@ -19,10 +19,13 @@ var article_select =
     '<option value="keywords">Keywords</option>';
 
 function setDefaultEvents(model,callback){
-    $(document).on("input", '#'+model+'-search', function(){
-        removeItems('.content-row-'+model);
-        $('#loading-circle-'+model).css('display', 'block');
-        CheckSearch($('#'+model+'-select').val(), this.value, model, callback, 50,'multiple');
+    $(document).on("keydown", '#'+model+'-search', function(e) {
+        if (e.keyCode === 13) {
+            removeItems('.content-row-'+model);
+            $('#loading-circle-'+model).css('display', 'block');
+            CheckSearch($('#'+model+'-select').val(), this.value, model, callback, 50,'multiple');
+        }
+
     });
     
     $(document).on("change", '#'+model+'-orfan', function(){

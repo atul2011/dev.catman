@@ -9,13 +9,16 @@ $(document).ready(function(){
     $('#article-select').append(fields);
     resizeList(120, 236);
     LoadContent(false, 'article', ShowArticles,1,50,'single');
+
     // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        removeItems('.content-row');
-        $('#loading-circle').css('display','block');
-        CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50,'single');
+    $(document).on("keydown", '.search', function(e){
+        if (e.keyCode === 13) {
+            removeItems('.content-row');
+            $('#loading-circle').css('display','block');
+            CheckSearch($('#article-select').val(),this.value,'article',ShowArticles,50,'single');
+        }
     });
-    
+
     //add event listener to checkbox "no parents"
     $(document).on("change", ".orfan", function(){
         removeItems('.content-row');

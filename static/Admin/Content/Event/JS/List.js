@@ -6,12 +6,15 @@ $(document).ready(function(){
     $('#event-select').append(fields);
     resizeList(120,83);
     LoadContent(false, 'event', ShowEvents,1,50,'single');
-    // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        removeItems('.content-row');
-        $('#loading-circle').css('display','block');
-        CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
+
+    $(document).on("keydown", '.search', function(e){// add event listener on input in search bars
+        if (e.keyCode === 13) {
+            removeItems('.content-row');
+            $('#loading-circle').css('display','block');
+            CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
+        }
     });
+
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });
