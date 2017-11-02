@@ -7,7 +7,6 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\Quark;
 use Quark\QuarkCollection;
-use Quark\QuarkConfig;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -31,7 +30,7 @@ class ParserService implements IQuarkGetService, IQuarkAuthorizableServiceWithAu
 		/**
 		 * @var QuarkCollection|Category[] $categories
 		 */
-		$categories = QuarkModel::Find(new Category(), array('id' => 353));
+		$categories = QuarkModel::Find(new Category());
 
 		foreach ($categories as $category) {
 			if (!$category->Validate())
