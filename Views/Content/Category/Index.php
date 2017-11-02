@@ -9,28 +9,23 @@ use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Content\Category\IndexView;
 
-//sub-categories
-$related_categories = '';
+$related_categories = '';//sub-categories
 $categories = $this->getRelatedCategories($category->id);
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')	continue;
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-								'<a href="/category/'.$item->id.'">'.
-                                    $this->CurrentLocalizationOf('Catman.Category.Label.The').
-                                    ' : ' .
+								'<a href="/category/'.$item->id.'"> <b>'.
                                     $item->title .
-                                '</a>'.
+                                '</b></a>'.
 						   '</div>';
 }
-//related-articles
-$related_articles = '';
+
+$related_articles = '';//related-articles
 $articles = $this->getRelatedArticles($category->id);
 
 foreach ($articles as $item) {
 	$related_articles .= '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
                              '<a href="/article/'.$item->id.'">'.
-                                 $this->CurrentLocalizationOf('Catman.Article.Label.The').
-                                 ' : ' .
                                  $item->title .
                              '</a>'.
                          '</div>';
