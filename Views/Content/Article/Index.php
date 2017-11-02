@@ -21,9 +21,9 @@ foreach ($categories as $category) {
         </h3>
     </div>
     <div class="item-content">
-        <div class="item-related-categories-container">
-            <?php echo $related_categories; ?>
-        </div>
+<!--        <div class="item-related-categories-container">-->
+<!--            --><?php //echo $related_categories; ?>
+<!--        </div>-->
         <div class="item-content-container">
             <?php echo $article->txtfield; ?>
         </div>
