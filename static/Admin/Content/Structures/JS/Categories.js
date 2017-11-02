@@ -16,7 +16,7 @@ var article_select =
     '<option value="release_date">Release Date</option>' +
     '<option value="event_id">Event</option>' +
     '<option value="author_id">Author</option>' +
-    '<option value="keywords">Keywords</option>';
+    '<option value="type">Type</option>';
 
 function setDefaultEvents(model,callback){
     $(document).on("keydown", '#'+model+'-search', function(e) {
@@ -25,7 +25,6 @@ function setDefaultEvents(model,callback){
             $('#loading-circle-'+model).css('display', 'block');
             CheckSearch($('#'+model+'-select').val(), this.value, model, callback, 50,'multiple');
         }
-
     });
     
     $(document).on("change", '#'+model+'-orfan', function(){
@@ -34,22 +33,7 @@ function setDefaultEvents(model,callback){
         noParents($(this).is(':checked'), model, callback, 50,'multiple');
     });
 
-    $(document).on('click', '.special-delete-button-'+model, function(e){
-        response = prompt('Do you want to delete this y/n ?', '');
-        var href = $(this).attr('href');
-        if (response === 'n') {
-            e.preventDefault();
-        } else if (response === 'y') {
-            e.preventDefault();
-            $.ajax({url: href, type: "GET"}).then(function(data){
-                if (data !== null && data !== '')
-                LoadContent(false, model, callback, $('#current-number-'+model).val(), 50,'multiple');
-                setCategory($(".route-points").last().attr('id').split('-')[2]);
-            });
-        } else {
-            return false;
-        }
-    });
+
     $(document).on('click', '.content-row-'+model, function(){
         paintRow($(this).attr("id"), model);
         checkRow($(this).find("td:first").text(), model);
@@ -305,7 +289,7 @@ function setSpecialActions(id, model){
     //define edit and remove buttons for all rows
     return actions =
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
-        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions" href="/admin/' + model + '/relation/delete/' + current_category_id + '/' + id + '""></a>';
+        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" href="/admin/' + model + '/relation/delete/' + current_category_id + '/' + id + '" quark-dialog="#item-remove" quark-redirect="/admin/structures/categories/"></a>';
 }
 //function to create an ICon for category as folder
 function setCategoryIcon(id){
