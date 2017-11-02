@@ -58,7 +58,6 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 				$article->txtfield = $processed;
 
 			if (!$article->Save()) {
-				Quark::Trace($article->RawValidationErrors());
 				Quark::Log('Cannot save article:' . $article->id);
 			}
 
