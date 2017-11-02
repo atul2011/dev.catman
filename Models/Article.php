@@ -31,8 +31,9 @@ use Quark\QuarkModelBehavior;
  * @property string  $description
  * @property Author  $author_id
  * @property Event   $event_id
+ * @property int $category_id
  *
- * @package AllModels
+ * @package Models
  */
 class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
     use QuarkModelBehavior;
@@ -62,7 +63,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'keywords' => '',
             'description' => '',
 			'author_id' => new Author(),
-			'event_id' => new Event()
+			'event_id' => new Event(),
+			'category_id' => 0
         );
     }
 

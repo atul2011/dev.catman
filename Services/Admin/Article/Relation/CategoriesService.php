@@ -32,9 +32,8 @@ class CategoriesService implements IQuarkServiceWithCustomProcessor, IQuarkGetSe
 		 * @var QuarkModel|Article $article
 		 */
 		$article = QuarkModel::FindOneById(new Article(), $request->URI()->Route(4));
-		if ($article == null) return array(
-			'status' => 404
-		);
+
+		if ($article == null) return array('status' => 404);
 
 		return array(
 			'status' => 200,

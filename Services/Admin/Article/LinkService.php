@@ -35,9 +35,12 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 		 * @var QuarkModel|Articles_has_Categories $link
 		 */
 		$article = QuarkModel::FindOneById(new Article(), $request->Data()->child);
+
 		if ($article == null)
 			return array('status' => 404);
+
 		$category = QuarkModel::FindOneById(new Category(), $request->Data()->parent);
+
 		if ($category == null)
 			return array('status' => 404);
 
@@ -51,7 +54,7 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 
 		$link = new QuarkModel(new Articles_has_Categories(), array(
 			'article_id' => $article,
-			"category_id" => $category
+			'category_id' => $category
 		));
 
 		if (!$link->Create())

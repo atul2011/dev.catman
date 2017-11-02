@@ -8,6 +8,7 @@ use Quark\Quark;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Content\Category\IndexView;
+
 //sub-categories
 $related_categories = '';
 $categories = $this->getRelatedCategories($category->id);
@@ -26,7 +27,6 @@ $related_articles = '';
 $articles = $this->getRelatedArticles($category->id);
 
 foreach ($articles as $item) {
-	Quark::Trace($item);
 	$related_articles .= '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
                              '<a href="/article/'.$item->id.'">'.
                                  $this->CurrentLocalizationOf('Catman.Article.Label.The').

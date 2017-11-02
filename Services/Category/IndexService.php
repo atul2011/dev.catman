@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Category;
+
 use Models\Category;
 use Quark\IQuarkGetService;
 use Quark\QuarkDTO;
@@ -25,10 +25,9 @@ class IndexService implements IQuarkGetService{
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$id = $request->URI()->Route(1);
+
 		if(!is_numeric($id))
-			return QuarkView::InLayout(new NotFoundView(),new LayoutView(),array(
-				'model'=> 'Category'
-			));
+			return QuarkView::InLayout(new NotFoundView(), new LayoutView(),array('model'=> 'Category'));
 
 		/**
 		 * @var QuarkModel|Category $category
@@ -38,8 +37,6 @@ class IndexService implements IQuarkGetService{
 		if($category == null)
 			return QuarkView::InLayout(new NotFoundView(),new LayoutView(),array('model'=> 'Category'));
 
-		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
-			'category' => $category
-		));
+		return QuarkView::InLayout(new IndexView(), new LayoutView(), array('category' => $category));
 	}
 }
