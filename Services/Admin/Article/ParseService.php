@@ -43,6 +43,9 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if (explode('-', $article->publish_date)[0] == '' || explode('-', $article->publish_date)[0] == null || $article->publish_date == null)
 				$article->publish_date = QuarkDate::GMTNow('Y-m-d');
+
+			if ($article->type == '')
+				$article->type = Article::TYPE_ARTICLE;
 //I parser
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
