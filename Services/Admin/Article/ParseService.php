@@ -46,32 +46,32 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 //I parser
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != '')
-				$article->txtfield;
+			if ($processed != null)
+				$article->txtfield = $processed;
 //II parser
 			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != '')
-				$article->txtfield;
+			if ($processed != null)
+				$article->txtfield = $processed;
 //III parser
-			$processed = preg_replace('#href=\\"\\\\\"\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', '@', $article->txtfield);
+			$processed = preg_replace('#href=\\\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != '')
-				$article->txtfield;
+			if ($processed != null)
+				$article->txtfield = $processed;
 //IV parser
 			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $article->txtfield);
 
-			if ($processed != '')
-				$article->txtfield;
+			if ($processed != null)
+				$article->txtfield = $processed;
 //V parser
-			$processed = preg_replace('#href=\\"\\\\\"\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1', $article->txtfield);
+			$processed = preg_replace('#href=\\\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $article->txtfield);
 
-			if ($processed != '')
-				$article->txtfield;
+			if ($processed != null)
+				$article->txtfield = $processed;
 //VI parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $article->txtfield);
 
-			if ($processed != '')
+			if ($processed != null)
 				$article->txtfield = $processed;
 
 			if (!$article->Save())
