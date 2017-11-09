@@ -22,7 +22,7 @@ use ViewModels\News\ListView;
 		$img = '';
 
 		$link_url = $item->link_url != '' ? $item->link_url : '/news/' . $item->id;
-		$link_text = $i == 1 ?  $item->link_text : $this->CurrentLocalizationOf('Catman.News.Open');
+		$link_text = $item->link_text != '' ?  $item->link_text : $this->CurrentLocalizationOf('Catman.News.Open');
 		$img = $i == 1
 			?  '<img src="/static/resources/img/news-img.png" alt=""><div class="news__description news__wrap clearfix">'
 			: '<div class="news__description clearfix">';
