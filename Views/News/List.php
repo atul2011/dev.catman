@@ -1,9 +1,13 @@
 <?php
 /**
  * @var QuarkCollection|News[] $news
+ * @var QuarkView|ListView $this
  */
 use Models\News;
 use Quark\QuarkCollection;
+use Quark\QuarkView;
+use ViewModels\News\ListView;
+
 ?>
 <div class="block-center__left js-equal-height">
 	<h3 class="main-headline">НОВОСТИ УНИВЕРСАЛЬНОГО ПУТИ</h3>
