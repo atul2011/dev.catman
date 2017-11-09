@@ -10,12 +10,13 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
+
 /**
  * Class DeleteService
  *
  * @package Services\Admin\Banner
  */
-class DeleteService implements IQuarkGetService ,IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
+class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 

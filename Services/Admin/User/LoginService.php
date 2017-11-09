@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin\User;
+
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -9,6 +9,11 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use ViewModels\Admin\User\LoginView;
 
+/**
+ * Class LoginService
+ *
+ * @package Services\Admin\User
+ */
 class LoginService implements IQuarkGetService ,IQuarkPostService ,IQuarkAuthorizableService {
 	/**
 	 * @param QuarkDTO $request

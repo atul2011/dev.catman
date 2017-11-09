@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Category;
@@ -12,9 +11,15 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Category\EditView;
+use ViewModels\Admin\Category\EditView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
 
+/**
+ * Class EditService
+ *
+ * @package Services\Admin\Category
+ */
 class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
@@ -28,19 +33,13 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		/**
 		 * @var QuarkModel|Category $category
 		 */
-		$id = $request->URI()->Route(3);
-		if(!is_numeric($id))
-			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
-				'model' => 'Category'
-			));
+		if (!is_numeric($request->URI()->Route(3)))
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		$category = QuarkModel::FindOneById(new Category(),$id);
+		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(3));
 
-		if($category == null)
-			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array(
-				'model' => 'Category'
-			));
-
+		if ($category == null)
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'category' => $category->Extract(),
@@ -59,20 +58,19 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		/**
 		 * @var QuarkModel|Category $category
 		 */
-		$id = $request->URI()->Route(3);
-		$category = QuarkModel::FindOneById(new Category(),$id );
+		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(3));
 
-		if ($category === null) return QuarkDTO::ForStatus(QuarkDTO::STATUS_404_NOT_FOUND);
+		if ($category === null)
+			return array('status' => 404);
 
 		$category->PopulateWith($request->Data());
-		$request->Data()->tag_list != '' ? $tags = explode(',', $request->Data()->tag_list)
-										 : $tags = array();
 
+		$tags = $request->Data()->tag_list != '' ? explode(',', $request->Data()->tag_list) : array();
 		$category->setTags($tags);
 
 		if (!$category->Save())
-			return QuarkDTO::ForRedirect('/admin/category/list?update=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/category/list/'.$id.'?edited=true');
+		return QuarkDTO::ForRedirect('/admin/category/list/');
 	}
 }

@@ -17,7 +17,7 @@ use Services\Admin\Behaviors\CustomProcessorBehavior;
  *
  * @package Services\Admin\Category\Relation
  */
-class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -28,7 +28,6 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-
 		/**
 		 * @var QuarkModel|Category $parent_category
 		 * @var QuarkModel|Category $child_category
@@ -43,9 +42,11 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 		if ($child_category == null)
 			return array('status' => 400);
 
-		return array('status' => QuarkModel::Delete(new Categories_has_Categories(), array(
+		$ok = QuarkModel::Delete(new Categories_has_Categories(), array(
 			'parent_id' => $parent_category->id,
 			'child_id1' => $child_category->id
-		)) ? 200 : 500);
+		));
+
+		return array('status' => $ok ? 200 : 500);
 	}
 }

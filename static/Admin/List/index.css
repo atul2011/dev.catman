@@ -1,0 +1,135 @@
+/*search bar and checkbox*/
+.search-list {
+    list-style-type: none;
+    text-align: left;
+    padding: 0;
+    margin: 0;
+}
+
+.search-list li {
+    display: inline-block;
+}
+
+/*set properties for cells with action buttons*/
+.content-actions {
+    font-size: 20px;
+    text-decoration: none;
+    color: black;
+    padding-left: 5px;
+}
+
+.content-actions:hover {
+    color: #ff3300;
+}
+
+/*set overflow option for items tables*/
+.items-list {
+    text-align: left;
+    overflow-x: hidden;
+    overflow-y: scroll;
+    padding-top: 5%;
+}
+
+.content-row:hover {
+    background-color: rgb(51, 122, 183) !important;
+    color: white !important;
+}
+
+#content-container .quark-presence-container {
+    margin: 0;
+    padding: 0;
+}
+
+.content-titles {
+    font-size: 15px;
+    font-weight: bold;
+    margin-left: 5px;
+}
+
+.ids {
+    max-width: 35px;
+    min-width: 35px;
+    margin-left: 5px;
+}
+
+.content-values {
+    word-wrap: break-word;
+    font-size: 15px;
+}
+
+.contents,.contents textarea  {
+    max-width: 190px;
+    min-width: 190px;
+}
+
+.contents textarea {
+    text-align: left;
+}
+.middle {
+    max-width: 500px;
+}
+.items-list {
+    border: 1px solid lightgray;
+}
+
+.search {
+    width: 100%;
+}
+
+.titles {
+    max-width: 150px;
+    min-width: 150px;
+}
+
+.dates {
+    max-width: 80px;
+    min-width: 80px;
+}
+
+.types {
+    max-width: 35px;
+    min-width: 35px;
+}
+
+.names {
+    max-width: 190px;
+    min-width: 190px;
+}
+
+.actions{
+    max-width: 53px;
+}
+
+/*button to add new item*/
+.button-add {
+    background: #5f7a96;
+    border-radius: 30px;
+    border: 0;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.25184);
+    color: #ffffff;
+    font-size: 24px;
+    height: 60px;
+    line-height: 1.428571429;
+    opacity: 1.00;
+    padding: 6px 0;
+    text-align: center;
+    width: 60px;
+}
+
+.button-add:hover {
+    color: red;
+}
+
+#nav-bar .quark-presence-column
+,#list-options .quark-presence-column
+,#button-add-column
+,.current-pages .quark-presence-column
+,#content-column
+{
+    margin: 0;
+}
+
+h2, h5 {
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+}

@@ -1,6 +1,6 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;

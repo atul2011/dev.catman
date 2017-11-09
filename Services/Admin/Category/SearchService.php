@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Category;
@@ -13,6 +12,11 @@ use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class SearchService
+ *
+ * @package Services\Admin\Category
+ */
 class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -28,10 +32,11 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 		 * @var QuarkCollection|Category[] $categories
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		$categories = QuarkModel::Find(new Category(),array());
+		$categories = QuarkModel::Find(new Category());
 
 		$out = $categories->Select(
 			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),

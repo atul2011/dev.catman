@@ -7,18 +7,21 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\QuarkLazyLink;
 use Quark\QuarkModel;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class Categories_has_Categories
  *
- * @property Category $parent_id
- * @property Category $child_id1
+ * @property QuarkLazyLink|Category $parent_id
+ * @property QuarkLazyLink|Category $child_id1
  * @property int  $priority
  *
  * @package AllModels
  */
 class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	use QuarkModelBehavior;
 	/**
 	 * @return string
 	 */
@@ -31,8 +34,8 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      */
     public function Fields() {
         return array(
-            'parent_id' => new  Category(),
-            'child_id1' => new  Category(),
+            'parent_id' => $this->LazyLink(new Category()),
+            'child_id1' => $this->LazyLink(new Category()),
             'priority' => null
         );
     }
@@ -58,8 +61,6 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return mixed
      */
     public function BeforeExtract($fields, $weak) {
-        $this->parent_id = (string)$this->parent_id->id;
-        $this->child_id1 = (string)$this->child_id1->id;
         $this->priority = (string)$this->priority;
     }
 
@@ -69,7 +70,9 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null) return $fields;
+        if($fields != null)
+            return $fields;
+
         return array(
             'parent_id',
             'child_id1',
@@ -81,13 +84,13 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return QuarkModel|Category
      */
     public function Parent(){
-        return QuarkModel::FindOneById(new Category(),$this->parent_id);
+        return QuarkModel::FindOneById(new Category(),$this->parent_id->value);
     }
 
     /**
      * @return QuarkModel|Category
      */
     public function Child(){
-        return QuarkModel::FindOneById(new Category(),$this->child_id1);
+        return QuarkModel::FindOneById(new Category(),$this->child_id1->value);
     }
 }

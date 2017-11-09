@@ -50,6 +50,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'name',
 				'type',
 				'keywords'
-			)));
+			))
+		);
 	}
 }

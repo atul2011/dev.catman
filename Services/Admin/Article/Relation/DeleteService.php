@@ -10,11 +10,8 @@ use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Status\CustomErrorView;
 
 /**
  * Class DeleteService

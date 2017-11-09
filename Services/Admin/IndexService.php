@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin;
+
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\QuarkDTO;
@@ -8,9 +8,14 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\User\IndexView;
+use ViewModels\Admin\IndexView;
 
-class IndexService implements IQuarkGetService ,IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class IndexService
+ *
+ * @package Services\Admin
+ */
+class IndexService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -20,6 +25,6 @@ class IndexService implements IQuarkGetService ,IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new IndexView(),new QuarkPresenceControl());
+		return QuarkView::InLayout(new IndexView(), new QuarkPresenceControl());
 	}
 }

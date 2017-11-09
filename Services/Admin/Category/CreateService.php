@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Category;
@@ -12,12 +11,11 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Category\CreateView;
+use ViewModels\Admin\Category\CreateView;
 use ViewModels\Admin\Status\BadRequestView;
 use ViewModels\Admin\Status\ConflictView;
 use ViewModels\Admin\Status\CustomErrorView;
 use ViewModels\Admin\Status\InternalServerErrorView;
-use ViewModels\Admin\Status\NotFoundView;
 
 /**
  * Class CreateService
@@ -54,10 +52,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 
 		$category = new QuarkModel(new Category(), $request->Data());
 
-		//set tags
-		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)
-										 : $tags  = array();
-
+		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();//set tags
 		$category->setTags($tags);
 
 		if ($category->role == Category::ROLE_SYSTEM) {//check if admin want to create an system category
@@ -67,19 +62,22 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 						'error_status' => 'Status 409: Conflict',
 						'error_message' => 'Cannot crete more than 2 root categories!'
 					));
-			}else if ($category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY) {//check if admin want to create an root system category
+			}
+			else if ($category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY) {//check if admin want to create an root system category
 				if (Category::TYPE_SYSTEM_TOP_MENU_CATEGORY == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 409: Conflict',
 						'error_message' => 'Cannot crete more than 2 top menu categories!'
 					));
-			}else if ($category->sub == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY) {//check if admin want to create an root system category
+			}
+			else if ($category->sub == Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY) {//check if admin want to create an root system category
 				if (Category::TYPE_SYSTEM_MAIN_MENU_CATEGORY == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 409: Conflict',
 						'error_message' => 'Cannot crete more than 2 main menu categories!'
 					));
-			}else if ($category->sub == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY) {//check if admin want to create an root system category
+			}
+			else if ($category->sub == Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY) {//check if admin want to create an root system category
 				if (Category::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY == null)
 					return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 						'error_status' => 'Status 409: Conflict',
@@ -87,12 +85,13 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 					));
 			}
 		}
+
 		if (!$category->Validate())
 			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
 
 		if (!$category->Create())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/category/list?created=true');
+		return QuarkDTO::ForRedirect('/admin/category/list');
 	}
 }

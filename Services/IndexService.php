@@ -1,6 +1,6 @@
 <?php
-
 namespace Services;
+
 use Models\Article;
 use Models\Banner;
 use Quark\IQuarkGetService;
@@ -8,8 +8,8 @@ use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
-use ViewModels\Content\IndexView;
-use ViewModels\Content\LayoutView;
+use ViewModels\IndexView;
+use ViewModels\LayoutView;
 
 /**
  * Class IndexService
@@ -25,9 +25,10 @@ class IndexService implements IQuarkGetService {
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
+		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'article' => QuarkModel::FindOneById(new Article(),1),
-			'banners' => QuarkModel::Find(new Banner())
+			'banners' => QuarkModel::Find(new Banner()),
+			'title' => QuarkModel::FindOneById(new Article(),1)->title
 		));
 	}
 }

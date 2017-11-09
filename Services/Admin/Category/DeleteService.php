@@ -18,7 +18,7 @@ use Services\Admin\Behaviors\CustomProcessorBehavior;
  *
  * @package Services\Admin\Category
  */
-class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 

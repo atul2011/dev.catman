@@ -8,9 +8,11 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDate;
 use Quark\QuarkDTO;
+use Quark\QuarkLazyLink;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
 
@@ -29,8 +31,8 @@ use Quark\QuarkModelBehavior;
  * @property string  $type
  * @property string  $keywords
  * @property string  $description
- * @property Author  $author_id
- * @property Event   $event_id
+ * @property QuarkLazyLink|Author  $author_id
+ * @property QuarkLazyLink|Event   $event_id
  * @property int $category_id
  *
  * @package Models
@@ -62,8 +64,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'type' => self::TYPE_ARTICLE,
             'keywords' => '',
             'description' => '',
-			'author_id' => new Author(),
-			'event_id' => new Event(),
+			'author_id' => $this->LazyLink(new Author()),
+			'event_id' => $this->LazyLink(new Event()),
 			'category_id' => 0
         );
     }
@@ -108,7 +110,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null) return $fields;
+        if($fields != null)
+            return $fields;
+
         return array(
             'id',
             'title',
@@ -116,7 +120,6 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'publish_date',
             'note',
             'resume',
-            'txtfield',
             'copyright',
             'priority',
             'type',
@@ -150,17 +153,15 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         /**
          * @var QuarkCollection|Articles_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Articles_has_Categories(),array(
-            'article_id' => $this->id
-        ),array(
+        $links = QuarkModel::Find(new Articles_has_Categories(), array('article_id' => $this->id), array(
             QuarkModel::OPTION_LIMIT => $limit,
             QuarkModel::OPTION_SKIP => $offset
         ));
 
         $out = new QuarkCollection(new Category());
-        foreach ($links as $item){
-            $out[] = $item->category_id;
-        }
+
+        foreach ($links as $item)
+            $out[] = $item->category_id->value;
 
         return $out;
     }
@@ -170,30 +171,26 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 */
     public function getTags(){
 		/**
-		 * @var QuarkCollection|Articles_has_Categories[] $articles
+		 * @var QuarkCollection|Article_has_Tag[] $articles
 		 */
-		$articles = QuarkModel::Find(new Article_has_Tag(),array(
-			'article_id' => $this->id
-		));
+		$articles = QuarkModel::Find(new Article_has_Tag(), array('article_id' => $this->id));
 
 		$tags = new QuarkCollection(new Tag());
 
-		foreach ($articles as $item) {
-			$tags[] = $item->tag_id;
-		}
+		foreach ($articles as $item)
+			$tags[] = $item->tag_id->value;
 
 		return $tags;
 	}
 
 	public function setTags($tags){
-		foreach ($tags  as $item) {
-			if(trim($item,' ') == '')continue;
+		foreach ($tags as $item) {
+			if(trim($item,' ') == '')
+				continue;
 			/**
 			 * @var QuarkModel|Tag $tag
 			 */
-			$tag = QuarkModel::FindOne(new Tag(), array(
-				'name' => $item
-			));
+			$tag = QuarkModel::FindOne(new Tag(), array('name' => $item));
 
 			if ($tag === null) {
 				$tag = new QuarkModel(new Tag());
@@ -209,12 +206,15 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 				'article_id' => $this->id,
 				'tag_id' => $tag->id
 			));
-			if($article_has_tag != null) continue;
+
+			if($article_has_tag != null)
+				continue;
 
 			$article_has_tag = new QuarkModel(new Article_has_Tag(),array(
 				'article_id' => $this->id,
 				'tag_id' => $tag->id
 			));
+
 			if(!$article_has_tag->Create())
 				return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
 
@@ -224,21 +224,18 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		/**
 		 * @var QuarkCollection|Article_has_Tag[] $articles
 		 */
-
-		$articles = QuarkModel::Find(new Article_has_Tag(),array(
-			'article_id' => $this->id
-		));
+		$articles = QuarkModel::Find(new Article_has_Tag(),array('article_id' => $this->id));
 		$saved_tags = array();
+
 		foreach ($articles as $item)
-			$saved_tags[] = $item->tag_id->name;
+			$saved_tags[] = $item->tag_id->Retrieve()->name;
 
 		foreach ($saved_tags as $item) {
 			/**
 			 * @var QuarkModel|Tag $tag
 			 */
-			$tag = QuarkModel::FindOne(new Tag(), array(
-				'name' => $item
-			));
+			$tag = QuarkModel::FindOne(new Tag(), array('name' => $item));
+
 			if (!in_array($item, $tags)) {
 				QuarkModel::Delete(new Article_has_Tag(), array(
 					'article_id' => $this->id,
@@ -249,12 +246,44 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	}
 
 	/**
-	 * @param QuarkCollection|Article[] $categories
+	 * @param QuarkCollection|Article[] $articles,
 	 * @param string $field
 	 *
 	 * @return QuarkCollection|Article[]
 	 */
-	public static function Sort (QuarkCollection $categories, $field = 'priority') {
-		return $categories->Select(array(), array(QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC)));
+	public static function Sort (QuarkCollection $articles, $field = 'priority') {
+		return $articles->Select(array(), array(QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC)));
+	}
+
+	/**
+	 * @return array
+	 */
+	public static function ArchiveSortTypes () {
+		return array(
+			'author_id' => 'Catman.Localization.Article.ArhiveSortType.Author',
+			'event_id' => 'Catman.Localization.Article.ArhiveSortType.Event',
+			'release_date' => 'Catman.Localization.Article.ArhiveSortType.RealeaseDate'
+		);
+	}
+
+	public function RevealAll () {
+		if ($this->event_id != null)
+			$this->event_id = $this->event_id->Retrieve();
+
+		if ($this->author_id != null)
+			$this->author_id = $this->author_id->Retrieve();
+	}
+
+	/**
+	 * @param int $year
+	 *
+	 * @return mixed
+	 */
+	public static function SearchByYearQuery ($year = 2017) {
+		$query = array();
+		$query['release_date']['$gte'] = $year . '-01-01';
+		$query['release_date']['$lte'] = ($year + 1) . '-01-01';
+
+		return $query;
 	}
 }

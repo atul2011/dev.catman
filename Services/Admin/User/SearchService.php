@@ -32,6 +32,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|User[] $users
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 

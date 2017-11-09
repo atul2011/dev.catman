@@ -7,6 +7,8 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkDate;
+use Quark\QuarkLazyLink;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class News
@@ -18,12 +20,14 @@ use Quark\QuarkDate;
  * @property QuarkDate $publish_date
  * @property string $link_url
  * @property string $link_text
- * @property User   $lastediteby_userid
+ * @property QuarkLazyLink|User   $lastediteby_userid
  * @property QuarkDate $lastedited_date
  *
  * @package AllModels
  */
 class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
+	use QuarkModelBehavior;
+
 	const TYPE_NEW_EVENT = 'N';
 	const TYPE_NEW_MATERIAL = 'T';
 	const TYPE_CUSTOM = 'C';
@@ -47,7 +51,7 @@ class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvide
 			'publish_date' => QuarkDate::FromFormat('Y-m-d'),
 			'link_url' => '',
 			'link_text' => '',
-			'lastediteby_userid' => new User(),
+			'lastediteby_userid' => $this->LazyLink(new User()),
 			'lastedited_date' => QuarkDate::GMTNow('Y-m-d')
 		);
 	}
@@ -74,5 +78,11 @@ class News implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvide
 	 */
 	public function BeforeExtract ($fields, $weak) {
 		$this->id = (string)$this->id;
+	}
+
+
+	public function RevealAll () {
+		if ($this->lastediteby_userid != null)
+			$this->lastediteby_userid = $this->lastediteby_userid->Retrieve();
 	}
 }

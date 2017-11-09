@@ -1,0 +1,23 @@
+.site-logo-link {
+    color: #fff;
+}
+
+.site-logo-link:hover {
+    color: #fff;
+    text-decoration: none;
+}
+
+.item-related-articles, .item-related-categories {
+    margin-bottom: 10px;
+}
+
+.side-menu-list li {
+    word-wrap: break-word;
+    font-family: "Open Sans", sans-serif;
+}
+
+.item-content {
+    min-height: 600px;
+    border-bottom: 1px solid rgba(81,38,60,.54);
+    border-top: 1px solid rgba(81,38,60,.54);
+}

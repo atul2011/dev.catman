@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Event;
 
 use Models\Event;
@@ -13,6 +12,11 @@ use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class SearchService
+ *
+ * @package Services\Admin\Event
+ */
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -28,6 +32,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|Event[] $events
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
@@ -45,7 +50,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					'name',
 					'type',
 					'keywords'
-				))
+			))
 		);
 	}
 }

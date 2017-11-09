@@ -1,12 +1,13 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
+use Quark\IQuarkNullableModel;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkDate;
 use Quark\QuarkModel;
@@ -20,7 +21,7 @@ use Quark\QuarkModel;
  *
  * @package AllModels\Content
  */
-class Event implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName,IQuarkLinkedModel {
+class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract, IQuarkModelWithCustomCollectionName, IQuarkLinkedModel, IQuarkNullableModel {
 	/**
 	 * @return mixed
 	 */
@@ -75,7 +76,6 @@ class Event implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvid
 	 * @return mixed
 	 */
 	public function BeforeExtract ($fields, $weak) {
-//		$this->id = (string)$this->id;
 	}
 
 	/**

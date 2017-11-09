@@ -29,10 +29,11 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$page = $request->page != '' ? $request->page : 0;
 		$limit = $request->limit != '' ? $request->limit : 25;
+
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
-		$articles = QuarkModel::Find(new Article(), array(), array(
+		$articles = QuarkModel::Find(new Article(), array('id' => 13), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $limit * $page
 		));
@@ -43,7 +44,7 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if (explode('-', $article->publish_date)[0] == '' || explode('-', $article->publish_date)[0] == null || $article->publish_date == null)
 				$article->publish_date = QuarkDate::GMTNow('Y-m-d');
-			
+
 			if ($article->type == '')
 				$article->type = Article::TYPE_ARTICLE;
 //I parser
@@ -75,6 +76,16 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $article->txtfield);
 
 			if ($processed != null)
+				$article->txtfield = $processed;
+//VII Parser
+			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $article->txtfield);
+
+			if ($processed != '')
+				$article->txtfield = $processed;
+//VII Parser
+			$processed = preg_replace('#\\\\\"#Uis', '"', $article->txtfield);
+
+			if ($processed != '')
 				$article->txtfield = $processed;
 
 			if (!$article->Save())

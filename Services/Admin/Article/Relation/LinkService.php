@@ -13,6 +13,11 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 
+/**
+ * Class LinkService
+ *
+ * @package Services\Admin\Article\Relation
+ */
 class LinkService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 

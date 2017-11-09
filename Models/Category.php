@@ -8,6 +8,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -33,6 +34,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 
     const TYPE_CATEGORY = 'F';
     const TYPE_SUBCATEGORY = 'T';
+    const TYPE_ARCHIVE = 'A';
 
     const ROLE_SYSTEM = 'system';
     const ROLE_CUSTOM = 'custom';
@@ -72,7 +74,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     public function Rules() {
 	    return array(
 		    $this->LocalizedAssert(in_array($this->role, array(self::ROLE_CUSTOM, self::ROLE_SYSTEM)), 'Catman.Validation.Category.UnsupportedRole', 'role'),
-		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY)), 'Catman.Validation.Category.UnsupportedType', 'sub')
+		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY, self::TYPE_ARCHIVE)), 'Catman.Validation.Category.UnsupportedType', 'sub')
 	    );
     }
 
@@ -150,7 +152,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         $out = new QuarkCollection(new Category());
 
         foreach ($links as $item)
-            $out[] = $item->child_id1;
+            $out[] = $item->child_id1->Retrieve();
 
         return $out;
     }
@@ -164,7 +166,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(),array('child_id1' => $this->id),array(
+        $links = QuarkModel::Find(new Categories_has_Categories(), array('child_id1' => $this->id), array(
             QuarkModel::OPTION_LIMIT => $limit,
             QuarkModel::OPTION_SKIP => $offset
         ));
@@ -172,33 +174,35 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         $out = new QuarkCollection(new Category());
 
         foreach ($links as $item)
-            $out[] = $item->parent_id;
+            $out[] = $item->parent_id->Retrieve();
 
         return $out;
     }
 
     /**
+     * @param string $sort_field
      * @param int $limit
      * @param int $offset
      * @return QuarkCollection|Article[]
      */
-    public function Articles($limit = 10, $offset = 0){
-       /**
-        * @var QuarkCollection|Articles_has_Categories[] $links
-        */
-       $links = QuarkModel::Find(new Articles_has_Categories(),array(
-           'category_id' => $this->id
-       ),array(
-           QuarkModel::OPTION_LIMIT => $limit,
-           QuarkModel::OPTION_SKIP => $offset
-       ));
+    public function Articles($limit = 10, $offset = 0, $sort_field = 'title') {
+		$options = array(QuarkModel::OPTION_SKIP => $offset);
 
-       $out = new QuarkCollection(new Article());
+		if ($limit == 0)
+			$options[QuarkModel::OPTION_LIMIT] = QuarkModel::Count(new Article());
+		else
+			$options[QuarkModel::OPTION_LIMIT] = $limit;
 
-       foreach ($links as $item)
-           $out[]= $item->article_id;
+	    /**
+	     * @var QuarkCollection|Articles_has_Categories[] $links
+	     */
+	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
+	    $out = new QuarkCollection(new Article());
 
-	    return Article::Sort($out);
+	    foreach ($links as $item)
+		    $out[] = $item->article_id->Retrieve();
+
+	    return Article::Sort($out, $sort_field);
     }
 
 	/**
@@ -268,9 +272,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkCollection|Category_has_Tag[] $categories
 		 */
 
-		$categories = QuarkModel::Find(new Category_has_Tag(),array(
-			'category_id' => $this->id
-		));
+		$categories = QuarkModel::Find(new Category_has_Tag(), array('category_id' => $this->id));
+
 		$saved_tags = array();
 		foreach ($categories as $item)
 			$saved_tags[] = $item->tag_id->name;
@@ -318,7 +321,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$out = new QuarkCollection(new Category());
 
 		foreach ($category_relations as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
 
 		return Category::Sort($out);
 	}
@@ -344,7 +347,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$out = new QuarkCollection(new Category());
 
 		foreach ($links as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
 
 		return Category::Sort($out);
 	}
@@ -369,7 +372,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$out = new QuarkCollection(new Category());
 
 		foreach ($links as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->id);
+			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
 
 		return Category::Sort($out);
 	}

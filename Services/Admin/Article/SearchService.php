@@ -16,6 +16,11 @@ use Quark\QuarkSession;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
+/**
+ * Class SearchService
+ *
+ * @package Services\Admin\Article
+ */
 class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -46,28 +51,26 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
+		foreach ($articles as $article)
+			$article->RevealAll();
+
 		$search_value = '';
 		$fields = explode('_', $request->Data()->field);
 
 		if (!empty($fields[1])) {
 			if ($fields[1] === 'id') {
 				if ($fields[0] === 'event') {
-					$event = QuarkModel::FindOne(new Event(), array(
-						'name' => $request->Data()->value
-					));
+					$event = QuarkModel::FindOne(new Event(), array('name' => $request->value));
 					$search_value = $event;
 				}
 				elseif ($fields[0] === 'author') {
-					$author = QuarkModel::FindOne(new Author(), array(
-						'name' => $request->Data()->value
-					));
+					$author = QuarkModel::FindOne(new Author(), array('name' => $request->value));
 					$search_value = $author;
 				}
+
 				$out = $articles->Select(
 					array($request->Data()->field => $search_value),
-					array(
-						QuarkModel::OPTION_LIMIT => $limit
-					)
+					array(QuarkModel::OPTION_LIMIT => $limit)
 				);
 			}
 		}
@@ -80,6 +83,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'release_date',
 				'event_id',
 				'txtfield'
-			)));
+			))
+		);
 	}
 }

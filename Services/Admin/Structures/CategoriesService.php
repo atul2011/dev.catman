@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Structures;
 
 use Models\Article;
@@ -12,7 +11,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Structures\CategoriesView;
+use ViewModels\Admin\Structures\CategoriesView;
 
 /**
  * Class CategoriesService
@@ -30,8 +29,8 @@ class CategoriesService implements IQuarkGetService, IQuarkAuthorizableServiceWi
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		return QuarkView::InLayout(new CategoriesView(), new QuarkPresenceControl(),array(
-			'number_categories'=>QuarkModel::Count(new Category()),
-			'number_articles'=>QuarkModel::Count(new Article())
+			'number_categories' => QuarkModel::Count(new Category()),
+			'number_articles' => QuarkModel::Count(new Article())
 		));
 	}
 }

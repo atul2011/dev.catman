@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin\Category\Relation;
+
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
@@ -16,7 +16,7 @@ use Services\Admin\Behaviors\CustomProcessorBehavior;
  *
  * @package Services\Admin\Category\Relation
  */
-class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,IQuarkAuthorizableServiceWithAuthentication {
+class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -31,9 +31,9 @@ class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProc
 		 * @var QuarkModel|Category $category
 		 */
 		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(4));
-		if ($category == null) return array(
-			'status' => 404
-		);
+
+		if ($category == null)
+			return array('status' => 404);
 
 		return array(
 			'status' => 200,
