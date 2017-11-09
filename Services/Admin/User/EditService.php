@@ -1,5 +1,6 @@
 <?php
 namespace Services\Admin\User;
+
 use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
@@ -10,9 +11,16 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
+use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\User\CreateView;
+use ViewModels\Status\NotFoundView;
 
-class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication,IQuarkGetService {
+/**
+ * Class EditService
+ *
+ * @package Services\Admin\User
+ */
+class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication, IQuarkGetService {
 	use AuthorizationBehavior;
 	/**
 	 * @param QuarkDTO $request
@@ -21,7 +29,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return bool|mixed
 	 */
 	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
-		return 		$session->User()->rights === 'A';
+		return 	$session->User()->rights === 'A';
 	}
 
 	/**
@@ -31,7 +39,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
-		return QuarkDTO::ForRedirect('/admin/user/?error=InvalidRights');
+		return QuarkDTO::ForRedirect('/admin/user/login');
 	}
 	/**
 	 * @param QuarkDTO $request
@@ -40,9 +48,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(),new QuarkPresenceControl(),array(
-			'user'=> QuarkModel::FindOneById(new User(), $request->URI()->Route(3))
-		));
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array('user'=> QuarkModel::FindOneById(new User(), $request->URI()->Route(3))));
 	}
 
 	/**
@@ -55,15 +61,16 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		/**
 		 * @var QuarkModel|User $user
 		 */
-		$id=$request->URI()->Route(3);
-		$event = QuarkModel::FindOneById(new User(),$id);
-		if($event === null)
-			return QuarkDTO::ForRedirect('/admin/user/list?status=404');
+		$event = QuarkModel::FindOneById(new User(), $request->URI()->Route(3));
+
+		if ($event === null)
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
 		$event->PopulateWith($request->Data());
-		if(!$event->Save())
-			return QuarkDTO::ForRedirect('/admin/user/list?update=false');
 
-		return QuarkDTO::ForRedirect('/admin/user/list/'.$id.'?edited=true');
+		if(!$event->Save())
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
+
+		return QuarkDTO::ForRedirect('/admin/user/list/');
 	}
 }

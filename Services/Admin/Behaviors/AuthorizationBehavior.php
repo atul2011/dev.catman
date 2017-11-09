@@ -1,9 +1,14 @@
 <?php
-
 namespace Services\Admin\Behaviors;
+
 use Quark\QuarkDTO;
 use Quark\QuarkSession;
 
+/**
+ * Class AuthorizationBehavior
+ *
+ * @package Services\Admin\Behaviors
+ */
 trait AuthorizationBehavior {
 	/**
 	 * @param QuarkDTO $request

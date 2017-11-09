@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin\News;
+
 use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
@@ -12,9 +12,15 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\News\CreateView;
+use ViewModels\Admin\News\CreateView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 
-class CreateService implements IQuarkGetService,IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class CreateService
+ *
+ * @package Services\Admin\News
+ */
+class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -24,7 +30,7 @@ class CreateService implements IQuarkGetService,IQuarkPostService, IQuarkAuthori
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(),new QuarkPresenceControl());
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl());
 	}
 
 	/**
@@ -37,14 +43,14 @@ class CreateService implements IQuarkGetService,IQuarkPostService, IQuarkAuthori
 		/**
 		 * @var QuarkModel|News $news
 		 */
-		$news = new QuarkModel(new News(),$request->Data());
+		$news = new QuarkModel(new News(), $request->Data());
 
 		$news->lastediteby_userid = $session->User()->id;
 		$news->lastedited_date = QuarkDate::GMTNow();
 
 		if(!$news->Create())
-			return QuarkDTO::ForRedirect('/admin/news/list?created=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/news/list?created=true');
+		return QuarkDTO::ForRedirect('/admin/news/list');
 	}
 }

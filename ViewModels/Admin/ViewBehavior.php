@@ -8,10 +8,8 @@ use Quark\QuarkModel;
 use Quark\ViewResources\jQuery\jQueryCore;
 use Quark\ViewResources\Quark\QuarkControls\QuarkControls;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControlComponent;
-use ViewModels\Admin\Content\Behaviors\ICreateView;
-use ViewModels\Admin\Content\Behaviors\IListView;
-use ViewModels\Admin\Content\Behaviors\ILoader;
-use ViewModels\Admin\Content\Behaviors\INavigationBar;
+use ViewModels\Admin\Behaviors\ILoader;
+use ViewModels\Admin\Behaviors\INavigationBar;
 
 /**
  * Class ViewBehavior
@@ -47,7 +45,7 @@ trait ViewBehavior {
 	 */
 	public function PresenceMenuSide () {
 		return $this->MenuSideWidget(array(
-			$this->MenuWidgetItem('/admin/user/', 'Dashboard', 'fa-bars')
+			$this->MenuWidgetItem('/admin/', 'Dashboard', 'fa-bars')
 		, $this->MenuWidgetItem('/admin/structures/categories', 'Structures', 'fa-align-left ')
 		, $this->MenuWidgetItem('/admin/article/list', 'Article', 'fa-file-text-o')
 		, $this->MenuWidgetItem('/admin/category/list', 'Category', 'fa-list-ul')
@@ -75,34 +73,16 @@ trait ViewBehavior {
 	}
 
 	/**
-	 * @return IQuarkViewResource|string
-	 */
-	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../static/Admin/index.css';
-	}
-
-	/**
-	 * @return IQuarkViewResource|string
-	 */
-	public function ViewLayoutController () {
-		return __DIR__ . '/../../static/Admin/index.js';
-	}
-
-	/**
 	 * @return IQuarkViewResource[]
 	 */
 	public function ViewLayoutResources () {
 		return array(
 			new jQueryCore(),
 			new QuarkControls(),
-			$this instanceof ICreateView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/Create.css') : null,
-			$this instanceof ICreateView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/JS/Create.js') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/CSS/List.css') : null,
-			$this instanceof IListView ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/JS/List.js') : null,
-			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/style.css') : null,
-			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/Mechanisms/NavigationBar/script.js') : null,
-			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Content/Mechanisms/Loader/style.css') : null,
-			$this instanceof ILoader ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Content/Mechanisms/Loader/script.js') : null
+			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Mechanisms/NavigationBar/index.css') : null,
+			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Mechanisms/NavigationBar/index.js') : null,
+			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Mechanisms/Loader/index.css') : null,
+			$this instanceof ILoader ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Mechanisms/Loader/index.js') : null
 		);
 	}
 }

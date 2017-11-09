@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Category;
@@ -28,36 +27,46 @@ class LinkService implements IQuarkServiceWithCustomProcessor, IQuarkPostService
 	 *
 	 * @return mixed
 	 */
-	//add a relation in table categories_has_categories
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Category $parent
-		 * @var QuarkModel|Category $child
 		 * @var QuarkModel|Categories_has_Categories $link
 		 */
 		$parent = QuarkModel::FindOneById(new Category(), $request->Data()->parent);
-		if ($parent == null) return array(
-			'status' => 404
-		);
+
+		if ($parent == null)
+			return array(
+				'status' => 400,
+				'Parent category\' id is invalid'
+			);
+
+		/**
+		 * @var QuarkModel|Category $child
+		 */
 		$child = QuarkModel::FindOneById(new Category(), $request->Data()->child);
-		if ($child == null) return array(
-			'status' => 404
-		);
+
+		if ($child == null)
+			return array(
+				'status' => 400,
+				'Child category\' id is invalid'
+			);
+
 		$link = QuarkModel::FindOne(new Categories_has_Categories(), array(
 			'parent_id' => $parent->id,
 			'child_id1' => $child->id
 		));
-		if ($link != null) return array(
-			'status' => 409
-		);
+
+		if ($link != null)
+			return array('status' => 409);
+
 		$link = new QuarkModel(new Categories_has_Categories(), array(
 			'parent_id' => $parent,
 			'child_id1' => $child,
 			'priority' => null
 		));
-		if (!$link->Create()) return array(
-			'status' => 400
-		);
+
+		if (!$link->Create())
+			return array('status' => 400);
 
 		return array(
 			'status' => 200,

@@ -1,7 +1,6 @@
 <?php
 namespace Services\Admin\User;
 
-use Models\Article;
 use Models\News;
 use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
@@ -41,7 +40,7 @@ class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAu
 	 * @return mixed
 	 */
 	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
-		return QuarkDTO::ForRedirect('/admin/user/?error=InvalidRights');
+		return QuarkDTO::ForRedirect('/admin/user/login');
 	}
 	/**
 	 * @param QuarkDTO $request
@@ -58,7 +57,7 @@ class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAu
 		if ($user == null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		if(!QuarkModel::Delete(new News(), array('lastediteby_userid' => $user->id)))
+		if (!QuarkModel::Delete(new News(), array('lastediteby_userid' => $user->id)))
 			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
 				'error_status' => 'Status 500: Internal Server Error',
 				'error_message' => 'Cannot delete user\'s news'

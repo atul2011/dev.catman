@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Category;
 
 use Models\Category;
@@ -16,7 +15,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Content\Category\ListView;
+use ViewModels\Admin\Category\ListView;
 
 /**
  * Class ListService
@@ -34,9 +33,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'number' => QuarkModel::Count(new Category())
-		));
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array('number' => QuarkModel::Count(new Category())));
 	}
 
 	/**
@@ -70,27 +67,27 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		$model = 'category';
 		$orfan = false;
 
-		if (isset($request->Data()->orfan)) $orfan = $request->Data()->orfan;
-		if (isset($request->Data()->model)) $model = $request->Data()->model;
+		if (isset($request->Data()->orfan))
+			$orfan = $request->Data()->orfan;
 
-		//if is another model, go out
-		if ($model !== 'none' && $model !== 'category') {
+		if (isset($request->Data()->model))
+			$model = $request->Data()->model;
+
+		if ($model !== 'none' && $model !== 'category') {//if is another model, go out
 			return array(
 				'status' => 200,
 				'response' => null
 			);
-			//if is roght model and want orfans, we give orfans
 		}
-		elseif ($orfan === 'true' && $model === 'category') {
+		elseif ($orfan === 'true' && $model === 'category') {//if is roght model and want orfans, we give orfans
 			foreach ($categories as $item) {
-				$status = QuarkModel::Count(new Categories_has_Categories(), array(
-					'child_id1' => $item->id
-				));
-				if ($status == 0) $orfans[] = $item;
+				$status = QuarkModel::Count(new Categories_has_Categories(), array('child_id1' => $item->id));
+
+				if ($status == 0)
+					$orfans[] = $item;
 			}
-			//if is not another model, and do not want orfans, we not gice orfans
 		}
-		elseif ($orfan === 'false' && $model === 'none' || $model === 'category') {
+		elseif ($orfan === 'false' && $model === 'none' || $model === 'category') {//if is not another model, and do not want orfans, we not give orfans
 			$orfans = $categories;
 		}
 
@@ -101,7 +98,7 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 					'title',
 					'sub',
 					'intro'
-				))
+			))
 		);
 	}
 }

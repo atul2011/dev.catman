@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\User;
 
 use Quark\IQuarkAuthorizableService;
@@ -8,7 +7,12 @@ use Quark\IQuarkPostService;
 use Quark\QuarkDTO;
 use Quark\QuarkSession;
 
-class LogoutService implements IQuarkPostService,IQuarkGetService, IQuarkAuthorizableService {
+/**
+ * Class LogoutService
+ *
+ * @package Services\Admin\User
+ */
+class LogoutService implements IQuarkPostService, IQuarkGetService, IQuarkAuthorizableService {
 	/**
 	 * @param QuarkDTO $request
 	 *
@@ -26,6 +30,7 @@ class LogoutService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
 		$session->Logout();
+
 		return QuarkDTO::ForRedirect('/admin/user/login');
 	}
 
@@ -37,6 +42,7 @@ class LogoutService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$session->Logout();
+
 		return QuarkDTO::ForRedirect('/admin/user/login');
 	}
 }

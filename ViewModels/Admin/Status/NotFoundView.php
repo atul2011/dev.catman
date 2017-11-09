@@ -3,7 +3,6 @@ namespace ViewModels\Admin\Status;
 
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
-use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
@@ -13,7 +12,7 @@ use ViewModels\Admin\ViewBehavior;
  *
  * @package ViewModels\Admin\Status
  */
-class NotFoundView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLayout, IQuarkViewModelWithComponents, IQuarkPresenceControlViewModel {
+class NotFoundView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQuarkPresenceControlViewModel {
 	use ViewBehavior;
 
 	/**

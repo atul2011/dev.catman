@@ -1,12 +1,11 @@
 <?php
-
 namespace Services\Admin\News;
+
 use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -15,14 +14,14 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Content\News\ListView;
+use ViewModels\Admin\News\ListView;
 
 /**
  * Class ListService
  *
  * @package Services\Admin\News
  */
-class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWithCustomProcessor ,IQuarkAuthorizableServiceWithAuthentication {
+class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -33,9 +32,7 @@ class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWi
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(),new QuarkPresenceControl(),array(
-			'number' => QuarkModel::Count(new News())
-		));
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array('number' => QuarkModel::Count(new News())));
 	}
 
 	/**
@@ -45,9 +42,6 @@ class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWi
 	 * @return mixed
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
-		/**
-		 * @var QuarkCollection|News $news
-		 */
 		$limit = 50;
 		$skip = 0;
 
@@ -56,11 +50,16 @@ class ListService implements IQuarkGetService,IQuarkPostService ,IQuarkServiceWi
 
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
-
+		/**
+		 * @var QuarkCollection|News[] $news
+		 */
 		$news = QuarkModel::Find(new News(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
+
+		foreach ($news as $item)
+			$item->RevealAll();
 
 		return array(
 			'status' => 200,

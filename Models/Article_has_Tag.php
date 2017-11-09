@@ -1,27 +1,30 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkStrongModel;
+use Quark\QuarkLazyLink;
+use Quark\QuarkModelBehavior;
 
 /**
  * Class Article_has_Tag
  *
- * @property Tag $tag_id
- * @property Article $article_id
+ * @property QuarkLazyLink|Tag $tag_id
+ * @property QuarkLazyLink|Article $article_id
  *
  * @package Models
  */
-class Article_has_Tag implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithDataProvider ,IQuarkModelWithBeforeExtract {
+class Article_has_Tag implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract {
+	use QuarkModelBehavior;
 	/**
 	 * @return mixed
 	 */
 	public function Fields () {
 		return array(
-			'tag_id' => new Tag(),
-			'article_id' => new Article()
+			'tag_id' => $this->LazyLink(new Tag()),
+			'article_id' => $this->LazyLink(new Article())
 		);
 	}
 

@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Event;
 
 use Models\Event;
@@ -7,7 +6,6 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -16,8 +14,13 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Content\Event\ListView;
+use ViewModels\Admin\Event\ListView;
 
+/**
+ * Class ListService
+ *
+ * @package Services\Admin\Event
+ */
 class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
@@ -29,9 +32,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'number' => QuarkModel::Count(new Event())
-		));
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array('number' => QuarkModel::Count(new Event())));
 	}
 
 	/**
@@ -64,7 +65,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 					'id',
 					'name',
 					'startdate'
-				))
+			))
 		);
 	}
 }

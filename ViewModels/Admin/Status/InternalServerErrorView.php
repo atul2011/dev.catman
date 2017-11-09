@@ -3,7 +3,6 @@ namespace ViewModels\Admin\Status;
 
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
-use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewResource;
 use Quark\QuarkModel;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
@@ -14,7 +13,7 @@ use ViewModels\Admin\ViewBehavior;
  *
  * @package ViewModels\Admin\Status
  */
-class InternalServerErrorView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout, IQuarkPresenceControlViewModel {
+class InternalServerErrorView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQuarkPresenceControlViewModel {
 	use ViewBehavior;
 
 	/**

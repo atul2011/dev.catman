@@ -1,12 +1,13 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
+use Quark\IQuarkNullableModel;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
@@ -22,7 +23,7 @@ use Quark\QuarkModelBehavior;
  *
  * @package AllModels\Content
  */
-class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExtract ,IQuarkModelWithDefaultExtract ,IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName,IQuarkLinkedModel {
+class Author implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkModelWithDataProvider, IQuarkModelWithCustomCollectionName, IQuarkLinkedModel, IQuarkNullableModel {
 	use QuarkModelBehavior;
 
 	const TYPE_HUMAN = 'H';
@@ -105,6 +106,6 @@ class Author implements IQuarkModel ,IQuarkStrongModel ,IQuarkModelWithBeforeExt
 	 * @return mixed
 	 */
 	public function Unlink () {
-		return (string)$this->id;
+		return $this->id;
 	}
 }

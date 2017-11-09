@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\User;
 
 use Models\User;
@@ -17,6 +16,11 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 use ViewModels\Admin\User\ListView;
 
+/**
+ * Class ListService
+ *
+ * @package Services\Admin\User
+ */
 class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
 	use CustomProcessorBehavior;
 	use AuthorizationBehavior;
@@ -27,7 +31,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return bool|mixed
 	 */
 	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
-		return 		$session->User()->rights === 'A';
+		return 	$session->User()->rights === 'A';
 	}
 
 	/**
@@ -37,7 +41,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
-		return QuarkDTO::ForRedirect('/admin/user/?error=InvalidRights');
+		return QuarkDTO::ForRedirect('/admin/user/login');
 	}
 
 	/**
@@ -47,8 +51,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(),
-			array(
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
 				'users' => QuarkModel::Find(new User()),
 				'number' => QuarkModel::Count(new User())
 			)
@@ -81,15 +84,14 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 
 		$model = 'user';
 
-		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
+		if (isset($request->Data()->model) && $request->Data()->model !== null)
+			$model = $request->Data()->model;
 
-		//if is another model, go out
-		if ($model !== 'user') {
+		if ($model !== 'user')//if is another model, go out
 			return array(
 				'status' => 200,
 				'response' => null
 			);
-		}
 
 		return array(
 			'status' => 200,

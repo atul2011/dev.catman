@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Article;
 
 use Models\Article;
@@ -16,7 +15,7 @@ use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
-use ViewModels\Admin\Content\Article\ListView;
+use ViewModels\Admin\Article\ListView;
 
 /**
  * Class ListService
@@ -34,9 +33,7 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(),array(
-			'number'=>QuarkModel::Count(new Article())
-		));
+		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array('number' => QuarkModel::Count(new Article())));
 	}
 
 	/**
@@ -52,8 +49,10 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		 */
 		$limit = 50;
 		$skip = 0;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
+
 		if (isset($request->skip) && ($request->skip !== null))
 			$skip = $request->skip;
 
@@ -61,44 +60,51 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $skip
 		));
+
 		$orfans = new QuarkCollection(new Article());
 
 		//define variables that we will get from page.if not we will define default values
 		$model = 'article';
 		$orfan = false;
-		if (isset($request->Data()->orfan) && $request->Data()->orfan !== null) $orfan = $request->Data()->orfan;
-		if (isset($request->Data()->model) && $request->Data()->model !== null) $model = $request->Data()->model;
-		//if is another model, go out
-		if ($model !== 'none' && $model !== 'article') {
+
+		if (isset($request->Data()->orfan) && $request->Data()->orfan !== null)
+			$orfan = $request->Data()->orfan;
+
+		if (isset($request->Data()->model) && $request->Data()->model !== null)
+			$model = $request->Data()->model;
+
+		if ($model !== 'none' && $model !== 'article') {//if is another model, go out
 			return array(
 				'status' => 200,
 				'response' => null
 			);
-			//if is roght model and want orfans, we give orfans
 		}
-		elseif ($orfan === 'true' && $model === 'article') {
+		elseif ($orfan === 'true' && $model === 'article') {//if is roght model and want orfans, we give orfans
 			foreach ($articles as $item) {
-				$links = QuarkModel::Count(new Articles_has_Categories(), array(
-					'article_id' => $item->id
-				));
-				if ($links == 0) $orfans[] = $item;
+				$item->RevealAll();
+				$links = QuarkModel::Count(new Articles_has_Categories(), array('article_id' => $item->id));
+
+				if ($links == 0)
+					$orfans[] = $item;
 			}
-			//if is not another model, and do not want orfans, we not gice orfans
 		}
-		elseif ($orfan === 'false' && ($model === 'none' || $model === 'article')) {
-			$orfans = $articles;
+		elseif ($orfan === 'false' && ($model === 'none' || $model === 'article')) {//if is not another model, and do not want orfans, we not give orfans
+			foreach ($articles as $item) {
+				$item->RevealAll();
+				$orfans[] = $item;
+			}
 		}
 
 		return array(
 			'status' => 200,
 			'response' => $orfans->Extract(array(
-					'id',
-					'title',
-					'release_date',
-					'event_id',
-					'txtfield'
-				)
-			), 'items' => $orfans->Count()
+				                               'id',
+				                               'title',
+				                               'release_date',
+				                               'event_id',
+				                               'txtfield'
+			                               )),
+			'items' => $orfans->Count()
 		);
 	}
 }

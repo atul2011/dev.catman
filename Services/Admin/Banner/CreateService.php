@@ -1,6 +1,6 @@
 <?php
-
 namespace Services\Admin\Banner;
+
 use Models\Banner;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
@@ -13,9 +13,16 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Banner\CreateView;
+use ViewModels\Admin\Banner\CreateView;
+use ViewModels\Admin\Status\CustomErrorView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 
-class CreateService implements IQuarkPostService,IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
+/**
+ * Class CreateService
+ *
+ * @package Services\Admin\Banner
+ */
+class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -25,7 +32,7 @@ class CreateService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(),new QuarkPresenceControl());
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl());
 	}
 
 	/**
@@ -39,11 +46,13 @@ class CreateService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 		 * @var QuarkModel|QuarkFile $file
 		 */
 		$file = $request->file;
-
 		$ok = $file->UploadTo(__DIR__ . '/../../../storage/banner/' . Quark::GuID());
 
 		if (!$ok)
-			return QuarkDTO::ForRedirect('/admin/banner/create?create=none');
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 500: Internal Server Error',
+				'error_message' => 'Cannot store banner!'
+			));
 
 		/**
 		 * @var QuarkModel|Banner $banner
@@ -52,8 +61,8 @@ class CreateService implements IQuarkPostService,IQuarkGetService, IQuarkAuthori
 		$banner->file = $file;
 
 		if (!$banner->Create())
-			return QuarkDTO::ForRedirect('/admin/banner/create?create=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/banner/list?create=true');
+		return QuarkDTO::ForRedirect('/admin/banner/list');
 	}
 }

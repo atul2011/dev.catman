@@ -1,5 +1,4 @@
 <?php
-
 namespace Services\Admin\Event;
 
 use Models\Event;
@@ -12,8 +11,15 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Event\CreateView;
+use ViewModels\Admin\Event\CreateView;
+use ViewModels\Admin\Status\ConflictView;
+use ViewModels\Admin\Status\InternalServerErrorView;
 
+/**
+ * Class CreateService
+ *
+ * @package Services\Admin\Event
+ */
 class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
@@ -37,18 +43,16 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 		/**
 		 * @var QuarkModel|Event $event
 		 */
-		$event = QuarkModel::FindOne(new Event(), array(
-			'name' => $request->Data()->name
-		));
+		$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->name));
 
 		if ($event !== null)
-			return QuarkDTO::ForRedirect('/admin/event/list?create=false');
+			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
 		$event = new QuarkModel(new Event(), $request->Data());
 
 		if (!$event->Create())
-			return QuarkDTO::ForRedirect('/admin/event/list?create=false');
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/event/list?create=true');
+		return QuarkDTO::ForRedirect('/admin/event/list');
 	}
 }

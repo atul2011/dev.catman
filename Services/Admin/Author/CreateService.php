@@ -11,7 +11,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Author\CreateView;
+use ViewModels\Admin\Author\CreateView;
 use ViewModels\Admin\Status\ConflictView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 

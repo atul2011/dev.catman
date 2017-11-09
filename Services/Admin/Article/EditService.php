@@ -14,7 +14,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Content\Article\EditView;
+use ViewModels\Admin\Article\EditView;
 use ViewModels\Admin\Status\BadRequestView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
@@ -36,16 +36,16 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$id = $request->URI()->Route(3);
 
-		if(!is_numeric($id))
+		if (!is_numeric($id))
 			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
+
 		/**
 		 * @var QuarkModel|Article $article
 		 */
-		$article =  QuarkModel::FindOneById(new Article(),$id);
+		$article = QuarkModel::FindOneById(new Article(), $id);
 
-		if($article == null)
+		if ($article == null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
-
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'article' => QuarkModel::FindOneById(new Article(), $id),
@@ -69,7 +69,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article = QuarkModel::FindOneById(new Article(), $id);
 
 		if ($article === null)
-			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl(),array('model' => 'Article'));
+			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
 		$article->PopulateWith($request->Data());
 
@@ -78,14 +78,11 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;
-
-
 		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->publish_date);
 		$article->release_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->release_date);
 
-		//set tags
-		$request->Data()->tag_list != '' ? $tags  = explode(',',$request->Data()->tag_list)
-			: $tags  = array();
+
+		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();//set tags
 
 		$article->setTags($tags);
 

@@ -35,27 +35,43 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			if (!$category->Validate())
 				$category->sub = Category::TYPE_CATEGORY;
 
+//I Parser
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
-
+//II Parser
 			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
+//III parser
+			$processed = preg_replace('#href=\\\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
 
+			if ($processed != null)
+				$category->intro = $processed;
+//IV Parser
 			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
+//V parser
+			$processed = preg_replace('#href=\\\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
 
+			if ($processed != null)
+				$category->intro = $processed;
+//VI Parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
-
+//VII Parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $category->intro);
+
+			if ($processed != '')
+				$category->intro = $processed;
+//IV Parser
+			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
