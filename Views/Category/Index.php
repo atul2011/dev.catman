@@ -37,13 +37,15 @@ foreach ($articles as $item) {
 		</h3>
 	</div>
 	<div class="item-content">
-		<div class="item-tags-container">
-
-		</div>
+		<div class="item-tags-container"></div>
 		<div class="item-content-container">
-			<?php echo $category->intro;?><div class="item-related-categories-container">
+            <div class="item-related-content">
+	            <?php echo $category->intro;?>
+            </div>
+			<div class="item-related-categories-container">
 				<?php echo $related_categories; ?>
-            </div><div class="item-related-articles-container">
+            </div>
+            <div class="item-related-articles-container">
 				<?php echo $related_articles; ?>
             </div>
 		</div>

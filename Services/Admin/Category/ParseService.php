@@ -70,7 +70,7 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if ($processed != '')
 				$category->intro = $processed;
-//IV Parser
+//VIII Parser
 			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
 
 			if ($processed != '')

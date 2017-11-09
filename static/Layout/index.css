@@ -16,8 +16,11 @@
     font-family: "Open Sans", sans-serif;
 }
 
-.item-content {
+.item-content{
     min-height: 600px;
-    border-bottom: 1px solid rgba(81,38,60,.54);
+}
+
+.item-related-content{
     border-top: 1px solid rgba(81,38,60,.54);
+    border-bottom: 1px solid rgba(81,38,60,.54);
 }
