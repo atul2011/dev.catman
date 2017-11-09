@@ -8,6 +8,7 @@ use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
+use Quark\QuarkViewBehavior;
 use ViewModels\LayoutView;
 use ViewModels\News\ListView;
 
@@ -17,6 +18,7 @@ use ViewModels\News\ListView;
  * @package Services\News
  */
 class ListService implements IQuarkGetService  {
+	use QuarkViewBehavior;
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
@@ -28,7 +30,8 @@ class ListService implements IQuarkGetService  {
 			'news' => QuarkModel::Find(new News(), array(
 					'publish_date' => array('$lte' => QuarkDate::GMTNow()->Format('Y-m-d'))
 				)
-			)
+			),
+			'title' => $this->CurrentLocalizationOf('Catman.Localization.News.Label.Many')
 		));
 	}
 }
