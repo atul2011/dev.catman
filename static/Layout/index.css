@@ -16,7 +16,7 @@
     font-family: "Open Sans", sans-serif;
 }
 
-.item-content{
+.item-content, #content-container{
     min-height: 600px;
 }
 
