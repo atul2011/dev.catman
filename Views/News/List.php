@@ -1,9 +1,9 @@
 <?php
 /**
- * @var QuarkModel|News $news
+ * @var QuarkCollection|News[] $news
  */
 use Models\News;
-use Quark\QuarkModel;
+use Quark\QuarkCollection;
 ?>
 <div class="block-center__left js-equal-height">
 	<h3 class="main-headline">НОВОСТИ УНИВЕРСАЛЬНОГО ПУТИ</h3>
