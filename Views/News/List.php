@@ -27,7 +27,7 @@ use ViewModels\News\ListView;
 			?  '<img src="/static/resources/img/news-img.png" alt=""><div class="news__description news__wrap clearfix">'
 			: '<div class="news__description clearfix">';
 		$news_text = $i == 1 ? substr($item->text,0,300) : $item->title;
-		if ($news_text == '') $news_text = substr($item->text,0,150);
+		if ($news_text == '') $news_text = substr($item->text,0,150) . ' ...';
 
 		echo
 			'<div class="news">' ,

@@ -35,5 +35,4 @@ trait ViewBehavior {
 			new jQueryCore()
 		);
 	}
-
 }
