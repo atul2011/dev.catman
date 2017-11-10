@@ -252,7 +252,10 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 * @return QuarkCollection|Article[]
 	 */
 	public static function Sort (QuarkCollection $articles, $field = 'priority') {
-		return $articles->Select(array(), array(QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC)));
+		return $articles->Select(array(), array(
+			QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC),
+			QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC),
+		));
 	}
 
 	/**

@@ -384,6 +384,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return QuarkCollection|Category[]
 	 */
 	public static function Sort (QuarkCollection $categories, $field = 'priority') {
-		return $categories->Select(array(), array(QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC)));
+		return $categories->Select(array(), array(
+			QuarkModel::OPTION_SORT => array($field => QuarkModel::SORT_ASC),
+			QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)
+		));
 	}
 }
