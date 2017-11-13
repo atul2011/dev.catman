@@ -49,20 +49,18 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		$article->publish_date = $request->Data()->publishdate != '' ? $request->Data()->publishdate : QuarkDate::GMTNow('Y-m-d');
 		$article->release_date = $request->Data()->releasedate != '' ? $request->Data()->releasedate : QuarkDate::GMTNow('Y-m-d');
 
-		if ($request->Data()->author !== '') {
+		if ($request->author != '') {
 			$author = QuarkModel::FindOne(new Author(), array('name' => $request->Data()->author));
 			$article->author_id = $author->id;
 		}
 
-		if ($request->Data()->event !== '') {
+		if ($request->event != '') {
 			$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->event));
 			$article->event_id = $event->id;
 		}
 
 		//set tags
-		$request->Data()->tag_list != ''
-			? $tags  = explode(',',$request->Data()->tag_list)
-			: $tags  = array();
+		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();
 
 		$article->setTags($tags);
 
