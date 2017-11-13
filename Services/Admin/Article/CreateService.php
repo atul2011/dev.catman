@@ -44,7 +44,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		if ($article != null)//ceck if new article is already exist
 			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
-		$article = new QuarkModel(new Article());
+		$article = new QuarkModel(new Article(), $request->Data());
 
 		$article->publish_date = $request->publishdate != '' ? $request->publishdate : QuarkDate::GMTNow('Y-m-d');
 		$article->release_date = $request->releasedate != '' ? $request->releasedate : QuarkDate::GMTNow('Y-m-d');
@@ -58,7 +58,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 //		$article->description = $request->description;
 //		$article->type = $request->type;
 
-		if (isset($request->author)) {
+		if ($request->author != '') {
 			$author = QuarkModel::FindOne(new Author(), array('name' => $request->author));
 			$article->author_id = $author->id;
 		}
@@ -66,7 +66,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 			$article->author_id = Author::DefaultAuthor()->id;
 		}
 
-		if (isset($request->event)) {
+		if ($request->event != '') {
 			$event = QuarkModel::FindOne(new Event(), array('name' => $request->event));
 			$article->event_id = $event->id;
 		}
