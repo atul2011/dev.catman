@@ -108,4 +108,11 @@ class Author implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithBeforeExt
 	public function Unlink () {
 		return $this->id;
 	}
+
+	/**
+	 * @return QuarkModel|Author
+	 */
+	public static function DefaultAuthor () {
+		return QuarkModel::FindOne(new Author(), array('type' => self::TYPE_HUMAN));
+	}
 }

@@ -93,4 +93,11 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 	public function Unlink () {
 		return (string)$this->id;
 	}
+
+	/**
+	 * @return QuarkModel|Event
+	 */
+	public static function DefaultEvent () {
+		return QuarkModel::FindOne(new Event());
+	}
 }
