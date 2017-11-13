@@ -48,31 +48,31 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 
 		$article->publish_date = $request->publishdate != '' ? $request->publishdate : QuarkDate::GMTNow('Y-m-d');
 		$article->release_date = $request->releasedate != '' ? $request->releasedate : QuarkDate::GMTNow('Y-m-d');
-		$article->title = $request->title;
-		$article->note = $request->note;
-		$article->resume = $request->resume;
-		$article->txtfield = $request->txtfield;
-		$article->copyright = $request->copyright;
+//		$article->title = $request->title;
+//		$article->note = $request->note;
+//		$article->resume = $request->resume;
+//		$article->txtfield = $request->txtfield;
+//		$article->copyright = $request->copyright;
 		$article->priority = $request->priority != '' ? $request->priority : 100;
-		$article->keywords = $request->keywords;
-		$article->description = $request->description;
-		$article->type = $request->type;
+//		$article->keywords = $request->keywords;
+//		$article->description = $request->description;
+//		$article->type = $request->type;
 
 		if (isset($request->author)) {
 			$author = QuarkModel::FindOne(new Author(), array('name' => $request->author));
 			$article->author_id = $author->id;
 		}
-//		else {
-//			$article->author_id = Author::DefaultAuthor()->id;
-//		}
+		else {
+			$article->author_id = Author::DefaultAuthor()->id;
+		}
 
 		if (isset($request->event)) {
 			$event = QuarkModel::FindOne(new Event(), array('name' => $request->event));
 			$article->event_id = $event->id;
 		}
-//		else {
-//			$article->event_id = Event::DefaultEvent()->id;
-//		}
+		else {
+			$article->event_id = Event::DefaultEvent()->id;
+		}
 
 		//set tags
 		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();
