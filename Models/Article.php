@@ -64,8 +64,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'type' => self::TYPE_ARTICLE,
             'keywords' => '',
             'description' => '',
-			'author_id' => $this->LazyLink(new Author()),
-			'event_id' => $this->LazyLink(new Event()),
+			'author_id' => $this->LazyLink(new Author(), 0),
+			'event_id' => $this->LazyLink(new Event(), 0),
 			'category_id' => 0
         );
     }
