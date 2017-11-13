@@ -44,20 +44,35 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		if ($article != null)//ceck if new article is already exist
 			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
-		$article = new QuarkModel(new Article(), $request->Data());
+		$article = new QuarkModel(new Article());
 
-		$article->publish_date = $request->Data()->publishdate != '' ? $request->Data()->publishdate : QuarkDate::GMTNow('Y-m-d');
-		$article->release_date = $request->Data()->releasedate != '' ? $request->Data()->releasedate : QuarkDate::GMTNow('Y-m-d');
+		$article->publish_date = $request->publishdate != '' ? $request->publishdate : QuarkDate::GMTNow('Y-m-d');
+		$article->release_date = $request->releasedate != '' ? $request->releasedate : QuarkDate::GMTNow('Y-m-d');
+		$article->title = $request->title;
+		$article->note = $request->note;
+		$article->resume = $request->resume;
+		$article->txtfield = $request->txtfield;
+		$article->copyright = $request->copyright;
+		$article->priority = $request->priority;
+		$article->keywords = $request->keywords;
+		$article->description = $request->description;
+		$article->type = $request->type;
 
 		if ($request->author != '') {
 			$author = QuarkModel::FindOne(new Author(), array('name' => $request->Data()->author));
 			$article->author_id = $author->id;
 		}
+//		else {
+//			$article->author_id = Author::DefaultAuthor()->id;
+//		}
 
 		if ($request->event != '') {
 			$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->event));
 			$article->event_id = $event->id;
 		}
+//		else {
+//			$article->event_id = Event::DefaultEvent()->id;
+//		}
 
 		//set tags
 		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();
