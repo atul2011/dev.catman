@@ -19,9 +19,9 @@ use Quark\QuarkModel;
  * @property string $name
  * @property QuarkDate $startdate
  *
- * @package AllModels\Content
+ * @package Models
  */
-class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract, IQuarkModelWithCustomCollectionName, IQuarkLinkedModel, IQuarkNullableModel {
+class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithCustomCollectionName, IQuarkLinkedModel, IQuarkNullableModel {
 	/**
 	 * @return mixed
 	 */
@@ -67,15 +67,6 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 			'name',
 			'startdate'
 		);
-	}
-
-	/**
-	 * @param array $fields
-	 * @param bool $weak
-	 *
-	 * @return mixed
-	 */
-	public function BeforeExtract ($fields, $weak) {
 	}
 
 	/**

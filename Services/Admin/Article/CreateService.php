@@ -58,16 +58,16 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		$article->description = $request->description;
 		$article->type = $request->type;
 
-		if ($request->author != '') {
-			$author = QuarkModel::FindOne(new Author(), array('name' => $request->Data()->author));
+		if (isset($request->author)) {
+			$author = QuarkModel::FindOne(new Author(), array('name' => $request->author));
 			$article->author_id = $author->id;
 		}
 //		else {
 //			$article->author_id = Author::DefaultAuthor()->id;
 //		}
 
-		if ($request->event != '') {
-			$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->event));
+		if (isset($request->event != '')) {
+			$event = QuarkModel::FindOne(new Event(), array('name' => $request->event));
 			$article->event_id = $event->id;
 		}
 //		else {
