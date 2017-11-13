@@ -53,7 +53,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		$article->resume = $request->resume;
 		$article->txtfield = $request->txtfield;
 		$article->copyright = $request->copyright;
-		$article->priority = $request->priority;
+		$article->priority = $request->priority != '' ? $request->priority : 100;
 		$article->keywords = $request->keywords;
 		$article->description = $request->description;
 		$article->type = $request->type;
