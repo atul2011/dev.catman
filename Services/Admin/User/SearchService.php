@@ -1,6 +1,7 @@
 <?php
 namespace Services\Admin\User;
 
+use Models\News;
 use Models\User;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
@@ -36,16 +37,26 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		$users = QuarkModel::Find(new User());
+		if ($request->field == 'id')
+			return array(
+				'status' => 200,
+				'response' => array(QuarkModel::FindOneById(new User(), $request->value)->Extract(array(
+                          'id',
+                          'login',
+                          'name',
+                          'email',
+                          'rights'
+                  )))
+			);
 
-		$out = $users->Select(
-			array($request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')),
+		$users = QuarkModel::Find(new User(), array(
+				$request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
 		return array(
 			'status' => 200,
-			'response' => $out->Extract(array('id', 'login', 'name', 'email', 'rights'))
+			'response' => $users->Extract(array('id', 'login', 'name', 'email', 'rights'))
 		);
 	}
 }

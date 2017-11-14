@@ -56,6 +56,7 @@ class EditService implements IQuarkGetService, IQuarkPostService ,IQuarkAuthoriz
 		 */
 		$banner = QuarkModel::FindOneById(new Banner(), $request->URI()->Route(3));
 		$banner->active = $request->active;
+		$banner->link = $request->link;
 
 		/**
 		 * @var QuarkModel|QuarkFile $file

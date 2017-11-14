@@ -1,10 +1,15 @@
 <?php
 /**
  * @var QuarkView|CreateView $this
+ * @var QuarkCollection|Author[] $authors
+ * @var QuarkCollection|Event[] $events
  */
-	use Models\Article;
-	use Quark\QuarkView;
-use ViewModels\Admin\Content\Article\CreateView;
+use Models\Article;
+use Models\Author;
+use Models\Event;
+use Quark\QuarkCollection;
+use Quark\QuarkView;
+use ViewModels\Admin\Article\CreateView;
 ?>
 <h2 class="page-title">Add New Article</h2>
 <h5>Insert data for create new article</h5>
@@ -43,12 +48,22 @@ use ViewModels\Admin\Content\Article\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block middle" id="event-field">
                     <div class="title"><p>Event Name</p>
-                        <input placeholder="Event Name" list="eventlist" type="text" class="quark-input search text_field" autocomplete="on" name="event" id="item-event"/>
+                        <select name="event_id" class="quark-input search text_field" id="item-event">
+		                    <?php
+		                    foreach ($events as $event)
+			                    echo '<option value="' , $event->id ,'">' , $event->name ,'</option>';
+		                    ?>
+                        </select>
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle" id="author-field">
                     <div class="title"><p>Author Name</p>
-                        <input placeholder="Author name" list="authorlist" type="text"  class="quark-input search text_field" autocomplete="on" name="author" id="item-author"/>
+                        <select name="author_id" class="quark-input search text_field" id="item-author">
+                            <?php
+                            foreach ($authors as $author)
+                                echo '<option value="' , $author->id ,'">' , $author->name ,'</option>';
+                            ?>
+                        </select>
                     </div>
                 </div>
             </div><div class="quark-presence-column right" id="second_div">

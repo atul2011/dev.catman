@@ -9,10 +9,12 @@ use Models\Category;
 use Models\Event;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\QuarkSQL;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
@@ -44,12 +46,27 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		$articles = QuarkModel::Find(new Article());
+		if ($request->field == 'id')
+			return array(
+				'status' => 200,
+				'response' => array(QuarkModel::FindOneById(new Article(), $request->value)->Extract(array(
+                     'id',
+                     'title',
+                     'release_date',
+                     'event_id'
+                 )))
+			);
 
-		$out = $articles->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
-			array(QuarkModel::OPTION_LIMIT => $limit)
-		);
+		$articles = QuarkModel::Find(new Article(), array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')), array(
+			QuarkModel::OPTION_FIELDS => array(
+				'id',
+				'title',
+				'release_date',
+				'event_id'
+			),
+			QuarkModel::OPTION_LIMIT => $limit,
+			QuarkSQL::OPTION_QUERY_DEBUG => true
+		));
 
 		foreach ($articles as $article)
 			$article->RevealAll();
@@ -60,15 +77,13 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (!empty($fields[1])) {
 			if ($fields[1] === 'id') {
 				if ($fields[0] === 'event') {
-					$event = QuarkModel::FindOne(new Event(), array('name' => $request->value));
-					$search_value = $event;
+					$search_value = QuarkModel::FindOne(new Event(), array('name' => $request->value))->id;
 				}
 				elseif ($fields[0] === 'author') {
-					$author = QuarkModel::FindOne(new Author(), array('name' => $request->value));
-					$search_value = $author;
+					$search_value = QuarkModel::FindOne(new Author(), array('name' => $request->value))->id;
 				}
 
-				$out = $articles->Select(
+				$articles = $articles->Select(
 					array($request->Data()->field => $search_value),
 					array(QuarkModel::OPTION_LIMIT => $limit)
 				);
@@ -77,7 +92,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 
 		return array(
 			'status' => 200,
-			'response' => $out->Extract(array(
+			'response' => $articles->Extract(array(
 				'id',
 				'title',
 				'release_date',

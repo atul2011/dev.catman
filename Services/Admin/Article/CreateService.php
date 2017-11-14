@@ -17,6 +17,7 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Article\CreateView;
 use ViewModels\Admin\Status\BadRequestView;
 use ViewModels\Admin\Status\ConflictView;
+use ViewModels\Admin\Status\CustomErrorView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 
 /**
@@ -50,19 +51,25 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		$article->release_date = $request->releasedate != '' ? $request->releasedate : QuarkDate::GMTNow('Y-m-d');
 		$article->priority = $request->priority != '' ? $request->priority : 100;
 
-		if ($request->author != '') {
-			$author = QuarkModel::FindOne(new Author(), array('name' => $request->author));
-			$article->author_id = $author->id;
-		} /*else {
-			$article->author_id = Author::DefaultAuthor()->id;
-		}*/
+		$author = QuarkModel::FindOneById(new Author(), $request->author_id);
 
-		if ($request->event != '') {
-			$event = QuarkModel::FindOne(new Event(), array('name' => $request->event));
-			$article->event_id = $event->id;
-		} /*else {
-			$article->event_id = Event::DefaultEvent()->id;
-		}*/
+		if ($author == null)
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 400: Bad Request',
+				'error_message' => 'Author is invalid'
+			));
+
+		$article->author_id = $author->id;
+
+		$event = QuarkModel::FindOneById(new Event(), $request->event_id);
+
+		if ($event == null)
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 400: Bad Request',
+				'error_message' => 'Event is invalid'
+			));
+
+		$article->event_id = $event->id;
 
 		//set tags
 		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();
@@ -85,6 +92,13 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl());
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
+			'authors' => QuarkModel::Find(new Author(), array(), array(
+				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+			)),
+			'events' => QuarkModel::Find(new Event(), array(), array(
+				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+			))
+		));
 	}
 }

@@ -110,7 +110,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null)
+        if ($fields != null)
             return $fields;
 
         return array(
@@ -124,7 +124,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'priority',
             'type',
             'keywords',
-            'description'
+            'description',
+            'event_id',
+            'author_id',
         );
     }
 

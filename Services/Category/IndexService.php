@@ -55,9 +55,13 @@ class IndexService implements IQuarkGetService{
 					$out = array();
 
 					if ($sort_field == 'author_id')
-						$out = QuarkModel::Find(new Author());
+						$out = QuarkModel::Find(new Author(), array(), array(
+							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+						));
 					elseif ($sort_field == 'event_id')
-						$out = QuarkModel::Find(new Event());
+						$out = QuarkModel::Find(new Event(), array(), array(
+							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+						));
 					elseif ($sort_field == 'release_date') {
 						$year = 2003;
 						while ($year <= 2017) {
@@ -75,23 +79,29 @@ class IndexService implements IQuarkGetService{
 					/**
 					 * @var QuarkCollection|Article[] $articles
 					 */
-					$articles = $category->Articles(0);
 					$query = array();
 
 					if ($request->URI()->Route(3) == 'author_id')
-						$query = array('author_id.value' => $request->URI()->Route(4));
-
-					if ($request->URI()->Route(3) == 'event_id')
-						$query = array('event_id.value' => $request->URI()->Route(4));
-
-					if ($request->URI()->Route(3) == 'release_date')
+						$query = array('author_id' => $request->URI()->Route(4));
+					else if ($request->URI()->Route(3) == 'event_id')
+						$query = array('event_id' => $request->URI()->Route(4));
+					else if ($request->URI()->Route(3) == 'release_date')
 						$query = Article::SearchByYearQuery($request->URI()->Route(4));
 
+					$query[] = array(
+						'$or' => array(
+							array('type' => Article::TYPE_ARTICLE),
+							array('type' => Article::TYPE_MESSAGE),
+						)
+					);
 
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
-						'articles' => $articles->Select($query),
+						'articles' => QuarkModel::Find(new Article(), $query, array(
+							QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC),
+						))->Extract(),
 						'title' => $category->title,
-						'category' => $category
+						'category' => $category,
+						'sort_field' => $request->URI()->Route(3)
 					));
 				}
 			}
