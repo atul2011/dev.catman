@@ -14,7 +14,7 @@ $(document).ready(function(){
         if (e.keyCode === 13) {
             removeItems('.content-row');
             $('#loading-circle').css('display','block');
-            CheckSearch($('#user-select').val(),this.value,'user', ShowUsers,50);
+            CheckSearch($('#user-select').val(), this.value, 'user', ShowUsers,50);
         }
     });
     

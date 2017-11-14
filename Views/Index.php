@@ -21,7 +21,13 @@ $banner = $random_banner[0];
 ?>
 <div class="block-center__left js-equal-height">
 	<div class="item-head">
-        <?php if($banner != null) echo '<img class="main-page-banner" src="' . $banner->file->WebLocation() . '">'; ?>
+        <?php
+        if($banner != null)
+            echo
+                '<a href="' , $banner->link , '">' ,
+                    '<img class="main-page-banner" src="' , $banner->file->WebLocation() , '">' ,
+                '</a>';
+        ?>
 	</div>
 	<div class="item-content">
 		<div class="item-content-container">

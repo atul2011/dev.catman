@@ -16,6 +16,7 @@ use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use ViewModels\Admin\Article\EditView;
 use ViewModels\Admin\Status\BadRequestView;
+use ViewModels\Admin\Status\CustomErrorView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
 
@@ -49,7 +50,13 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'article' => QuarkModel::FindOneById(new Article(), $id),
-			'tags' => $article->getTags()
+			'tags' => $article->getTags(),
+			'authors' => QuarkModel::Find(new Author(), array(), array(
+				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+			)),
+			'events' => QuarkModel::Find(new Event(), array(), array(
+				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+			))
 		));
 	}
 
@@ -73,8 +80,23 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		$article->PopulateWith($request->Data());
 
-		$author = QuarkModel::FindOne(new Author(), array('name' => $request->Data()->author));
-		$event = QuarkModel::FindOne(new Event(), array('name' => $request->Data()->event));
+		$author = QuarkModel::FindOneById(new Author(), $request->author_id);
+
+		if ($author == null)
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 400: Bad Request',
+				'error_message' => 'Author is invalid'
+			));
+
+		$article->author_id = $author->id;
+
+		$event = QuarkModel::FindOneById(new Event(), $request->event_id);
+
+		if ($event == null)
+			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(
+				'error_status' => 'Status 400: Bad Request',
+				'error_message' => 'Event is invalid'
+			));
 
 		$article->event_id = $event->id;
 		$article->author_id = $author->id;

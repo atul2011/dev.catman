@@ -3,9 +3,7 @@ use Models\Article;
 use Models\Author;
 use Models\Category;
 use Models\Event;
-use Quark\Quark;
 use Quark\QuarkCollection;
-use Quark\QuarkDate;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Category\IndexView;
@@ -38,9 +36,9 @@ $related_items = '';
                                     $this->CurrentLocalizationOf($value) ,
                                 '</b></a>' ,
 							'</div>';
-				} elseif (isset($sort_values)) {
-					$articles = $category->Articles(0);
+				}
 
+				if (isset($sort_values)) {
 					foreach ($sort_values as $item) {
 						$item_text = '';
 
@@ -48,10 +46,6 @@ $related_items = '';
 							/**
 							 * @var QuarkModel|Author $item
 							 */
-
-							if ($articles->Count(array('author_id.value' => $item->id)) == 0)
-								continue;
-
 							echo
                                 '<div class="item-related-categories">' ,
                                     '<a href="/category/' , $category->id ,'/sort/'  , $sort_field , '/'  , $item->id , '"><b>' ,
@@ -63,9 +57,6 @@ $related_items = '';
                             /**
                              * @var QuarkModel|Event $item
                              */
-                            if ($articles->Count(array('event_id.value' => $item->id)) == 0)
-                                continue;
-
 	                        echo
                                 '<div class="item-related-categories">' ,
                                     '<a href="/category/' , $category->id ,'/sort/'  , $sort_field , '/'  , $item->id , '"><b>' ,
@@ -74,9 +65,6 @@ $related_items = '';
                                 '</div>';
                         }
                         elseif ($sort_field == 'release_date') {
-	                        if ($articles->Count(Article::SearchByYearQuery($item)) == 0)
-		                        continue;
-
 	                        echo
                                 '<div class="item-related-categories">',
                                     '<a href="/category/', $category->id, '/sort/', $sort_field, '/', $item, '"><b>',
@@ -86,14 +74,24 @@ $related_items = '';
                         }
 
 					}
-				} elseif (isset($articles)) {
-					foreach ($articles as $article)
-						echo
-						    '<div class="item-related-articles">' ,
-                                '<a href="/article/' , $article->id , '">' ,
-                                    $article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle')  ,
-                                '</a>' ,
-							'</div>';
+				}
+				if (isset($articles)) {
+					if (sizeof($articles) == 0) {
+						if ($sort_field == 'author_id')
+							echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.Author.NoArticles');
+						else if ($sort_field == 'event_id')
+							echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.Event.NoArticles');
+						else if ($sort_field == 'release_date')
+							echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.ReleaseDate.NoArticles');
+					} else
+                        foreach ($articles as $article) {
+                            echo
+                                '<div class="item-related-articles">' ,
+                                    '<a href="/article/' , $article->id , '">' ,
+                                        $article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle')  ,
+                                    '</a>' ,
+                                '</div>';
+                        }
 				}
 				?>
 			</div>

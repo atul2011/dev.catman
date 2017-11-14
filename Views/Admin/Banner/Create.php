@@ -1,6 +1,6 @@
 <?php
 use Quark\QuarkView;
-use ViewModels\Admin\Content\Banner\CreateView;
+use ViewModels\Admin\Banner\CreateView;
 
 /**
  * @var QuarkView|CreateView $this
@@ -25,6 +25,11 @@ use ViewModels\Admin\Content\Banner\CreateView;
                         </select>
 					</div>
 				</div>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Link</p>
+                        <input type="text" placeholder="link that will be accessed on click on banner" class="quark-input text_field" name="link" id="item-link"/>
+                    </div>
+                </div>
 			</div>
 		</div>
 		<div class="quark-presence-container presence-block button-div">

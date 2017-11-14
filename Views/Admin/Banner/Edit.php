@@ -6,8 +6,7 @@
 use Models\Banner;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Admin\Content\Banner\CreateView;
-
+use ViewModels\Admin\Banner\CreateView;
 ?>
 <h2 class="page-title">Edit Existing Banner</h2>
 <h5>Insert data for update selected banner</h5>
@@ -23,6 +22,11 @@ use ViewModels\Admin\Content\Banner\CreateView;
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Active</p>
 						<input type="text" value="<?php echo $banner->active;?>" placeholder="Is Active(1 or 0)" maxlength="1" class="quark-input text_field" name="active" id="item-active"/>
+					</div>
+				</div>
+				<div class="quark-presence-container presence-block middle">
+					<div class="title"><p>Link</p>
+						<input type="text" value="<?php echo $banner->link;?>" placeholder="link that will be accessed on click on banner" class="quark-input text_field" name="link" id="item-link"/>
 					</div>
 				</div>
 			</div>

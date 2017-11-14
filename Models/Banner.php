@@ -1,6 +1,6 @@
 <?php
-
 namespace Models;
+
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithDataProvider;
@@ -15,10 +15,11 @@ use Quark\QuarkFile;
  * @property QuarkFile $file
  * @property QuarkDate $create_date
  * @property boolean $active
+ * @property string $link
  *
  * @package Models
  */
-class Banner implements IQuarkModel ,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract {
+class Banner implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract {
 	/**
 	 * @return mixed
 	 */
@@ -27,7 +28,8 @@ class Banner implements IQuarkModel ,IQuarkStrongModel, IQuarkModelWithDataProvi
 			'id' => 0,
 			'file' => new QuarkFile(),
 			'create_date' =>  QuarkDate::GMTNow('Y-m-d'),
-			'active' => 0
+			'active' => 0,
+			'link' => '/'
 		);
 	}
 

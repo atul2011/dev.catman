@@ -35,16 +35,30 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		$news= QuarkModel::Find(new News());
+		if ($request->field == 'id')
+			return array(
+				'status' => 200,
+				'response' => array(QuarkModel::FindOneById(new News(), $request->value)->Extract(array(
+                      'id',
+                      'title',
+                      'type',
+                      'text',
+                      'publish_date',
+                      'link_url',
+                      'link_text',
+                      'lastediteby_userid',
+                      'lastedited_date'
+                   )))
+			);
 
-		$out = $news->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+		$news = QuarkModel::Find(new News(), array(
+				$request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
 		return array(
 			'status' => 200,
-			'response' => $out->Extract(array(
+			'response' => $news->Extract(array(
 					'id',
 					'title',
 					'type',

@@ -7,19 +7,12 @@ $(document).ready(function(){
     
     resizeList(120,60);
     LoadContent(false, 'news', ShowNews,1,50,'single');
-    
-    // add event listener on input in search bars
-    $(document).on("input", '.search', function(){
-        removeItems('.content-row');
-        $('#loading-circle').css('display','block');
-        CheckSearch($('#news-select').val(),this.value,'news', ShowNews,50,'single');
-    });
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars
         if (e.keyCode === 13) {
             removeItems('.content-row');
             $('#loading-circle').css('display','block');
-            CheckSearch($('#event-select').val(),this.value,'event', ShowEvents,50,'single');
+            CheckSearch($('#news-select').val(),this.value,'news', ShowNews,50,'single');
         }
     });
 

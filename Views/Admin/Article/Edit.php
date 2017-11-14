@@ -3,14 +3,18 @@
  * @var QuarkView|CreateView $this
  * @var QuarkModel|Article $article
  * @var QuarkCollection|Tag[] $tags
+ * @var QuarkCollection|Author[] $authors
+ * @var QuarkCollection|Event[] $events
  */
 
 use Models\Article;
+use Models\Author;
+use Models\Event;
 use Models\Tag;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Admin\Content\Article\CreateView;
+use ViewModels\Admin\Article\CreateView;
 
 ?>
 <h2 class="page-title">Update Article</h2>
@@ -50,12 +54,22 @@ use ViewModels\Admin\Content\Article\CreateView;
 				</div>
 				<div class="quark-presence-container presence-block middle" id="event-field">
 					<div class="title"><p>Event Name</p>
-						<input placeholder="Event Name" list="eventlist" type="text" class="quark-input search text_field" autocomplete="on" name="event" id="item-event" value="<?php echo $article->event_id->Retrieve()->name; ?>"/>
+                        <select name="event_id" class="quark-input search text_field" id="item-event">
+							<?php
+							foreach ($events as $event)
+								echo '<option value="' , $event->id ,'" ', $article->event_id->value == $event->id ? 'selected' : '' ,'>' , $event->name ,'</option>';
+							?>
+                        </select>
 					</div>
 				</div>
 				<div class="quark-presence-container presence-block middle" id="author-field">
 					<div class="title"><p>Author Name</p>
-						<input placeholder="Author name" list="authorlist" type="text"  class="quark-input search text_field" autocomplete="on" name="author" id="item-author" value="<?php echo $article->author_id->Retrieve()->name; ?>"/>
+                        <select name="author_id" class="quark-input search text_field" id="item-author">
+							<?php
+							foreach ($authors as $author)
+								echo '<option value="' , $author->id ,'" ', $article->author_id->value == $author->id ? 'selected' : '' , '>' , $author->name ,'</option>';
+							?>
+                        </select>
 					</div>
 				</div>
 			</div><div class="quark-presence-column right" id="second_div">

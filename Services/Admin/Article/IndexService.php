@@ -2,6 +2,8 @@
 namespace Services\Admin\Article;
 
 use Models\Article;
+use Models\Author;
+use Models\Event;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;

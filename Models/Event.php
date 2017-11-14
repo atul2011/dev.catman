@@ -3,7 +3,6 @@ namespace Models;
 
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
-use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;

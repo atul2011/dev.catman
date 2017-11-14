@@ -36,16 +36,25 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		$events = QuarkModel::Find(new Event());
+		if ($request->field == 'id')
+			return array(
+				'status' => 200,
+				'response' => array(QuarkModel::FindOneById(new Event(), $request->value)->Extract(array(
+                       'id',
+                       'name',
+                       'type',
+                       'keywords'
+                   )))
+			);
 
-		$out = $events->Select(
-			array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+		$events = QuarkModel::Find(new Event(), array(
+				$request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
 
 		return array(
 			'status' => 200,
-			'response' => $out->Extract(array(
+			'response' => $events->Extract(array(
 					'id',
 					'name',
 					'type',
