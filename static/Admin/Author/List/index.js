@@ -5,15 +5,15 @@ $(document).ready(function(){
         '<option value="type">Type</option>';
     $('#author-select').append(fields);
     
-    resizeList(120,60);
-    LoadContent(false, 'author', ShowAuthors,1,50,'single');
+    resizeList(120,174);
+    LoadContent(false, 'author', ShowAuthors, 1, 50,'single');
     
     // add event listener on input in search bars
     $(document).on("keydown", '.search', function(e){
         if (e.keyCode === 13) {
             removeItems('.content-row');
             $('#loading-circle').css('display','block');
-            CheckSearch($('#author-select').val(),this.value,'author', ShowAuthors,50,'single');
+            CheckSearch($('#author-select').val(), this.value,'author', ShowAuthors,50,'single');
         }
     });
 
@@ -22,7 +22,7 @@ $(document).ready(function(){
     });
 
     ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('single','author',ShowAuthors);
+    LoadNavigationBar('single', 'author', ShowAuthors);
 });
 //function to show categories
 function ShowAuthors(response) {
