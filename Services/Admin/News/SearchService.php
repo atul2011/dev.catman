@@ -54,7 +54,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				$request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
-		Quark::Trace($news);
+
 		return array(
 			'status' => 200,
 			'response' => $news->Extract(array(
