@@ -38,7 +38,6 @@ function ShowArticles(response){
         '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 50) + '</div>' +
         '<div class="content-values quark-presence-column dates">' + response.release_date + '</div>' +
         '<div class="content-values quark-presence-column events">' + event_name + '</div>' +
-        '<div class="content-values quark-presence-column contents">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
         '<div class="content-values quark-presence-column actions">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#list-content").append(str);

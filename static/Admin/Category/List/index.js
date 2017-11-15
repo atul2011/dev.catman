@@ -36,7 +36,6 @@ function ShowCategories(response) {
         '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
         '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 70)  + '</div>' +
         '<div class="content-values quark-presence-column types">' + response.sub + '</div>' +
-        '<div class="content-values quark-presence-column contents">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</div>' +
         '<div class="content-values quark-presence-column actions">' + setActions(response.id,'category') + '</div>' +
         '</div>';
     $("#list-content").append(str);

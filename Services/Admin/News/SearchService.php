@@ -5,6 +5,7 @@ use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -42,32 +43,28 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
                       'id',
                       'title',
                       'type',
-                      'text',
                       'publish_date',
                       'link_url',
                       'link_text',
-                      'lastediteby_userid',
-                      'lastedited_date'
+                      'lastediteby_userid'
                    )))
 			);
 
 		$news = QuarkModel::Find(new News(), array(
-				$request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')),
+				$request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')),
 			array(QuarkModel::OPTION_LIMIT => $limit)
 		);
-
+		Quark::Trace($news);
 		return array(
 			'status' => 200,
 			'response' => $news->Extract(array(
 					'id',
 					'title',
 					'type',
-					'text',
 					'publish_date',
 					'link_url',
 					'link_text',
-					'lastediteby_userid',
-					'lastedited_date'
+					'lastediteby_userid'
 				))
 		);
 	}

@@ -42,8 +42,7 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 				'response' => array(QuarkModel::FindOneById(new Category(), $request->value)->Extract(array(
                       'id',
                       'title',
-                      'sub',
-                      'intro'
+                      'sub'
                  )))
 			);
 
@@ -57,8 +56,7 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 			'response' => $categories->Extract(array(
 				'id',
 				'title',
-				'sub',
-				'intro'
+				'sub'
 			))
 		);
 	}

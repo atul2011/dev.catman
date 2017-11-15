@@ -67,12 +67,10 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 				'id',
 				'title',
 				'type',
-				'text',
 				'publish_date',
 				'link_url',
 				'link_text',
-				'lastediteby_userid',
-				'lastedited_date'
+				'lastediteby_userid'
 			))
 		);
 	}

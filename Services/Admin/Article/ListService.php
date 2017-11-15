@@ -98,12 +98,11 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		return array(
 			'status' => 200,
 			'response' => $orfans->Extract(array(
-				                               'id',
-				                               'title',
-				                               'release_date',
-				                               'event_id',
-				                               'txtfield'
-			                               )),
+	               'id',
+	               'title',
+	               'release_date',
+	               'event_id'
+	           )),
 			'items' => $orfans->Count()
 		);
 	}

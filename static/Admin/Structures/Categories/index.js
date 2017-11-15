@@ -110,7 +110,6 @@ function ShowCategories(response){
         '<div class="category-values quark-presence-column ids" id="category-id-' + response.id + '">' + response.id + '</div>' +
         '<div class="category-values quark-presence-column titles" id="category-title-' + response.id + '">' + response.title.substr(0, 70) + '</div>' +
         '<div class="category-values quark-presence-column types" id="category-type-' + response.id + '">' + response.sub + '</div>' +
-        '<div class="category-values quark-presence-column contents" id="category-content-' + response.id + '">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.intro.substr(0, 200) + '</textarea>' + '</div>' +
         '<div class="category-values quark-presence-column actions" id="category-actions-' + response.id + '">' + setActions(response.id, 'category') + '</div>' +
         '</div>';
     $("#category-column").append(str);
@@ -123,7 +122,6 @@ function ShowArticles(response){
         '<div class="article-values quark-presence-column ids" id="article-id-' + response.id + '">' + response.id + '</div>' +
         '<div class="article-values quark-presence-column titles" id="article-title-' + response.id + '">' + response.title.substr(0, 50) + '</div>' +
         '<div class="article-values quark-presence-column dates" id="article-date-' + response.id + '">' + response.release_date + '</div>' +
-        '<div class="article-values quark-presence-column contents" id="article-content-' + response.id + '">' + '<textarea rows="3" cols="30" class="content quark-input" readonly>' + response.txtfield.substr(0, 200) + '</textarea>' + '</div>' +
         '<div class="article-values quark-presence-column actions" id="article-actions-' + response.id + '">' + setActions(response.id, 'article') + '</div>' +
         '</div>';
     $("#article-column").append(str);

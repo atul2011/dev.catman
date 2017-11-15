@@ -9,7 +9,6 @@ use Models\Category;
 use Models\Event;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -64,8 +63,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'release_date',
 				'event_id'
 			),
-			QuarkModel::OPTION_LIMIT => $limit,
-			QuarkSQL::OPTION_QUERY_DEBUG => true
+			QuarkModel::OPTION_LIMIT => $limit
 		));
 
 		foreach ($articles as $article)
@@ -83,8 +81,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					$search_value = QuarkModel::FindOne(new Author(), array('name' => $request->value))->id;
 				}
 
-				$articles = $articles->Select(
-					array($request->Data()->field => $search_value),
+				$articles = $articles->Select(array($request->Data()->field => $search_value),
 					array(QuarkModel::OPTION_LIMIT => $limit)
 				);
 			}
@@ -96,8 +93,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 				'id',
 				'title',
 				'release_date',
-				'event_id',
-				'txtfield'
+				'event_id'
 			))
 		);
 	}

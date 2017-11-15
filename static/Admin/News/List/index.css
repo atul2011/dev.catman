@@ -1,5 +1,5 @@
 .main2{
-    max-width: 700px;
+    max-width: 589px;
 }
 .ids{
     max-width: 35px;
@@ -13,14 +13,14 @@
     min-width: 100px;
 }
 .titles {
-    max-width: 110px;
-    min-width: 110px;
+    max-width: 200px;
+    min-width: 200px;
 }
 .users{
     max-width: 55px;
     min-width: 55px;
 }
-.contents , .contents textarea{
+.contents{
     max-width: 160px;
     min-width: 160px;
 }
