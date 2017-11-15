@@ -3,13 +3,14 @@
  * @var QuarkModel|Category $category
  * @var QuarkView|IndexView $this
  */
+use Models\Article;
 use Models\Category;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Category\IndexView;
 
 $related_categories = '';//sub-categories
-$categories = $category->ChildCategories(10);
+$categories = Category::Sort($category->ChildCategories(10));
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')	continue;
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
@@ -20,7 +21,7 @@ foreach ($categories as $item) {
 }
 
 $related_articles = '';//related-articles
-$articles = $category->Articles(30);
+$articles = Article::Sort($category->Articles(30));
 
 foreach ($articles as $item) {
 	$related_articles .= '<div class="item-related-articles" id="related-article-' . $item->id . '">'.

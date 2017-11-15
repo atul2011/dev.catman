@@ -5,7 +5,6 @@ use Models\News;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -33,6 +32,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		 * @var QuarkCollection|News[] $news
 		 */
 		$limit = 50;
+
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
