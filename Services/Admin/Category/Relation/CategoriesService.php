@@ -34,12 +34,13 @@ class CategoriesService implements IQuarkGetService, IQuarkServiceWithCustomProc
 
 		if ($category == null)
 			return array('status' => 404);
+		$limit = isset($request->limit) ? $request->limit : 50;
 
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'children' => $category->ChildCategories()->Extract(),
-			'parent' => $category->ParentCategories()->Extract()
+			'children' => $category->ChildCategories($limit)->Extract(),
+			'parent' => $category->ParentCategories($limit)->Extract()
 		);
 	}
 }

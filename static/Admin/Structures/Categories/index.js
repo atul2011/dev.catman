@@ -242,15 +242,16 @@ function setCategory(id){
         });
 
         $("#route-row").append(str);
+        ListCategory(id, 50);
     });
 
-    ListCategory(id);
+
 }
 //function to load in left table data about category
-function ListCategory(categoryId){
+function ListCategory(categoryId, limit){
     removeItems('.current-items');
 
-    $.ajax({url: "/admin/category/relation/categories/" + categoryId}).then(function(json){
+    $.ajax({url: "/admin/category/relation/categories/" + categoryId + "?limit=" + limit}).then(function(json){
         if (json.status === 404)
             return false;
 
