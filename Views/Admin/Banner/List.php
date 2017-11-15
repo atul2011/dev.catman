@@ -19,15 +19,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 	                     'Close'
                      ));
 ?>
-<h2>Banner List</h2>
-<h5>Navigate through banners</h5>
+<h1 class="page-title">Banner List</h1>
+<h5 class="page-title">Navigate through banners</h5>
 <div class="quark-presence-column " id="content-container">
 	<div class="quark-presence-container presence-block">
 		<div class="quark-presence-column search-list">
-			<select id="banner-select" class="field-select"></select>
+			<select id="banner-select" class="quark-input field-select"></select>
 		</div>
 		<div class="quark-presence-column search-list">
-			<input type="text" class="search" name="banner-search" placeholder="insert firsts letters of title wich you search">
+			<input type="text" class="quark-input search" name="banner-search" placeholder="insert firsts letters of title wich you search">
 		</div>
 	</div>
 	<div class="quark-presence-container presence-block main2 items-list" id="banner-list">

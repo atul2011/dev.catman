@@ -1,11 +1,10 @@
 <?php
 use Models\Category;
 use Models\Tag;
-	use Quark\Quark;
-	use Quark\QuarkCollection;
+use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Admin\Content\Category\CreateView;
+use ViewModels\Admin\Category\CreateView;
 
 /**
  * @var QuarkView|CreateView $this
@@ -13,8 +12,8 @@ use ViewModels\Admin\Content\Category\CreateView;
  * @var QuarkCollection|Tag[] $tags
  */
 ?>
-<h2 class="page-title">Update Selected Category</h2>
-<h5>Insert data for update selected category</h5>
+<h1 class="page-title">Update Selected Category</h1>
+<h5 class="page-title">Insert data for update selected category</h5>
 <form method="POST" id="item-form"  action="/admin/category/edit/<?php echo $category->id; ?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

@@ -5,7 +5,8 @@ $(document).ready(function(){
                 '<option value="lastediteby_userid">UserId</option>';
     $('#news-select').append(fields);
     
-    resizeList(120,60);
+    resizeList(130, 168);//set height of list and width of search-bar
+
     LoadContent(false, 'news', ShowNews,1,50,'single');
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

@@ -21,12 +21,14 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 	                     'Close'
                      ));
 ?>
+<h1 class="page-title">User List</h1>
+<h5 class="page-title">Navigate through users</h5>
 <div class="quark-presence-column " id="content-container">
 	<div class="quark-presence-container presence-block">
 		<form>
 			<ul class="search-list" type="none">
-				<li><select id="user-select" class="model-select"></select></li>
-				<li><input type="text" class="search" name="user-search"
+				<li><select id="user-select" class="quark-input model-select"></select></li>
+				<li><input type="text" class="quark-input search" name="user-search"
 						   placeholder="insert firsts letters of username wich you search"></li>
 			</ul>
 		</form>

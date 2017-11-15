@@ -6,10 +6,10 @@
 use Models\Event;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Admin\Content\Event\CreateView;
+use ViewModels\Admin\Event\CreateView;
 ?>
-<h2 class="page-title">Update Current Event</h2>
-<h5>Insert data for update selected event</h5>
+<h1 class="page-title">Update Current Event</h1>
+<h5 class="page-title">Insert data for update selected event</h5>
 <div class="quark-presence-column left">
 	<div class="quark-presence-container content-container presence-block" id="form-body">
 		<form method="POST" id="item-form" onsubmit="return checkTitle('name');" action="/admin/event/edit/<?php echo $event->id;?>">

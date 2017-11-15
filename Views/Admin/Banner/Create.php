@@ -6,8 +6,8 @@ use ViewModels\Admin\Banner\CreateView;
  * @var QuarkView|CreateView $this
  */
 ?>
-<h2 class="page-title">Add New Banner</h2>
-<h5>Insert data to create an new banner</h5>
+<h1 class="page-title">Add New Banner</h1>
+<h5 class="page-title">Insert data to create an new banner</h5>
 <form enctype="multipart/form-data" method="POST" id="item-form"  action="/admin/banner/create">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

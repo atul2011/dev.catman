@@ -8,8 +8,8 @@ use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Banner\CreateView;
 ?>
-<h2 class="page-title">Edit Existing Banner</h2>
-<h5>Insert data for update selected banner</h5>
+<h1 class="page-title">Edit Existing Banner</h1>
+<h5 class="page-title">Insert data for update selected banner</h5>
 <form enctype="multipart/form-data" method="POST" id="item-form"  action="/admin/banner/edit/<?php echo $banner->id;?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

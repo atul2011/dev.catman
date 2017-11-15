@@ -3,7 +3,9 @@ $(document).ready(function(){
         '<option value="id">ID</option>' +
         '<option value="active">Active</option>';
     $('#banner-select').append(fields);
-    resizeList(120,63);
+
+    resizeList(130,173);//set height of list and width of search-bar
+
     LoadContent(false, 'banner', ShowBanners,1,50,'single');
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

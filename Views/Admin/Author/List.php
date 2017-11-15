@@ -19,15 +19,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
     'Close'
 ));
 ?>
-<h2>Author List</h2>
-<h5>Navigate through authors</h5>
+<h1 class="page-title">Author List</h1>
+<h5 class="page-title">Navigate through authors</h5>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
                 <div class="quark-presence-column search-list">
-                    <select id="author-select" class="field-select quark-input"></select>
+                    <select id="author-select" class="quark-input field-select"></select>
                 </div>
                 <div class="quark-presence-column search-list">
-                    <input type="text" class="search quark-input" name="author-search" placeholder="insert firsts letters of title wich you search">
+                    <input type="text" class="quark-input search" name="author-search" placeholder="insert firsts letters of title wich you search">
                 </div>
     </div>
     <div class="quark-presence-container presence-block middle items-list" id="author-list">

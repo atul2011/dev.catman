@@ -7,7 +7,8 @@ $(document).ready(function(){
         '<option value="rights">Rights</option>';
     $('#user-select').append(model_select);
     
-    resizeList(120,60);
+    resizeList(130,127);//set height of list and width of search-bar
+
     LoadContent(false, 'user', ShowUsers,1,50);
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

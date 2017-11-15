@@ -15,10 +15,9 @@ use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Article\CreateView;
-
 ?>
-<h2 class="page-title">Update Article</h2>
-<h5>Insert data for update selected article</h5>
+<h1 class="page-title">Update Article</h1>
+<h5 class="page-title">Insert data for update selected article</h5>
 <form method="POST" id="item-form"action="/admin/article/edit/<?php echo $article->id; ?>">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

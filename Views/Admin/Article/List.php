@@ -18,18 +18,18 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 	                     'Close'
                      ));
 ?>
-<h2>Article List</h2>
-<h5>Navigate through articles</h5>
+<h1 class="page-title">Article List</h1>
+<h5 class="page-title">Navigate through articles</h5>
 <div class="quark-presence-column " id="content-container">
     <div class="quark-presence-container presence-block">
                 <div class="quark-presence-column search-list">
                     <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No categories linked
                 </div>
                 <div class="quark-presence-column search-list">
-                    <select id="article-select" class="field-select"></select>
+                    <select id="article-select" class="quark-input field-select"></select>
                 </div>
                 <div class="quark-presence-column search-list">
-                    <input type="text" class="search" name="article-search"placeholder="insert firsts letters of title wich you search">
+                    <input type="text" class="quark-input search" name="article-search" placeholder="insert firsts letters of title wich you search">
                 </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="article-list">

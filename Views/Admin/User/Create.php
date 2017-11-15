@@ -1,13 +1,14 @@
 <?php
+use Models\User;
+use Quark\QuarkModel;
+use Quark\QuarkView;
+use ViewModels\Admin\Event\CreateView;
 /**
  * @var QuarkModel|User $user
  * @var QuarkView|CreateView $this
  * @var QuarkModel|User $item
  */
-use Models\User;
-use Quark\QuarkModel;
-use Quark\QuarkView;
-use ViewModels\Admin\Content\Event\CreateView;
+
 $item = new QuarkModel(new User);
 $service = 'create';
 $button_name = 'Create';
@@ -17,6 +18,8 @@ if (isset($user)) {
 	$button_name = 'Update';
 }
 ?>
+<h1 class="page-title">Add New User</h1>
+<h5 class="page-title">Insert data to create an new user</h5>
 <form method="POST" id="form" action="/admin/user/<?php echo $service; ?>">
     <div class="quark-presence-column left">
         <div class="quark-presence-container content-container presence-block " id="form-body">
