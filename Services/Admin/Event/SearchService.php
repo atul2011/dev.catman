@@ -36,7 +36,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		if ($request->field == 'id')
+		if ($request->field == 'id' && is_numeric($request->field))
 			return array(
 				'status' => 200,
 				'response' => array(QuarkModel::FindOneById(new Event(), $request->value)->Extract(array(
