@@ -66,7 +66,6 @@ echo $this->Fragment(new QuarkViewDialogFragment(
                 <div id="ID" class="quark-presence-column category-titles ids">ID
                 </div><div id="title" class="quark-presence-column  category-titles titles">Title
                 </div><div id="Type" class="quark-presence-column  category-titles types">Type
-                </div><div id="txtfield" class="quark-presence-column  category-titles contents">Content
                 </div><div id="redaction" class="quark-presence-column  category-titles actions">Actions</div>
             </div>
             <div class="loader" id="loading-circle-category"></div>
@@ -138,7 +137,6 @@ echo $this->Fragment(new QuarkViewDialogFragment(
                 <div id="ID" class="quark-presence-column article-titles ids">ID
                 </div><div id="title" class="quark-presence-column  article-titles titles">Title
                 </div><div id="release_date" class="quark-presence-column  article-titles dates">Release
-                </div><div id="txtfield" class="quark-presence-column  article-titles contents">Content
                 </div><div id="redaction" class="quark-presence-column  article-titles actions">Actions</div>
             </div>
             <div class="loader" id="loading-circle-article"></div>

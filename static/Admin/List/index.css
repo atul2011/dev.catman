@@ -75,7 +75,9 @@
 .search {
     width: 100%;
 }
-
+.model-select {
+    min-width: 110px;
+}
 .titles {
     max-width: 150px;
     min-width: 150px;

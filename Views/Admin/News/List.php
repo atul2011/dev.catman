@@ -35,7 +35,6 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 				<div id="item-title-id" class="quark-presence-column content-titles ids">ID</div>
 				<div id="item-title-title" class="quark-presence-column  content-titles titles">Title</div>
 				<div id="item-title-type" class="quark-presence-column  content-titles types">Type</div>
-				<div id="item-title-text" class="quark-presence-column  content-titles contents">Content</div>
 				<div id="item-title-user" class="quark-presence-column  content-titles users">User ID</div>
 				<div id="item-title-date" class="quark-presence-column  content-titles dates">Publish Date</div>
 				<div id="item-title-redaction" class="quark-presence-column  content-titles actions">Actions</div>
