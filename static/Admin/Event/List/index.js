@@ -4,7 +4,9 @@ $(document).ready(function(){
         '<option value="name">Name</option>' +
         '<option value="startdate">Start Date</option>';
     $('#event-select').append(fields);
-    resizeList(120,83);
+
+    resizeList(130, 131);//set height of list and width of search-bar
+
     LoadContent(false, 'event', ShowEvents,1,50,'single');
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

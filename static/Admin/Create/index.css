@@ -60,3 +60,8 @@ input[type="text"]::placeholder{
     text-align: left;
     font-family: "Montserrat",sans-serif;
 }
+
+.page-title {
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+}

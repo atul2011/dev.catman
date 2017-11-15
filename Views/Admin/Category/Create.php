@@ -3,13 +3,12 @@
  * @var QuarkView|CreateView $this
  */
 use Models\Category;
-	use Quark\Quark;
-	use Quark\QuarkView;
-use ViewModels\Admin\Content\Category\CreateView;
-
+use Quark\Quark;
+use Quark\QuarkView;
+use ViewModels\Admin\Category\CreateView;
 ?>
-<h2 class="page-title">Add New Category</h2>
-<h5>Insert data to create an new category</h5>
+<h1 class="page-title">Add New Category</h1>
+<h5 class="page-title">Insert data to create an new category</h5>
 <form method="POST" id="item-form"  action="/admin/category/create">
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">

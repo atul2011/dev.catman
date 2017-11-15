@@ -5,7 +5,8 @@ $(document).ready(function(){
         '<option value="type">Type</option>';
     $('#author-select').append(fields);
     
-    resizeList(120,174);
+    resizeList(130, 174);//set height of list and width of search-bar
+
     LoadContent(false, 'author', ShowAuthors, 1, 50,'single');
     
     // add event listener on input in search bars

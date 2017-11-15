@@ -21,8 +21,8 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 	                     'Close'
                      ));
 ?>
-<h2>Categories Structure</h2>
-<h5>Set for each category his own sub-category and articles</h5>
+<h1 class="page-title">Categories Structure</h1>
+<h5 class="page-title">Set for each category his own sub-category and articles</h5>
 <div class="quark-presence-column center tables-container" id="list-left">
     <form action="" method="POST">
     <div class="quark-presence-container presence-block middle search-bar" id="route-row">

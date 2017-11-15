@@ -6,7 +6,9 @@ $(document).ready(function(){
         '<option value="keywords">Keywords</option>' +
         '<option value="priority">Priority</option>';
     $('#category-select').append(fields);
-    resizeList(120,137);
+
+    resizeList(130,220);//set height of list and width of search-bar
+
     LoadContent(false, 'category', ShowCategories,1,50,'single');
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

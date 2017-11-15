@@ -1,5 +1,10 @@
-<h2 class="page-title">Add New Author</h2>
-<h5>Insert data to create an new author</h5>
+<?php
+/**
+ * @var QuarkView|CreateView $this
+ */
+?>
+<h1 class="page-title">Add New Author</h1>
+<h5 class="page-title">Insert data to create an new author</h5>
 <div class="quark-presence-column left">
     <div class="quark-presence-container content-container presence-block " id="form-body">
         <form method="POST" id="item-form" action="/admin/author/create">
@@ -14,6 +19,9 @@
                         <select class="text_field quark-input" name="type" id="item-type">
                             <?php
                             use Models\Author;
+                            use Quark\QuarkView;
+                            use ViewModels\Admin\Author\CreateView;
+
                             echo '<option value="' , strtoupper(Author::TYPE_HUMAN) , '">Human</option>';
                             echo '<option value="' , strtoupper(Author::TYPE_MASTER) , '">Master</option>';
                             ?>

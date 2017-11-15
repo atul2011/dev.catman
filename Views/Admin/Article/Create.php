@@ -11,8 +11,8 @@ use Quark\QuarkCollection;
 use Quark\QuarkView;
 use ViewModels\Admin\Article\CreateView;
 ?>
-<h2 class="page-title">Add New Article</h2>
-<h5>Insert data for create new article</h5>
+<h1 class="page-title">Add New Article</h1>
+<h5 class="page-title">Insert data for create new article</h5>
 <form method="POST" id="item-form" action="/admin/article/create">
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">

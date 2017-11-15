@@ -4,11 +4,10 @@
  */
 use Models\News;
 use Quark\QuarkView;
-use ViewModels\Admin\Content\News\CreateView;
-
+use ViewModels\Admin\News\CreateView;
 ?>
-<h2 class="page-title">Add New News</h2>
-<h5>Insert data to create an new news</h5>
+<h1 class="page-title">Add New News</h1>
+<h5 class="page-title">Insert data to create an new news</h5>
 <form method="POST" id="item-form"  action="/admin/news/create">
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">

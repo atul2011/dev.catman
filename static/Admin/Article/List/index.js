@@ -7,7 +7,9 @@ $(document).ready(function(){
         '<option value="author_id">Author</option>' +
         '<option value="keywords">Keywords</option>';
     $('#article-select').append(fields);
-    resizeList(120, 236);
+
+    resizeList(130, 281);//set height of list and width of search-bar
+
     LoadContent(false, 'article', ShowArticles, 1, 50, 'single');
 
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars

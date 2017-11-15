@@ -131,7 +131,7 @@
     margin: 0;
 }
 
-h2, h5 {
+.page-title {
     text-align: left;
     font-family: "Open Sans", sans-serif;
 }
