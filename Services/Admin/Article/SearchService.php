@@ -13,7 +13,6 @@ use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Quark\QuarkSQL;
 use Services\Admin\Behaviors\AuthorizationBehavior;
 use Services\Admin\Behaviors\CustomProcessorBehavior;
 
@@ -56,7 +55,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
                  )))
 			);
 
-		$articles = QuarkModel::Find(new Article(), array($request->Data()->field => array('$regex' => '#.*' . $request->Data()->value . '.*#Uisu')), array(
+		$articles = QuarkModel::Find(new Article(), array($request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')), array(
 			QuarkModel::OPTION_FIELDS => array(
 				'id',
 				'title',
@@ -81,7 +80,7 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 					$search_value = QuarkModel::FindOne(new Author(), array('name' => $request->value))->id;
 				}
 
-				$articles = $articles->Select(array($request->Data()->field => $search_value),
+				$articles = $articles->Select(array($request->field => $search_value),
 					array(QuarkModel::OPTION_LIMIT => $limit)
 				);
 			}

@@ -33,7 +33,7 @@ function ShowNews(response) {
             '<div class="content-values quark-presence-column dates">' + response.publish_date + '</div>' +
             '<div class="content-values quark-presence-column actions">' + setActions(response.id, 'news') + '</div>' +
         '</div>';
-    
+
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');
 }
