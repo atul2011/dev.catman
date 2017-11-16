@@ -60,7 +60,7 @@ class IndexService implements IQuarkGetService{
 						));
 					elseif ($sort_field == 'event_id')
 						$out = QuarkModel::Find(new Event(), array(), array(
-							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
+							QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
 						));
 					elseif ($sort_field == 'release_date') {
 						$year = 2003;

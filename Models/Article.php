@@ -34,6 +34,7 @@ use Quark\QuarkModelBehavior;
  * @property QuarkLazyLink|Author  $author_id
  * @property QuarkLazyLink|Event   $event_id
  * @property int $category_id
+ * @property string $short_title
  *
  * @package Models
  */
@@ -66,7 +67,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'description' => '',
 			'author_id' => $this->LazyLink(new Author(), 0),
 			'event_id' => $this->LazyLink(new Event(), 0),
-			'category_id' => 0
+			'category_id' => 0,
+			'short_title' => ''
         );
     }
 
@@ -127,6 +129,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'description',
             'event_id',
             'author_id',
+            'short_title'
         );
     }
 

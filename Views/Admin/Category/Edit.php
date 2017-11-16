@@ -20,7 +20,12 @@ use ViewModels\Admin\Category\CreateView;
 			<div class="quark-presence-column left" id="main_div">
 				<div class="quark-presence-container presence-block  middle">
 					<div class="title"><p>Title</p>
-						<input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title" value="<?php echo $category->title; ?>"/>
+						<input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title" value="<?php echo $category->title;?>"/>
+					</div>
+				</div>
+				<div class="quark-presence-container presence-block  middle">
+					<div class="title"><p>Short Title</p>
+						<input placeholder="Short Title" type="text" class="quark-input text_field" name="short_title" id="item-short-title" value="<?php echo $category->short_title;?>"/>
 					</div>
 				</div>
                 <div class="quark-presence-container presence-block middle">
@@ -78,7 +83,7 @@ use ViewModels\Admin\Category\CreateView;
                 </div>
             </div>
 			<div class="title"><p>Tags</p>
-				<input type="text" placeholder="Tags, divided by [,]" class="large_text_field quark-input" name="tag_list" id="item-tags" value="<?php foreach ($tags as $tag) echo $tag->name . ',';?>">
+				<input type="text" placeholder="Tags, divided by [,]" class="quark-input large_text_field" name="tag_list" id="item-tags" value="<?php foreach ($tags as $tag) echo $tag->name . ',';?>">
 			</div>
 			<div class="title"><p>Content</p>
 				<textarea placeholder="Content" class="content quark-input" name="intro" id="item-intro">

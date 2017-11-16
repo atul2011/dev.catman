@@ -18,6 +18,11 @@ use ViewModels\Admin\Category\CreateView;
                         <input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title"/>
                     </div>
                 </div>
+                <div class="quark-presence-container presence-block  middle">
+                    <div class="title"><p>Short Title</p>
+                        <input placeholder="Short Title" type="text" class="quark-input text_field" name="short_title" id="item-short-title"/>
+                    </div>
+                </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Role</p>
                         <select name="sub" class="quark-input text_field">
@@ -74,7 +79,7 @@ use ViewModels\Admin\Category\CreateView;
                 </div>
             </div>
             <div class="title"><p>Tags</p>
-                <input type="text" placeholder="Tags, divided by [,]" class="large_text_field quark-input" name="tag_list" id="item-tags">
+                <input type="text" placeholder="Tags, divided by [,]" class="quark-input large_text_field" name="tag_list" id="item-tags">
             </div>
             <div class="title"><p>Content</p>
                 <textarea placeholder="Content" class="content quark-input" name="intro" id="item-intro"></textarea>

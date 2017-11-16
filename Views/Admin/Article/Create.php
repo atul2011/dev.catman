@@ -23,6 +23,11 @@ use ViewModels\Admin\Article\CreateView;
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Short Title</p>
+                        <input placeholder="Short Title" type="text" class="quark-input text_field" name="short_title" id="item-short-title">
+                    </div>
+                </div>
+                <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Release Date</p>
                         <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="releasedate" id="item-release">
                     </div>

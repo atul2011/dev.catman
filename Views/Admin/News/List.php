@@ -19,7 +19,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 ));
 ?>
 <h2 class="page-title">News List</h2>
-<h2 class="page-title">Navigate through news</h2>
+<h5 class="page-title">Navigate through news</h5>
 <div class="quark-presence-column " id="content-container">
 	<div class="quark-presence-container presence-block">
 		<div class="quark-presence-column search-list">
