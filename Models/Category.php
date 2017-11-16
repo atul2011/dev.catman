@@ -26,8 +26,9 @@ use Quark\QuarkModelBehavior;
  * @property string $keywords
  * @property string $description
  * @property string $role
+ * @property string $short_title
  *
- * @package AllModels
+ * @package Models
  */
 class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
     use QuarkModelBehavior;
@@ -57,7 +58,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'priority' =>0,
             'keywords' => '',
             'description' => '',
-            'role' => self::ROLE_CUSTOM
+            'role' => self::ROLE_CUSTOM,
+            'short_title' => ''
         );
     }
 
@@ -114,7 +116,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'priority',
             'keywords',
             'description',
-            'role'
+            'role',
+            'short_title'
         );
     }
 
@@ -317,6 +320,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
 		 */
 		$parent_category = self::TopMenuCategory();
+
 		$category_relations = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
 		$out = new QuarkCollection(new Category());
 

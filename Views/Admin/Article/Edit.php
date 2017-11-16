@@ -1,12 +1,4 @@
 <?php
-/**
- * @var QuarkView|CreateView $this
- * @var QuarkModel|Article $article
- * @var QuarkCollection|Tag[] $tags
- * @var QuarkCollection|Author[] $authors
- * @var QuarkCollection|Event[] $events
- */
-
 use Models\Article;
 use Models\Author;
 use Models\Event;
@@ -15,6 +7,14 @@ use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Article\CreateView;
+
+/**
+ * @var QuarkView|CreateView $this
+ * @var QuarkModel|Article $article
+ * @var QuarkCollection|Tag[] $tags
+ * @var QuarkCollection|Author[] $authors
+ * @var QuarkCollection|Event[] $events
+ */
 ?>
 <h1 class="page-title">Update Article</h1>
 <h5 class="page-title">Insert data for update selected article</h5>
@@ -25,6 +25,11 @@ use ViewModels\Admin\Article\CreateView;
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Title</p>
 						<input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title" value="<?php echo $article->title; ?>">
+					</div>
+				</div>
+				<div class="quark-presence-container presence-block middle">
+					<div class="title"><p>Short Title</p>
+						<input placeholder="Short Title" type="text" class="quark-input text_field" name="short_title" id="item-short-title" value="<?php echo $article->short_title; ?>">
 					</div>
 				</div>
 				<div class="quark-presence-container presence-block middle">

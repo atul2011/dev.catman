@@ -22,7 +22,7 @@ $top_categories = Category::TopMenuSubCategories();
 $top_list = array();
 
 foreach ($top_categories as $item) {
-	$top_list[] = '<li><a href="/category/' . $item->id . '">' . $item->title . '</a></li>';
+	$top_list[] = '<li><a href="/category/' . $item->id . '">' . $item->short_title . '</a></li>';
 }
 /**
  * @var QuarkCollection|Article[] $top_articles
@@ -30,7 +30,7 @@ foreach ($top_categories as $item) {
 $top_articles = $top_category->Articles();
 
 foreach ($top_articles as $item)
-	$top_list[] = '<li><a href="/article/' . $item->id.'">'. $item->title . '</a></li>';
+	$top_list[] = '<li><a href="/article/' . $item->id.'">'. $item->short_title . '</a></li>';
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------main categories---------------------------------------------------------
@@ -44,7 +44,7 @@ $main_categories = Category::MainMenuSubCategories();
 $main_list = array();
 
 foreach ($main_categories as $item)
-	    $main_list[] = '<li><a href="/category/'.$item->id.'">'.$item->title . '</a></li>';
+	    $main_list[] = '<li><a href="/category/'.$item->id.'">'.$item->short_title . '</a></li>';
 
 /**
  * @var QuarkCollection|Article[] $main_articles
@@ -52,7 +52,7 @@ foreach ($main_categories as $item)
 $main_articles = $main_category->Articles();
 
 foreach ($main_articles as $item)
-	$main_list[] = '<li><a href="/article/' . $item->id.'">'.$item->title . '</a></li>';
+	$main_list[] = '<li><a href="/article/' . $item->id.'">'.$item->short_title . '</a></li>';
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------bottom categories-------------------------------------------------------
@@ -93,11 +93,11 @@ foreach ($bottom_items as $item) {
     $bottom_list .= $item->Model() instanceof Category
         ?
         '<div class="category-bottom-item">'.
-            '<a href="/category/'.$item->id.'">'.$item->title . '</a>'.
+            '<a href="/category/'.$item->id.'">'.$item->short_title . '</a>'.
         '</div>'
         :
         '<div class="category-bottom-item">'.
-            '<a href="/article/'.$item->id.'">'.$item->title . '</a>'.
+            '<a href="/article/'.$item->id.'">'.$item->short_title . '</a>'.
         '</div>';
 
 
