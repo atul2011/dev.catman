@@ -29,13 +29,7 @@ class SstService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthe
 		/**
 		 * @var QuarkCollection|Category[] $categories
 		 */
-		$categories = QuarkModel::Find(new Category(), array(), array(
-			QuarkModel::OPTION_FIELDS => array(
-				'id',
-				'title',
-				'short_title'
-			),
-		));
+		$categories = QuarkModel::Find(new Category());
 
 		foreach ($categories as $category) {
 			$category->short_title = $category->title;
