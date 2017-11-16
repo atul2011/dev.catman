@@ -31,14 +31,7 @@ class SstService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthe
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
-		$articles = QuarkModel::FindByPage(new Article(), $page, array(), array(
-			QuarkModel::OPTION_FIELDS => array(
-				'id',
-				'title',
-				'short_title'
-			),
-			QuarkModel::OPTION_LIMIT => $limit,
-		));
+		$articles = QuarkModel::FindByPage(new Article(), $page, array(), array(QuarkModel::OPTION_LIMIT => $limit));
 
 		foreach ($articles as $article) {
 			$article->short_title = $article->title;
