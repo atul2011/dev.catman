@@ -16,7 +16,7 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
  *
  * @package Services\Admin\Category
  *//*SstService => SetShortTitleService*/
-class SstService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
+class SstService implements /*IQuarkGetService,*/ IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
