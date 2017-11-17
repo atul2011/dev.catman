@@ -5,18 +5,22 @@
 input[type="text"] {
     width: 100%;
 }
-input[type="text"]{
+
+input[type="text"] {
     color: black;
     font-weight: bold;
 }
-input[type="text"]::placeholder{
+
+input[type="text"]::placeholder {
     font-style: italic;
     font-weight: normal;
 }
-.middle{
+
+.middle {
     padding: 0;
 }
-.text_field, select.text_field{
+
+.text_field, select.text_field {
     min-width: 250px;
     max-width: 250px;
 }
@@ -36,29 +40,35 @@ input[type="text"]::placeholder{
     margin: 0;
     padding: 0;
 }
-.button-div,#content{
+
+.button-div, #content {
     padding: 0;
 }
-.content, .large_text_field{
+
+.content, .large_text_field {
     max-width: 550px;
     width: 550px;
 }
-.content{
+
+.content {
     max-height: 300px;
     text-align: left;
     overflow-x: hidden;
     overflow-y: scroll;
 }
-#content-container{
+
+#content-container {
     padding: 0;
     margin: 0;
 }
-#main_div, #content, #second_div{
+
+#main_div, #content, #second_div {
     margin: 0;
 }
-.page-title{
+
+.page-title {
     text-align: left;
-    font-family: "Montserrat",sans-serif;
+    font-family: "Montserrat", sans-serif;
 }
 
 .page-title {

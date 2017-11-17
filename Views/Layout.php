@@ -1,6 +1,7 @@
 <?php
 use Models\Article;
 use Models\Category;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
@@ -112,6 +113,7 @@ foreach ($bottom_items as $item) {
 //----------------------------------------------------------------------------------------------------------------------
 $news = $this->getCurrentNews();
 $news_list = array();
+
 foreach ($news as $item){
 	$link_url ='';
 	$link_text= '';

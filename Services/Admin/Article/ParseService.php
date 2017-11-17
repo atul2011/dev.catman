@@ -17,7 +17,7 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
  *
  * @package Services\Admin\Article
  */
-class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
+class ParseService implements /*IQuarkGetService,*/ IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
