@@ -1,27 +1,27 @@
 <?php
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Category\ListView;
+
 /**
  * @var QuarkView|ListView $this
  * @var int $number
  */
 
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Content\Category\ListView;
-
 echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete category',
-	                     'You are about to delete the category. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The category was deleted',
-	                     'An error occurred. Failed to delete the category',
-	                     'Remove',
-	                     'Close'
-                     ));
+    'item-remove',
+    'Delete category',
+    'You are about to delete the category. This action cannot be undone. Continue?',
+    'Please wait...',
+    'The category was deleted',
+    'An error occurred. Failed to delete the category',
+    'Remove',
+    'Close'
+));
 ?>
 <h1 class="page-title">Categories List</h1>
 <h5 class="page-title">Navigate through categories</h5>
-<div class="quark-presence-column " id="content-container">
+<div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block">
                 <div class="quark-presence-column search-list">
                     <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents

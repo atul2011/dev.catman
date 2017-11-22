@@ -2,7 +2,6 @@
 namespace Models;
 
 use Quark\IQuarkModel;
-use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
@@ -12,24 +11,28 @@ use Quark\QuarkModelBehavior;
 /**
  * Class Articles_has_Categories
  *
+ * @property int $id
  * @property QuarkLazyLink|Article $article_id
  * @property QuarkLazyLink|Category $category_id
+ * @property int $priority
  *
- * @package AllModels
+ * @package Models
  */
-class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract {
+class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract {
 	use QuarkModelBehavior;
     /**
      * @return mixed
      */
     public function Fields() {
         return array(
+            'id' => 0,
             'article_id' => $this->LazyLink(new Article()),
-            'category_id' => $this->LazyLink(new Category())
+            'category_id' => $this->LazyLink(new Category()),
+            'priority' => 0
         );
     }
 
-    /**
+	/**
      * @return mixed
      */
     public function Rules() {
@@ -49,22 +52,14 @@ class Articles_has_Categories implements IQuarkModel, IQuarkStrongModel, IQuarkM
      *
      * @return mixed
      */
-    public function BeforeExtract($fields, $weak) {
-    }
-
-    /**
-     * @param array $fields
-     * @param bool $weak
-     *
-     * @return mixed
-     */
     public function DefaultExtract($fields, $weak)    {
         if($fields != null)
             return $fields;
 
         return array(
             'article_id',
-            'category_id'
+            'category_id',
+            'priority'
         );
     }
 }

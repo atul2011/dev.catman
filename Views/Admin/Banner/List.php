@@ -9,19 +9,19 @@ use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragmen
 use ViewModels\Admin\Content\Category\ListView;
 
 echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete banner',
-	                     'You are about to delete the banner. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The banner was deleted',
-	                     'An error occurred. Failed to delete the banner',
-	                     'Remove',
-	                     'Close'
-                     ));
+    'item-remove',
+    'Delete banner',
+    'You are about to delete the banner. This action cannot be undone. Continue?',
+    'Please wait...',
+    'The banner was deleted',
+    'An error occurred. Failed to delete the banner',
+    'Remove',
+    'Close'
+));
 ?>
 <h1 class="page-title">Banner List</h1>
 <h5 class="page-title">Navigate through banners</h5>
-<div class="quark-presence-column " id="content-container">
+<div class="quark-presence-column left" id="content-container">
 	<div class="quark-presence-container presence-block">
 		<div class="quark-presence-column search-list">
 			<select id="banner-select" class="quark-input field-select"></select>

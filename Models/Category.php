@@ -8,6 +8,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\IQuarkStrongModelWithRuntimeFields;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
@@ -28,9 +29,12 @@ use Quark\QuarkModelBehavior;
  * @property string $role
  * @property string $short_title
  *
+ * @property int $runtime_priority
+ * @property int $runtime_category
+ *
  * @package Models
  */
-class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
+class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel, IQuarkStrongModelWithRuntimeFields {
     use QuarkModelBehavior;
 
     const TYPE_CATEGORY = 'F';
@@ -55,7 +59,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'note' => '',
             'intro' => '',
             'sub' => self::TYPE_CATEGORY,
-            'priority' =>0,
+            'priority' => 0,
             'keywords' => '',
             'description' => '',
             'role' => self::ROLE_CUSTOM,
@@ -63,7 +67,17 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
         );
     }
 
-    /**
+	/**
+	 * @return mixed
+	 */
+	public function RuntimeFields () {
+		return array(
+			'runtime_priority' => null,
+			'runtime_category' => null
+		);
+	}
+
+	/**
      * @return mixed
      */
     public function CollectionName() {
@@ -144,21 +158,35 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return QuarkCollection|Category[]
      */
     public function ChildCategories($limit = 10, $offset = 0){
+        $options = array();
+
+        if ($limit != 0) {
+	        $options[QuarkModel::OPTION_LIMIT] = $limit;
+	        $options[QuarkModel::OPTION_SKIP] = $offset;
+        }
+
+	    $options[QuarkModel::OPTION_SORT] = array('priority' => QuarkModel::SORT_ASC);
+
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(),array('parent_id' => (string)$this->id),array(
-            QuarkModel::OPTION_LIMIT => $limit,
-            QuarkModel::OPTION_SKIP => $offset
-        ));
+        $links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => (string)$this->id), $options);
 
         $out = new QuarkCollection(new Category());
 
-        foreach ($links as $item)
-            $out[] = $item->child_id1->Retrieve();
+	    foreach ($links as $link) {
+		    /**
+		     * @var QuarkModel|Category $category
+		     */
+		    $category = $link->child_id1->Retrieve();
+		    $category->SetRuntimePriority(new QuarkModel($this));
 
-        return $out;
+		    $out[] = $category;
+	    }
+
+	    return Category::Sort($out);
     }
+
     /**
      * @param int $limit
      * @param int $offset
@@ -258,10 +286,10 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 				'category_id' => $this->id,
 				'tag_id' => $tag->id
 			));
+
 			if($category_has_tag != null) continue;
 
-			//if not, we create it
-			$category_has_tag = new QuarkModel(new Category_has_Tag(),array(
+			$category_has_tag = new QuarkModel(new Category_has_Tag(), array(//if not, we create it
 				'category_id' => $this->id,
 				'tag_id' => $tag->id
 			));
@@ -315,19 +343,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return QuarkCollection|Category[]
 	 */
 	public static function TopMenuSubCategories () {
-		/**
-		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $category_relations
-		 */
-		$parent_category = self::TopMenuCategory();
-
-		$category_relations = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
-		$out = new QuarkCollection(new Category());
-
-		foreach ($category_relations as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
-
-		return Category::Sort($out);
+		return self::TopMenuCategory()->ChildCategories(0);
 	}
 
 	/**
@@ -341,19 +357,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return QuarkCollection|Category[]
 	 */
 	public static function MainMenuSubCategories () {
-
-		/**
-		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $links
-		 */
-		$parent_category = self::MainMenuCategory();
-		$links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
-		$out = new QuarkCollection(new Category());
-
-		foreach ($links as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
-
-		return Category::Sort($out);
+		return self::MainMenuCategory()->ChildCategories(0);
 	}
 
 	/**
@@ -367,18 +371,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return QuarkCollection|Category[]
 	 */
 	public static function BottomMenuSubCategories () {
-		/**
-		 * @var QuarkModel|Category $parent_category
-		 * @var QuarkCollection|Categories_has_Categories[] $links
-		 */
-		$parent_category = self::BottomMenuCategory();
-		$links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => $parent_category->id));
-		$out = new QuarkCollection(new Category());
-
-		foreach ($links as $link)
-			$out[] = QuarkModel::FindOneById(new Category(), $link->child_id1->value);
-
-		return Category::Sort($out);
+		return self::BottomMenuCategory()->ChildCategories(0);
 	}
 
 	/**
@@ -387,12 +380,44 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 *
 	 * @return QuarkCollection|Category[]
 	 */
-	public static function Sort (QuarkCollection $categories, $field = 'priority') {
+	public static function Sort (QuarkCollection $categories, $field = 'runtime_priority') {
 		return $categories->Select(array(), array(
 			QuarkModel::OPTION_SORT => array(
 				$field => QuarkModel::SORT_ASC,
 				'title' => QuarkModel::SORT_ASC
 			)
 		));
+	}
+
+
+	/**
+	 * @param QuarkModel|Category $category
+	 *
+	 * @return bool
+	 */
+	public function SetRuntimePriority (QuarkModel $category) {
+		/**
+		 * @var QuarkModel|Categories_has_Categories $relation
+		 */
+		$relation = QuarkModel::FindOne(new Categories_has_Categories(), array(
+			'child_id1' => $this->id,
+			'parent_id' => $category->id
+		), array(
+            QuarkModel::OPTION_SORT => array('priority' => QuarkModel::SORT_ASC)
+        ));
+
+		if ($relation == null)
+			return false;
+
+		if ($relation->priority != null)
+			$this->runtime_priority = $relation->priority;
+		elseif ($this->priority != null)
+			$this->runtime_priority = $this->priority;
+		else
+			$this->runtime_priority = 0;
+
+		$this->runtime_category = $category->id;
+
+		return true;
 	}
 }

@@ -21,7 +21,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 ?>
 <h1 class="page-title">Event List</h1>
 <h5 class="page-title">Navigate through events</h5>
-<div class="quark-presence-column " id="content-container">
+<div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block">
         <div class="quark-presence-column search-list">
             <select id="event-select" class="quark-input field-select"></select>

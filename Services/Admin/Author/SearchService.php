@@ -1,6 +1,7 @@
 <?php
 namespace Services\Admin\Author;
 
+use Models\Article;
 use Models\Author;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
@@ -36,17 +37,26 @@ class SearchService implements IQuarkPostService, IQuarkServiceWithCustomProcess
 		if (isset($request->limit) && ($request->limit !== null))
 			$limit = $request->limit;
 
-		if ($request->field == 'id' && is_numeric((int)$request->field))
+		if ($request->field == 'id' && is_numeric((int)$request->field)) {
+			/**
+			 * @var QuarkModel|Author $author
+			 */
+			$author = QuarkModel::FindOneById(new Author(), $request->value);
+			$out = array();
+
+			if ($author != null)
+				$out[] = $author->Extract(array(
+	                  'id',
+	                  'name',
+	                  'type',
+	                  'keywords'
+	              ));
+
 			return array(
 				'status' => 200,
-				'response' => array(QuarkModel::FindOneById(new Author(), $request->value)->Extract(array(
-                    'id',
-                    'name',
-                    'type',
-                    'keywords'
-                 )))
+				'response' => $out
 			);
-
+		}
 		$authors = QuarkModel::Find(new Author(), array(
 			$request->field => array('$regex' => '#.*' . $request->value . '.*#Uisu')
 		), array(QuarkModel::OPTION_LIMIT => $limit));

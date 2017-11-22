@@ -23,7 +23,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 ?>
 <h1 class="page-title">User List</h1>
 <h5 class="page-title">Navigate through users</h5>
-<div class="quark-presence-column " id="content-container">
+<div class="quark-presence-column left" id="content-container">
 	<div class="quark-presence-container presence-block">
 		<form>
 			<ul class="search-list" type="none">

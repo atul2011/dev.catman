@@ -13,6 +13,7 @@ use Quark\ViewResources\TwitterBootstrap\TwitterBootstrap;
 use ViewModels\Admin\Behaviors\ILoader;
 use ViewModels\Admin\Behaviors\INavigationBar;
 use ViewModels\Admin\ViewBehavior;
+use ViewResources\NotifyJS;
 
 /**
  * Class CategoriesView
@@ -55,7 +56,8 @@ class CategoriesView implements IQuarkViewModel, IQuarkPresenceControlViewModel,
 	 */
 	public function ViewResources () {
 		return array(
-			new TwitterBootstrap()
+			new TwitterBootstrap(),
+			new NotifyJS()
 		);
 	}
 

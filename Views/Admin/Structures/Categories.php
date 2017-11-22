@@ -1,39 +1,40 @@
 <?php
+use Models\Category;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Structures\CategoriesView;
+use Quark\QuarkView;
+
 /**
  * @var QuarkView|CategoriesView $this
  * @var int $number_categories
  * @var int $number_articles
  */
 
-use Models\Category;
-use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Content\Structures\CategoriesView;
-use Quark\QuarkView;
-
 echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete item',
-	                     'You are about to delete the item. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The item was deleted',
-	                     'An error occurred. Failed to delete the item',
-	                     'Remove',
-	                     'Close'
-                     ));
+    'item-remove',
+    'Delete item',
+    'You are about to delete the item. This action cannot be undone. Continue?',
+    'Please wait...',
+    'The item was deleted',
+    'An error occurred. Failed to delete the item',
+    'Remove',
+    'Close'
+));
 ?>
 <h1 class="page-title">Categories Structure</h1>
 <h5 class="page-title">Set for each category his own sub-category and articles</h5>
-<div class="quark-presence-column center tables-container" id="list-left">
+<h5 class="page-title"><a class="fa fa-refresh contextual-refresh"></a></h5>
+<div class="quark-presence-column left tables-container" id="list-left">
     <form action="" method="POST">
-    <div class="quark-presence-container presence-block middle search-bar" id="route-row">
+    <div class="quark-presence-container presence-block search-bar" id="route-row">
         <?php if (Category::RootCategory() != null) ?>
     </div>
     </form>
-    <Div class="quark-presence-container presence-block middle" id="elements-list">
+    <div class="quark-presence-container presence-block" id="elements-list">
         <div class="items-body quark-presence-column" id="content-container"></div>
-    </Div>
+    </div>
 </div>
-<div class="quark-presence-column center buttons-list" id="list-center">
+<div class="quark-presence-column left buttons-list" id="list-center">
     <div class="quark-presence-container" id="button-link-category">
         <form onsubmit="Link('category');" class="submit-buttons">
             <button name="link-category" id="category-link" class="" type="submit"></button>
@@ -45,18 +46,17 @@ echo $this->Fragment(new QuarkViewDialogFragment(
         </form>
     </div>
 </div>
-<div class="quark-presence-column center tables-container" id="list-right">
+<div class="quark-presence-column left tables-container" id="list-right">
     <div class="quark-presence-container presence-block main">
         <form>
             <div class="quark-presence-column list-options">
                 <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
-                <select id="category-select" class="model-select"></select>
+                <select id="category-select" class="quark-input model-select"></select>
             </div>
             <div class="quark-presence-column list-options">
-                <input type="text" class="search" name="name" id="category-search"
-                       placeholder="insert firsts letters of title wich you search">
+                <input type="text" class="quark-input search" name="name" id="category-search" placeholder="insert firsts letters of title wich you search">
             </div>
         </form>
     </div>
@@ -105,11 +105,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
         <div class="quark-presence-column right">
             <div class="quark-presence-container button-div" id="form-add-button">
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
-                    <a href="/admin/category/create/">
-                        <button type="submit" class="btn btn-success pull-right btn-xs">
-                            Add new
-                        </button>
-                    </a>
+                    <a href="/admin/category/create/" class="btn btn-success pull-right btn-xs">Add new</a>
                 </div>
             </div>
         </div>
@@ -122,11 +118,10 @@ echo $this->Fragment(new QuarkViewDialogFragment(
                 <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No parents
             </div>
             <div class="quark-presence-column list-options">
-                <select id="article-select" class="model-select"></select>
+                <select id="article-select" class="quark-input model-select"></select>
             </div>
             <div class="quark-presence-column list-options">
-                <input type="text" class="search" name="name" id="article-search"
-                       placeholder="insert firsts letters of title wich you search">
+                <input type="text" class="quark-input search" name="name" id="article-search" placeholder="insert firsts letters of title wich you search">
             </div>
 
         </form>
@@ -176,11 +171,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
         <div class="quark-presence-column right">
             <div class="quark-presence-container button-div" id="form-add-button">
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
-                    <a href="/admin/article/create">
-                        <button type="submit" class="btn btn-success pull-right btn-xs">
-                            Add new
-                        </button>
-                    </a>
+                    <a href="/admin/article/create" class="btn btn-success pull-right btn-xs">Add New</a>
                 </div>
             </div>
         </div>

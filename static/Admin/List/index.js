@@ -1,12 +1,12 @@
 var selectedColor = 'rgb(51,\ 122,\ 183)';
 var selectedTextColor = 'rgb(255,\ 255,\ 255)';
 
-$(document).ready(function(){
-    $('.navigation_form').submit(function(e){
+$(document).ready(function () {
+    $('.navigation_form').submit(function (e) {
         e.preventDefault();
     });
 
-    $('input[type="text"]').keypress(function(event){
+    $('input[type="text"]').keypress(function (event) {
         if (event.which === 13) {
             event.preventDefault();
         }
@@ -32,7 +32,7 @@ function DialogWindow () {
         }
     });
 }
-function resizeList(height_difference, width_difference){
+function resizeList (height_difference, width_difference) {
     var height = $('body').height() - (height_difference + 72), list = $('.items-list'),
         width = list.width() - width_difference;
     
@@ -48,7 +48,7 @@ function resizeList(height_difference, width_difference){
     });
 }
 
-function LoadContent(alone, model, callback, skip, limit,state){//function to load content
+function LoadContent (alone, model, callback, skip, limit,state) {//function to load content
     var special_model = '';
     if (state === 'multiple')
         special_model = '-' + model;
@@ -60,9 +60,10 @@ function LoadContent(alone, model, callback, skip, limit,state){//function to lo
     if (model === null || model === undefined)
         model = 'none';
 
-    $.ajax({url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit,
-               data: {orfan: alone, model: model},
-               type: 'POST'
+    $.ajax({
+            url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit,
+            data: {orfan: alone, model: model},
+            type: 'POST'
            }).then(
         function(json){
             removeItems('.content-row'+special_model);
@@ -89,7 +90,7 @@ function setActions(id, model){//function to add to each item in actions column 
     //define edit and remove buttons for all rows
     return actions =
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
-        '<a class="fa actions delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/' + model + '/list/"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
+        '<a class="fa actions delete-button-' + model + ' fa-trash content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/' + model + '/list/"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
 }
 
 function removeItems(selector){//clear all items from left-table
@@ -131,8 +132,11 @@ function CheckSearch(name, str, model, callback, limit,state){
     $.ajax({url: '/admin/' + model + '/search?limit=' + limit, type: 'POST', data: {value: str, field: name}}).then(
         function(json){//if not to search in DB items by inserted string
             removeItems('.content-row'+ special_model);
-            if (json.response !== '') {
+
+            if (json.response != '') {
                 json.response.forEach(callback);
+            } else {
+                $('.loader').remove();
             }
         }
     );
