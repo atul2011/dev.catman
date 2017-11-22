@@ -5,6 +5,7 @@ $(document).ready(function(){
         '<option value="sub">Type</option>' +
         '<option value="keywords">Keywords</option>' +
         '<option value="priority">Priority</option>';
+
     $('#category-select').append(fields);
 
     resizeList(130,220);//set height of list and width of search-bar
@@ -14,13 +15,12 @@ $(document).ready(function(){
     $(document).on("keydown", '.search', function(e){// add event listener on input in search bars
         if (e.keyCode === 13) {
             removeItems('.content-row');
-            $('#loading-circle').css('display','block');
+            $('#loading-circle').css('display', 'block');
             CheckSearch($('#category-select').val(),this.value,'category', ShowCategories,50);
         }
     });
-    
-    //add event listener to checkbox "no parents"
-    $(document).on("change", ".orfan", function(){
+
+    $(document).on("change", ".orfan", function(){ //add event listener to checkbox "no parents"
         removeItems('.content-row');
         $('#loading-circle').css('display','block');
         noParents($(this).is(':checked'), $(this).attr('id').split('-')[0], ShowCategories,50,'single','single');
@@ -29,17 +29,18 @@ $(document).ready(function(){
     $(document).on('click', '.content-row', function(){
         paintRow($(this).attr("id"),'');
     });
-    ////////////////////////////navigation bar//////////////////////////////////////////
-    LoadNavigationBar('single','category',ShowCategories);
+
+    LoadNavigationBar('single','category',ShowCategories);//////////navigation bar
 });
-//function to show categories
-function ShowCategories(response) {
-    str = '<div class="quark-presence-container presence-block content-row" id="category-values-' + response.id + '">' +
+
+function ShowCategories (response) {//function to show categories
+    var str = '<div class="quark-presence-container presence-block content-row" id="category-values-' + response.id + '">' +
         '<div class="content-values quark-presence-column ids">' + response.id + '</div>' +
         '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 70)  + '</div>' +
         '<div class="content-values quark-presence-column types">' + response.sub + '</div>' +
         '<div class="content-values quark-presence-column actions">' + setActions(response.id,'category') + '</div>' +
         '</div>';
+
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');
 }

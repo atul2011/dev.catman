@@ -9,7 +9,11 @@
 .search-list li {
     display: inline-block;
 }
-
+h1 {
+    font-size: 24px !important;
+    font-weight: 300 !important;
+    line-height: 26px !important;
+}
 /*set properties for cells with action buttons*/
 .content-actions {
     font-size: 20px;
@@ -34,7 +38,9 @@
     background-color: rgb(51, 122, 183) !important;
     color: white !important;
 }
-
+#content-container {
+    margin-left: 0;
+}
 #content-container .quark-presence-container {
     margin: 0;
     padding: 0;

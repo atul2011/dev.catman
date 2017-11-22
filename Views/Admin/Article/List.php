@@ -5,32 +5,32 @@
  */
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Content\Category\ListView;
+use ViewModels\Admin\Category\ListView;
 
 echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete article',
-	                     'You are about to delete the article. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The article was deleted',
-	                     'An error occurred. Failed to delete the article',
-	                     'Remove',
-	                     'Close'
-                     ));
+    'item-remove',
+    'Delete article',
+    'You are about to delete the article. This action cannot be undone. Continue?',
+    'Please wait...',
+    'The article was deleted',
+    'An error occurred. Failed to delete the article',
+    'Remove',
+    'Close'
+));
 ?>
 <h1 class="page-title">Article List</h1>
 <h5 class="page-title">Navigate through articles</h5>
-<div class="quark-presence-column " id="content-container">
+<div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block">
-                <div class="quark-presence-column search-list">
-                    <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No categories linked
-                </div>
-                <div class="quark-presence-column search-list">
-                    <select id="article-select" class="quark-input field-select"></select>
-                </div>
-                <div class="quark-presence-column search-list">
-                    <input type="text" class="quark-input search" name="article-search" placeholder="insert firsts letters of title wich you search">
-                </div>
+        <div class="quark-presence-column search-list">
+            <input type="checkbox" name="orfan" class="orfan" id="article-orfan">No categories linked
+        </div>
+        <div class="quark-presence-column search-list">
+            <select id="article-select" class="quark-input field-select"></select>
+        </div>
+        <div class="quark-presence-column search-list">
+            <input type="text" class="quark-input search" name="article-search" placeholder="insert firsts letters of title wich you search">
+        </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="article-list">
         <div class="quark-presence-column" id="content-column">

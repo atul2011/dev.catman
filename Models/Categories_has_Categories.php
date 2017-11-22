@@ -7,6 +7,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\QuarkCollection;
 use Quark\QuarkLazyLink;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
@@ -14,11 +15,12 @@ use Quark\QuarkModelBehavior;
 /**
  * Class Categories_has_Categories
  *
+ * @property int $id
  * @property QuarkLazyLink|Category $parent_id
  * @property QuarkLazyLink|Category $child_id1
- * @property int  $priority
+ * @property int $priority
  *
- * @package AllModels
+ * @package Models
  */
 class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithDefaultExtract, IQuarkModelWithBeforeExtract,IQuarkModelWithCustomCollectionName {
 	use QuarkModelBehavior;
@@ -34,9 +36,10 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      */
     public function Fields() {
         return array(
+            'id' => 0,
             'parent_id' => $this->LazyLink(new Category()),
             'child_id1' => $this->LazyLink(new Category()),
-            'priority' => null
+            'priority' => 0
         );
     }
 
@@ -70,7 +73,7 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null)
+        if ($fields != null)
             return $fields;
 
         return array(

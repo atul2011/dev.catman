@@ -8,6 +8,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\IQuarkStrongModelWithRuntimeFields;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDate;
@@ -36,9 +37,12 @@ use Quark\QuarkModelBehavior;
  * @property int $category_id
  * @property string $short_title
  *
+ * @property int $runtime_priority
+ * @property int $runtime_category
+ *
  * @package Models
  */
-class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel {
+class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel, IQuarkStrongModelWithRuntimeFields {
     use QuarkModelBehavior;
 
     const TYPE_ARTICLE = 'A';
@@ -72,7 +76,17 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         );
     }
 
-    /**
+	/**
+	 * @return mixed
+	 */
+	public function RuntimeFields () {
+		return array(
+			'runtime_priority' => null,
+			'runtime_category' => null
+		);
+	}
+
+	/**
      * @return mixed
      */
     public function CollectionName() {
@@ -295,5 +309,30 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		$query['release_date']['$lte'] = ($year + 1) . '-01-01';
 
 		return $query;
+	}
+
+	/**
+	 * @param QuarkModel|Category $category
+	 *
+	 * @return bool
+	 */
+	public function SetRuntimePriority (QuarkModel $category) {
+		/**
+		 * @var QuarkModel|Articles_has_Categories $relation
+		 */
+		$relation = QuarkModel::FindOne(new Articles_has_Categories(), array(
+			'article_id' => $this->id,
+			'category_id' => $category->id
+		));
+
+		if ($relation == null)
+			return false;
+
+		if ($relation->priority != null)
+			$this->runtime_priority = $relation->priority;
+
+		$this->runtime_category = $category->id;
+
+		return true;
 	}
 }

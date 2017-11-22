@@ -1,10 +1,12 @@
 <?php
 namespace Services\Admin\Category\Relation;
 
+use Models\Article;
 use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -35,10 +37,30 @@ class ArticlesService implements IQuarkGetService, IQuarkServiceWithCustomProces
 		if ($category == null)
 			return array('status' => 404);
 
+		/**
+		 * @var QuarkCollection|Article[] $articles
+		 */
+		$articles = $category->Articles();
+		$out = new QuarkCollection(new Article());
+
+		foreach ($articles as $article) {
+			$article->SetRuntimePriority($category);
+
+			$out[] = $article;
+		}
+
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'articles' => $category->Articles()->Extract()
+			'articles' => $out->Extract(array(
+	                'id',
+	                'title',
+	                'priority',
+	                'release_date',
+	                'runtime_priority',
+	                'runtime_category'
+	            )
+			)
 		);
 	}
 }
