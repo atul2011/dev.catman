@@ -828,7 +828,7 @@ h1 { font-size: 48px; font-weight: 700 }
 
 .inner_mnu li a, .item-main-headline, .town_about span { color: #9c4d7e; font-family: Comfortaa, cursive }
 
-section.content { background: url(/static/resources/img/top_img.png) }
+section.content { background: url(/static/resources/img/top_img.png); }
 
 .inner_mnu { margin: 0; padding: 0; background-color: rgba(255, 255, 255, .5) }
 
@@ -840,19 +840,7 @@ section.content { background: url(/static/resources/img/top_img.png) }
 
 .dropdown { background: url(/static/resources/img/dots.png) 0 14px no-repeat; width: 20px; height: 20px; background-size: contain }
 
-.dropdown-content { display: none; position: absolute; z-index: 1; top: 34px; right: 0; background-color: #f9f9f9; -webkit-box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2); box-shadow: 0 8px 16px 0 rgba(0, 0, 0, .2) }
-
-.dropdown-content ul, .dropdown-content ul li, .town_about, .town_img, .town_wrap { display: inline-block }
-
-.dropdown-content ul { background-color: rgba(255, 255, 255, .6); position: relative }
-
-.dropdown-content ul li { padding: 0 16px; margin: 4px 0 }
-
-.dropdown-content ul li:first-child:before { content: ''; border-bottom: 1px solid rgba(74, 41, 41, .16); position: absolute; width: 93%; top: 36px; left: 10px }
-
-.dropdown-item:hover { background: #fff }
-
-.dropdown-item:hover .dropdown-content { display: inline-block; margin: 0 18px 0 14px }
+.dropdown-item:hover { background: #fff; }
 
 .item-main-headline { font-weight: 700; font-size: 24px; text-align: left; letter-spacing: 3px; }
 

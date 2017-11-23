@@ -25,3 +25,8 @@
     border-bottom: 1px solid rgba(81,38,60,.54);
     margin-bottom: 15px;
 }
+
+
+.inner_mnu-expanded {
+    display: none;
+}
