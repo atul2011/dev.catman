@@ -10,7 +10,7 @@ use Quark\QuarkView;
 use ViewModels\Category\IndexView;
 
 $related_categories = '';//sub-categories
-$categories = Category::Sort($category->ChildCategories(10));
+$categories = Category::Sort($category->ChildCategories(0));
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')	continue;
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $item->id . '">'.

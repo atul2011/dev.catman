@@ -1,3 +1,9 @@
+*{
+    font-family: Arial, 'Helvetica Neue', 'Helvetica', sans-serif !important;
+}
+body {
+    line-height: 1.4 !important;
+}
 .site-logo-link {
     color: #fff;
 }
@@ -24,4 +30,9 @@
     border-top: 1px solid rgba(81,38,60,.54);
     border-bottom: 1px solid rgba(81,38,60,.54);
     margin-bottom: 15px;
+}
+
+
+.inner_mnu-expanded {
+    display: none;
 }

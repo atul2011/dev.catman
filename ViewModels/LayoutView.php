@@ -71,7 +71,7 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 	/**
 	 * @return mixed
 	 */
-	public function getBackground(){
+	public function getBackground () {
 		$background_container = array();
 		$background_container[0] = '/../static/resources/CSS/BlueBackground.css';
 		$background_container[1] = '/../static/resources/CSS/YellowBackground.css';

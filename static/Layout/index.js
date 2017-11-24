@@ -12,4 +12,13 @@ $(document).ready(function () {
             $('.related-items-container').height($('#content-container').height());
         }
     });
+
+    $(document).on('click', '.dropdown-item', function () {
+        var sub_list = $('.inner_mnu-expanded');
+
+        if (sub_list.css('display') === 'none')
+            sub_list.show();
+        else
+            sub_list.hide();
+    });
 });

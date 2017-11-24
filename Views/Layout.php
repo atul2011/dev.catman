@@ -240,18 +240,15 @@ foreach ($news as $item){
 										    echo $item;
 										?>
 										<li class="dropdown-item" id="category-main-list-dropdown">
-											<div class="dropdown">
-												<div class="dropdown-content">
-													<ul>
-														<?php
-														$rest_main_list = array_slice($main_list, 4);
-														foreach ($rest_main_list as $item)
-														    echo $item;
-														?>
-													</ul>
-												</div>
-											</div>
+											<div class="dropdown"></div>
 										</li>
+                                        <span class="inner_mnu-expanded">
+										<?php
+										$rest_main_list = array_slice($main_list, 4);
+										foreach ($rest_main_list as $item)
+											echo $item;
+										?>
+                                        </span>
 									</ul>
 								</div>
 							</div>
