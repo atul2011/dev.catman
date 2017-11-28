@@ -75,6 +75,11 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if ($processed != '')
 				$category->intro = $processed;
+//IX Parser
+			$processed = preg_replace('#\\\\\"#Uis', '"', $category->title);
+
+			if ($processed != '')
+				$category->title = $processed;
 
 			if (!$category->Save())
 				Quark::Log('Cannot save category:' . $category->id);
