@@ -39,7 +39,6 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 		));
 
 		foreach ($articles as $article) {
-			Quark::Trace($article->id);
 			if (explode('-', $article->release_date)[0] == '' || explode('-', $article->release_date)[0] == null || $article->release_date == null)
 				$article->release_date = QuarkDate::GMTNow('Y-m-d');
 
@@ -83,11 +82,16 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 
 			if ($processed != '')
 				$article->txtfield = $processed;
-//VII Parser
+//VIII Parser
 			$processed = preg_replace('#\\\\\"#Uis', '"', $article->txtfield);
 
 			if ($processed != '')
 				$article->txtfield = $processed;
+//IX Parser
+			$processed = preg_replace('#\\\\\"#Uis', '"', $article->title);
+
+			if ($processed != '')
+				$article->title = $processed;
 
 			if (!$article->Save())
 				Quark::Log('Cannot save article:' . $article->id);
