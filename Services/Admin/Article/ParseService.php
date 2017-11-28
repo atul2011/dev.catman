@@ -33,12 +33,13 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
-		$articles = QuarkModel::Find(new Article(), array('id' => 13), array(
+		$articles = QuarkModel::Find(new Article(), array(), array(
 			QuarkModel::OPTION_LIMIT => $limit,
 			QuarkModel::OPTION_SKIP => $limit * $page
 		));
 
 		foreach ($articles as $article) {
+			Quark::Trace($article->id);
 			if (explode('-', $article->release_date)[0] == '' || explode('-', $article->release_date)[0] == null || $article->release_date == null)
 				$article->release_date = QuarkDate::GMTNow('Y-m-d');
 
