@@ -316,7 +316,7 @@ function setSpecialActions (id, model) {//action for management items in left co
 
     return actions =
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="current-category-edit-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
-        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" href="/admin/' + model + '/relation/delete/' + current_category_id + '/' + id + '" quark-dialog="#item-remove" quark-redirect="/admin/structures/categories/"></a>';
+        '<a class="fa actions special-delete-button-' + model + ' fa-eraser content-actions item-remove-dialog" href="/admin/' + model + '/relation/delete/' + current_category_id + '/' + id + '" quark-dialog="#item-remove" ></a>';
 }
 
 function setCategoryIcon (id) {//function to create an icon for category as folder
