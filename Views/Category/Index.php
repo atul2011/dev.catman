@@ -40,15 +40,9 @@ foreach ($articles as $item) {
 	<div class="item-content">
 		<div class="item-tags-container"></div>
 		<div class="item-content-container">
-            <div class="item-related-content">
-	            <?php echo $category->intro;?>
-            </div>
-			<div class="item-related-categories-container">
-				<?php echo $related_categories; ?>
-            </div>
-            <div class="item-related-articles-container">
-				<?php echo $related_articles; ?>
-            </div>
+            <div class="item-related-content"><?php echo $category->intro;?></div>
+			<div class="item-related-categories-container"><?php echo $related_categories;?></div>
+            <div class="item-related-articles-container"><?php echo $related_articles; ?></div>
 		</div>
 	</div>
 </div>
