@@ -81,7 +81,7 @@ class Author implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithBeforeExt
 	 * @return array
 	 */
 	public function DefaultExtract ($fields, $weak) {
-		if (!$fields=== null)
+		if ($fields != null)
 			return $fields;
 
 		return array(

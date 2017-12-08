@@ -1,12 +1,12 @@
 <?php
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Author\ListView;
+
 /**
  * @var QuarkView|ListView $this
  * @var int $number
  */
-
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Category\ListView;
 
 echo $this->Fragment(new QuarkViewDialogFragment(
     'item-remove',
