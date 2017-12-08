@@ -37,7 +37,6 @@ $related_items = '';
                                 '</b></a>' ,
 							'</div>';
 				}
-
 				if (isset($sort_values)) {
 					foreach ($sort_values as $item) {
 						$item_text = '';
