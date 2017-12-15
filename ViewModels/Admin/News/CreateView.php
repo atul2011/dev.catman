@@ -6,9 +6,9 @@ use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
-use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
+use ViewResources\Quill\Quill;
 
 /**
  * Class CreateView
@@ -51,7 +51,7 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 */
 	public function ViewResources () {
 		return array(
-			new MediumEditor()
+			new Quill()
 		);
 	}
 

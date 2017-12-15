@@ -6,7 +6,7 @@
 
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Content\Category\ListView;
+use ViewModels\Admin\Banner\ListView;
 
 echo $this->Fragment(new QuarkViewDialogFragment(
     'item-remove',

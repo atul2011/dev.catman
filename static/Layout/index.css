@@ -1,11 +1,14 @@
-*{
+* {
     font-family: Arial, 'Helvetica Neue', 'Helvetica', sans-serif !important;
 }
+
 body {
     line-height: 1.4 !important;
 }
+
 .site-logo-link {
     color: #fff;
+    font-family: Comfortaa, cursive !important;
 }
 
 .site-logo-link:hover {
@@ -22,17 +25,30 @@ body {
     font-family: "Open Sans", sans-serif;
 }
 
-.item-content, #content-container{
+.item-content, #content-container {
     min-height: 600px;
 }
 
-.item-related-content{
-    border-top: 1px solid rgba(81,38,60,.54);
-    border-bottom: 1px solid rgba(81,38,60,.54);
+.item-related-content {
     margin-bottom: 15px;
 }
 
+.item-related-photo-container, .item-related-content {
+    border-top: 1px solid rgba(81, 38, 60, .54);
+}
+
+.item-related-categories-container {
+    border-bottom: 1px solid rgba(81, 38, 60, .54);
+}
 
 .inner_mnu-expanded {
     display: none;
+}
+.item-related-photo-container {
+    margin-top: 15px;
+    padding-top: 15px;
+}
+.item-related-photo {
+    height: 200px !important;
+    width: auto;
 }

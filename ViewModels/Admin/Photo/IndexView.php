@@ -1,5 +1,5 @@
 <?php
-namespace ViewModels\Admin\Event;
+namespace ViewModels\Admin\Photo;
 
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
@@ -11,37 +11,37 @@ use ViewModels\Admin\ViewBehavior;
 /**
  * Class EditView
  *
- * @package ViewModels\Admin\Event
+ * @package ViewModels\Admin\Photo
  */
-class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout {
+class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Event Edit';
+		return 'Photo Details';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Event/Edit';
+		return 'Admin/Photo/Index';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Event/Index/index.css';
+		return __DIR__ . '/../../../static/Admin/Photo/Index/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../static/Admin/Event/Index/index.js';
+		return __DIR__ . '/../../../static/Admin/Photo/Index/index.js';
 	}
 
 	/**

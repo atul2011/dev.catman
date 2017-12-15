@@ -35,7 +35,7 @@ use ViewModels\News\ListView;
                     $img ,
                         '<div class="news__date">' ,
                             '<span>' ,
-                                $item->publish_date ,
+                                $item->publish_date->Format('d/m/Y') ,
                             '</span>' ,
                         '</div>' ,
                         '<div class="news__content">' ,

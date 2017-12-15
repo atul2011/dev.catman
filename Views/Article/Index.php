@@ -4,8 +4,10 @@
  * @var QuarkView|IndexView $this
  */
 use Models\Article;
+use Models\Photo;
 use Quark\QuarkModel;
 use Quark\QuarkView;
+use Quark\ViewResources\ShowdownJS\ShowdownJS;
 use ViewModels\Article\IndexView;
 
 $related_categories = '';
@@ -21,7 +23,19 @@ foreach ($categories as $category) {
         </h3>
     </div><div class="item-content">
         <div class="item-content-container">
-            <?php echo $article->txtfield; ?>
+            <div class="item-related-content">
+	            <?php echo $article->txtfield;?>
+            </div>
+            <div class="item-related-photo-container">
+		        <?php
+		        foreach ($article->Photos() as $photo) {
+			        /**
+			         * @var QuarkModel|Photo $photo
+			         */
+			        echo '<img src="' , $photo->file->WebLocation() , '" class="item-related-photo">';
+		        }
+		        ?>
+            </div>
         </div>
     </div>
 </div>

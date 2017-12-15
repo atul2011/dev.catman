@@ -6,7 +6,7 @@
 use Models\News;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Content\News\IndexView;
+use ViewModels\News\IndexView;
 
 $news_title = '';
 $news_content = '';
@@ -21,7 +21,7 @@ $news->text != '' ? $news_content = $news->text : $news_content = $this->Current
 	</div>
 	<div class="item-content">
 		<div class="item-content-container">
-			<?php echo $news_content; ?>
+			<?php echo $news_content?>
 		</div>
 	</div>
 </div>

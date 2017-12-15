@@ -50,7 +50,6 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'article' => QuarkModel::FindOneById(new Article(), $id),
-			'tags' => $article->getTags(),
 			'authors' => QuarkModel::Find(new Author(), array(), array(
 				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
 			)),
@@ -102,11 +101,6 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		$article->author_id = $author->id;
 		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->publish_date);
 		$article->release_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->release_date);
-
-
-		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();//set tags
-
-		$article->setTags($tags);
 
 		if (!$article->Save())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());

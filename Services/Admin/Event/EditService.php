@@ -11,7 +11,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Event\EditView;
+use ViewModels\Admin\Event\IndexView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
 
@@ -30,7 +30,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array('event'=> QuarkModel::FindOneById(new Event(), $request->URI()->Route(3))));
+		return QuarkView::InLayout(new IndexView(), new QuarkPresenceControl(), array('event'=> QuarkModel::FindOneById(new Event(), $request->URI()->Route(3))));
 	}
 
 	/**

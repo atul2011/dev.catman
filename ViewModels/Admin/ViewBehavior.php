@@ -55,6 +55,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-users')
 		, $this->MenuWidgetItem('/admin/banner/list', 'Banner', 'fa-cc-discover')
 		, $this->MenuWidgetItem('/admin/token/list', 'Token', 'fa-key')
+		, $this->MenuWidgetItem('/admin/photo/list', 'Gallery', 'fa-file-photo-o')
 		));
 	}
 

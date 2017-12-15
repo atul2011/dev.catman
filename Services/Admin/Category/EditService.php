@@ -41,10 +41,7 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 		if ($category == null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
-			'category' => $category->Extract(),
-			'tags' => $category->getTags()->Extract()
-		));
+		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array('category' => $category));
 	}
 
 	/**
@@ -64,9 +61,6 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 			return array('status' => 404);
 
 		$category->PopulateWith($request->Data());
-
-		$tags = $request->Data()->tag_list != '' ? explode(',', $request->Data()->tag_list) : array();
-		$category->setTags($tags);
 
 		if (!$category->Save())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());

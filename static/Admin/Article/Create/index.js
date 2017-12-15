@@ -15,8 +15,18 @@ $(document).ready(function(){
             e.preventDefault();
         }
     });
-    
-    editor = new MediumEditor($('.content'));
+
+    $(document).on("submit", '#item-form', function (e) {
+        $('#form-item-content').val($('#content-container .ql-editor').html());
+    });
+
+    var quill_editor = new Quill('#editor-container', {//quill
+        modules: {
+            toolbar: '#toolbar-container'
+        },
+        placeholder: 'Insert some text',
+        theme: 'snow'
+    });
 });
 //function to check when you want to find items
 function CheckSearch(str, model, name, limit, listname){

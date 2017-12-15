@@ -11,6 +11,9 @@ use Quark\QuarkCollection;
 use Quark\QuarkDate;
 use Quark\QuarkGenericViewResource;
 use Quark\QuarkModel;
+use Quark\ViewResources\jQuery\jQueryCore;
+use Quark\ViewResources\SimpleMDE\SimpleMDE;
+use ViewResources\Quill;
 
 /**
  * Class LayoutView

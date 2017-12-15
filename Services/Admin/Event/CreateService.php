@@ -2,6 +2,7 @@
 namespace Services\Admin\Event;
 
 use Models\Event;
+use Models\Photo;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;

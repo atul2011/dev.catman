@@ -75,3 +75,65 @@ input[type="text"]::placeholder {
     text-align: left;
     font-family: "Open Sans", sans-serif;
 }
+
+.cm-form-photo {
+    width: 200px;
+    height: 200px;
+    border: 0 solid lightgray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cm-form-photo:hover {
+    box-shadow: 3px 3px 6px #c2c2c2;
+}
+
+#editor-container, #toolbar-container {
+    width: 500px;
+}
+
+#editor-container {
+    height: 300px;
+}
+
+.form-title, .form-value {
+    margin: 0;
+}
+
+.form-title {
+    margin-bottom: 10px;
+    margin-top: 10px;
+    font-size: large;
+    vertical-align: bottom;
+}
+
+.cm-button-tag {
+    padding: 6px 8px !important;
+    color: #FFFFFF !important;
+    background-color: #AAAAAA !important;
+}
+
+.cm-button-tag a {
+    color: #000000 !important;
+}
+
+.cm-button-tag:hover {
+    filter: brightness(110%);
+}
+.cm-button-photo {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.cm-form-related-photo, .cm-button-photo {
+    width: 200px;
+    height: 200px;
+}
+.cm-form-related-photo {
+    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+.cm-form-related-photo:hover {
+    filter: brightness(110%);
+}

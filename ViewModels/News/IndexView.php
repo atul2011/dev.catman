@@ -4,7 +4,9 @@ namespace ViewModels\News;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
+use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
+use Quark\ViewResources\SimpleMDE\SimpleMDE;
 use ViewModels\ViewBehavior;
 
 /**
@@ -12,7 +14,7 @@ use ViewModels\ViewBehavior;
  *
  * @package ViewModels\News
  */
-class IndexView implements IQuarkViewModel ,IQuarkViewModelWithCustomizableLayout,IQuarkViewModelWithComponents {
+class IndexView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLayout, IQuarkViewModelWithComponents {
 	use ViewBehavior;
 
 	/**

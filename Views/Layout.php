@@ -125,7 +125,7 @@ foreach ($news as $item){
             '<div class="news__description news__wrap clearfix">'.
                 '<div class="news__date">'.
                     '<span>'.
-                        $item->publish_date.
+                        $item->publish_date->Format('d/m/Y').
                     '</span>'.
                 '</div>'.
                 '<div class="news__content">'.

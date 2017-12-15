@@ -34,7 +34,6 @@ use Quark\QuarkModelBehavior;
  * @property string  $description
  * @property QuarkLazyLink|Author  $author_id
  * @property QuarkLazyLink|Event   $event_id
- * @property int $category_id
  * @property string $short_title
  *
  * @property int $runtime_priority
@@ -71,7 +70,6 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'description' => '',
 			'author_id' => $this->LazyLink(new Author(), 0),
 			'event_id' => $this->LazyLink(new Event(), 0),
-			'category_id' => 0,
 			'short_title' => ''
         );
     }
@@ -186,82 +184,37 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
     }
 
 	/**
-	 * @return array|QuarkCollection
+	 * @return QuarkCollection|Tag[] $tags
 	 */
-    public function getTags(){
+    public function Tags(){
 		/**
-		 * @var QuarkCollection|Article_has_Tag[] $articles
+		 * @var QuarkCollection|Article_has_Tag[] $links
 		 */
-		$articles = QuarkModel::Find(new Article_has_Tag(), array('article_id' => $this->id));
+	    $links = QuarkModel::Find(new Article_has_Tag(), array('article_id' => $this->id));
 
 		$tags = new QuarkCollection(new Tag());
 
-		foreach ($articles as $item)
-			$tags[] = $item->tag_id->value;
+		foreach ($links as $item)
+			$tags[] = $item->tag_id->Retrieve();
 
 		return $tags;
 	}
 
-	public function setTags($tags){
-		foreach ($tags as $item) {
-			if(trim($item,' ') == '')
-				continue;
-			/**
-			 * @var QuarkModel|Tag $tag
-			 */
-			$tag = QuarkModel::FindOne(new Tag(), array('name' => $item));
-
-			if ($tag === null) {
-				$tag = new QuarkModel(new Tag());
-				$tag->name = $item;
-
-				if (!$tag->Create())
-					return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
-			}
-			/**
-			 * @var QuarkModel|Article_has_Tag $article_has_tag
-			 */
-			$article_has_tag = QuarkModel::FindOne(new Article_has_Tag(),array(
-				'article_id' => $this->id,
-				'tag_id' => $tag->id
-			));
-
-			if($article_has_tag != null)
-				continue;
-
-			$article_has_tag = new QuarkModel(new Article_has_Tag(),array(
-				'article_id' => $this->id,
-				'tag_id' => $tag->id
-			));
-
-			if(!$article_has_tag->Create())
-				return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
-
-		}
-
-		//check if user delete some tags from category
+	/**
+	 * @return QuarkCollection|Photo
+	 */
+	public function Photos () {
 		/**
-		 * @var QuarkCollection|Article_has_Tag[] $articles
+		 * @var QuarkCollection|Article_has_Photo[] $links
 		 */
-		$articles = QuarkModel::Find(new Article_has_Tag(),array('article_id' => $this->id));
-		$saved_tags = array();
+		$links = QuarkModel::Find(new Article_has_Photo(), array('article' => $this->id));
 
-		foreach ($articles as $item)
-			$saved_tags[] = $item->tag_id->Retrieve()->name;
+		$photos = new QuarkCollection(new Photo());
 
-		foreach ($saved_tags as $item) {
-			/**
-			 * @var QuarkModel|Tag $tag
-			 */
-			$tag = QuarkModel::FindOne(new Tag(), array('name' => $item));
+		foreach ($links as $item)
+			$photos[] = $item->photo->Retrieve();
 
-			if (!in_array($item, $tags)) {
-				QuarkModel::Delete(new Article_has_Tag(), array(
-					'article_id' => $this->id,
-					'tag_id' =>$tag->id
-				));
-			}
-		}
+		return $photos;
 	}
 
 	/**

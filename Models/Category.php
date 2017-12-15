@@ -239,90 +239,35 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	/**
 	 * @return QuarkCollection|Tag[] $tags
 	 */
-    public function getTags(){
+    public function Tags() {
 		/**
 		 * @var QuarkCollection|Category_has_Tag[] $categories
 		 */
-		$categories = QuarkModel::Find(new Category_has_Tag(),array(
-			'category_id' => $this->id
-		));
+		$categories = QuarkModel::Find(new Category_has_Tag(), array('category_id' => $this->id));
 
 		$tags = new QuarkCollection(new Tag());
 
-		foreach ($categories as $item) {
-			$tags[] = $item->tag_id;
-		}
+		foreach ($categories as $item)
+			$tags[] = $item->tag_id->Retrieve();
 
 		return $tags;
 	}
 
 	/**
-	 * @param $tags
-	 *
-	 * @return QuarkDTO
+	 * @return QuarkCollection|Photo
 	 */
-	public function setTags($tags){
-		foreach ($tags  as $item) {
-			if(trim($item,' ') == '')continue;
-			/**
-			 * @var QuarkModel|Tag $tag
-			 */
-			$tag = QuarkModel::FindOne(new Tag(), array(
-				'name' => $item
-			));
-
-			if ($tag === null) {
-				$tag = new QuarkModel(new Tag());
-				$tag->name = $item;
-
-				if (!$tag->Create())
-					return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
-			}
-			//verify is that link exist
-			/**
-			 * @var QuarkModel|Category_has_Tag $category_has_tag
-			 */
-			$category_has_tag = QuarkModel::FindOne(new Category_has_Tag(),array(
-				'category_id' => $this->id,
-				'tag_id' => $tag->id
-			));
-
-			if($category_has_tag != null) continue;
-
-			$category_has_tag = new QuarkModel(new Category_has_Tag(), array(//if not, we create it
-				'category_id' => $this->id,
-				'tag_id' => $tag->id
-			));
-
-			if(!$category_has_tag->Create())
-				return QuarkDTO::ForStatus(QuarkDTO::STATUS_500_SERVER_ERROR);
-
-		}
-		//check if user delete some tags from category
+	public function Photos () {
 		/**
-		 * @var QuarkCollection|Category_has_Tag[] $categories
+		 * @var QuarkCollection|Category_has_Photo[] $links
 		 */
+		$links = QuarkModel::Find(new Category_has_Photo(), array('category' => $this->id));
 
-		$categories = QuarkModel::Find(new Category_has_Tag(), array('category_id' => $this->id));
+		$photos = new QuarkCollection(new Photo());
 
-		$saved_tags = array();
-		foreach ($categories as $item)
-			$saved_tags[] = $item->tag_id->name;
+		foreach ($links as $item)
+			$photos[] = $item->photo->Retrieve();
 
-		foreach ($saved_tags as $item) {
-			/**
-			 * @var QuarkModel|Tag $tag
-			 */
-			$tag = QuarkModel::FindOne(new Tag(), array(
-				'name' => $item
-			));
-			if (!in_array($item, $tags)) {
-				QuarkModel::Delete(new Category_has_Tag(), array(
-					'category_id' => $this->id,
-					'tag_id' =>$tag->id
-				));
-			}
-		}
+		return $photos;
 	}
 
 	/**

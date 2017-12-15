@@ -690,7 +690,7 @@ body input:focus:required:invalid, body input:required:valid, body textarea:focu
 
 body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open Sans", sans-serif; overflow-x: hidden }
 
-.main-headline, .main-section h1 { font-family: Comfortaa, cursive }
+.main-headline, .main-section h1 { font-family: Comfortaa, cursive;}
 
 .img-responsive { display: block; max-width: 100%; height: auto }
 

@@ -5,8 +5,10 @@
  */
 use Models\Article;
 use Models\Category;
+use Models\Photo;
 use Quark\QuarkModel;
 use Quark\QuarkView;
+use Quark\ViewResources\ShowdownJS\ShowdownJS;
 use ViewModels\Category\IndexView;
 
 $related_categories = '';//sub-categories
@@ -40,9 +42,22 @@ foreach ($articles as $item) {
 	<div class="item-content">
 		<div class="item-tags-container"></div>
 		<div class="item-content-container">
-            <div class="item-related-content"><?php echo $category->intro;?></div>
+            <div class="item-related-content">
+                <?php echo $category->intro?>
+            </div>
+            <div class="item-related-photo-container">
+				<?php
+				foreach ($category->Photos() as $photo) {
+					/**
+					 * @var QuarkModel|Photo $photo
+					 */
+					echo '<img src="' , $photo->file->WebLocation() , '" class="item-related-photo">';
+				}
+				?>
+            </div>
 			<div class="item-related-categories-container"><?php echo $related_categories;?></div>
             <div class="item-related-articles-container"><?php echo $related_articles; ?></div>
+
 		</div>
 	</div>
 </div>
