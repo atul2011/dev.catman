@@ -7,13 +7,12 @@
 use Models\Photo;
 use Models\Photo_has_Tag;
 use Models\Tag;
-use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use ViewModels\Admin\Event\CreateView;
 ?>
-<h1 class="page-title">Update Current Event</h1>
-<h5 class="page-title">Insert data for update selected event</h5>
+<h1 class="page-title">Update Current Photo</h1>
+<h5 class="page-title">Insert data for update selected photo</h5>
 <div class="quark-presence-column left">
 	<div class="quark-presence-container content-container presence-block" id="form-body">
         <form enctype="multipart/form-data" method="POST" id="item-form" action="/admin/photo/edit/<?php echo $photo->id;?>">

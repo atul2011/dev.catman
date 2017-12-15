@@ -27,7 +27,7 @@ $(document).on('click', '#cm-form-button-add-tag', function () {
 
     $.ajax({url:"/admin/category/tag/link/" + $('#cm-category-id').val(), type:"POST", data:{tag:tag.val()}}).then(function (data) {
         if (data.status === 200)
-            $('#cm-form-tag-container').append('<button type="button" class="quark-button block cm-button-tag cm-button-sub-item-action" href="/admin/category/tag/unlink/' + data.link.id + '">' + data.tag.name  + ' <a class="fa fa-close"></a></button>');
+            $('#cm-form-tag-container').append('<button type="button" class="quark-button block cm-button-tag cm-button-sub-item-action" action="/admin/category/tag/unlink/' + data.link.id + '">' + data.tag.name  + ' <a class="fa fa-close"></a></button>');
 
         tag.val('');
     });
