@@ -1,10 +1,12 @@
 <?php
-/**
- * @var QuarkView|CreateView $this
- */
+
 use Models\News;
 use Quark\QuarkView;
 use ViewModels\Admin\News\CreateView;
+
+/**
+ * @var QuarkView|CreateView $this
+ */
 ?>
 <h1 class="page-title">Add New News</h1>
 <h5 class="page-title">Insert data to create an new news</h5>
@@ -46,15 +48,57 @@ use ViewModels\Admin\News\CreateView;
 			</div>
 		</div>
 		<div class="quark-presence-container presence-block main" id="content">
-			<div class="title"><p>Content</p>
-				<textarea placeholder="Content" class="content quark-input" name="text" id="item-text"></textarea>
-			</div>
+            <input id="form-item-content" name="text" type="hidden">
+            <div class="title"><p>Content</p>
+                <div id="toolbar-container">
+                <span class="ql-formats">
+                    <select class="ql-font"></select>
+                    <select class="ql-size"></select>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-bold"></button>
+                    <button class="ql-italic"></button>
+                    <button class="ql-underline"></button>
+                    <button class="ql-strike"></button>
+                </span>
+                    <span class="ql-formats">
+                    <select class="ql-color"></select>
+                    <select class="ql-background"></select>
+                </span>
+                    <span class="ql-formats">
+                    <select class="ql-align"></select>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-script" value="sub"></button>
+                    <button class="ql-script" value="super"></button>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-header" value="1"></button>
+                    <button class="ql-header" value="2"></button>
+                    <button class="ql-blockquote"></button>
+                    <button class="ql-code-block"></button>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-list" value="ordered"></button>
+                    <button class="ql-list" value="bullet"></button>
+                    <button class="ql-indent" value="-1"></button>
+                    <button class="ql-indent" value="+1"></button>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-link"></button>
+                    <button class="ql-image"></button>
+                    <button class="ql-video"></button>
+                </span>
+                    <span class="ql-formats">
+                    <button class="ql-clean"></button>
+                </span>
+                </div>
+                <div id="editor-container"></div>
+            </div>
 		</div>
 		<div class="quark-presence-container presence-block button-div">
 			<br/>
-			<button class="quark-button block ok submit-button" type="submit">
-				Create
-			</button>
+			<button class="quark-button block ok submit-button" type="submit">Create</button>
 		</div>
 	</div>
 </form>

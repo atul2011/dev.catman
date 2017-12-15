@@ -142,3 +142,62 @@ h1 {
     text-align: left;
     font-family: "Open Sans", sans-serif;
 }
+
+/*-----------------style for card list------------------*/
+.list-item {
+    padding: 15px;
+    width: 200px;
+    border-radius: 3px;
+    margin: 4px;
+    box-shadow: 0 1px 3px 2px rgba(0, 0, 0, 0.1);
+}
+
+.list-item-data {
+    word-wrap: break-word;
+}
+
+.list-item h2,
+.list-item h1,
+.list-item h3,
+.list-item h4,
+.list-item h5,
+.list-item h6 {
+    margin-left: 0;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+
+.list-item-link {
+    font-size: 10px;
+    color: rgb(100, 100, 100);
+    text-decoration: none;
+    font-family: FontAwesome, 'Open Sans', sans-serif;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+
+.list-item-link:before {
+    display: inline-block;
+    margin: 0 10px 0 0;
+    text-align: center;
+    width: 20px;
+}
+
+.list-item-link.action-icons {
+    font-size: 18px;
+}
+
+.list-item-link.action-icons {
+    margin: 0;
+    padding: 0 10px 10px 0;
+
+}
+
+.list-item-link:hover {
+    color: rgb(0, 176, 80);
+}
+
+.list-item-photo {
+    width: 200px;
+    height: 200px;
+}

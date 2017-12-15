@@ -18,6 +18,7 @@ $(document).ready(function () {
 
     DialogWindow();
 });
+
 function DialogWindow () {
     var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
         success: function(trigger, dialog){
@@ -32,8 +33,10 @@ function DialogWindow () {
         }
     });
 }
+
 function resizeList (height_difference, width_difference) {
-    var height = $('body').height() - (height_difference + 72), list = $('.items-list'),
+    var height = $('body').height() - (height_difference + 72),
+        list = $('.items-list'),
         width = list.width() - width_difference;
     
     list.css('max-height', height).css('min-height', height);
@@ -71,7 +74,29 @@ function LoadContent (alone, model, callback, skip, limit,state) {//function to 
             if (json.response !== null) {
                 json.response.forEach(callback);
 
-                if(state === 'multiple')getHeight();
+                if (state === 'multiple')
+                    getHeight();
+
+                DialogWindow();
+            }
+        });
+}
+function LoadContentAsCards (model, callback, skip, limit, items_selector) {//function to load content
+    var start = (parseInt(skip) - 1) * 50;
+
+    if (model === null || model === undefined)
+        model = 'none';
+
+    $.ajax({
+            url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit,
+            data: {model: model},
+            type: 'POST'
+           }).then(
+        function (json) {
+            removeItems(items_selector);
+
+            if (json.response !== null) {
+                json.response.forEach(callback);
 
                 DialogWindow();
             }
@@ -120,6 +145,7 @@ function paintRow(id, type) {//function to paint checked row
         $("#" + id).css("background-color", selectedColor).addClass("selected").css("color", selectedTextColor);
     }
 }
+
 function CheckSearch(name, str, model, callback, limit,state){
     var special_model = '';
     if (state === 'multiple') special_model = '-' + model;

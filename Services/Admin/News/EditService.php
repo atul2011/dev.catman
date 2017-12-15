@@ -44,8 +44,7 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		/**
 		 * @var QuarkModel|News $news
 		 */
-		$id = $request->URI()->Route(3);
-		$news = QuarkModel::FindOneById(new News(),$id);
+		$news = QuarkModel::FindOneById(new News(), $request->URI()->Route(3));
 
 		if ($news === null)
 			return QuarkView::InLayout(new NotFoundView(),new QuarkPresenceControl());

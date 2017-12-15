@@ -71,11 +71,6 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 
 		$article->event_id = $event->id;
 
-		//set tags
-		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();
-
-		$article->setTags($tags);
-
 		if (!$article->Validate())
 			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
 

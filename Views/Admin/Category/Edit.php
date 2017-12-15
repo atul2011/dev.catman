@@ -1,5 +1,8 @@
 <?php
 use Models\Category;
+use Models\Category_has_Photo;
+use Models\Category_has_Tag;
+use Models\Photo;
 use Models\Tag;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
@@ -9,7 +12,6 @@ use ViewModels\Admin\Category\CreateView;
 /**
  * @var QuarkView|CreateView $this
  * @var QuarkModel|Category $category
- * @var QuarkCollection|Tag[] $tags
  */
 ?>
 <h1 class="page-title">Update Selected Category</h1>
@@ -18,6 +20,7 @@ use ViewModels\Admin\Category\CreateView;
 	<div class="quark-presence-column content-column left">
 		<div class="quark-presence-container content-container  main">
 			<div class="quark-presence-column left" id="main_div">
+                <input type="hidden" value="<?php echo $category->id;?>" id="cm-category-id">
 				<div class="quark-presence-container presence-block  middle">
 					<div class="title"><p>Title</p>
 						<input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title" value="<?php echo $category->title;?>"/>
@@ -58,7 +61,7 @@ use ViewModels\Admin\Category\CreateView;
                         </select>
                     </div>
                 </div>
-			</div><div class="quark-presence-column right" id="second_div">
+			</div><div class="quark-presence-column left" id="second_div">
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Note</p>
                         <input placeholder="Note" type="text" class="quark-input text_field" name="note" id="item-note" value="<?php echo $category->note; ?>"/>
@@ -82,20 +85,143 @@ use ViewModels\Admin\Category\CreateView;
                     <input type="text" PLACEHOLDER="Description" class="quark-input large_text_field" name="description" id="item-description" value="<?php echo $category->description; ?>"/>
                 </div>
             </div>
-			<div class="title"><p>Tags</p>
-				<input type="text" placeholder="Tags, divided by [,]" class="quark-input large_text_field" name="tag_list" id="item-tags" value="<?php foreach ($tags as $tag) echo $tag->name . ',';?>">
-			</div>
-			<div class="title"><p>Content</p>
-				<textarea placeholder="Content" class="content quark-input" name="intro" id="item-intro">
-                        <?php echo $category->intro; ?>
-                    </textarea>
-			</div>
+            <div class="quark-presence-container presence-block" id="content-container">
+                <input id="form-item-content" name="intro" type="hidden">
+                <div class="title"><p>Content</p>
+                    <div id="toolbar-container">
+                    <span class="ql-formats">
+                        <select class="ql-font"></select>
+                        <select class="ql-size"></select>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-bold"></button>
+                        <button class="ql-italic"></button>
+                        <button class="ql-underline"></button>
+                        <button class="ql-strike"></button>
+                    </span>
+                        <span class="ql-formats">
+                        <select class="ql-color"></select>
+                        <select class="ql-background"></select>
+                    </span>
+                        <span class="ql-formats">
+                        <select class="ql-align"></select>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-script" value="sub"></button>
+                        <button class="ql-script" value="super"></button>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-header" value="1"></button>
+                        <button class="ql-header" value="2"></button>
+                        <button class="ql-blockquote"></button>
+                        <button class="ql-code-block"></button>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-list" value="ordered"></button>
+                        <button class="ql-list" value="bullet"></button>
+                        <button class="ql-indent" value="-1"></button>
+                        <button class="ql-indent" value="+1"></button>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-link"></button>
+                        <button class="ql-image"></button>
+                        <button class="ql-video"></button>
+                    </span>
+                        <span class="ql-formats">
+                        <button class="ql-clean"></button>
+                    </span>
+                    </div>
+                    <div id="editor-container">
+	                    <?php echo $category->intro;?>
+                    </div>
+                </div>
+            </div>
 		</div>
+        <br />
+        <div class="quark-presence-container presence-block  middle">
+            <div class="quark-presence-column form-title">
+                Insert Tags
+            </div>
+            <br />
+            <div class="quark-presence-column form-value" id="cm-form-tag-container">
+                <input type="text" class="quark-input text_field" id="cm-form-tag-input">
+                <button type="button" class="quark-button block ok" id="cm-form-button-add-tag">Add tag</button>
+                <br/>
+                <br/>
+				<?php
+				$tags = $category->Tags();
+
+				foreach ($tags as $tag) {
+					/**
+					 * @var QuarkModel|Tag $tag
+					 */
+					echo
+					'<button type="button" class="quark-button block cm-button-tag cm-button-sub-item-action" action="/admin/category/tag/unlink/' , Category_has_Tag::GetLink($category, $tag)->id ,'">' ,
+					$tag->name ,'  ',
+					'<a class="fa fa-close"></a>',
+					'</button>';
+				}
+				?>
+            </div>
+        </div>
+        <br />
+        <div class="quark-presence-container presence-block  middle">
+            <div class="quark-presence-column form-title">
+                Linked Photos
+                <h5>List photos that is already linked:</h5>
+            </div>
+            <br />
+            <div class="quark-presence-column form-value" id="cm-form-linked-photo-container">
+				<?php
+				$existed = array();
+				foreach ($category->Photos() as $photo) {
+					/**
+					 * @var QuarkModel|Photo $photo
+					 */
+					echo
+					'<button type="button" class="cm-button-photo cm-button-sub-item-action" title="Link photo to this category" action="/admin/category/photo/unlink/' , Category_has_Photo::GetLink($category, $photo)->id ,'">' ,
+					'<img src="' , $photo->file->WebLocation() , '" class="cm-form-related-photo" >',
+					'</button>';
+
+					$existed[] = $photo->id;
+				}
+				?>
+            </div>
+        </div>
+        <br/>
+        <div class="quark-presence-container presence-block  middle">
+            <div class="quark-presence-column form-title">
+                Link Photos
+                <h5> List of photos ready for link, searched by category's tags:</h5>
+            </div>
+            <br />
+            <div class="quark-presence-column form-value" id="cm-form-photo-links-container">
+
+				<?php
+				$tags = $category->Tags();
+                $photos = new QuarkCollection(new Photo());
+
+				foreach ($tags as $tag)
+				    foreach ($tag->Photos() as $photo) {
+				        if (in_array($photo->id, $existed))
+				            continue;
+
+                        /**
+                         * @var QuarkModel|Photo $photo
+                         */
+                        echo
+                        '<button type="button" class="cm-button-photo" title="Link photo to this category" onclick="LinkPhoto(\'category\',', $category->id ,',', $photo->id,', this)">' ,
+                            '<img src="' , $photo->file->WebLocation() , '" class="cm-form-related-photo">',
+                        '</button>';
+
+                        $existed[] = $photo->id;
+				    }
+				?>
+            </div>
+        </div>
+        <br />
 		<div class="quark-presence-container presence-block button-div">
-			<br/>
-			<button class="quark-button block ok submit-button" type="submit">
-				Update
-			</button>
+			<button class="quark-button block ok submit-button" type="submit">Update</button>
 		</div>
 	</div>
 </form>

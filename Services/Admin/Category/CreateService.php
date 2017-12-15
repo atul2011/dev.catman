@@ -52,9 +52,6 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 
 		$category = new QuarkModel(new Category(), $request->Data());
 
-		$tags = $request->Data()->tag_list != '' ? explode(',',$request->Data()->tag_list) : array();//set tags
-		$category->setTags($tags);
-
 		if ($category->role == Category::ROLE_SYSTEM) {//check if admin want to create an system category
 			if ($category->sub == Category::TYPE_SYSTEM_ROOT_CATEGORY) {//check if admin want to create an root system category
 				if (Category::RootCategory() == null)

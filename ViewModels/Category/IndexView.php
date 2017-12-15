@@ -4,7 +4,9 @@ namespace ViewModels\Category;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
+use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
+use Quark\ViewResources\SimpleMDE\SimpleMDE;
 use ViewModels\ViewBehavior;
 
 /**
@@ -12,7 +14,7 @@ use ViewModels\ViewBehavior;
  *
  * @package ViewModels\Category
  */
-class IndexView implements IQuarkViewModel ,IQuarkViewModelWithCustomizableLayout,IQuarkViewModelWithComponents {
+class IndexView implements IQuarkViewModel ,IQuarkViewModelWithCustomizableLayout,IQuarkViewModelWithComponents, IQuarkViewModelWithResources {
 	use ViewBehavior;
 
 	/**
@@ -34,5 +36,14 @@ class IndexView implements IQuarkViewModel ,IQuarkViewModelWithCustomizableLayou
 	 */
 	public function ViewController () {
 		return __DIR__ . '/../../static/Category/Index/index.js';
+	}
+
+	/**
+	 * @return IQuarkViewResource[]
+	 */
+	public function ViewResources () {
+		return array(
+			new SimpleMDE()
+		);
 	}
 }

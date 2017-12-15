@@ -13,12 +13,14 @@ $(document).ready(function () {
         }
     });
 
-    $(document).on('click', '.dropdown-item', function () {
-        var sub_list = $('.inner_mnu-expanded');
+    $('.item-content img').css('max-width', $('.item-content').width()).height('auto');
+});
 
-        if (sub_list.css('display') === 'none')
-            sub_list.show();
-        else
-            sub_list.hide();
-    });
+$(document).on('click', '.dropdown-item', function () {
+    var sub_list = $('.inner_mnu-expanded');
+
+    if (sub_list.css('display') === 'none')
+        sub_list.show();
+    else
+        sub_list.hide();
 });
