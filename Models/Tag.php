@@ -30,6 +30,13 @@ class Tag implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider
 	}
 
 	/**
+	 * @return string
+	 */
+	public function CollectionName () {
+		return 'tag';
+	}
+
+	/**
 	 * @return mixed
 	 */
 	public function Rules () {
