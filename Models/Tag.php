@@ -4,6 +4,7 @@ namespace Models;
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithBeforeExtract;
+use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkStrongModel;
 use Quark\QuarkCollection;
@@ -17,7 +18,7 @@ use Quark\QuarkModel;
  *
  * @package Models
  */
-class Tag implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkLinkedModel {
+class Tag implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkLinkedModel, IQuarkModelWithCustomCollectionName {
 	/**
 	 * @return mixed
 	 */
