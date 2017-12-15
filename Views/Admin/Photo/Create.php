@@ -27,18 +27,6 @@ use ViewModels\Admin\Photo\CreateView;
                     </div>
                 </div>
                 <br />
-                <div class="quark-presence-container presence-block  middle">
-                    <div class="quark-presence-column form-title">
-                        Insert Tags
-                    </div>
-                    <br />
-                    <div class="quark-presence-column form-value" id="cm-form-tag-container">
-                        <input type="text" class="quark-input text_field" >
-                        <button type="button" class="quark-button block ok" id="cm-form-button-add-tag">Add tag</button>
-                        <br/>
-                    </div>
-                </div>
-                <br />
                 <div class="quark-presence-container presence-block">
                     <br/>
                     <button class="quark-button block ok submit-button" type="submit">Create</button>
