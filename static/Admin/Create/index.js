@@ -17,6 +17,7 @@ function setImage(input) {
 
 $(document).on('click', '.cm-button-sub-item-action', function (e) {
     e.preventDefault();
+
     var item = $(this);
     var url = $(this).attr('action');
 
