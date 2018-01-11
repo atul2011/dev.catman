@@ -39,12 +39,13 @@ foreach ($articles as $item) {
 			<?php echo $category->title;?>
 		</h3>
 	</div>
+    <hr class="cm-delimiter cm-header-content-delimiter">
 	<div class="item-content">
-		<div class="item-tags-container"></div>
 		<div class="item-content-container">
             <div class="item-related-content">
                 <?php echo $category->intro?>
             </div>
+            <hr class="cm-delimiter cm-content-photos-delimiter">
             <div class="item-related-photo-container">
 				<?php
 				foreach ($category->Photos() as $photo) {
@@ -55,9 +56,10 @@ foreach ($articles as $item) {
 				}
 				?>
             </div>
+            <hr class="cm-delimiter cm-content-categories-delimiter">
 			<div class="item-related-categories-container"><?php echo $related_categories;?></div>
+            <hr class="cm-delimiter cm-categories-articles-delimiter">
             <div class="item-related-articles-container"><?php echo $related_articles; ?></div>
-
 		</div>
 	</div>
 </div>

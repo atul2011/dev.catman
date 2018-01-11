@@ -19,6 +19,7 @@ $news->text != '' ? $news_content = $news->text : $news_content = $this->Current
 			<?php echo $news_title;?>
 		</h3>
 	</div>
+    <hr class="cm-delimiter cm-header-content-delimiter">
 	<div class="item-content">
 		<div class="item-content-container">
 			<?php echo $news_content?>
