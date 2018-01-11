@@ -105,9 +105,6 @@ use ViewModels\Admin\Article\CreateView;
             </div>
         </div>
         <div class="quark-presence-container presence-block" id="content-container">
-            <div class="title"><p>Tags</p>
-                <input type="text" placeholder="Tags, divided by [,]" class="large_text_field quark-input" name="tag_list" id="item-tags">
-            </div>
             <div class="quark-presence-container presence-block" id="content-container">
                 <input id="form-item-content" name="txtfield" type="hidden">
                 <div class="title"><p>Content</p>

@@ -21,7 +21,9 @@ foreach ($categories as $category) {
         <h3 class="main-headline item-main-headline" id="content-title">
             <?php echo $article->title;?>
         </h3>
-    </div><div class="item-content">
+    </div>
+    <hr class="cm-delimiter cm-header-content-delimiter">
+    <div class="item-content">
         <div class="item-content-container">
             <div class="item-related-content">
 	            <?php echo $article->txtfield;?>

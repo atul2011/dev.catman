@@ -177,15 +177,14 @@ foreach ($news as $item){
 
 <header>
 
-	<div class="container">
-		<div class="row">
+	<div class="container" id="top-bar">
+		<div class="row top-bar-list-container">
 			<div class="col-lg-9 col-md-9" id="nav-bar-menu">
 				<ul class="top_mnu" id="nav-bar-menu-list">
 					<li><a href="/" class="home"><img src="/static/resources/img/home.png" alt=""></a></li>
 					<?php foreach ($top_list as $item) echo $item;?>
 				</ul>
 			</div>
-
 			<div class="col-lg-3 col-md-3" id="nav-bar-search">
 				<div class="span12">
 					<form action="http://www.google.ru/search" id="custom-search-form" class="form-search form-horizontal">

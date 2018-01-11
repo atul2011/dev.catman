@@ -814,7 +814,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .top_mnu li a, h1 { font-family: Comfortaa, cursive; color: #fff }
 
-#custom-search-form button { border: 0; background: url(/static/resources/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-top: 2px; right: 13px; top: 2px; margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
+#custom-search-form button { border: 0; background: url(/static/resources/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-top: 2px; right: -5px; top: 1px; margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
 
 .search-query:focus + button { z-index: 3 }
 
@@ -822,7 +822,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .top_mnu li a { padding: 0 5px; font-size: 13px; font-weight: 700; letter-spacing: .5px }
 
-header { height: 30px; background: #402867; background: -webkit-gradient(left top, left bottom, color-stop(6%, #402867), color-stop(16%, #402867), color-stop(49%, #4a2a4f), color-stop(100%, #703f6a)); background: -webkit-linear-gradient(top, #402867 6%, #402867 16%, #4a2a4f 49%, #703f6a 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(6%, #402867), color-stop(16%, #402867), color-stop(49%, #4a2a4f), to(#703f6a)); background: linear-gradient(to bottom, #402867 6%, #402867 16%, #4a2a4f 49%, #703f6a 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#402867', endColorstr='#703f6a', GradientType=0) }
+header { height: 31px; background: #402867; background: -webkit-gradient(left top, left bottom, color-stop(6%, #402867), color-stop(16%, #402867), color-stop(49%, #4a2a4f), color-stop(100%, #703f6a)); background: -webkit-linear-gradient(top, #402867 6%, #402867 16%, #4a2a4f 49%, #703f6a 100%); background: -webkit-gradient(linear, left top, left bottom, color-stop(6%, #402867), color-stop(16%, #402867), color-stop(49%, #4a2a4f), to(#703f6a)); background: linear-gradient(to bottom, #402867 6%, #402867 16%, #4a2a4f 49%, #703f6a 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#402867', endColorstr='#703f6a', GradientType=0) }
 
 h1 { font-size: 48px; font-weight: 700 }
 

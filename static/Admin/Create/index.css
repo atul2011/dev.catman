@@ -120,6 +120,7 @@ input[type="text"]::placeholder {
 .cm-button-tag:hover {
     filter: brightness(110%);
 }
+
 .cm-button-photo {
     padding: 0;
     border: none;
