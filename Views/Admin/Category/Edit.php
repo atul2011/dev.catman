@@ -77,6 +77,14 @@ use ViewModels\Admin\Category\CreateView;
 						<input type="text" placeholder="Type" class="quark-input text_field" name="keywords" id="item-keywords" value="<?php echo $category->keywords; ?>"/>
 					</div>
 				</div>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Specialization</p>
+                        <select name="specialization" class="quark-input text_field">
+                            <option value="<?php echo Category::SPECIALIZATION_SITE;?>" <?php if ($category->specialization == Category::SPECIALIZATION_SITE) echo 'selected';?>>Site</option>
+                            <option value="<?php echo Category::SPECIALIZATION_MOBILE;?>" <?php if ($category->specialization == Category::SPECIALIZATION_MOBILE) echo 'selected';?>>Mobile</option>
+                        </select>
+                    </div>
+                </div>
 			</div>
 		</div>
 		<div class="quark-presence-container presence-block main" id="content-container">

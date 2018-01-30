@@ -23,6 +23,8 @@ $top_categories = Category::TopMenuSubCategories();
 $top_list = array();
 
 foreach ($top_categories as $item) {
+    if ($item->specialization == Category::SPECIALIZATION_MOBILE) continue;
+
 	$top_list[] = '<li><a href="/category/' . $item->id . '">' . $item->short_title . '</a></li>';
 }
 /**
@@ -44,9 +46,10 @@ $main_category = Category::MainMenuCategory();
 $main_categories = Category::MainMenuSubCategories();
 $main_list = array();
 
-foreach ($main_categories as $item)
-	    $main_list[] = '<li><a href="/category/'.$item->id.'">'.$item->short_title . '</a></li>';
-
+foreach ($main_categories as $item) {
+	if ($item->specialization == Category::SPECIALIZATION_MOBILE) continue;
+	$main_list[] = '<li><a href="/category/' . $item->id . '">' . $item->short_title . '</a></li>';
+}
 /**
  * @var QuarkCollection|Article[] $main_articles
  */
@@ -71,9 +74,11 @@ $bottom_list = '';
 $iterator = 1;
 $bottom_items = array();
 
-foreach ($bottom_categories as $item)
-    $bottom_items[] = $item;
-
+foreach ($bottom_categories as $item) {
+	if ($item->specialization == Category::SPECIALIZATION_MOBILE) continue;
+	
+	$bottom_items[] = $item;
+}
 foreach ($bottom_articles as $item)
     $bottom_items[] = $item;
 
