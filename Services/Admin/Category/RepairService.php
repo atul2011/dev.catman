@@ -15,8 +15,8 @@ use Services\Admin\Behaviors\AuthorizationBehavior;
  * Class SstService
  *
  * @package Services\Admin\Category
- *//*SstService => SetShortTitleService*/
-class SstService implements /*IQuarkGetService,*/ IQuarkAuthorizableServiceWithAuthentication {
+ */
+class RepairService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication {
 	use AuthorizationBehavior;
 
 	/**
@@ -32,7 +32,8 @@ class SstService implements /*IQuarkGetService,*/ IQuarkAuthorizableServiceWithA
 		$categories = QuarkModel::Find(new Category());
 
 		foreach ($categories as $category) {
-			$category->short_title = $category->title;
+//			$category->short_title = $category->title;
+			$category->specialization = Category::SPECIALIZATION_SITE;
 
 			if (!$category->Save())
 				Quark::Log('Cannot save category:' . $category->id);

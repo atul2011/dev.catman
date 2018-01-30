@@ -9,9 +9,7 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\IQuarkStrongModelWithRuntimeFields;
-use Quark\Quark;
 use Quark\QuarkCollection;
-use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
 
@@ -28,6 +26,7 @@ use Quark\QuarkModelBehavior;
  * @property string $description
  * @property string $role
  * @property string $short_title
+ * @property string $specialization
  *
  * @property int $runtime_priority
  * @property int $runtime_category
@@ -40,14 +39,16 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     const TYPE_CATEGORY = 'F';
     const TYPE_SUBCATEGORY = 'T';
     const TYPE_ARCHIVE = 'A';
+	const TYPE_SYSTEM_ROOT_CATEGORY = 'root-category';
+	const TYPE_SYSTEM_TOP_MENU_CATEGORY = 'top-menu';
+	const TYPE_SYSTEM_MAIN_MENU_CATEGORY = 'main-menu';
+	const TYPE_SYSTEM_BOTTOM_MENU_CATEGORY = 'bottom-menu';
 
     const ROLE_SYSTEM = 'system';
     const ROLE_CUSTOM = 'custom';
 
-    const TYPE_SYSTEM_ROOT_CATEGORY = 'root-category';
-    const TYPE_SYSTEM_TOP_MENU_CATEGORY = 'top-menu';
-    const TYPE_SYSTEM_MAIN_MENU_CATEGORY = 'main-menu';
-    const TYPE_SYSTEM_BOTTOM_MENU_CATEGORY = 'bottom-menu';
+    const SPECIALIZATION_SITE = 'site';
+    const SPECIALIZATION_MOBILE = 'mobile';
 
     /**
      * @return mixed
@@ -63,6 +64,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords' => '',
             'description' => '',
             'role' => self::ROLE_CUSTOM,
+            'specialization' => self::SPECIALIZATION_SITE,
             'short_title' => ''
         );
     }
@@ -131,6 +133,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords',
             'description',
             'role',
+            'specialization',
             'short_title'
         );
     }

@@ -32,6 +32,14 @@ use ViewModels\Admin\Category\CreateView;
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Specialization</p>
+                        <select name="sub" class="quark-input text_field">
+                            <option value="<?php echo Category::SPECIALIZATION_SITE;?>">Site</option>
+                            <option value="<?php echo Category::SPECIALIZATION_MOBILE;?>">Mobile</option>
+                        </select>
+                    </div>
+                </div>
+                <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Type</p>
                         <select name="sub" class="quark-input text_field">
                             <option value="<?php echo Category::TYPE_CATEGORY;?>">Category</option>
