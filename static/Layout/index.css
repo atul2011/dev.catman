@@ -39,7 +39,9 @@ body {
 .item-related-content {
     margin-bottom: 15px;
 }
-
+.item-related-content{
+    font-size: 14px !important;
+}
 .cm-delimiter {
     border-top: 1px solid rgba(81, 38, 60, .54);
     margin: 5px 0;
