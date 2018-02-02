@@ -39,6 +39,10 @@ body {
 .item-related-content {
     margin-bottom: 15px;
 }
+.item-related-content p{
+    text-align: justify !important;
+    text-justify: inter-word !important;
+}
 .item-related-content{
     font-size: 14px !important;
 }
