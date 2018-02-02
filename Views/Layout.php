@@ -76,7 +76,7 @@ $bottom_items = array();
 
 foreach ($bottom_categories as $item) {
 	if ($item->specialization == Category::SPECIALIZATION_MOBILE) continue;
-	
+
 	$bottom_items[] = $item;
 }
 foreach ($bottom_articles as $item)
@@ -176,12 +176,8 @@ foreach ($news as $item){
         ?>
     </title>
 </head>
-
 <body>
-
-
 <header>
-
 	<div class="container" id="top-bar">
 		<div class="row top-bar-list-container">
 			<div class="col-lg-9 col-md-9" id="nav-bar-menu">

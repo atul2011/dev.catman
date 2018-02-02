@@ -36,6 +36,8 @@ $(document).ready(function () {
     if (related_articles[0] !== undefined)
         if (related_articles.html().trim().length === 0 )
             $('.cm-categories-articles-delimiter').hide();
+
+    $('.item-related-content a').removeAttr('target');
 });
 
 $(document).on('click', '.dropdown-item', function () {
