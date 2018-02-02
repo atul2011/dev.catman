@@ -71,11 +71,16 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			if ($processed != '')
 				$category->intro = $processed;
 //VIII Parser
-			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
+			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $category->intro);
 
 			if ($processed != '')
 				$category->intro = $processed;
 //IX Parser
+			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
+
+			if ($processed != '')
+				$category->intro = $processed;
+//X Parser
 			$processed = preg_replace('#\\\\\"#Uis', '"', $category->title);
 
 			if ($processed != '')

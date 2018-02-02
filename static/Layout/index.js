@@ -7,6 +7,7 @@ $(document).ready(function () {
     var related_articles = $('.item-related-articles-container');
     var related_content = $('.item-content-container');
     var related_photos = $('.item-related-photo-container');
+    var related_links = $('.item-related-content a');
 
     side_menu_list.slice(side_menu_list.index($('.list-delimiter')) + 1, side_menu_list.length).css('font-weight', 'bold');
 
@@ -37,7 +38,7 @@ $(document).ready(function () {
         if (related_articles.html().trim().length === 0 )
             $('.cm-categories-articles-delimiter').hide();
 
-    $('.item-related-content a').removeAttr('target');
+    related_links.removeAttr('target');
 });
 
 $(document).on('click', '.dropdown-item', function () {
