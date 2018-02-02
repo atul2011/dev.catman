@@ -88,6 +88,11 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 			if ($processed != '')
 				$article->txtfield = $processed;
 //IX Parser
+			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $article->txtfield);
+
+			if ($processed != '')
+				$article->txtfield = $processed;
+//X Parser
 			$processed = preg_replace('#\\\\\"#Uis', '"', $article->title);
 
 			if ($processed != '')
