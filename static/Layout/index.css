@@ -39,16 +39,15 @@ body {
 .item-related-content {
     margin-bottom: 15px;
 }
-.item-related-content p{
+.item-related-content p, .item-related-content li{
     text-align: justify !important;
-    text-justify: inter-word !important;
 }
 .item-related-content{
     font-size: 14px !important;
 }
-.item-related-content .ql-align-right {
-    text-align: right;
-}
+/*.item-related-content .ql-align-right {*/
+    /*text-align: right !important;*/
+/*}*/
 .cm-delimiter {
     border-top: 1px solid rgba(81, 38, 60, .54);
     margin: 5px 0;
