@@ -41,6 +41,7 @@ body {
 }
 .item-related-content p, .item-related-content li{
     text-align: justify !important;
+    color: rgb(0,0,0) !important;
 }
 .item-related-content{
     font-size: 14px !important;
