@@ -9,17 +9,6 @@ use ViewModels\Admin\User\ListView;
  * @var QuarkModel|User $users
  * @var int $number
  */
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete item',
-	                     'You are about to delete the item. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The item was deleted',
-	                     'An error occurred. Failed to delete the item',
-	                     'Remove',
-	                     'Close'
-                     ));
 ?>
 <h1 class="page-title">User List</h1>
 <h5 class="page-title">Navigate through users</h5>
@@ -87,3 +76,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 		</div>
 	</div>
 </div>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete item',
+	'You are about to delete the item. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The item was deleted',
+	'An error occurred. Failed to delete the item',
+	'Remove',
+	'Close'
+));
+?>

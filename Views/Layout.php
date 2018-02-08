@@ -1,6 +1,7 @@
 <?php
 use Models\Article;
 use Models\Category;
+use Models\Link;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
@@ -34,6 +35,8 @@ $top_articles = $top_category->Articles();
 
 foreach ($top_articles as $item)
 	$top_list[] = '<li><a href="/article/' . $item->id.'">'. $item->short_title . '</a></li>';
+
+$top_list[] = '<li><a href="/user/contact">Написать нам</a></li>';
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------main categories---------------------------------------------------------
@@ -264,18 +267,21 @@ foreach ($news as $item){
 					<div class="block-center__right js-equal-height related-items-container">
                         <div id="related-websites-container">
                             <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
-                            <a href="#" class="related-websites bg-yellow">
-                                <h4>ASK REAL JESUS</h4>
-                                <span href="#">askrealjesus.com</span>
-                            </a>
-                            <a href="#" class="related-websites bg-red">
-                                <h4>ASK REAL JESUS</h4>
-                                <span href="#">askrealjesus.com</span>
-                            </a>
-                            <a href="#" class="related-websites bg-blue">
-                                <h4>ASK REAL JESUS</h4>
-                                <span href="#">askrealjesus.com</span>
-                            </a>
+                            <?php
+                            $iterator = 1;
+                            foreach (QuarkModel::Find(new Link()) as $link) {
+                                /**
+                                 * @var QuarkModel|Link $link
+                                 */
+                                echo
+                                '<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($iterator) ,'">' ,
+                                    '<h4>' , $link->title ,'</h4>' ,
+                                    '<span href="' , $link->link ,'#">' , $link->link , '</span>' ,
+                                '</a>';
+
+                                $iterator++;
+                            }
+                            ?>
                         </div>
 						<div class="news-right" id="news-container">
                             <?php

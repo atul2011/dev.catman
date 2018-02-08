@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $(document).on("submit", '#item-form', function (e) {
-        $('#form-item-content').val($('#content-container .ql-editor').html());
+        $('#form-item-content').val($('#editor-container .ql-editor').html());
     });
 
     var quill_editor = new Quill('#editor-container', {//quill

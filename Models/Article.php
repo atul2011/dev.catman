@@ -50,6 +50,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
     const TYPE_QUESTION = 'Q';
     const TYPE_EXCERPT = 'E';
     const TYPE_MESSAGE = 'M';
+    const TYPE_SYSTEM = 'S';
+
+    const KEYWORDS_CONTACT_US = 'contact_us';
 
     /**
      * @return mixed
@@ -96,7 +99,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      */
     public function Rules() {
 	    return array(
-		    $this->LocalizedAssert(in_array($this->type, array(self::TYPE_ARTICLE, self::TYPE_ROSARY, self::TYPE_DECREE, self::TYPE_QUESTION, self::TYPE_EXCERPT, self::TYPE_MESSAGE)), 'Catman.Validation.Article.UnsupportedType', 'type')
+		    $this->LocalizedAssert(in_array($this->type, array(self::TYPE_ARTICLE, self::TYPE_ROSARY, self::TYPE_DECREE, self::TYPE_QUESTION, self::TYPE_EXCERPT, self::TYPE_MESSAGE, self::TYPE_SYSTEM)), 'Catman.Validation.Article.UnsupportedType', 'type')
 	    );
     }
 
