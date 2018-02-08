@@ -7,17 +7,6 @@ use ViewModels\Admin\Category\ListView;
  * @var QuarkView|ListView $this
  * @var int $number
  */
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-    'item-remove',
-    'Delete category',
-    'You are about to delete the category. This action cannot be undone. Continue?',
-    'Please wait...',
-    'The category was deleted',
-    'An error occurred. Failed to delete the category',
-    'Remove',
-    'Close'
-));
 ?>
 <h1 class="page-title">Categories List</h1>
 <h5 class="page-title">Navigate through categories</h5>
@@ -85,3 +74,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
         </div>
     </div>
 </div>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete category',
+	'You are about to delete the category. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The category was deleted',
+	'An error occurred. Failed to delete the category',
+	'Remove',
+	'Close'
+));
+?>

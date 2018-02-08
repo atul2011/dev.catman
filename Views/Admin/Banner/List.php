@@ -7,17 +7,6 @@
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Banner\ListView;
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-    'item-remove',
-    'Delete banner',
-    'You are about to delete the banner. This action cannot be undone. Continue?',
-    'Please wait...',
-    'The banner was deleted',
-    'An error occurred. Failed to delete the banner',
-    'Remove',
-    'Close'
-));
 ?>
 <h1 class="page-title">Banner List</h1>
 <h5 class="page-title">Navigate through banners</h5>
@@ -81,3 +70,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 		</div>
 	</div>
 </div>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete banner',
+	'You are about to delete the banner. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The banner was deleted',
+	'An error occurred. Failed to delete the banner',
+	'Remove',
+	'Close'
+));
+?>

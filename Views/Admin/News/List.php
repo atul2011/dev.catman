@@ -6,17 +6,6 @@
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\News\ListView;
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-    'item-remove',
-    'Delete news',
-    'You are about to delete the news. This action cannot be undone. Continue?',
-    'Please wait...',
-    'The news was deleted',
-    'An error occurred. Failed to delete the news',
-    'Remove',
-    'Close'
-));
 ?>
 <h2 class="page-title">News List</h2>
 <h5 class="page-title">Navigate through news</h5>
@@ -83,3 +72,15 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 		</div>
 	</div>
 </div>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete news',
+	'You are about to delete the news. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The news was deleted',
+	'An error occurred. Failed to delete the news',
+	'Remove',
+	'Close'
+));
+?>

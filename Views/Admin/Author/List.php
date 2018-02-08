@@ -7,17 +7,6 @@ use ViewModels\Admin\Author\ListView;
  * @var QuarkView|ListView $this
  * @var int $number
  */
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-    'item-remove',
-    'Delete author',
-    'You are about to delete the author. This action cannot be undone. Continue?',
-    'Please wait...',
-    'The author was deleted',
-    'An error occurred. Failed to delete the author',
-    'Remove',
-    'Close'
-));
 ?>
 <h1 class="page-title">Author List</h1>
 <h5 class="page-title">Navigate through authors</h5>
@@ -83,3 +72,16 @@ echo $this->Fragment(new QuarkViewDialogFragment(
         </div>
     </div>
 </div>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete author',
+	'You are about to delete the author. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The author was deleted',
+	'An error occurred. Failed to delete the author',
+	'Remove',
+	'Close'
+));
+
+?>

@@ -7,17 +7,6 @@
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Event\ListView;
-
-echo $this->Fragment(new QuarkViewDialogFragment(
-	                     'item-remove',
-	                     'Delete event',
-	                     'You are about to delete the event. This action cannot be undone. Continue?',
-	                     'Please wait...',
-	                     'The event was deleted',
-	                     'An error occurred. Failed to delete the event',
-	                     'Remove',
-	                     'Close'
-                     ));
 ?>
 <h1 class="page-title">Event List</h1>
 <h5 class="page-title">Navigate through events</h5>
@@ -81,4 +70,16 @@ echo $this->Fragment(new QuarkViewDialogFragment(
             </div>
         </div>
     </div>
-</div>
+
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete event',
+	'You are about to delete the event. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The event was deleted',
+	'An error occurred. Failed to delete the event',
+	'Remove',
+	'Close'
+));
+?>
