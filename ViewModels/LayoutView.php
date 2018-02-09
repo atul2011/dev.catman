@@ -99,7 +99,7 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 	 * @return string
 	 */
 	public function GetColor($position) {
-		$colors = array('bg-blue', 'bg-yellow', 'bg-red');
+		$colors = array('bg-yellow', 'bg-red', 'bg-blue');
 
 		return $colors[$position % sizeof($colors)];
 	}

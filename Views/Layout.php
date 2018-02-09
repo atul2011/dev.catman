@@ -268,7 +268,7 @@ foreach ($news as $item){
                         <div id="related-websites-container">
                             <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
                             <?php
-                            $iterator = 1;
+                            $iterator = 0;
                             foreach (QuarkModel::Find(new Link()) as $link) {
                                 /**
                                  * @var QuarkModel|Link $link
