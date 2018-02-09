@@ -75,6 +75,9 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 		if ($category == null)
 			return array('status' => 404);
 
+		if ($category->available_on_api == false)
+			return array('status' => 404);
+
 		if ($category->sub == Category::TYPE_ARCHIVE) {
 			if ($request->URI()->Route(3) == '') {
 				return array(
@@ -134,7 +137,8 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 						'$or' => array(
 							array('type' => Article::TYPE_ARTICLE),
 							array('type' => Article::TYPE_MESSAGE),
-						)
+						),
+						'available_on_api' => true
 					);
 
 					return array(

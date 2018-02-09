@@ -35,6 +35,12 @@ class IndexService implements IQuarkGetService {
 				'title' => 'Status: 404'
 			));
 
+		if ($article->available_on_site == false)
+			return QuarkView::InLayout(new NotFoundView(), new LayoutView(), array(
+				'model'=> 'Article',
+				'title' => 'Status: 404'
+			));
+
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,
 			'title' => $article->title

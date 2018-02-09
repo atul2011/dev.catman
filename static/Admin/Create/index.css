@@ -132,9 +132,18 @@ input[type="text"]::placeholder {
     width: 200px;
     height: 200px;
 }
+
 .cm-form-related-photo {
     box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.15);
 }
+
 .cm-form-related-photo:hover {
     filter: brightness(110%);
+}
+
+.cm-form-checkbox {
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    display: inline-block;
+    margin: 5px 5px 0 5px;
 }

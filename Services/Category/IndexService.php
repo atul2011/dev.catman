@@ -40,6 +40,12 @@ class IndexService implements IQuarkGetService{
 				'title' => 'Status: 404'
 			));
 
+		if ($category->available_on_site != true)
+			return QuarkView::InLayout(new NotFoundView(),new LayoutView(), array(
+				'model'=> 'Category',
+				'title' => 'Status: 404'
+			));
+
 		if ($category->sub == Category::TYPE_ARCHIVE) {
 			if ($request->URI()->Route(2) != 'sort') {
 				return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
@@ -92,7 +98,8 @@ class IndexService implements IQuarkGetService{
 						'$or' => array(
 							array('type' => Article::TYPE_ARTICLE),
 							array('type' => Article::TYPE_MESSAGE),
-						)
+						),
+						'available_on_site' => true
 					);
 
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(

@@ -8,7 +8,6 @@ $(document).ready(function(){
         }
     });
 
-
     $(document).on("submit", '#item-form', function (e) {
         $('#form-item-content').val($('#editor-container .ql-editor').html());
     });
@@ -20,6 +19,11 @@ $(document).ready(function(){
         placeholder: 'Insert some text',
         theme: 'snow'
     });
+
+    var available_on_site = $('#cm-item-available_on_site');
+    var available_on_api = $('#cm-item-available_on_api');
+    available_on_site.prop('checked', available_on_site.val() == 1);
+    available_on_api.prop('checked', available_on_api.val() == 1);
 });
 
 $(document).on('click', '#cm-form-button-add-tag', function () {

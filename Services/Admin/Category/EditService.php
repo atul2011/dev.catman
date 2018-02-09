@@ -5,6 +5,7 @@ use Models\Category;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
+use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -59,8 +60,10 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 
 		if ($category === null)
 			return array('status' => 404);
-
 		$category->PopulateWith($request->Data());
+
+		$category->available_on_site = !isset($request->available_on_site) ? false : true;
+		$category->available_on_api = !isset($request->available_on_api) ? false : true;
 
 		if (!$category->Save())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
