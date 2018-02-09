@@ -35,6 +35,8 @@ use Quark\QuarkModelBehavior;
  * @property QuarkLazyLink|Author  $author_id
  * @property QuarkLazyLink|Event   $event_id
  * @property string $short_title
+ * @property bool $available_on_site
+ * @property bool $available_on_api
  *
  * @property int $runtime_priority
  * @property int $runtime_category
@@ -73,7 +75,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'description' => '',
 			'author_id' => $this->LazyLink(new Author(), 0),
 			'event_id' => $this->LazyLink(new Event(), 0),
-			'short_title' => ''
+			'short_title' => '',
+            'available_on_site' => true,
+            'available_on_api' => false
         );
     }
 

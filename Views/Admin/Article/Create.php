@@ -102,6 +102,12 @@ use ViewModels\Admin\Article\CreateView;
                         <input placeholder="Description" type="text" class="quark-input text_field" name="description" id="item-description">
                     </div>
                 </div>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="title"><p>Specialization</p>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="available_on_site" id="cm-item-available_on_site">On Site</div>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="available_on_api" id="cm-item-available_on_api">On Api</div>
+                    </div>
+                </div>
             </div>
         </div>
         <div class="quark-presence-container presence-block" id="content-container">

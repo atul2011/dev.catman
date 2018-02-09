@@ -33,10 +33,8 @@ use ViewModels\Admin\Category\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Specialization</p>
-                        <select name="sub" class="quark-input text_field">
-                            <option value="<?php echo Category::SPECIALIZATION_SITE;?>">Site</option>
-                            <option value="<?php echo Category::SPECIALIZATION_MOBILE;?>">Mobile</option>
-                        </select>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="available_on_site" id="cm-item-available_on_site">On Site</div>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="available_on_api" id="cm-item-available_on_api">On Api</div>
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">

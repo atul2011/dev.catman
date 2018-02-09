@@ -26,7 +26,8 @@ use Quark\QuarkModelBehavior;
  * @property string $description
  * @property string $role
  * @property string $short_title
- * @property string $specialization
+ * @property bool $available_on_site
+ * @property bool $available_on_api
  *
  * @property int $runtime_priority
  * @property int $runtime_category
@@ -64,7 +65,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords' => '',
             'description' => '',
             'role' => self::ROLE_CUSTOM,
-            'specialization' => self::SPECIALIZATION_SITE,
+            'available_on_site' => true,
+            'available_on_api' => false,
             'short_title' => ''
         );
     }
@@ -133,7 +135,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords',
             'description',
             'role',
-            'specialization',
             'short_title'
         );
     }
@@ -157,10 +158,11 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     /**
      * @param int $limit
      * @param int $offset
+     * @param string $target
      *
      * @return QuarkCollection|Category[]
      */
-    public function ChildCategories($limit = 10, $offset = 0){
+    public function ChildCategories($limit = 10, $offset = 0, $target = 'site'){
         $options = array();
 
         if ($limit != 0) {
@@ -184,6 +186,13 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		    $category = $link->child_id1->Retrieve();
 		    $category->SetRuntimePriority(new QuarkModel($this));
 
+		    if ($target == 'site') {
+		        if ($category->available_on_site != true)
+		            continue;
+		    } elseif ($target == 'api')
+		        if ($category->available_on_api != true)
+		            continue;
+
 		    $out[] = $category;
 	    }
 
@@ -193,10 +202,11 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     /**
      * @param int $limit
      * @param int $offset
+     * @param string $target
      *
      * @return QuarkCollection|Category[]
      */
-    public function ParentCategories($limit = 10, $offset = 0){
+    public function ParentCategories($limit = 10, $offset = 0, $target = 'site'){
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
@@ -207,9 +217,22 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 
         $out = new QuarkCollection(new Category());
 
-        foreach ($links as $item)
-            $out[] = $item->parent_id->Retrieve();
+        foreach ($links as $item) {
+	        /**
+	         * @var QuarkModel|Category $category
+	         */
+	        $category = $item->parent_id->Retrieve();
 
+
+	        if ($target == 'site') {
+		        if ($category->available_on_site != true)
+			        continue;
+	        } elseif ($target == 'api')
+		        if ($category->available_on_api != true)
+			        continue;
+
+	        $out[] = $category;
+        }
         return $out;
     }
 

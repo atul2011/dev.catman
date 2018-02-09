@@ -71,6 +71,9 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 
 		$article->event_id = $event->id;
 
+		$article->available_on_site = !isset($request->available_on_site) ? false : true;
+		$article->available_on_api = !isset($request->available_on_api) ? false : true;
+
 		if (!$article->Validate())
 			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
 
