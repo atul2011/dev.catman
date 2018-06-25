@@ -21,7 +21,7 @@ use Quark\QuarkModelBehavior;
  * @property string $type
  * @property string $keywords
  *
- * @package AllModels\Content
+ * @package Models
  */
 class Author implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkModelWithDataProvider, IQuarkModelWithCustomCollectionName, IQuarkLinkedModel, IQuarkNullableModel {
 	use QuarkModelBehavior;

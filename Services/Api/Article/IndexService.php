@@ -72,7 +72,10 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 			return array('status' => 404);
 
 		if ($article->available_on_api == false)
-			return array('status' => 400);
+			return array(
+				'status' => 200,
+				'article' => null
+			);
 
 		return array(
 			'status' => 200,

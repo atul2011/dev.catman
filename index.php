@@ -20,6 +20,4 @@ $config->Localization(__DIR__.'/runtime/localization.ini');
 
 $config->Extension(CM_MAIL, new MailConfig(new GoogleMail()));
 
-$config->Alloc(50);
-
 Quark::Run($config);
