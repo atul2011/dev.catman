@@ -76,7 +76,10 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 			return array('status' => 404);
 
 		if ($category->available_on_api == false)
-			return array('status' => 404);
+			return array(
+				'status' => 200,
+				'category' => null
+			);
 
 		if ($category->sub == Category::TYPE_ARCHIVE) {
 			if ($request->URI()->Route(3) == '') {
@@ -109,6 +112,7 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 
 					elseif ($sort_field == 'release_date') {
 						$year = 2003;
+
 						while ($year <= 2017) {
 							$out[] = $year;
 							++$year;

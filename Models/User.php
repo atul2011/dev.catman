@@ -23,7 +23,7 @@ use Quark\QuarkModel;
  * @property string $email
  * @property string $rights
  *
- * @package AllModels\Admin
+ * @package Models
  */
 class User implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithCustomCollectionName, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkModelWithDataProvider, IQuarkAuthorizableModel, IQuarkModelWithDefaultExtract,IQuarkLinkedModel {
 	const RIGHTS_ADMIN = 'A';

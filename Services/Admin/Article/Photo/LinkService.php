@@ -30,7 +30,6 @@ class LinkService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 	 * @return mixed
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
-		Quark::Trace($request->Data());
 		/**
 		 * @var QuarkModel|Article $article
 		 */

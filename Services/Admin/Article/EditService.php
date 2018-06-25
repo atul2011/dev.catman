@@ -98,7 +98,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 			));
 
 		$article->event_id = $event->id;
-		$article->author_id = $author->id;
+		
 		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->publish_date);
 		$article->release_date = QuarkDate::FromFormat('Y-m-d', $request->Data()->release_date);
 
