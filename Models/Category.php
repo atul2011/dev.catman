@@ -411,10 +411,25 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$master = null;
 
 		foreach ($parents as $parent)
-			if ($parent->master)
+			if ($parent->master) {
 				$master = $parent;
+				break;
+			}
 
-		Quark::Trace($master);
+		if ($master == null) {
+			foreach ($parents as $category) {
+				/**
+				 * @var QuarkCollection|Category[] $parent_categories
+				 */
+				$parent_categories = $category->ParentCategories();
+
+				foreach ($parent_categories as $parent_category)
+					if ($parent_category->master) {
+						$master = $parent_category;
+						break;
+					}
+			}
+		}
 
 		return $master;
 	}
