@@ -87,6 +87,7 @@ body {
 #main-links-container {
 
 }
+
 #main-links-container .related-items-container {
     background-color: rgba(220,220,220,.5);
     margin: 0;
@@ -100,5 +101,6 @@ body {
     font-size: 14px;
     font-weight: 700;
     padding:15px 0 15px 24px;
+    text-transform: uppercase;
     word-wrap: break-word;
 }
