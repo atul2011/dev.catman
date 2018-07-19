@@ -9,6 +9,7 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\IQuarkStrongModelWithRuntimeFields;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
@@ -28,6 +29,7 @@ use Quark\QuarkModelBehavior;
  * @property string $short_title
  * @property bool $available_on_site
  * @property bool $available_on_api
+ * @property bool $master
  *
  * @property int $runtime_priority
  * @property int $runtime_category
@@ -65,6 +67,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords' => '',
             'description' => '',
             'role' => self::ROLE_CUSTOM,
+            'master' => false,
             'available_on_site' => true,
             'available_on_api' => false,
             'short_title' => ''
@@ -135,7 +138,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords',
             'description',
             'role',
-            'short_title'
+            'short_title',
+            'master'
         );
     }
 
@@ -206,14 +210,18 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      *
      * @return QuarkCollection|Category[]
      */
-    public function ParentCategories($limit = 10, $offset = 0, $target = 'site'){
+    public function ParentCategories($limit = 10, $offset = 0, $target = 'site') {
+	    $options = array();
+
+	    if ($limit != 0) {
+		    $options[QuarkModel::OPTION_LIMIT] = $limit;
+		    $options[QuarkModel::OPTION_SKIP] = $offset;
+	    }
+
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(), array('child_id1' => $this->id), array(
-            QuarkModel::OPTION_LIMIT => $limit,
-            QuarkModel::OPTION_SKIP => $offset
-        ));
+        $links = QuarkModel::Find(new Categories_has_Categories(), array('child_id1' => $this->id), $options);
 
         $out = new QuarkCollection(new Category());
 
@@ -222,7 +230,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	         * @var QuarkModel|Category $category
 	         */
 	        $category = $item->parent_id->Retrieve();
-
 
 	        if ($target == 'site') {
 		        if ($category->available_on_site != true)
@@ -243,12 +250,12 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return QuarkCollection|Article[]
      */
     public function Articles($limit = 10, $offset = 0, $sort_field = 'title') {
-		$options = array(QuarkModel::OPTION_SKIP => $offset);
+	    $options = array();
 
-		if ($limit == 0)
-			$options[QuarkModel::OPTION_LIMIT] = QuarkModel::Count(new Article());
-		else
-			$options[QuarkModel::OPTION_LIMIT] = $limit;
+	    if ($limit != 0) {
+		    $options[QuarkModel::OPTION_LIMIT] = $limit;
+		    $options[QuarkModel::OPTION_SKIP] = $offset;
+	    }
 
 	    /**
 	     * @var QuarkCollection|Articles_has_Categories[] $links
@@ -390,5 +397,52 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$this->runtime_category = $category->id;
 
 		return true;
+	}
+
+	/**
+	 * @return QuarkModel|Category $parent
+	 */
+	public function GetMasterCategory () {
+		/**
+		 * @var QuarkCollection|Category[] $parents
+		 * @var QuarkModel|Category $master
+		 */
+		$parents = $this->ParentCategories();
+		$master = null;
+
+		foreach ($parents as $parent)
+			if ($parent->master) {
+				$master = $parent;
+				break;
+			}
+
+		if ($master == null) {
+			foreach ($parents as $category) {
+				/**
+				 * @var QuarkCollection|Category[] $parent_categories
+				 */
+				$parent_categories = $category->ParentCategories();
+
+				foreach ($parent_categories as $parent_category)
+					if ($parent_category->master) {
+						$master = $parent_category;
+						break;
+					}
+			}
+		}
+
+		return $master;
+	}
+
+	public function GetMasterCategoryChilds () {
+		/**
+		 * @var QuarkModel|Category $master
+		 */
+		$master = $this->master ? $this : $this->GetMasterCategory();
+
+		if ($master == null)
+			return new QuarkCollection(new Category());
+
+		return $master->ChildCategories(0);
 	}
 }

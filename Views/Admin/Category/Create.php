@@ -13,12 +13,12 @@ use ViewModels\Admin\Category\CreateView;
     <div class="quark-presence-column content-column left">
         <div class="quark-presence-container content-container  main">
             <div class="quark-presence-column left" id="main_div">
-                <div class="quark-presence-container presence-block  middle">
+                <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Title</p>
                         <input placeholder="Title" type="text" class="quark-input text_field" name="title" id="item-title"/>
                     </div>
                 </div>
-                <div class="quark-presence-container presence-block  middle">
+                <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Short Title</p>
                         <input placeholder="Short Title" type="text" class="quark-input text_field" name="short_title" id="item-short-title"/>
                     </div>
@@ -35,6 +35,7 @@ use ViewModels\Admin\Category\CreateView;
                     <div class="title"><p>Specialization</p>
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_site" id="cm-item-available_on_site">On Site</div>
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_api" id="cm-item-available_on_api">On Api</div>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="master"  id="cm-item-master">Master</div>
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block middle">

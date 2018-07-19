@@ -22,8 +22,11 @@ $(document).ready(function(){
 
     var available_on_site = $('#cm-item-available_on_site');
     var available_on_api = $('#cm-item-available_on_api');
+    var master = $('#cm-item-master');
+
     available_on_site.prop('checked', available_on_site.val() == 1);
     available_on_api.prop('checked', available_on_api.val() == 1);
+    master.prop('checked', master.val() == 1);
 });
 
 $(document).on('click', '#cm-form-button-add-tag', function () {

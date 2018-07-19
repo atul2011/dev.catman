@@ -86,7 +86,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 */
 	public function RuntimeFields () {
 		return array(
-			'runtime_priority' => null,
+			'runtime_priority' => 0,
 			'runtime_category' => null
 		);
 	}
@@ -168,24 +168,19 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         return (string)$this->id;
     }
     /**
-     * @param int $limit
-     * @param int $offset
-     *
      * @return QuarkCollection|Category[]
      */
-    public function Categories($limit = 10, $offset = 0){
+    public function Categories(){
+
         /**
          * @var QuarkCollection|Articles_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Articles_has_Categories(), array('article_id' => $this->id), array(
-            QuarkModel::OPTION_LIMIT => $limit,
-            QuarkModel::OPTION_SKIP => $offset
-        ));
+        $links = QuarkModel::Find(new Articles_has_Categories(), array('article_id' => $this->id));
 
         $out = new QuarkCollection(new Category());
 
         foreach ($links as $item)
-            $out[] = $item->category_id->value;
+            $out[] = $item->category_id->Retrieve();
 
         return $out;
     }
@@ -215,7 +210,6 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		 * @var QuarkCollection|Article_has_Photo[] $links
 		 */
 		$links = QuarkModel::Find(new Article_has_Photo(), array('article' => $this->id));
-
 		$photos = new QuarkCollection(new Photo());
 
 		foreach ($links as $item)
@@ -294,5 +288,53 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		$this->runtime_category = $category->id;
 
 		return true;
+	}
+
+	/**
+	 * @return QuarkModel|Category $parent
+	 */
+	public function GetMasterCategory () {
+		/**
+		 * @var QuarkCollection|Category[] $parents
+		 * @var QuarkModel|Category $master
+		 */
+		$parents = $this->Categories();
+
+		$master = null;
+
+		foreach ($parents as $parent)
+			if ($parent->master) {
+				$master = $parent;
+				break;
+			}
+
+		if ($master == null) {
+			foreach ($parents as $category) {
+				/**
+				 * @var QuarkCollection|Category[] $parent_categories
+				 */
+				$parent_categories = $category->ParentCategories();
+
+				foreach ($parent_categories as $parent_category)
+					if ($parent_category->master) {
+						$master = $parent_category;
+						break;
+					}
+			}
+		}
+
+		return $master;
+	}
+
+	public function GetMasterCategoryChilds () {
+		/**
+		 * @var QuarkModel|Category $master
+		 */
+		$master = $this->GetMasterCategory();
+
+		if ($master == null)
+			return new QuarkCollection(new Category());
+
+		return $master->ChildCategories(0);
 	}
 }

@@ -3,6 +3,7 @@ namespace Services\Article;
 
 use Models\Article;
 use Quark\IQuarkGetService;
+use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -40,6 +41,14 @@ class IndexService implements IQuarkGetService {
 				'model'=> 'Article',
 				'title' => 'Status: 404'
 			));
+
+		$content = str_replace('<p><br></p>', ' ', $article->txtfield);
+
+		if (strlen($content) > 0)
+			$article->txtfield = $content;
+
+		if (!$article->Save())
+			Quark::Log('Cannot save article ' . $article->id, Quark::LOG_FATAL);
 
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,

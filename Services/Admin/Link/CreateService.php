@@ -50,7 +50,7 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
 		$link = new QuarkModel(new Link(), $request->Data());
-		Quark::Trace($link);
+
 		if (!$link->Create())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
