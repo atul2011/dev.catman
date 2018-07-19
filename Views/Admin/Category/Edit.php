@@ -81,6 +81,7 @@ use ViewModels\Admin\Category\CreateView;
                     <div class="title"><p>Specialization</p>
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_site" id="cm-item-available_on_site" value="<?php echo $category->available_on_site;?>">On Site</div>
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_api" id="cm-item-available_on_api" value="<?php echo $category->available_on_api;?>">On Api</div>
+                        <div class="cm-form-checkbox"><input type="checkbox" name="master" id="cm-item-master" value="<?php echo $category->master;?>">Master</div>
                     </div>
                 </div>
 			</div>

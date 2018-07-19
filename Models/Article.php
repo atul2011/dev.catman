@@ -86,7 +86,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 */
 	public function RuntimeFields () {
 		return array(
-			'runtime_priority' => null,
+			'runtime_priority' => 0,
 			'runtime_category' => null
 		);
 	}
@@ -215,7 +215,6 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		 * @var QuarkCollection|Article_has_Photo[] $links
 		 */
 		$links = QuarkModel::Find(new Article_has_Photo(), array('article' => $this->id));
-
 		$photos = new QuarkCollection(new Photo());
 
 		foreach ($links as $item)

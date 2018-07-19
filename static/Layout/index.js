@@ -39,6 +39,7 @@ $(document).ready(function () {
             $('.cm-categories-articles-delimiter').hide();
 
     related_links.removeAttr('target');
+
 });
 
 $(document).on('click', '.dropdown-item', function () {

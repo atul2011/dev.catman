@@ -6,6 +6,7 @@
  */
 use Models\Article;
 use Models\Banner;
+use Models\Photo;
 use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
@@ -31,9 +32,19 @@ $banner = $random_banner[0];
 	</div>
 	<div class="item-content">
 		<div class="item-content-container">
-			<?php
-            echo $article->txtfield;
-			?>
+            <div class="item-related-content">
+				<?php echo $article->txtfield;?>
+            </div>
+            <div class="item-related-photo-container">
+				<?php
+				foreach ($article->Photos() as $photo) {
+					/**
+					 * @var QuarkModel|Photo $photo
+					 */
+					echo '<img src="' , $photo->file->WebLocation() , '" class="item-related-photo">';
+				}
+				?>
+            </div>
 		</div>
 	</div>
 </div>

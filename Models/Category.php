@@ -28,6 +28,7 @@ use Quark\QuarkModelBehavior;
  * @property string $short_title
  * @property bool $available_on_site
  * @property bool $available_on_api
+ * @property bool $master
  *
  * @property int $runtime_priority
  * @property int $runtime_category
@@ -65,6 +66,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords' => '',
             'description' => '',
             'role' => self::ROLE_CUSTOM,
+            'master' => false,
             'available_on_site' => true,
             'available_on_api' => false,
             'short_title' => ''
@@ -135,7 +137,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'keywords',
             'description',
             'role',
-            'short_title'
+            'short_title',
+            'master'
         );
     }
 
@@ -222,7 +225,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	         * @var QuarkModel|Category $category
 	         */
 	        $category = $item->parent_id->Retrieve();
-
 
 	        if ($target == 'site') {
 		        if ($category->available_on_site != true)
@@ -390,5 +392,32 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		$this->runtime_category = $category->id;
 
 		return true;
+	}
+
+	/**
+	 * @return QuarkModel|Category $parent
+	 */
+	public function GetMasterCategory () {
+		/**
+		 * @var QuarkCollection|Category[] $parents
+		 * @var QuarkModel|Category $master
+		 */
+		$parents = $this->ParentCategories();
+		$master = null;
+
+		foreach ($parents as $parent)
+			if ($parent->master)
+				$master = $parent;
+
+		return $master;
+	}
+
+	public function GetMasterCategoryChilds () {
+		/**
+		 * @var QuarkModel|Category $master
+		 */
+		$master = $this->master ? $this : $this->GetMasterCategory();
+
+		return $master->ChildCategories(0);
 	}
 }

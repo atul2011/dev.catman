@@ -6,6 +6,7 @@ use Models\Author;
 use Models\Category;
 use Models\Event;
 use Quark\IQuarkGetService;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -113,6 +114,14 @@ class IndexService implements IQuarkGetService{
 				}
 			}
 		}
+
+		$content = str_replace('<p><br></p>', ' ', $category->intro);
+
+		if (strlen($content) > 0)
+			$category->intro = $content;
+
+		if (!$category->Save())
+			Quark::Log('Cannot save category ' . $category->id, Quark::LOG_FATAL);
 
 		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'category' => $category,
