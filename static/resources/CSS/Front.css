@@ -849,7 +849,7 @@ section.content { background: url(/static/resources/img/top_img.png); }
 
 .dropdown-item:hover { background: #fff; }
 
-.item-main-headline { font-weight: 700; font-size: 24px; text-align: left; letter-spacing: 3px; }
+.item-main-headline { font-weight: 700; font-size: 24px; text-align: left; letter-spacing: 1px; }
 
 .town_wrap { border: 1px solid #dedede; width: 211px; height: 60px; padding: 5px 10px; margin: 10px 7px; -webkit-box-shadow: 0 2px 2px 0 rgba(201, 198, 198, .75); box-shadow: 0 2px 2px 0 rgba(201, 198, 198, .75); position: relative }
 

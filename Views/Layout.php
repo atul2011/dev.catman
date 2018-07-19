@@ -167,6 +167,16 @@ if (isset($category)) {
     foreach ($master_categories as $item)
         $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
 }
+
+if (isset($article)) {
+    /**
+     * @var QuarkCollection|Category[] $master_categories
+     */
+    $master_categories = $article->GetMasterCategoryChilds();
+
+    foreach ($master_categories as $item)
+        $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+}
 ?>
 <!DOCTYPE html>
 <html>

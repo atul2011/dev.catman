@@ -9,6 +9,7 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\IQuarkStrongModelWithRuntimeFields;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
@@ -209,14 +210,18 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      *
      * @return QuarkCollection|Category[]
      */
-    public function ParentCategories($limit = 10, $offset = 0, $target = 'site'){
+    public function ParentCategories($limit = 10, $offset = 0, $target = 'site') {
+	    $options = array();
+
+	    if ($limit != 0) {
+		    $options[QuarkModel::OPTION_LIMIT] = $limit;
+		    $options[QuarkModel::OPTION_SKIP] = $offset;
+	    }
+
         /**
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
-        $links = QuarkModel::Find(new Categories_has_Categories(), array('child_id1' => $this->id), array(
-            QuarkModel::OPTION_LIMIT => $limit,
-            QuarkModel::OPTION_SKIP => $offset
-        ));
+        $links = QuarkModel::Find(new Categories_has_Categories(), array('child_id1' => $this->id), $options);
 
         $out = new QuarkCollection(new Category());
 
@@ -245,12 +250,12 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return QuarkCollection|Article[]
      */
     public function Articles($limit = 10, $offset = 0, $sort_field = 'title') {
-		$options = array(QuarkModel::OPTION_SKIP => $offset);
+	    $options = array();
 
-		if ($limit == 0)
-			$options[QuarkModel::OPTION_LIMIT] = QuarkModel::Count(new Article());
-		else
-			$options[QuarkModel::OPTION_LIMIT] = $limit;
+	    if ($limit != 0) {
+		    $options[QuarkModel::OPTION_LIMIT] = $limit;
+		    $options[QuarkModel::OPTION_SKIP] = $offset;
+	    }
 
 	    /**
 	     * @var QuarkCollection|Articles_has_Categories[] $links
@@ -409,6 +414,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 			if ($parent->master)
 				$master = $parent;
 
+		Quark::Trace($master);
+
 		return $master;
 	}
 
@@ -417,6 +424,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		 * @var QuarkModel|Category $master
 		 */
 		$master = $this->master ? $this : $this->GetMasterCategory();
+
+		if ($master == null)
+			return new QuarkCollection(new Category());
 
 		return $master->ChildCategories(0);
 	}
