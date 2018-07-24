@@ -12,15 +12,15 @@ use ViewModels\Admin\Category\ListView;
 <h5 class="page-title">Navigate through categories</h5>
 <div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block">
-                <div class="quark-presence-column search-list">
-                    <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
-                </div>
-                <div class="quark-presence-column search-list">
-                    <select id="category-select" class="quark-input field-select"></select>
-                </div>
-                <div class="quark-presence-column search-list">
-                    <input type="text" class="quark-input search" name="category-search" placeholder="insert firsts letters of title wich you search">
-                </div>
+        <div class="quark-presence-column search-list">
+            <input type="checkbox" name="orfan" class="orfan" id="category-orfan">No parents
+        </div>
+        <div class="quark-presence-column search-list">
+            <select id="category-select" class="quark-input field-select"></select>
+        </div>
+        <div class="quark-presence-column search-list">
+            <input type="text" class="quark-input search" name="category-search" placeholder="insert firsts letters of title wich you search">
+        </div>
     </div>
     <div class="quark-presence-container presence-block main2 items-list" id="category-list">
         <div class="quark-presence-column" id="content-column">

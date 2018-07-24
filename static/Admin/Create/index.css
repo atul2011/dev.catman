@@ -147,3 +147,24 @@ input[type="text"]::placeholder {
     display: inline-block;
     margin: 5px 5px 0 5px;
 }
+
+.quark-button.cm-remove-button {
+    background-color: #d9534f;
+    border-color: #d43f3a;
+    border-radius: 4px;
+    color: #fff;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: 400;
+    padding: 10px 20px;
+    float: right;
+    text-align: center;
+    user-select: none;
+    white-space: nowrap;
+}
+
+.quark-button.cm-remove-button:hover {
+    color: #fff;
+    background-color: #c9302c;
+    border-color: #ac2925;
+}

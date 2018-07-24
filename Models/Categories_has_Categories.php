@@ -87,13 +87,13 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
      * @return QuarkModel|Category
      */
     public function Parent(){
-        return QuarkModel::FindOneById(new Category(),$this->parent_id->value);
+        return QuarkModel::FindOneById(new Category(), $this->parent_id->value);
     }
 
     /**
      * @return QuarkModel|Category
      */
     public function Child(){
-        return QuarkModel::FindOneById(new Category(),$this->child_id1->value);
+        return QuarkModel::FindOneById(new Category(), $this->child_id1->value);
     }
 }
