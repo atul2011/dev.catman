@@ -7,6 +7,7 @@ use Models\Tag;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Category\CreateView;
 
 /**
@@ -229,6 +230,20 @@ use ViewModels\Admin\Category\CreateView;
         <br />
 		<div class="quark-presence-container presence-block button-div">
 			<button class="quark-button block ok submit-button" type="submit">Update</button>
+
+            <a class="quark-button block  cm-remove-button item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/category/list/" href="/admin/category/relation/clear/<?php echo $category->id;?>">Delete All Relations</a>
 		</div>
 	</div>
 </form>
+<?php
+echo $this->Fragment(new QuarkViewDialogFragment(
+	'item-remove',
+	'Delete category relationships',
+	'You are about to delete the category relations with articles and categories. This action cannot be undone. Continue?',
+	'Please wait...',
+	'The links was deleted',
+	'An error occurred. Failed to delete the links',
+	'Remove',
+	'Close'
+));
+?>

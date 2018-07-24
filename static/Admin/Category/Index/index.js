@@ -27,6 +27,20 @@ $(document).ready(function(){
     available_on_site.prop('checked', available_on_site.val() == 1);
     available_on_api.prop('checked', available_on_api.val() == 1);
     master.prop('checked', master.val() == 1);
+
+
+    var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
+        success: function(trigger, dialog){
+            trigger.parents('.content-row').remove();
+
+            var redirect = trigger.attr('quark-redirect');
+
+            if (redirect)
+                setTimeout(function(){
+                    window.location.href = redirect
+                }, 1000);
+        }
+    });//remove dialog window
 });
 
 $(document).on('click', '#cm-form-button-add-tag', function () {
