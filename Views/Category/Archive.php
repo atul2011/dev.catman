@@ -13,14 +13,23 @@ use ViewModels\Category\IndexView;
  * @var array $sort_fields
  * @var array $sort_values
  * @var string $sort_field
+ * @var string $sort_field_title
  * @var QuarkView|IndexView $this
  * @var QuarkCollection|Article[] $articles
  */
 $related_items = '';
+$title = $category->title;
+
+if (isset($sort_field_title)) {
+    if ($sort_field == Category::ARCHIVE_SORT_DATE)
+        $title .= ', ' . $sort_field_title;
+    else
+        $title = $sort_field_title;
+}
 ?>
 <div class="block-center__left js-equal-height">
 	<div class="item-head">
-		<h3 class="main-headline item-main-headline"><?php echo $category->title;?></h3>
+		<h3 class="main-headline item-main-headline"><?php echo $title;?></h3>
 	</div>
     <hr class="cm-delimiter cm-header-content-delimiter">
 	<div class="item-content">
@@ -30,7 +39,6 @@ $related_items = '';
         <hr class="cm-delimiter cm-content-categories-delimiter">
         <div class="item-related-categories-container">
             <?php
-
             if (isset($sort_fields)) {
                 foreach ($sort_fields as $key => $value)
                     echo
@@ -41,10 +49,17 @@ $related_items = '';
                         '</div>';
             }
             if (isset($sort_values)) {
+	            if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
+		            echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.Author') .'</h4>';
+                elseif ($sort_field == Category::ARCHIVE_SORT_EVENT)
+	                echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.Event') .'</h4>';
+                elseif ($sort_field == Category::ARCHIVE_SORT_DATE)
+	                echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.RealeaseDate') .'</h4>';
+
                 foreach ($sort_values as $item) {
                     $item_text = '';
 
-                    if ($sort_field == 'author_id') {
+                    if ($sort_field == Category::ARCHIVE_SORT_AUTHOR) {
                         /**
                          * @var QuarkModel|Author $item
                          */
@@ -55,7 +70,7 @@ $related_items = '';
                                 '</b></a>' ,
                             '</div>';
                     }
-                    elseif ($sort_field == 'event_id') {
+                    elseif ($sort_field == Category::ARCHIVE_SORT_EVENT) {
                         /**
                          * @var QuarkModel|Event $item
                          */
@@ -66,7 +81,7 @@ $related_items = '';
                                 '</b></a>' ,
                             '</div>';
                     }
-                    elseif ($sort_field == 'release_date') {
+                    elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
                         echo
                             '<div class="item-related-categories">',
                                 '<a href="/category/', $category->id, '/sort/', $sort_field, '/', $item, '"><b>',
@@ -79,11 +94,11 @@ $related_items = '';
             }
             if (isset($articles)) {
                 if (sizeof($articles) == 0) {
-                    if ($sort_field == 'author_id')
+                    if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.Author.NoArticles');
-                    else if ($sort_field == 'event_id')
+                    else if ($sort_field == Category::ARCHIVE_SORT_EVENT)
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.Event.NoArticles');
-                    else if ($sort_field == 'release_date')
+                    else if ($sort_field == Category::ARCHIVE_SORT_DATE)
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.ReleaseDate.NoArticles');
                 } else
                     foreach ($articles as $article) {

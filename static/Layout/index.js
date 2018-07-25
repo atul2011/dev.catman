@@ -50,3 +50,11 @@ $(document).on('click', '.dropdown-item', function () {
     else
         sub_list.hide();
 });
+
+function SetMaxheight () {
+    var left_links = $('#main-links-container .related-items-container');
+    var content = $('#content-container');
+    var right_links = $('#additional-links-container .related-items-container');
+
+    var height = Math.max(left_links.height(), content.height(), right_links.height());
+}

@@ -53,6 +53,10 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     const SPECIALIZATION_SITE = 'site';
     const SPECIALIZATION_MOBILE = 'mobile';
 
+    const ARCHIVE_SORT_AUTHOR = 'author_id';
+    const ARCHIVE_SORT_EVENT = 'event_id';
+    const ARCHIVE_SORT_DATE = 'release_date';
+
     /**
      * @return mixed
      */
