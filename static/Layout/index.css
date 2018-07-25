@@ -40,6 +40,27 @@ body {
     width: auto;
 }
 
+p img {
+    float: right;
+    width: 50% !important;
+    margin: 0 0 20px 20px;
+}
+
+p.ql-align-right img {
+    float: right;
+    width: auto!important;
+}
+
+p.ql-align-center img {
+    float: none !important;
+    width: auto!important;
+}
+
+h1 img {
+    float: none !important;
+    width: auto!important;
+}
+
 .item-content, #content-container {
     min-height: 600px;
 }

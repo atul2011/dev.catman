@@ -56,20 +56,20 @@ class IndexService implements IQuarkGetService{
 				));
 			}
 			else {
-				if ($request->URI()->Route(4) == '') {
+				if (strlen($request->URI()->Route(4)) == 0) {
 					$sort_field = $request->URI()->Route(3);
 
 					$out = array();
 
-					if ($sort_field == 'author_id')
+					if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
 						$out = QuarkModel::Find(new Author(), array(), array(
 							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
 						));
-					elseif ($sort_field == 'event_id')
+					elseif ($sort_field == Category::ARCHIVE_SORT_EVENT)
 						$out = QuarkModel::Find(new Event(), array(), array(
 							QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
 						));
-					elseif ($sort_field == 'release_date') {
+					elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
 						$year = 2003;
 						while ($year <= 2017) {
 							$out[] = $year;
@@ -87,14 +87,34 @@ class IndexService implements IQuarkGetService{
 					 * @var QuarkCollection|Article[] $articles
 					 */
 					$query = array();
+					$sort_field_title = '';
 
-					if ($request->URI()->Route(3) == 'author_id')
+					if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_AUTHOR) {
+						/**
+						 * @var QuarkModel|Author $author
+						 */
+						$author = QuarkModel::FindOneById(new Author(), $request->URI()->Route(4));
+
+						if ($author != null)
+							$sort_field_title = $author->name;
+
 						$query = array('author_id' => $request->URI()->Route(4));
-					else if ($request->URI()->Route(3) == 'event_id')
-						$query = array('event_id' => $request->URI()->Route(4));
-					else if ($request->URI()->Route(3) == 'release_date')
-						$query = Article::SearchByYearQuery($request->URI()->Route(4));
+					}
+					else if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_EVENT) {
+						/**
+						 * @var QuarkModel|Event $event
+						 */
+						$event = QuarkModel::FindOneById(new Event(), $request->URI()->Route(4));
 
+						if ($event != null)
+							$sort_field_title = $event->name;
+
+						$query = array('event_id' => $request->URI()->Route(4));
+					}
+					else if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_DATE) {
+						$sort_field_title = $request->URI()->Route(4);
+						$query = Article::SearchByYearQuery($request->URI()->Route(4));
+					}
 					$query[] = array(
 						'$or' => array(
 							array('type' => Article::TYPE_ARTICLE),
@@ -109,7 +129,8 @@ class IndexService implements IQuarkGetService{
 						))->Extract(),
 						'title' => $category->title,
 						'category' => $category,
-						'sort_field' => $request->URI()->Route(3)
+						'sort_field' => $request->URI()->Route(3),
+						'sort_field_title' => $sort_field_title
 					));
 				}
 			}
