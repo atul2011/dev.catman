@@ -5,50 +5,33 @@ use Models\Article;
 use Models\Author;
 use Models\Category;
 use Models\Event;
+use Models\Photo;
 use Models\Token;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
+use Quark\IQuarkServiceWithAccessControl;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Services\Api\ApiBehavior;
 
 /**
  * Class IndexService
  *
  * @package Services\Category
  */
-class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication {
+class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkServiceWithAccessControl {
+	use ApiBehavior;
+
 	/**
-	 * @param QuarkDTO $request
-	 *
 	 * @return string
 	 */
-	public function AuthorizationProvider (QuarkDTO $request) {
-		return CM_SESSION;
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 * @param QuarkSession $session
-	 *
-	 * @return bool|mixed
-	 */
-	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
-		return QuarkModel::FindOne(new Token(), array('token' => $request->token)) != null;
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 * @param $criteria
-	 *
-	 * @return mixed
-	 */
-	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
-		return array('status' => 403);
+	public function AllowOrigin () {
+		return '*';
 	}
 
 	/**
@@ -67,6 +50,9 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+		if (!$this->AuthorizeDevice($request))
+			return array('status' => 403);
+
 		/**
 		 * @var QuarkModel|Category $category
 		 */
@@ -74,12 +60,6 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 
 		if ($category == null)
 			return array('status' => 404);
-
-		if ($category->available_on_api == false)
-			return array(
-				'status' => 200,
-				'category' => null
-			);
 
 		if ($category->sub == Category::TYPE_ARCHIVE) {
 			if ($request->URI()->Route(3) == '') {
@@ -169,16 +149,9 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'articles' => $category->Articles(0)->Extract(array(
-				'id',
-				'title',
-				'runtime_priority'
-			)),
-			'categories' => $category->ChildCategories(0)->Extract(array(
-	            'id',
-	            'title',
-	            'runtime_priority'
-            ))
+			'articles' => $category->Articles(0)->Extract(),
+			'categories' => $category->ChildCategories(0)->Extract(),
+            'photos' => Photo::PhotosLinks($category->Photos())
 		);
 	}
 }

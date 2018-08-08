@@ -1,21 +1,18 @@
 <?php
-namespace Services\Api\News;
+namespace Services\Api;
 
-use Models\News;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithAccessControl;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
-use Quark\QuarkModel;
 use Quark\QuarkSession;
-use Services\Api\ApiBehavior;
 
 /**
  * Class IndexService
  *
- * @package Services\News
+ * @package Services\Api
  */
 class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkServiceWithAccessControl {
 	use ApiBehavior;
@@ -46,17 +43,6 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 		if (!$this->AuthorizeDevice($request))
 			return array('status' => 403);
 
-		/**
-		 * @var QuarkModel|News $news
-		 */
-		$news = QuarkModel::FindOneById(new News(), $request->URI()->Route(2));
-
-		if ($news == null)
-			return array('status' => 404);
-
-		return array(
-			'status' => 200,
-			'news' => $news->Extract()
-		);
+		return array('status' => 200);
 	}
 }

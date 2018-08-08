@@ -40,6 +40,7 @@ use Quark\QuarkModelBehavior;
  *
  * @property int $runtime_priority
  * @property int $runtime_category
+ * @property int $runtime_link
  *
  * @package Models
  */
@@ -87,7 +88,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	public function RuntimeFields () {
 		return array(
 			'runtime_priority' => 0,
-			'runtime_category' => null
+			'runtime_category' => null,
+			'runtime_link' => 0
 		);
 	}
 
@@ -142,13 +144,17 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'note',
             'resume',
             'copyright',
+            'txtfield',
             'priority',
             'type',
             'keywords',
             'description',
             'event_id',
             'author_id',
-            'short_title'
+            'short_title',
+            'runtime_priority',
+            'runtime_category',
+            'runtime_link'
         );
     }
 

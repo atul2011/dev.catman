@@ -33,6 +33,7 @@ use Quark\QuarkModelBehavior;
  *
  * @property int $runtime_priority
  * @property int $runtime_category
+ * @property int $runtime_link
  *
  * @package Models
  */
@@ -49,9 +50,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 
     const ROLE_SYSTEM = 'system';
     const ROLE_CUSTOM = 'custom';
-
-    const SPECIALIZATION_SITE = 'site';
-    const SPECIALIZATION_MOBILE = 'mobile';
 
     const ARCHIVE_SORT_AUTHOR = 'author_id';
     const ARCHIVE_SORT_EVENT = 'event_id';
@@ -84,7 +82,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	public function RuntimeFields () {
 		return array(
 			'runtime_priority' => null,
-			'runtime_category' => null
+			'runtime_category' => null,
+			'runtime_link' => 0
 		);
 	}
 
@@ -143,7 +142,11 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'description',
             'role',
             'short_title',
-            'master'
+            'master',
+            'available_on_api',
+            'runtime_priority',
+            'runtime_category',
+            'runtime_link'
         );
     }
 
@@ -185,7 +188,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
          */
         $links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => (string)$this->id), $options);
 
-        $out = new QuarkCollection(new Category());
+	    $out = new QuarkCollection(new Category());
 
 	    foreach ($links as $link) {
 		    /**
@@ -193,6 +196,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		     */
 		    $category = $link->child_id1->Retrieve();
 		    $category->SetRuntimePriority(new QuarkModel($this));
+		    $category->runtime_link = $link->id;
 
 		    if ($target == 'site') {
 		        if ($category->available_on_site != true)
@@ -265,12 +269,56 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	     * @var QuarkCollection|Articles_has_Categories[] $links
 	     */
 	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
+	    $articles = new QuarkCollection(new Article());
 	    $out = new QuarkCollection(new Article());
+	    $keys = array();
 
-	    foreach ($links as $item)
-		    $out[] = $item->article_id->Retrieve();
+	    foreach ($links as $item) {
+		    $articles[] = $item->article_id->Retrieve();
+		    $keys[$item->article_id->value] = $item->id;
+	    }
 
-	    return Article::Sort($out, $sort_field);
+	    $articles = Article::Sort($articles, $sort_field);
+
+	    foreach ($articles as $item) {
+	        /**
+	         * @var QuarkModel|Article $item
+	         */
+		    $item->runtime_link = $keys[$item->id];
+		    $out[] = $item;
+	    }
+
+	    return $out;
+    }
+
+	/**
+	 * @param QuarkCollection|Article[] $articles
+	 *
+	 * @return QuarkCollection|Article[] $articles
+	 */
+    public function ApiArticles (QuarkCollection $articles) {
+        $out = new QuarkCollection(new Article());
+
+        foreach ($articles as $article)
+            if ($article->available_on_api)
+                $out[] = $article;
+
+	    return $out;
+    }
+
+	/**
+	 * @param QuarkCollection|Category[] $categories
+	 *
+	 * @return QuarkCollection|Category[] $categories
+	 */
+    public function ApiCategories (QuarkCollection $categories) {
+        $out = new QuarkCollection(new Category());
+
+        foreach ($categories as $category)
+            if ($category->available_on_api)
+                $out[] = $category;
+
+	    return $out;
     }
 
 	/**

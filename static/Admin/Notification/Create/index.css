@@ -1,0 +1,118 @@
+/*------------------------------- page-----------------------------------------------------------*/
+#form {
+    margin: 20px 0;
+}
+
+.page-title {
+    text-align: left;
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+}
+/*-------------------------------input-----------------------------------------------------------*/
+.cm-form-field {
+    text-align: left;
+    margin-bottom: 10px;
+}
+
+.quark-input.cm-form-input {
+    width: 300px;
+}
+.cm-form-input.cm-form-short-input {
+    width: 200px;
+}
+
+.cm-form-input.cm-form-textarea {
+    max-width: 300px;
+    min-width: 300px;
+    min-height: 100px;
+    max-height: 300px;
+}
+
+.cm-toggle:before{
+    margin-right: 8px;
+    font-size: 14px;
+}
+
+.quark-button.cm-button-add-related-item {
+    border-radius: 50%;
+    background-color: #777777;
+    color: #FFFFFF;
+    display: inline-block;
+    font-size: 20px;
+    font-weight: 500;
+    padding: 4px 10px;
+    vertical-align: middle;
+}
+
+.quark-button.cm-button-add-related-item:hover {
+    background-color: #CCCCCC;
+    color: #000000;
+}
+/*-------------------------------localized textarea----------------------------------------------*/
+
+#editor-container, #toolbar-container {
+    width: 500px;
+}
+
+#editor-container {
+    height: 300px;
+}
+
+/*-------------------------------form fields-----------------------------------------------------*/
+.cm-form-photo {
+    width: 200px;
+    height: 200px;
+    border: 0 solid lightgray;
+    border-radius: 5px;
+    cursor: pointer;
+}
+
+.cm-form-photo:hover {
+    box-shadow: 3px 3px 6px #c2c2c2;
+}
+
+.cm-button-photo {
+    padding: 0;
+    border: none;
+    cursor: pointer;
+    margin: 0 5px;
+}
+
+.cm-form-related-photo, .cm-button-photo {
+    width: 200px;
+    height: 200px;
+}
+
+.cm-form-related-photo {
+    box-shadow: 1px 2px 2px 2px rgba(0, 0, 0, 0.15);
+}
+
+.cm-form-related-photo:hover {
+    filter: brightness(110%);
+}
+
+.cm-form-checkbox {
+    font-size: 14px;
+    font-family: "Open Sans", sans-serif;
+    display: inline-block;
+    margin: 5px 5px 0 5px;
+}
+
+/*---------------------------------------tag---------------------------*/
+#cm-item-tag-container {
+    max-width: 300px;
+}
+
+.cm-tag-item {
+    padding: 6px 8px !important;
+    color: #FFFFFF !important;
+    background-color: #AAAAAA !important;
+}
+
+.cm-tag-item .fa {
+    color: #000000 !important;
+}
+
+.cm-tag-item:hover {
+    filter: brightness(110%);
+}

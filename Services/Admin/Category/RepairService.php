@@ -33,7 +33,7 @@ class RepairService implements IQuarkGetService, IQuarkAuthorizableServiceWithAu
 
 		foreach ($categories as $category) {
 //			$category->short_title = $category->title;
-			$category->specialization = Category::SPECIALIZATION_SITE;
+			$category->available_on_site = true;
 
 			if (!$category->Save())
 				Quark::Log('Cannot save category:' . $category->id);

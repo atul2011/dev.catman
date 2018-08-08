@@ -2,50 +2,30 @@
 namespace Services\Api\News;
 
 use Models\News;
-use Models\Token;
-use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
+use Quark\IQuarkServiceWithAccessControl;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Services\Api\ApiBehavior;
 
 /**
  * Class ListService
  *
  * @package Services\News
  */
-class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkAuthorizableServiceWithAuthentication  {
+class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkServiceWithAccessControl {
+	use ApiBehavior;
+
 	/**
-	 * @param QuarkDTO $request
-	 *
 	 * @return string
 	 */
-	public function AuthorizationProvider (QuarkDTO $request) {
-		return CM_SESSION;
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 * @param QuarkSession $session
-	 *
-	 * @return bool|mixed
-	 */
-	public function AuthorizationCriteria (QuarkDTO $request, QuarkSession $session) {
-		return QuarkModel::FindOne(new Token(), array('token' => $request->token)) != null;
-	}
-
-	/**
-	 * @param QuarkDTO $request
-	 * @param $criteria
-	 *
-	 * @return mixed
-	 */
-	public function AuthorizationFailed (QuarkDTO $request, $criteria) {
-		return array('status' => 403);
+	public function AllowOrigin () {
+		return '*';
 	}
 
 	/**
@@ -63,12 +43,14 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+		if (!$this->AuthorizeDevice($request))
+			return array('status' => 403);
+
 		return array(
 			'status' => 200,
 			'news' => QuarkModel::Find(new News(), array(
 					'publish_date' => array('$lte' => QuarkDate::GMTNow()->Format('Y-m-d'))
-				)
-			)->Extract()
+			))->Extract()
 		);
 	}
 }
