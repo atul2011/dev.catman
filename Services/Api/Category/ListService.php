@@ -1,7 +1,7 @@
 <?php
-namespace Services\Api\News;
+namespace Services\Api\Category;
 
-use Models\News;
+use Models\Category;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithAccessControl;
@@ -13,11 +13,11 @@ use Quark\QuarkSession;
 use Services\Api\ApiBehavior;
 
 /**
- * Class IndexService
+ * Class ListService
  *
- * @package Services\News
+ * @package Services\Api\Category
  */
-class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkServiceWithAccessControl {
+class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor, IQuarkServiceWithAccessControl {
 	use ApiBehavior;
 
 	/**
@@ -46,17 +46,11 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 		if (!$this->AuthorizeDevice($request))
 			return array('status' => 403);
 
-		/**
-		 * @var QuarkModel|News $news
-		 */
-		$news = QuarkModel::FindOneById(new News(), $request->URI()->Route(2));
-
-		if ($news == null)
-			return array('status' => 404);
-
 		return array(
 			'status' => 200,
-			'news' => $news->Extract()
+			'categories' => QuarkModel::Find(new Category(), array('available_on_api' => true), array(
+				QuarkModel::OPTION_SORT => array('id' => QuarkModel::SORT_ASC)
+			))->Extract()
 		);
 	}
 }

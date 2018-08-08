@@ -201,3 +201,43 @@ h1 {
     width: 200px;
     height: 200px;
 }
+
+/*-----------------------------------------------------------------------------------------------*/
+/*-------------------------NAVIGATION BAR--------------------------------------------------------*/
+/*-----------------------------------------------------------------------------------------------*/
+.cm-list-navbar {
+    display: inline-block;
+    min-height: 34px;
+    text-align: center;
+}
+
+.cm-list-navbar .navbar-page {
+    background: rgb(60, 60, 60);
+    border: none;
+    border-radius: 3px;
+    color: #FFFFFF;
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    font-size: 15px;
+    margin: 0 5px;
+    padding: 5px;
+    text-decoration: none;
+}
+
+.cm-list-navbar .navbar-page:hover {
+    background-color: #FFFFFF;
+    border: 1px solid rgb(60, 60, 60);
+    color: rgb(60, 60, 60);
+}
+
+.navbar-page.current-page {
+    background-color: #FFFFFF !important;
+    border: 1px solid rgb(60, 60, 60) !important;
+    color: rgb(60, 60, 60) !important;
+}
+
+.navbar-page.navbar-page-disabled {
+    cursor: default;
+    pointer-events: none;
+}

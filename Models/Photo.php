@@ -118,4 +118,22 @@ class Photo implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 
 		return $tags;
 	}
+
+	/**
+	 * @param QuarkCollection|Photo[] $photos
+	 *
+	 * @return array
+	 */
+	public static function PhotosLinks (QuarkCollection $photos) {
+		$out = array();
+
+		foreach ($photos as $photo) {
+			/**
+			 * @var QuarkModel|Photo $photo
+			 */
+			$out[] = $photo->file->WebLocation();
+		}
+
+		return $out;
+	}
 }

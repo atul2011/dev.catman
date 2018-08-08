@@ -15,7 +15,7 @@ $related_categories = '';//sub-categories
 $categories = Category::Sort($category->ChildCategories(0));
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')	continue;
-	if ($item->specialization === Category::SPECIALIZATION_MOBILE)	continue;
+	if ($item->available_on_site !== true)	continue;
 
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
 								'<a href="/category/'.$item->id.'"> <b>'.
