@@ -6,6 +6,7 @@ use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithAccessControl;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
