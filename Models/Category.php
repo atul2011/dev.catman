@@ -201,9 +201,11 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		    if ($target == 'site') {
 		        if ($category->available_on_site != true)
 		            continue;
-		    } elseif ($target == 'api')
+		    }
+		    elseif ($target == 'api') {
 		        if ($category->available_on_api != true)
 		            continue;
+		    }
 
 		    $out[] = $category;
 	    }
@@ -268,8 +270,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	    /**
 	     * @var QuarkCollection|Articles_has_Categories[] $links
 	     */
-	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
-	    $articles = new QuarkCollection(new Article());
+	    $links =;
+	    $articles = new QuarkCollection(new Article( QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options)));
 	    $out = new QuarkCollection(new Article());
 	    $keys = array();
 
@@ -486,6 +488,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		return $master;
 	}
 
+	/**
+	 * @return Category[]|QuarkCollection
+	 */
 	public function GetMasterCategoryChilds () {
 		/**
 		 * @var QuarkModel|Category $master
