@@ -270,8 +270,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	    /**
 	     * @var QuarkCollection|Articles_has_Categories[] $links
 	     */
-	    $links =;
-	    $articles = new QuarkCollection(new Article( QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options)));
+	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
+	    $articles = new QuarkCollection(new Article());
 	    $out = new QuarkCollection(new Article());
 	    $keys = array();
 
