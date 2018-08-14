@@ -24,7 +24,7 @@ class SendService implements IQuarkScheduledTask {
 	 * @return bool
 	 */
 	public function LaunchCriteria (QuarkDate $previous) {
-		return $previous->Earlier(QuarkDate::Now()->Offset('-5 seconds'));
+		return $previous->Earlier(QuarkDate::Now()->Offset('-60 seconds'));
 	}
 
 	/**
