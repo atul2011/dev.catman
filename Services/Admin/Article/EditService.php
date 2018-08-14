@@ -14,7 +14,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
-use ViewModels\Admin\Article\IndexView;
+use ViewModels\Admin\Article\EditView;
 use ViewModels\Admin\Status\BadRequestView;
 use ViewModels\Admin\Status\CustomErrorView;
 use ViewModels\Admin\Status\InternalServerErrorView;
@@ -48,7 +48,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 		if ($article == null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
-		return QuarkView::InLayout(new IndexView(), new QuarkPresenceControl(), array(
+		return QuarkView::InLayout(new EditView(), new QuarkPresenceControl(), array(
 			'article' => QuarkModel::FindOneById(new Article(), $id),
 			'authors' => QuarkModel::Find(new Author(), array(), array(
 				QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
