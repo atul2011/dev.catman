@@ -152,6 +152,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'event_id',
             'author_id',
             'short_title',
+            'available_on_api',
             'runtime_priority',
             'runtime_category',
             'runtime_link'
