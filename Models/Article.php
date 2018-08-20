@@ -265,9 +265,16 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 * @return mixed
 	 */
 	public static function SearchByYearQuery ($year = 2017) {
-		$query = array();
-		$query['release_date']['$gte'] = $year . '-01-01';
-		$query['release_date']['$lte'] = ($year + 1) . '-01-01';
+		$query = array(
+			'$and' => array(
+				array('release_date' => array(
+					'$gte' => $year . '-01-01'
+				)),
+				array('release_date' => array(
+					'$lte' => ($year + 1) . '-01-01'
+				))
+			)
+		);
 
 		return $query;
 	}
