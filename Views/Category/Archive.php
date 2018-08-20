@@ -104,8 +104,12 @@ if (isset($sort_field_title)) {
                     foreach ($articles as $article) {
                         echo
                             '<div class="item-related-articles">' ,
-                                '<a href="/article/' , $article->id , '">' ,
+                                '<a href="/article/' , $article->id , '"><b>' ,
                                     $article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle')  ,
+                                '</b></a>' ,
+                                '<br />' ,
+                                '<a>' ,
+                                    $article->resume  ,
                                 '</a>' ,
                             '</div>';
                     }

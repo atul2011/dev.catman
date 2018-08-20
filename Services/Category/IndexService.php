@@ -71,6 +71,7 @@ class IndexService implements IQuarkGetService{
 						));
 					elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
 						$year = 2003;
+
 						while ($year <= 2017) {
 							$out[] = $year;
 							++$year;
@@ -115,17 +116,16 @@ class IndexService implements IQuarkGetService{
 						$sort_field_title = $request->URI()->Route(4);
 						$query = Article::SearchByYearQuery($request->URI()->Route(4));
 					}
-					$query[] = array(
-						'$or' => array(
-							array('type' => Article::TYPE_ARTICLE),
-							array('type' => Article::TYPE_MESSAGE),
-						),
-						'available_on_site' => true
+
+					$query ['$or'] = array(
+						array('type' => Article::TYPE_ARTICLE),
+						array('type' => Article::TYPE_MESSAGE)
 					);
+					$query['available_on_site'] = true;
 
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'articles' => QuarkModel::Find(new Article(), $query, array(
-							QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC),
+							QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)
 						))->Extract(),
 						'title' => $category->title,
 						'category' => $category,
