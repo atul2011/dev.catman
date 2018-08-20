@@ -99,7 +99,7 @@ class IndexService implements IQuarkGetService{
 						if ($author != null)
 							$sort_field_title = $author->name;
 
-						$query = array('author_id' => $request->URI()->Route(4));
+						$query = array('author_id.value' => $request->URI()->Route(4));
 					}
 					else if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_EVENT) {
 						/**
@@ -110,7 +110,7 @@ class IndexService implements IQuarkGetService{
 						if ($event != null)
 							$sort_field_title = $event->name;
 
-						$query = array('event_id' => $request->URI()->Route(4));
+						$query = array('event_id.value' => $request->URI()->Route(4));
 					}
 					else if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_DATE) {
 						$sort_field_title = $request->URI()->Route(4);
