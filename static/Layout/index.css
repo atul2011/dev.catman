@@ -15,11 +15,11 @@ body {
 }
 
 .site-logo-link {
-    color: #fff;
+    color: #fff !important;
 }
 
 .site-logo-link:hover {
-    color: #fff;
+    color: #fff !important;
     text-decoration: none;
 }
 
