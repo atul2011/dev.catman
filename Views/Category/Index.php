@@ -6,6 +6,7 @@
 use Models\Article;
 use Models\Category;
 use Models\Photo;
+use Quark\Quark;
 use Quark\QuarkModel;
 use Quark\QuarkView;
 use Quark\ViewResources\ShowdownJS\ShowdownJS;
