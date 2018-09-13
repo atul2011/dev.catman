@@ -3,6 +3,7 @@ namespace ViewResources\Quill;
 
 use Quark\IQuarkViewResource;
 use Quark\IQuarkViewResourceWithBackwardDependencies;
+use Quark\QuarkGenericViewResource;
 
 /**
  * Class Quill

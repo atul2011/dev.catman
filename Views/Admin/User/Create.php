@@ -51,7 +51,10 @@ if (isset($user)) {
 				</div>
 				<div class="quark-presence-container presence-block middle" id="form-div">
 					<div class="title"><p>Rights</p>
-						<input placeholder="Rights(A / E)" class="text_field quark-input" name="rights" id="rights" value="<?php echo $item->rights; ?>"/>
+					    <select class="text_field quark-input" name="rights" id="rights">
+                            <option value="A" <?php echo $item->rights == User::RIGHTS_ADMIN ? 'selected' : '';?>>Admin</option>
+                            <option value="E" <?php echo $item->rights == User::RIGHTS_EDITOR ? 'selected' : '';?>>Editor</option>
+                        </select>
 					</div>
 				</div>
 			</div>

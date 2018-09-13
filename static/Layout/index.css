@@ -80,6 +80,9 @@ h1 img {
 .item-related-content {
     font-size: 14px !important;
 }
+.item-related-content p {
+    margin: 14px 0 0 0;
+}
 
 .cm-delimiter {
     border-top: 1px solid rgba(81, 38, 60, .54);
@@ -102,6 +105,14 @@ h1 img {
 
 .related-websites span {
     word-wrap: break-word;
+}
+
+.new-line {
+    border: transparent !important;
+    display: block !important;
+    width: 100% !important;
+    height: 8px !important;
+    margin: 0 !important;
 }
 
 /*----------------------------Main Link Container-------------------------------*/
