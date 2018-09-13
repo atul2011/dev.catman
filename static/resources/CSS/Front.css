@@ -20,7 +20,7 @@ audio:not([controls]) { display: none; height: 0 }
 
 [hidden], template { display: none }
 
-a { background-color: transparent; color: #337ab7; text-decoration: none }
+a { background-color: transparent; color: #337ab7 !important; text-decoration: none }
 
 a:active, a:hover { outline: 0 }
 
