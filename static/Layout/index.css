@@ -11,9 +11,14 @@ body {
 }
 
 .item-main-headline, .site-logo-link {
-    font-family: Comfortaa, cursive !important;
+    font-family: 'Open Sans Semibold', cursive !important;
 }
 
+#category-main-container .up-item-link {
+    color: #9c4d7e !important;
+}
+
+#top-bar .up-item-link,
 .site-logo-link {
     color: #fff !important;
 }
