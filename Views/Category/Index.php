@@ -14,26 +14,39 @@ use ViewModels\Category\IndexView;
 
 $related_categories = '';//sub-categories
 $categories = Category::Sort($category->ChildCategories(0));
-foreach ($categories as $item) {
-	if ($item->keywords === 'super-category')	continue;
-	if ($item->available_on_site !== true)	continue;
 
-	$related_categories .= '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-								'<a href="/category/'.$item->id.'"> <b>'.
-                                    $item->title .
-                                '</b></a>'.
-						   '</div>';
+foreach ($categories as $item) {
+	if ($item->keywords === 'super-category')
+	    continue;
+
+	if ($item->available_on_site !== true)
+	    continue;
+
+	$related_categories .=
+	    '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
+            '<a class="related-item-link" href="/category/'.$item->id.'"> <b>'.
+                '<span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span>' . $item->title .
+            '</b></a>'.
+            '<br />' .
+            '<a>' .
+                $item->note  .
+            '</a>' .
+       '</div>';
 }
 
 $related_articles = '';//related-articles
 $articles = Article::Sort($category->Articles(30));
 
 foreach ($articles as $item) {
-	$related_articles .= '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
-                             '<a href="/article/'.$item->id.'">'.
-                                 $item->title .
-                             '</a>'.
-                         '</div>';
+	$related_articles .=
+	    '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
+             '<a class="related-item-link" href="/article/'.$item->id.'">'.
+                 $item->title .
+             '</a>'.
+            '<a>' .
+                $item->resume  .
+            '</a>' .
+         '</div>';
 }
 ?>
 <div class="block-center__left js-equal-height">

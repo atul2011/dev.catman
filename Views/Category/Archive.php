@@ -100,19 +100,19 @@ if (isset($sort_field_title)) {
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.Event.NoArticles');
                     else if ($sort_field == Category::ARCHIVE_SORT_DATE)
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.ReleaseDate.NoArticles');
-                } else
+                }
+                else {
                     foreach ($articles as $article) {
                         echo
                             '<div class="item-related-articles">' ,
-                                '<a href="/article/' , $article->id , '"><b>' ,
-                                    $article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle')  ,
-                                '</b></a>' ,
+                                '<a href="/article/' , $article->id , '"><b>' , ($article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle'))  , '</b></a>' ,
                                 '<br />' ,
                                 '<a>' ,
                                     $article->resume  ,
                                 '</a>' ,
                             '</div>';
                     }
+                }
             }
             ?>
         </div>
