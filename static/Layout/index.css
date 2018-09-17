@@ -120,6 +120,13 @@ h1 img {
     margin: 0 !important;
 }
 
+.related-item-link {
+}
+
+.related-item-link .related-item-label{
+    text-transform: uppercase;
+}
+
 /*----------------------------Main Link Container-------------------------------*/
 #main-links-container {
 
