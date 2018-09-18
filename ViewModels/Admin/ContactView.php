@@ -7,7 +7,7 @@ use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
-use ViewResources\Quill\Quill;
+use ViewResources\Summernote\Summernote;
 
 /**
  * Class ContactView
@@ -49,7 +49,7 @@ class ContactView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQ
 	 */
 	public function ViewResources() {
 		return array(
-			new Quill()
+			new Summernote()
 		);
 	}
 

@@ -8,7 +8,7 @@ use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
-use ViewResources\Quill\Quill;
+use ViewResources\Summernote\Summernote;
 
 /**
  * Class EditView
@@ -51,7 +51,7 @@ class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuar
 	 */
 	public function ViewResources () {
 		return array(
-			new Quill()
+			new Summernote()
 		);
 	}
 

@@ -60,6 +60,7 @@ class EditService implements IQuarkPostService, IQuarkGetService, IQuarkAuthoriz
 
 		if ($category === null)
 			return array('status' => 404);
+
 		$category->PopulateWith($request->Data());
 
 		$category->available_on_site = !isset($request->available_on_site) ? false : true;

@@ -1,16 +1,11 @@
 <?php
-namespace ViewResources\Quill;
+namespace ViewResources\Summernote;
 
 use Quark\IQuarkSpecifiedViewResource;
 use Quark\IQuarkViewResourceType;
 use Quark\QuarkCSSViewResourceType;
 
-/**
- * Class QuillCoreCSS
- *
- * @package ViewResources\Quill
- */
-class QuillCoreCSS implements IQuarkSpecifiedViewResource {
+class BootstrapJS implements IQuarkSpecifiedViewResource {
 	/**
 	 * @return IQuarkViewResourceType
 	 */
@@ -22,6 +17,6 @@ class QuillCoreCSS implements IQuarkSpecifiedViewResource {
 	 * @return string
 	 */
 	public function Location () {
-		return '//cdn.quilljs.com/1.3.4/quill.core.css';
+		return 'http://netdna.bootstrapcdn.com/bootstrap/3.3.5/js/bootstrap.js';
 	}
 }
