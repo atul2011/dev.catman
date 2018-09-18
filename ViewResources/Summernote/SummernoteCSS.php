@@ -1,11 +1,16 @@
 <?php
-namespace ViewResources\Quill;
+namespace ViewResources\Summernote;
 
 use Quark\IQuarkSpecifiedViewResource;
 use Quark\IQuarkViewResourceType;
 use Quark\QuarkCSSViewResourceType;
 
-class QuillCSS_Snow implements IQuarkSpecifiedViewResource {
+/**
+ * Class SummernoteCSS
+ *
+ * @package ViewResources\Summernote
+ */
+class SummernoteCSS implements IQuarkSpecifiedViewResource {
 	/**
 	 * @return IQuarkViewResourceType
 	 */
@@ -17,6 +22,6 @@ class QuillCSS_Snow implements IQuarkSpecifiedViewResource {
 	 * @return string
 	 */
 	public function Location () {
-		return '//cdn.quilljs.com/1.3.4/quill.snow.css';
+		return 'http://cdnjs.cloudflare.com/ajax/libs/summernote/0.8.9/summernote.css';
 	}
 }

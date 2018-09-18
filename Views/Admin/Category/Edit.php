@@ -96,52 +96,7 @@ use ViewModels\Admin\Category\CreateView;
             <div class="quark-presence-container presence-block" id="content-container">
                 <input id="form-item-content" name="intro" type="hidden">
                 <div class="title"><p>Content</p>
-                    <div id="toolbar-container">
-                    <span class="ql-formats">
-                        <select class="ql-font"></select>
-                        <select class="ql-size"></select>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-bold"></button>
-                        <button class="ql-italic"></button>
-                        <button class="ql-underline"></button>
-                        <button class="ql-strike"></button>
-                    </span>
-                        <span class="ql-formats">
-                        <select class="ql-color"></select>
-                        <select class="ql-background"></select>
-                    </span>
-                        <span class="ql-formats">
-                        <select class="ql-align"></select>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-script" value="sub"></button>
-                        <button class="ql-script" value="super"></button>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-header" value="1"></button>
-                        <button class="ql-header" value="2"></button>
-                        <button class="ql-blockquote"></button>
-                        <button class="ql-code-block"></button>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-list" value="ordered"></button>
-                        <button class="ql-list" value="bullet"></button>
-                        <button class="ql-indent" value="-1"></button>
-                        <button class="ql-indent" value="+1"></button>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-link"></button>
-                        <button class="ql-image"></button>
-                        <button class="ql-video"></button>
-                    </span>
-                        <span class="ql-formats">
-                        <button class="ql-clean"></button>
-                    </span>
-                    </div>
-                    <div id="editor-container">
-	                    <?php echo $category->intro;?>
-                    </div>
+                    <textarea name="intro" id="editor-container"><?php echo $category->intro;?></textarea>
                 </div>
             </div>
 		</div>
@@ -204,7 +159,6 @@ use ViewModels\Admin\Category\CreateView;
             </div>
             <br />
             <div class="quark-presence-column form-value" id="cm-form-photo-links-container">
-
 				<?php
 				$tags = $category->Tags();
                 $photos = new QuarkCollection(new Photo());
@@ -230,7 +184,6 @@ use ViewModels\Admin\Category\CreateView;
         <br />
 		<div class="quark-presence-container presence-block button-div">
 			<button class="quark-button block ok submit-button" type="submit">Update</button>
-
             <a class="quark-button block  cm-remove-button item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/category/list/" href="/admin/category/relation/clear/<?php echo $category->id;?>">Delete All Relations</a>
 		</div>
 	</div>

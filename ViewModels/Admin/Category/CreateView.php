@@ -7,11 +7,9 @@ use Quark\IQuarkViewModelWithCustomizableLayout;
 use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\QuarkGenericViewResource;
-use Quark\ViewResources\MediumEditor\MediumEditor;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
-use Quark\ViewResources\SimpleMDE\SimpleMDE;
 use ViewModels\Admin\ViewBehavior;
-use ViewResources\Quill\Quill;
+use ViewResources\Summernote\Summernote;
 
 /**
  * Class CreateView
@@ -54,8 +52,7 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 */
 	public function ViewResources() {
 		return array(
-			new Quill(),
-			QuarkGenericViewResource::JS(__DIR__ . '/../../../static/resources/Quill/Additional/index.js')
+			new Summernote()
 		);
 	}
 

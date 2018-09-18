@@ -11,6 +11,7 @@ use Quark\QuarkSession;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
 use Services\Admin\Behaviors\AuthorizationBehavior;
+use ViewModels\Admin\Status\BadRequestView;
 use ViewModels\Admin\Status\CustomErrorView;
 use ViewModels\Admin\Status\InternalServerErrorView;
 use ViewModels\Admin\Status\NotFoundView;
@@ -52,10 +53,13 @@ class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAu
 		/**
 		* @var QuarkModel|User $user
 		*/
-		$user= QuarkModel::FindOneById(new User(), $request->URI()->Route(3));
+		$user = QuarkModel::FindOneById(new User(), $request->URI()->Route(3));
 
 		if ($user == null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
+
+		if ($user->rights == 'A')
+			return QuarkView::InLayout(new BadRequestView(), new QuarkPresenceControl());
 
 		if (!QuarkModel::Delete(new News(), array('lastediteby_userid' => $user->id)))
 			return QuarkView::InLayout(new CustomErrorView(), new QuarkPresenceControl(), array(

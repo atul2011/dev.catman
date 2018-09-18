@@ -1,24 +1,5 @@
 $(document).ready(function(){
-    $(document).on("submit",'#item-form',function(e){
-        var title =$('#item-title');
-
-        if(title.val()=== '') {
-            title.addClass('title_null').attr('placeholder', 'Title must be not null');
-            e.preventDefault();
-        }
-    });
-
-    $(document).on("submit", '#item-form', function (e) {
-        $('#form-item-content').val($('#editor-container .ql-editor').html());
-    });
-
-    var quill_editor = new Quill('#editor-container', {//quill
-        modules: {
-            toolbar: '#toolbar-container'
-        },
-        placeholder: 'Insert some text',
-        theme: 'snow'
-    });
+    $('#editor-container').summernote();
 
     var available_on_site = $('#cm-item-available_on_site');
     var available_on_api = $('#cm-item-available_on_api');
@@ -27,7 +8,6 @@ $(document).ready(function(){
     available_on_site.prop('checked', available_on_site.val() == 1);
     available_on_api.prop('checked', available_on_api.val() == 1);
     master.prop('checked', master.val() == 1);
-
 
     var remove = new Quark.Controls.Dialog('.item-remove-dialog', {
         success: function(trigger, dialog){
