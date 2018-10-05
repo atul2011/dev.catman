@@ -124,9 +124,22 @@ class IndexService implements IQuarkGetService{
 					$query['available_on_site'] = true;
 
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
-						'articles' => $category->Articles(0)->Select($query, array(
+						'articles' => QuarkModel::Find(new Article(), array(), array(
+							QuarkModel::OPTION_FIELDS => array(
+								'id',
+								'title',
+								'release_date',
+								'publish_date',
+								'copyright',
+								'priority',
+								'type',
+								'event_id',
+								'author_id',
+								'short_title'
+							)
+						))->Select($query, array(
 							QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)
-						))->Extract(),
+						)),
 						'title' => $category->title,
 						'category' => $category,
 						'sort_field' => $request->URI()->Route(3),
