@@ -3,6 +3,7 @@ use Models\Article;
 use Models\Author;
 use Models\Category;
 use Models\Event;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;

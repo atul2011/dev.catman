@@ -45,7 +45,7 @@ class CreateService implements IQuarkPostService, IQuarkGetService,IQuarkAuthori
 		/**
 		 * @var QuarkModel|Category $category
 		 */
-		$category = QuarkModel::FindOne(new Category(), array('title' => $request->Data()->title));
+		$category = QuarkModel::FindOne(new Category(), array('title' => $request->title));
 
 		if ($category != null)//ceck if category is already exist
 			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
