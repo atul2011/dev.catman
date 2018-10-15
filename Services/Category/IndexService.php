@@ -135,10 +135,14 @@ class IndexService implements IQuarkGetService{
 								'type',
 								'event_id',
 								'author_id',
-								'short_title'
+								'short_title',
+								'resume'
 							)
 						))->Select($query, array(
-							QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)
+							QuarkModel::OPTION_SORT => array(
+								'release_date' => QuarkModel::SORT_ASC,
+								'title' => QuarkModel::SORT_ASC
+							)
 						)),
 						'title' => $category->title,
 						'category' => $category,

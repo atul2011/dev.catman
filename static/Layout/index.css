@@ -32,6 +32,16 @@ body {
     margin-bottom: 10px;
 }
 
+.item-related-articles .related-item-detail {
+    display: block;
+    font-size: 14px;
+    line-height: 16px;
+}
+
+.item-related-articles .related-item-detail.related-item-date {
+    font-size: 13px;
+}
+
 .side-menu-list li {
     word-wrap: break-word;
     font-family: "Open Sans", sans-serif;
@@ -102,6 +112,8 @@ body {
 .related-item-link .related-item-label{
     text-transform: uppercase;
 }
+
+
 
 /*----------------------------Main Link Container-------------------------------*/
 #main-links-container {

@@ -50,52 +50,57 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 //I parser
 			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //II parser
 			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //III parser
 			$processed = preg_replace('#href=\\\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //IV parser
 			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //V parser
 			$processed = preg_replace('#href=\\\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //VI parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $article->txtfield);
 
-			if ($processed != null)
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //VII Parser
 			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $article->txtfield);
 
-			if ($processed != '')
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //VIII Parser
-			$processed = preg_replace('#\\\\\"#Uis', '"', $article->txtfield);
+			$processed = preg_replace('#<table([\s\S]+)(\/sound\/)([\s\S]+)table>#Uis', '', $article->txtfield);
 
-			if ($processed != '')
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //IX Parser
-			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $article->txtfield);
+			$processed = preg_replace('#\\\\\"#Uis', '"', $article->txtfield);
 
-			if ($processed != '')
+			if ($processed != null && strlen($processed) > 0)
 				$article->txtfield = $processed;
 //X Parser
+			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $article->txtfield);
+
+			if ($processed != null && strlen($processed) > 0)
+				$article->txtfield = $processed;
+//XI Parser
 			$processed = preg_replace('#\\\\\"#Uis', '"', $article->title);
 
-			if ($processed != '')
+			if ($processed != null && strlen($processed) > 0)
 				$article->title = $processed;
 
 			if (!$article->Save())
