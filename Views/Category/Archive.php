@@ -103,14 +103,12 @@ if (isset($sort_field_title)) {
                         echo $this->CurrentLocalizationOf('Catman.Localization.Category.Arhive.ReleaseDate.NoArticles');
                 }
                 else {
+                    $already_in = array();
                     foreach ($articles as $article) {
                         echo
                             '<div class="item-related-articles">' ,
                                 '<a class="related-item-title" href="/article/' , $article->id , '"><b>' , ($article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle'))  , '</b></a>' ,
                                 '<span class="related-item-detail related-item-date">' , $article->release_date->Format('d / m / Y') , '</span>' ,
-                             //   '<a class="related-item-detail">' ,
-                             //       $article->resume  ,
-                             //   '</a>' ,
                             '</div>';
                     }
                 }

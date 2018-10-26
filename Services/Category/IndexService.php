@@ -11,6 +11,7 @@ use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
+use Quark\QuarkSQL;
 use Quark\QuarkView;
 use ViewModels\Category\ArchiveView;
 use ViewModels\Category\IndexView;
@@ -137,7 +138,10 @@ class IndexService implements IQuarkGetService{
 								'author_id',
 								'short_title',
 								'resume'
-							)
+							),
+							QuarkSQL::OPTION_QUERY_REVIEWER => function ($query) {
+								return $query . 'GROUP BY `title`';
+							}
 						))->Select($query, array(
 							QuarkModel::OPTION_SORT => array(
 								'release_date' => QuarkModel::SORT_ASC,
