@@ -108,7 +108,7 @@ if (isset($sort_field_title)) {
                         echo
                             '<div class="item-related-articles">' ,
                                 '<a class="related-item-title" href="/article/' , $article->id , '"><b>' , ($article->title != '' ? $article->title : $this->CurrentLocalizationOf('Catman.Localization.Article.EmptyTitle'))  , '</b></a>' ,
-                                '<span class="related-item-detail related-item-date">' , $article->release_date->Format('d / m / Y') , '</span>' ,
+                                '<div class="related-item-detail"><span class="related-item-author italic">' , $article->author_id->Retrieve()->name , '</span>, <span class="related-item-date">' , $article->release_date->Format('d / m / Y') , '</span></div>' ,
                             '</div>';
                     }
                 }
