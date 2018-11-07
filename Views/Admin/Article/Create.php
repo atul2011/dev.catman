@@ -29,7 +29,7 @@ use ViewModels\Admin\Article\CreateView;
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Release Date</p>
-                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="releasedate" id="item-release">
+                        <input type="datetime-local" data-date-inline-picker="true" class="quark-input text_field" name="releasedate" id="item-release">
                     </div>
                 </div>
                 <div class="quark-presence-container presence-block  middle">

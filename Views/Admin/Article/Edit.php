@@ -48,7 +48,7 @@ use ViewModels\Admin\Article\CreateView;
                     </div>
                     <br />
                     <div class="quark-presence-column form-value">
-                        <input type="date" data-date-inline-picker="true" class="quark-input text_field" name="release_date" id="item-release" value="<?php echo $article->release_date->Format('Y-m-d'); ?>">
+                        <input type="datetime-local" data-date-inline-picker="true" class="quark-input text_field" name="release_date" id="item-release" value="<?php echo $article->release_date->Format('Y-m-d') . 'T' . $article->release_date->Format('H:i'); ?>">
                     </div>
 				</div>
 				<div class="quark-presence-container presence-block  middle">
