@@ -40,14 +40,14 @@ class CreateService implements IQuarkPostService, IQuarkGetService, IQuarkAuthor
 		 * @var QuarkModel|Author $author
 		 * @var QuarkModel|Event $event
 		 */
-		$article = QuarkModel::FindOne(new Article(), array('title' => $request->title));
-
-		if ($article != null)//ceck if new article is already exist
-			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
+//		$article = QuarkModel::FindOne(new Article(), array('title' => $request->title));
+//
+//		if ($article != null)//ceck if new article is already exist
+//			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
 
 		$article = new QuarkModel(new Article(), $request->Data());
 
-		$article->publish_date = $request->publishdate != '' ? $request->publishdate : QuarkDate::GMTNow('Y-m-d');
+		$article->publish_date = $request->publishdate != '' ? $request->publishdate : QuarkDate::GMTNow('Y-m-d H:i');
 		$article->release_date = $request->releasedate != '' ? $request->releasedate : QuarkDate::GMTNow('Y-m-d');
 		$article->priority = $request->priority != '' ? $request->priority : 100;
 
