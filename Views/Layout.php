@@ -273,22 +273,22 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 								<div class="col-md-12" id="category-main-container">
 									<ul class="inner_mnu" id="category-main-list">
 										<?php
-										$mini_main_list = array_slice($main_list, 0, 4);
+//										$mini_main_list = array_slice($main_list, 0, 5);
 
-										foreach ($mini_main_list as $item)
+										foreach ($mini_main as $item)
 										    echo '<li>' , $item , '</li>';
 										?>
 <!--										<li class="dropdown-item" id="category-main-list-dropdown">-->
 <!--											<div class="dropdown"></div>-->
 <!--										</li>-->
                                         <?php echo $new_category_link;?>
-                                        <span class="inner_mnu-expanded">
+<!--                                        <span class="inner_mnu-expanded">-->
 										<?php
-										$rest_main_list = array_slice($main_list, 4);
-										foreach ($rest_main_list as $item)
-											echo '<li>' , $item , '</li>';
+//										$rest_main_list = array_slice($main_list, 5);
+//										foreach ($rest_main_list as $item)
+//											echo '<li>' , $item , '</li>';
 										?>
-                                        </span>
+<!--                                        </span>-->
 									</ul>
 								</div>
 							</div>
