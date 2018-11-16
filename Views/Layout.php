@@ -275,7 +275,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 										<?php
 //										$mini_main_list = array_slice($main_list, 0, 5);
 
-										foreach ($mini_main as $item)
+										foreach ($main_list as $item)
 										    echo '<li>' , $item , '</li>';
 										?>
 <!--										<li class="dropdown-item" id="category-main-list-dropdown">-->
