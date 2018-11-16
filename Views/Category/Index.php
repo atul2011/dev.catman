@@ -1,19 +1,21 @@
 <?php
-/**
- * @var QuarkModel|Category $category
- * @var QuarkView|IndexView $this
- */
 use Models\Article;
 use Models\Category;
 use Models\Photo;
 use Quark\Quark;
+use Quark\QuarkDate;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use Quark\ViewResources\ShowdownJS\ShowdownJS;
 use ViewModels\Category\IndexView;
+
+/**
+ * @var QuarkModel|Category $category
+ * @var QuarkView|IndexView $this
+ */
 
 $related_categories = '';//sub-categories
 $categories = Category::Sort($category->ChildCategories(0));
+
 
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')
@@ -36,6 +38,9 @@ foreach ($categories as $item) {
 
 $related_articles = '';//related-articles
 $articles = Article::Sort($category->Articles(30));
+
+if ($category->sub == Category::TYPE_NEW)
+	$articles = Category::NewCategorySubArticles();
 
 foreach ($articles as $item) {
 	$related_articles .=

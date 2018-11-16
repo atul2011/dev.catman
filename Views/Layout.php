@@ -178,6 +178,13 @@ if (isset($article)) {
     foreach ($master_categories as $item)
         $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
 }
+
+//9-----------------------------------------------New Category-----------------------------------
+/**
+ * @var QuarkCollection|Category $new_category
+ */
+$new_category = Category::NewCategory();
+$new_category_link = '<li><a class="up-item-link" href="/category/' . $new_category->id . '">' . $new_category->title . '</a></li>'
 ?>
 <!DOCTYPE html>
 <html>
@@ -271,9 +278,10 @@ if (isset($article)) {
 										foreach ($mini_main_list as $item)
 										    echo '<li>' , $item , '</li>';
 										?>
-										<li class="dropdown-item" id="category-main-list-dropdown">
-											<div class="dropdown"></div>
-										</li>
+<!--										<li class="dropdown-item" id="category-main-list-dropdown">-->
+<!--											<div class="dropdown"></div>-->
+<!--										</li>-->
+                                        <?php echo $new_category_link;?>
                                         <span class="inner_mnu-expanded">
 										<?php
 										$rest_main_list = array_slice($main_list, 4);

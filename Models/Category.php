@@ -11,6 +11,7 @@ use Quark\IQuarkStrongModel;
 use Quark\IQuarkStrongModelWithRuntimeFields;
 use Quark\Quark;
 use Quark\QuarkCollection;
+use Quark\QuarkDate;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
 
@@ -47,6 +48,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	const TYPE_SYSTEM_TOP_MENU_CATEGORY = 'top-menu';
 	const TYPE_SYSTEM_MAIN_MENU_CATEGORY = 'main-menu';
 	const TYPE_SYSTEM_BOTTOM_MENU_CATEGORY = 'bottom-menu';
+	const TYPE_NEW = 'new';
 
     const ROLE_SYSTEM = 'system';
     const ROLE_CUSTOM = 'custom';
@@ -100,7 +102,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     public function Rules() {
 	    return array(
 		    $this->LocalizedAssert(in_array($this->role, array(self::ROLE_CUSTOM, self::ROLE_SYSTEM)), 'Catman.Validation.Category.UnsupportedRole', 'role'),
-		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY, self::TYPE_ARCHIVE)), 'Catman.Validation.Category.UnsupportedType', 'sub')
+		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_NEW, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY, self::TYPE_ARCHIVE)), 'Catman.Validation.Category.UnsupportedType', 'sub')
 	    );
     }
 
@@ -404,6 +406,51 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function BottomMenuSubCategories () {
 		return self::BottomMenuCategory()->ChildCategories(0);
+	}
+
+	/**
+	 * @return QuarkModel|Category
+	 */
+	public static function NewCategory () {
+		/**
+		 * @var QuarkModel|Category $category
+		 */
+		$category = QuarkModel::FindOne(new Category(), array('sub' => self::TYPE_NEW));
+
+		if ($category == null) {
+			$category = new QuarkModel(new Category());
+			$category->title = 'НОВАЯ';
+			$category->sub = self::TYPE_NEW;
+			$category->role = self::ROLE_SYSTEM;
+			$category->available_on_api = true;
+			$category->available_on_site = true;
+
+			if (!$category->Create())
+				return null;
+		}
+
+		return $category;
+	}
+
+	/**
+	 * @return QuarkCollection|Article[]
+	 */
+	public static function NewCategorySubArticles() {
+		/**
+		 * @var QuarkCollection|Article[] $articles
+		 */
+		$articles = QuarkModel::Find(new Article(), array(
+			'release_date' => array('$gte' => QuarkDate::GMTNow()->Offset('-183 days')->Format('Y-m-d')),
+		), array(
+			QuarkModel::OPTION_FIELDS => array('id', 'title', 'short_title', 'release_date', 'publish_date'),
+			QuarkModel::OPTION_SORT => array(
+				'release_date' => QuarkModel::SORT_DESC,
+				'publish_date' => QuarkModel::SORT_DESC,
+				'title' => QuarkModel::SORT_ASC
+			)
+		));
+
+		return $articles;
 	}
 
 	/**
