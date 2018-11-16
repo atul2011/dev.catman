@@ -419,7 +419,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 
 		if ($category == null) {
 			$category = new QuarkModel(new Category());
-			$category->title = 'НОВАЯ';
+			$category->title = 'new';
 			$category->sub = self::TYPE_NEW;
 			$category->role = self::ROLE_SYSTEM;
 			$category->available_on_api = true;

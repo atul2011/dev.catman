@@ -49,6 +49,9 @@ use ViewModels\Admin\Category\CreateView;
 							<?php
 								if ($category->sub == Category::TYPE_SYSTEM_ROOT_CATEGORY)
 									echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_ROOT_CATEGORY ? 'selected' : '' , '>Root Category</option>';
+									
+								if ($category->sub == Category::TYPE_NEW)
+									echo '<option value="' , Category::TYPE_NEW, '"' , $category->sub == Category::TYPE_NEW ? 'selected' : '' , '>NEW</option>';
 
 								if ($category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY)
 									echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '"' , $category->sub == Category::TYPE_SYSTEM_TOP_MENU_CATEGORY ? 'selected' : '' , '>Top Menu Category</option>';
