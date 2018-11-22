@@ -117,15 +117,12 @@ class IndexService implements IQuarkGetService{
 						$sort_field_title = $request->URI()->Route(4);
 						$query = Article::SearchByYearQuery($request->URI()->Route(4));
 					}
-
-					$query ['$or'] = array(
-						array('type' => Article::TYPE_ARTICLE),
-						array('type' => Article::TYPE_MESSAGE)
-					);
 					$query['available_on_site'] = true;
 
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
-						'articles' => QuarkModel::Find(new Article(), array(), array(
+						'articles' => QuarkModel::Find(new Article(), array(
+							'type' => Article::TYPE_ARTICLE
+						), array(
 							QuarkModel::OPTION_FIELDS => array(
 								'id',
 								'title',
