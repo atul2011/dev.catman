@@ -119,11 +119,9 @@ class IndexService implements IQuarkGetService{
 					}
 
 					$query ['$or'] = array(
-						array('type' => Article::TYPE_ARTICLE),
-						array('type' => Article::TYPE_MESSAGE)
+						array('type' => Article::TYPE_ARTICLE)
 					);
 					$query['available_on_site'] = true;
-
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'articles' => QuarkModel::Find(new Article(), array(), array(
 							QuarkModel::OPTION_FIELDS => array(
@@ -138,15 +136,15 @@ class IndexService implements IQuarkGetService{
 								'author_id',
 								'short_title',
 								'resume'
-							),
-							QuarkSQL::OPTION_QUERY_REVIEWER => function ($query) {
-								return $query . 'GROUP BY `title`';
-							}
+							)
 						))->Select($query, array(
 							QuarkModel::OPTION_SORT => array(
 								'release_date' => QuarkModel::SORT_ASC,
 								'title' => QuarkModel::SORT_ASC
-							)
+							),
+							QuarkSQL::OPTION_QUERY_REVIEWER => function ($query) {
+								return $query . 'GROUP BY `title`';
+							}
 						)),
 						'title' => $category->title,
 						'category' => $category,
