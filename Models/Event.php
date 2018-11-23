@@ -8,6 +8,8 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkNullableModel;
 use Quark\IQuarkStrongModel;
+use Quark\Quark;
+use Quark\QuarkCollection;
 use Quark\QuarkDate;
 use Quark\QuarkModel;
 
@@ -89,5 +91,29 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 	 */
 	public static function DefaultEvent () {
 		return QuarkModel::FindOne(new Event());
+	}
+
+	/**
+	 * @return QuarkCollection|Event[]
+	 */
+	public static function QuestionEvents () {
+		/**
+		 * @var QuarkCollection|Article[] $articles
+		 * @var QuarkCollection|Event[] $events
+		 */
+		$articles = QuarkModel::Find(new Article(), array('type' => Article::TYPE_QUESTION));
+		$events = new QuarkCollection(new Event());
+		$events_ids = array();
+
+		foreach ($articles as $article) {
+			if (!in_array($article->event_id->value, $events_ids)) {
+				$events_ids[] = $article->event_id->value;
+				$events[] = $article->event_id->Retrieve();
+			}
+		}
+
+		Quark::Trace($events_ids);
+
+		return $events;
 	}
 }

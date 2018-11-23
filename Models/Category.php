@@ -44,6 +44,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     const TYPE_CATEGORY = 'F';
     const TYPE_SUBCATEGORY = 'T';
     const TYPE_ARCHIVE = 'A';
+    const TYPE_QNA = 'QNA';
 	const TYPE_SYSTEM_ROOT_CATEGORY = 'root-category';
 	const TYPE_SYSTEM_TOP_MENU_CATEGORY = 'top-menu';
 	const TYPE_SYSTEM_MAIN_MENU_CATEGORY = 'main-menu';
@@ -102,7 +103,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     public function Rules() {
 	    return array(
 		    $this->LocalizedAssert(in_array($this->role, array(self::ROLE_CUSTOM, self::ROLE_SYSTEM)), 'Catman.Validation.Category.UnsupportedRole', 'role'),
-		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_NEW, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY, self::TYPE_ARCHIVE)), 'Catman.Validation.Category.UnsupportedType', 'sub')
+		    $this->LocalizedAssert(in_array($this->sub, array(self::TYPE_CATEGORY, self::TYPE_QNA, self::TYPE_NEW, self::TYPE_SUBCATEGORY, self::TYPE_SYSTEM_BOTTOM_MENU_CATEGORY, self::TYPE_SYSTEM_MAIN_MENU_CATEGORY, self::TYPE_SYSTEM_TOP_MENU_CATEGORY, self::TYPE_SYSTEM_ROOT_CATEGORY, self::TYPE_ARCHIVE)), 'Catman.Validation.Category.UnsupportedType', 'sub')
 	    );
     }
 
