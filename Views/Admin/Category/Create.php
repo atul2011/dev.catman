@@ -29,7 +29,7 @@ use ViewModels\Admin\Category\CreateView;
                             <option value="<?php echo Category::ROLE_CUSTOM;?>">Custom</option>
                             <option value="<?php echo Category::ROLE_SYSTEM;?>">System</option>
                         </select>
-                    </div>
+                    </div>s
                 </div>
                 <div class="quark-presence-container presence-block middle">
                     <div class="title"><p>Specialization</p>
@@ -44,10 +44,13 @@ use ViewModels\Admin\Category\CreateView;
                             <option value="<?php echo Category::TYPE_CATEGORY;?>">Category</option>
                             <option value="<?php echo Category::TYPE_SUBCATEGORY;?>">Sub-Category</option>
                             <option value="<?php echo Category::TYPE_ARCHIVE;?>">Archive</option>
+                            <option value="<?php echo Category::TYPE_QNA;?>">Questions&Answers</option>
                             <?php
-
                             if (Category::RootCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_ROOT_CATEGORY , '">Root Category</option>';
+
+                            if (Category::NewCategory() == null)
+	                            echo '<option value="' , Category::TYPE_NEW, '"' , '>NEW</option>';
 
                             if (Category::TopMenuCategory() == null)
                                 echo '<option value="' , Category::TYPE_SYSTEM_TOP_MENU_CATEGORY , '">Top Menu Category</option>';
