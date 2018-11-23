@@ -62,14 +62,16 @@ class IndexService implements IQuarkGetService{
 
 					$out = array();
 
-					if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
+					if ($sort_field == Category::ARCHIVE_SORT_AUTHOR) {
 						$out = QuarkModel::Find(new Author(), array(), array(
 							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
 						));
-					elseif ($sort_field == Category::ARCHIVE_SORT_EVENT)
+					}
+					elseif ($sort_field == Category::ARCHIVE_SORT_EVENT) {
 						$out = QuarkModel::Find(new Event(), array(), array(
 							QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
 						));
+					}
 					elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
 						$year = 2003;
 
@@ -78,13 +80,15 @@ class IndexService implements IQuarkGetService{
 							++$year;
 						}
 					}
+
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'sort_values' => $out,
 						'sort_field' => $sort_field,
 						'title' => $category->title,
 						'category' => $category
 					));
-				} else {
+				}
+				else {
 					/**
 					 * @var QuarkCollection|Article[] $articles
 					 */
@@ -117,7 +121,7 @@ class IndexService implements IQuarkGetService{
 						$sort_field_title = $request->URI()->Route(4);
 						$query = Article::SearchByYearQuery($request->URI()->Route(4));
 					}
-					
+
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'articles' => QuarkModel::Find(new Article(), array(
 							'$or' => array(
@@ -155,6 +159,60 @@ class IndexService implements IQuarkGetService{
 					));
 				}
 			}
+		}
+
+		if ($category->sub == Category::TYPE_QNA) {
+			if (strlen($request->URI()->Route(4)) != 0) {
+				$sort_field_title = '';
+
+				/**
+				 * @var QuarkModel|Event $event
+				 */
+				$event = QuarkModel::FindOneById(new Event(), $request->URI()->Route(4));
+
+				if ($event != null)
+					$sort_field_title = $event->name;
+
+				return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
+					'articles' => QuarkModel::Find(new Article(), array(
+						'type' => Article::TYPE_QUESTION,
+						'available_on_site' => true
+					), array(
+						QuarkModel::OPTION_FIELDS => array(
+							'id',
+							'title',
+							'release_date',
+							'publish_date',
+							'copyright',
+							'priority',
+							'type',
+							'event_id',
+							'author_id',
+							'short_title',
+							'resume'
+						)
+					))->Select(array('event_id.value' => $event->id), array(
+						QuarkModel::OPTION_SORT => array(
+							'release_date' => QuarkModel::SORT_ASC,
+							'title' => QuarkModel::SORT_ASC
+						),
+						QuarkSQL::OPTION_QUERY_REVIEWER => function ($query) {
+							return $query . 'GROUP BY `title`';
+						}
+					)),
+					'title' => $category->title,
+					'category' => $category,
+					'sort_field' => $request->URI()->Route(3),
+					'sort_field_title' => $sort_field_title
+				));
+			}
+
+			return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
+				'sort_values' => Event::QuestionEvents(),
+				'sort_field' => 'event_id',
+				'title' => $category->title,
+				'category' => $category
+			));
 		}
 
 		$content = str_replace('<p><br></p>', ' ', $category->intro);
