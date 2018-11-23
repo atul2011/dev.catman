@@ -52,7 +52,7 @@ if (isset($sort_field_title)) {
             if (isset($sort_values)) {
 	            if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
 		            echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.Author') .'</h4>';
-                elseif ($sort_field == Category::ARCHIVE_SORT_EVENT && $category->sub == Category::TYPE_ARCHIVE)
+                elseif ($sort_field == Category::ARCHIVE_SORT_EVENT)
 	                echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.Event') .'</h4>';
                 elseif ($sort_field == Category::ARCHIVE_SORT_DATE)
 	                echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.RealeaseDate') .'</h4>';
