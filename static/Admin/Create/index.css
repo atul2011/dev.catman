@@ -1,5 +1,5 @@
 .middle {
-    max-width: 500px;
+    max-width: 510px;
 }
 
 input[type="text"] {
@@ -46,8 +46,7 @@ input[type="text"]::placeholder {
 }
 
 .content, .large_text_field {
-    max-width: 550px;
-    width: 550px;
+    width: 560px;
 }
 
 .content {
@@ -64,6 +63,10 @@ input[type="text"]::placeholder {
 
 #main_div, #content, #second_div {
     margin: 0;
+}
+
+#second_div {
+    margin-left: 10px;
 }
 
 .page-title {
@@ -89,7 +92,7 @@ input[type="text"]::placeholder {
 }
 
 #editor-container, #toolbar-container {
-    width: 500px;
+    width: 550px;
 }
 
 #editor-container {
