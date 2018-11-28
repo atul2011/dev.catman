@@ -99,10 +99,7 @@ use ViewModels\Admin\Category\CreateView;
             </div>
         </div>
         <div class="quark-presence-container presence-block button-div">
-            <br/>
-            <button class="quark-button block ok submit-button" type="submit">
-				Create
-            </button>
+            <br/><button class="quark-button block ok submit-button" type="submit">Create</button>
         </div>
     </div>
 </form>
