@@ -1,12 +1,13 @@
 <?php
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Event\ListView;
+
 /**
  * @var QuarkView|ListView $this
  * @var int $number
  */
 
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Event\ListView;
 ?>
 <h1 class="page-title">Event List</h1>
 <h5 class="page-title">Navigate through events</h5>

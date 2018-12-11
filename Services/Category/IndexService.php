@@ -63,12 +63,20 @@ class IndexService implements IQuarkGetService{
 					$out = array();
 
 					if ($sort_field == Category::ARCHIVE_SORT_AUTHOR) {
-						$out = QuarkModel::Find(new Author(), array(), array(
+						$out = QuarkModel::Find(new Author(), array(
+							'type' => array(
+								'$ne' => Author::TYPE_HUMAN
+							)
+						), array(
 							QuarkModel::OPTION_SORT => array('name' => QuarkModel::SORT_ASC)
 						));
 					}
 					elseif ($sort_field == Category::ARCHIVE_SORT_EVENT) {
-						$out = QuarkModel::Find(new Event(), array(), array(
+						$out = QuarkModel::Find(new Event(), array(
+							'startdate' => array(
+								'$ne' => '0000-00-00'
+							)
+						), array(
 							QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
 						));
 					}
