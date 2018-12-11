@@ -63,6 +63,7 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 	 */
 	public function DefaultExtract ($fields, $weak) {
 		if(!$fields === null) return $fields;
+
 		return array(
 			'id',
 			'name',
@@ -76,7 +77,7 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 	 * @return mixed
 	 */
 	public function Link ($raw) {
-		return QuarkModel::FindOneById(new Event(),$raw);
+		return QuarkModel::FindOneById(new Event(), $raw);
 	}
 
 	/**

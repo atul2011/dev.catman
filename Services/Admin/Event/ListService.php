@@ -6,6 +6,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -32,6 +33,7 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+
 		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array('number' => QuarkModel::Count(new Event())));
 	}
 
@@ -62,9 +64,9 @@ class ListService implements IQuarkGetService, IQuarkPostService, IQuarkServiceW
 		return array(
 			'status' => 200,
 			'response' => $events->Extract(array(
-					'id',
-					'name',
-					'startdate'
+				'id',
+				'name',
+				'startdate'
 			))
 		);
 	}
