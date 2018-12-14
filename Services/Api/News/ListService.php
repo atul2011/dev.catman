@@ -49,7 +49,8 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		return array(
 			'status' => 200,
 			'news' => QuarkModel::Find(new News(), array(
-					'publish_date' => array('$lte' => QuarkDate::GMTNow()->Format('Y-m-d'))
+				'publish_date' => array('$lte' => QuarkDate::GMTNow()->Format('Y-m-d')),
+				'title' => array('$ne' => '')
 			))->Extract()
 		);
 	}

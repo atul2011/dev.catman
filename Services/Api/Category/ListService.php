@@ -49,7 +49,10 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 
 		return array(
 			'status' => 200,
-			'categories' => QuarkModel::Find(new Category(), array('available_on_api' => true), array(
+			'categories' => QuarkModel::Find(new Category(), array(
+				'title' => array('$ne' => ''),
+				'available_on_api' => true
+			), array(
 				QuarkModel::OPTION_SORT => array('id' => QuarkModel::SORT_ASC)
 			))->Extract()
 		);
