@@ -3,6 +3,7 @@ namespace Models;
 
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
+use Quark\IQuarkModelWithAfterFind;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
@@ -44,7 +45,7 @@ use Quark\QuarkModelBehavior;
  *
  * @package Models
  */
-class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider,IQuarkModelWithCustomCollectionName ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel, IQuarkStrongModelWithRuntimeFields {
+class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithCustomCollectionName, IQuarkModelWithAfterFind ,IQuarkModelWithBeforeExtract, IQuarkModelWithDefaultExtract, IQuarkLinkedModel, IQuarkStrongModelWithRuntimeFields {
     use QuarkModelBehavior;
 
     const TYPE_ARTICLE = 'A';
@@ -116,7 +117,18 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
         return CM_DATA;
     }
 
-    /**
+	/**
+	 * @param $raw
+	 * @param array $options
+	 *
+	 * @return mixed
+	 */
+	public function AfterFind ($raw, $options) {
+		if (strlen($this->short_title) == 0)
+			$this->short_title = substr($this->title, 0 , 20);
+	}
+
+	/**
      * @param array $fields
      * @param bool $weak
      *
