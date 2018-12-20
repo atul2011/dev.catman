@@ -77,8 +77,13 @@ foreach ($articles as $item) {
 				}
 				?>
             </div>
-            <hr class="cm-delimiter cm-content-categories-delimiter">
-			<div class="item-related-categories-container"><?php echo $related_categories;?></div>
+            <?php
+            if (strlen($related_categories) > 0 && !$category->master) {
+                echo
+                    '<hr class="cm-delimiter cm-content-categories-delimiter">' ,
+			        '<div class="item-related-categories-container">'  , $related_categories . '</div>';
+            }
+            ?>
             <hr class="cm-delimiter cm-categories-articles-delimiter">
             <div class="item-related-articles-container"><?php echo $related_articles; ?></div>
 		</div>
