@@ -352,6 +352,9 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		return $master;
 	}
 
+	/**
+	 * @return QuarkCollection|Category[]
+	 */
 	public function GetMasterCategoryChilds () {
 		/**
 		 * @var QuarkModel|Category $master
