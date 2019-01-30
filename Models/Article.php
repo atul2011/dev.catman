@@ -42,6 +42,7 @@ use Quark\QuarkModelBehavior;
  * @property int $runtime_priority
  * @property int $runtime_category
  * @property int $runtime_link
+ * @property int $master_category
  *
  * @package Models
  */
@@ -90,7 +91,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		return array(
 			'runtime_priority' => 0,
 			'runtime_category' => null,
-			'runtime_link' => 0
+			'runtime_link' => 0,
+		    'master_category' => 0
 		);
 	}
 
@@ -349,6 +351,10 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 			}
 		}
 
+		if ($master == null && $this->master_category > 0) {
+			$master = QuarkModel::FindOneById(new Category(), $this->master_category);
+		}
+
 		return $master;
 	}
 
@@ -365,5 +371,12 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 			return new QuarkCollection(new Category());
 
 		return $master->ChildCategories(0);
+	}
+
+	/**
+	 * @param int $id
+	 */
+	public function SetMasterCategory ($id = 0) {
+		$this->master_category = $id;
 	}
 }

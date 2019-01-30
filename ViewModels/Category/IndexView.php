@@ -14,7 +14,7 @@ use ViewModels\ViewBehavior;
  *
  * @package ViewModels\Category
  */
-class IndexView implements IQuarkViewModel ,IQuarkViewModelWithCustomizableLayout,IQuarkViewModelWithComponents, IQuarkViewModelWithResources {
+class IndexView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLayout, IQuarkViewModelWithComponents, IQuarkViewModelWithResources {
 	use ViewBehavior;
 
 	/**

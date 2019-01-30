@@ -144,7 +144,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null) return $fields;
+        if ($fields != null) return $fields;
 
         return array(
             'id',

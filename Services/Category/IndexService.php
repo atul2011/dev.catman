@@ -3,6 +3,7 @@ namespace Services\Category;
 
 use Models\Article;
 use Models\Author;
+use Models\Breadcrumb;
 use Models\Category;
 use Models\Event;
 use Quark\IQuarkGetService;
@@ -23,7 +24,8 @@ use ViewModels\Status\NotFoundView;
  *
  * @package Services\Category
  */
-class IndexService implements IQuarkGetService{
+class IndexService implements IQuarkGetService {
+
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
@@ -230,6 +232,22 @@ class IndexService implements IQuarkGetService{
 
 		if (!$category->Save())
 			Quark::Log('Cannot save category ' . $category->id, Quark::LOG_FATAL);
+
+		//Set breadcrumb---------------------
+//		if ($category->master)
+//			Breadcrumb::Set($request->Remote()->host, $category->id);
+//		/**
+//		 * @var QuarkModel|Category $master
+//		 * @var QuarkModel|Breadcrumb $breadcrumb
+//		 */
+//		$master = $category->GetMasterCategory();
+//
+//		if ($master != null) {
+//			Breadcrumb::Set($request->Remote()->host, $master->id, $category->id);
+//		}
+//		else {
+////			$breadcrumb = Breadcrumb::Get($s)
+//		}
 
 		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'category' => $category,

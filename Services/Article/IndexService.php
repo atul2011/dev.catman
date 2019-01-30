@@ -2,6 +2,8 @@
 namespace Services\Article;
 
 use Models\Article;
+use Models\Breadcrumb;
+use Models\Category;
 use Quark\IQuarkGetService;
 use Quark\Quark;
 use Quark\QuarkDTO;
@@ -49,6 +51,22 @@ class IndexService implements IQuarkGetService {
 
 		if (!$article->Save())
 			Quark::Log('Cannot save article ' . $article->id, Quark::LOG_FATAL);
+
+		//Set breadcrumb---------------------
+//		/**
+//		 * @var QuarkModel|Category $master
+//		 * @var QuarkModel|Breadcrumb $breadcrumb
+//		 */
+//		$master = $article->GetMasterCategory();
+//
+//		if ($master != null) {
+//			Breadcrumb::Set($request->Remote()->host, $master->id, 0, $article->id);
+//		}
+//		else {
+//			$breadcrumb = Breadcrumb::Get($request->Remote()->host);
+//
+////			if ($breadcrumb->FindParent())
+//		}
 
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,
