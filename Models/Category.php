@@ -144,7 +144,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @return mixed
      */
     public function DefaultExtract($fields, $weak) {
-        if($fields != null) return $fields;
+        if ($fields != null) return $fields;
 
         return array(
             'id',
@@ -474,6 +474,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 */
 	public static function Sort (QuarkCollection $categories, $field = 'runtime_priority') {
 		return $categories->Select(array(), array(
+			QuarkModel::OPTION_FIELDS => array(
+				'id'
+			),
 			QuarkModel::OPTION_SORT => array(
 				$field => QuarkModel::SORT_ASC,
 				'title' => QuarkModel::SORT_ASC
@@ -549,16 +552,24 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	}
 
 	/**
+	 * @param string $user
+	 *
 	 * @return Category[]|QuarkCollection
 	 */
-	public function GetMasterCategoryChilds () {
+	public function GetMasterCategoryChildes ($user = '') {
 		/**
 		 * @var QuarkModel|Category $master
 		 */
 		$master = $this->master ? $this : $this->GetMasterCategory();
 
-		if ($master == null)
-			return new QuarkCollection(new Category());
+		if ($master == null) {
+			$bc = Breadcrumb::Get($user);
+
+			if ($bc != null && $bc->FindItem('p', 'c', $this->id))
+				$master = QuarkModel::FindOneById(new Category(), $bc->GetMasterId());
+			else
+				$master = new QuarkModel(new Category());
+		}
 
 		return $master->ChildCategories(0);
 	}

@@ -2,12 +2,16 @@
 namespace Services\Article;
 
 use Models\Article;
+use Models\Breadcrumb;
+use Models\Category;
+use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkView;
+use Services\ServicesBehavior;
 use ViewModels\Article\IndexView;
 use ViewModels\LayoutView;
 use ViewModels\Status\NotFoundView;
@@ -17,7 +21,18 @@ use ViewModels\Status\NotFoundView;
  *
  * @package Services\Article
  */
-class IndexService implements IQuarkGetService {
+class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
+	use ServicesBehavior;
+
+	/**
+	 * @param QuarkDTO $request
+	 *
+	 * @return string
+	 */
+	public function AuthorizationProvider (QuarkDTO $request) {
+		return CM_SESSION;
+	}
+
 	/**
 	 * @param QuarkDTO $request
 	 * @param QuarkSession $session
@@ -50,9 +65,12 @@ class IndexService implements IQuarkGetService {
 		if (!$article->Save())
 			Quark::Log('Cannot save article ' . $article->id, Quark::LOG_FATAL);
 
+		$this->SetUserBreadcrumb($session->ID()->Value(), null, $article);//Set breadcrumb
+
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,
-			'title' => $article->title
+			'title' => $article->title,
+			'user' => $session->ID()->Value()
 		));
 	}
 }

@@ -52,7 +52,6 @@ function resizeList (height_difference, width_difference) {
 }
 
 function LoadContent (alone, model, callback, skip, limit,state) {//function to load content
-    console.log(2);
     var special_model = '';
     if (state === 'multiple')
         special_model = '-' + model;
@@ -63,10 +62,10 @@ function LoadContent (alone, model, callback, skip, limit,state) {//function to 
 
     if (model === null || model === undefined)
         model = 'none';
-    console.log('dadasd');
+
     $.ajax({url: '/admin/' + model + '/list?skip=' + start + '&limit=' + limit, data: {orfan: alone, model: model}, type: 'POST'})
     .then(function(json){
-        console.log(json);
+
         removeItems('.content-row'+special_model);
 
         if (json.response !== null) {

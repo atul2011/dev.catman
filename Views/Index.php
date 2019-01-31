@@ -1,9 +1,4 @@
 <?php
-/**
- * @var QuarkView|IndexView $this
- * @var QuarkModel|Article $article
- * @var QuarkCollection|Banner[] $banners
- */
 use Models\Article;
 use Models\Banner;
 use Models\Photo;
@@ -11,7 +6,13 @@ use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use ViewModels\Content\IndexView;
+use ViewModels\IndexView;
+
+/**
+ * @var QuarkView|IndexView $this
+ * @var QuarkModel|Article $article
+ * @var QuarkCollection|Banner[] $banners
+ */
 
 /**
  * @var QuarkCollection|Banner[] $random_banner

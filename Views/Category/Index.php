@@ -14,8 +14,7 @@ use ViewModels\Category\IndexView;
  */
 
 $related_categories = '';//sub-categories
-$categories = Category::Sort($category->ChildCategories(0));
-
+$categories = $category->ChildCategories(0);
 
 foreach ($categories as $item) {
 	if ($item->keywords === 'super-category')
@@ -26,11 +25,12 @@ foreach ($categories as $item) {
 
 	$related_categories .=
 	    '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-            '<a class="related-item-link" href="/category/'.$item->id.'"><b>'.
-                '<span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span>' . $item->title .
-            '</b></a>'.
+            '<a class="related-item-link" href="/category/'.$item->id.'">'.
+                '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
+                $item->title .
+            '</a>'.
             '<br />' .
-            '<a>' . $item->note  . '</a>' .
+            '<div class="related-item-detail">' . $item->note  . '</div>' .
        '</div>';
 }
 
@@ -43,7 +43,9 @@ if ($category->sub == Category::TYPE_NEW)
 foreach ($articles as $item) {
 	$related_articles .=
 	    '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
-            '<a class="related-item-link" href="/article/'.$item->id.'">'. $item->title . '</a>'.
+            '<a class="related-item-link" href="/article/'.$item->id.'">'.
+                $item->title .
+            '</a>'.
             '<br />'.
             '<div class="related-item-detail">' .$item->resume  . '</div>' .
          '</div>';

@@ -29,67 +29,77 @@ class ParseService implements IQuarkGetService, IQuarkAuthorizableServiceWithAut
 		/**
 		 * @var QuarkCollection|Category[] $categories
 		 */
-		$categories = QuarkModel::Find(new Category());
-
+//		$categories = QuarkModel::Find(new Category());
+		$categories = QuarkModel::Find(new Category(), array('id' => '172'));
 		foreach ($categories as $category) {
 			if (!$category->Validate())
 				$category->sub = Category::TYPE_CATEGORY;
 
 //I Parser
-			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\"javascript:goPage\(\\\\\'\/showcat\.php\?id=([0-9]+)\\\\\'\)\\\#Uis', 'href="/category/$1', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //II Parser
-			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //III parser
-			$processed = preg_replace('#href=\\\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
-
-			if ($processed != null)
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\\\"\/showcat\.php\?id=([0-9]+)\\\#Uis', 'href="/category/$1', $category->intro);
+//
+//			if ($processed != null)
+//				$category->intro = $processed;
 //IV Parser
-			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //V parser
-			$processed = preg_replace('#href=\\\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
-
-			if ($processed != null)
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\\\"\/article\.php\?id=([0-9]+)\\\#Uis', 'href="/article/$1', $category->intro);
+//
+//			if ($processed != null)
+//				$category->intro = $processed;
 //VI Parser
-			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/article\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/article/$1"', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //VII Parser
-			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#href=\\\\\"http:\/\/www\.universalpath\.org\/showcat\.php\?id=([0-9]+)\\\\\"#Uis', 'href="/category/$1"', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //VIII Parser
-			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $category->intro);
-
-			if ($processed != '')
-				$category->intro = $processed;
+//			$processed = preg_replace('#\<a href=\"http:\/\/.*\/.*\/.*\/.*\/.*\/.*\.mp3\"\>.*\<\/a\>.#Uis', '', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
 //IX Parser
-			$processed = preg_replace('#<table([\s\S]+)(\/sound\/)([\s\S]+)table>#Uis', '', $category->intro);
+//			$processed = preg_replace('#<table([\s\S]+)(\/sound\/)([\s\S]+)table>#Uis', '', $category->intro);
+//
+//			if ($processed != null && strlen($processed) > 0)
+//				$category->intro = $processed;
+//X Parser
+//			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
+//
+//			if ($processed != '')
+//				$category->intro = $processed;
+//XI Parser
+//			$processed = preg_replace('#\\\\\"#Uis', '"', $category->title);
+//
+//			if ($processed != '')
+//				$category->title = $processed;
+//XII parser
+			$processed = preg_replace('#href=\"http:\/\/new\.universalpath\.org\/article\/([0-9]+)\"#Uis', 'href="/article/$1"', $category->intro);
 
 			if ($processed != null && strlen($processed) > 0)
 				$category->intro = $processed;
-//X Parser
-			$processed = preg_replace('#\\\\\"#Uis', '"', $category->intro);
+//XIII Parser
+			$processed = preg_replace('#href=\"http:\/\/new\.universalpath\.org\/category\/([0-9]+)\"#Uis', 'href="/category/$1"', $category->intro);
 
-			if ($processed != '')
+			if ($processed != null && strlen($processed) > 0)
 				$category->intro = $processed;
-//XI Parser
-			$processed = preg_replace('#\\\\\"#Uis', '"', $category->title);
-
-			if ($processed != '')
-				$category->title = $processed;
 
 			if (!$category->Save())
 				Quark::Log('Cannot save category:' . $category->id);

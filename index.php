@@ -1,5 +1,6 @@
 <?php
 include __DIR__ . '/loader.php';
+
 use Models\User;
 use Quark\AuthorizationProviders\Session;
 use Quark\Extensions\Mail\MailConfig;
@@ -11,9 +12,11 @@ use Quark\QuarkConfig;
 use Quark\DataProviders\MySQL;
 
 const CM_DATA = 'data';
+const CM_DATA_LOCAL = 'data_local';
 const CM_SESSION = 'session';
 const CM_MAIL = 'mail';
 const CM_PUSH_NOTIFICATION = 'push';
+
 $config = new QuarkConfig(__DIR__ . '/runtime/application.ini');
 
 $config->DataProvider(CM_DATA, new MySQL());

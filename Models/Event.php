@@ -113,8 +113,6 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 			}
 		}
 
-		Quark::Trace($events_ids);
-
 		return $events;
 	}
 }

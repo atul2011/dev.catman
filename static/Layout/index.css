@@ -117,8 +117,6 @@ body {
     text-transform: uppercase;
 }
 
-
-
 /*----------------------------Main Link Container-------------------------------*/
 #main-links-container {
 
@@ -139,4 +137,12 @@ body {
     padding:15px 10px 15px 15px;
     text-transform: uppercase;
     word-wrap: break-word;
+}
+
+@media only screen and(max-width: 990px) {
+    #main-links-container .related-items-container,
+    #additional-links-container .related-items-container {
+        height: auto!important;
+        min-height: 1px!important;
+    }
 }
