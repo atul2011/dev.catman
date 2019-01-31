@@ -50,7 +50,7 @@ $(document).ready(function () {
     }
 
     related_links.removeAttr('target');
-    $('.related-items-container').height($('#content-container').height() - 29);
+    $('.related-items-container, #content-container .block-center__left.js-equal-height').css('min-height', GetMaxheight());
 
 });
 
@@ -63,10 +63,10 @@ $(document).on('click', '.dropdown-item', function () {
         sub_list.hide();
 });
 
-function SetMaxheight () {
+function GetMaxheight () {
     var left_links = $('#main-links-container .related-items-container');
     var content = $('#content-container');
     var right_links = $('#additional-links-container .related-items-container');
 
-    var height = Math.max(left_links.height(), content.height(), right_links.height());
+    return Math.max(left_links.height(), content.height(), right_links.height());
 }

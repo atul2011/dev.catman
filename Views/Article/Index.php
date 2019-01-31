@@ -7,7 +7,6 @@ use Models\Article;
 use Models\Photo;
 use Quark\QuarkModel;
 use Quark\QuarkView;
-use Quark\ViewResources\ShowdownJS\ShowdownJS;
 use ViewModels\Article\IndexView;
 
 $related_categories = '';
