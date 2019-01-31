@@ -6,6 +6,7 @@ use Models\Author;
 use Models\Breadcrumb;
 use Models\Category;
 use Models\Event;
+use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
 use Quark\QuarkCollection;
@@ -14,6 +15,7 @@ use Quark\QuarkModel;
 use Quark\QuarkSession;
 use Quark\QuarkSQL;
 use Quark\QuarkView;
+use Services\ServicesBehavior;
 use ViewModels\Category\ArchiveView;
 use ViewModels\Category\IndexView;
 use ViewModels\LayoutView;
@@ -24,7 +26,17 @@ use ViewModels\Status\NotFoundView;
  *
  * @package Services\Category
  */
-class IndexService implements IQuarkGetService {
+class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
+	use ServicesBehavior;
+
+	/**
+	 * @param QuarkDTO $request
+	 *
+	 * @return string
+	 */
+	public function AuthorizationProvider (QuarkDTO $request) {
+		return CM_SESSION;
+	}
 
 	/**
 	 * @param QuarkDTO $request
@@ -234,24 +246,15 @@ class IndexService implements IQuarkGetService {
 			Quark::Log('Cannot save category ' . $category->id, Quark::LOG_FATAL);
 
 		//Set breadcrumb---------------------
-//		if ($category->master)
-//			Breadcrumb::Set($request->Remote()->host, $category->id);
-//		/**
-//		 * @var QuarkModel|Category $master
-//		 * @var QuarkModel|Breadcrumb $breadcrumb
-//		 */
-//		$master = $category->GetMasterCategory();
-//
-//		if ($master != null) {
-//			Breadcrumb::Set($request->Remote()->host, $master->id, $category->id);
-//		}
-//		else {
-////			$breadcrumb = Breadcrumb::Get($s)
-//		}
+		if ($category->master)
+			Breadcrumb::Set($session->ID()->Value(), $category->id);
+
+		$this->SetUserBreadcrumb($session->ID()->Value(), $category);
 
 		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'category' => $category,
-			'title' => $category->title
+			'title' => $category->title,
+		    'user' => $session->ID()->Value()
 		));
 	}
 }

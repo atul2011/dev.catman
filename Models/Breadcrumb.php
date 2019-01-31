@@ -11,6 +11,7 @@ use Quark\QuarkModelBehavior;
  *
  * @property int $id
  * @property string $value
+ * @property string $childes
  * @property string $user
  *
  * @package Models
@@ -24,6 +25,7 @@ class Breadcrumb implements IQuarkStrongModel, IQuarkModelWithDataProvider {
 		return array(
 			$this->DataProviderPk(),
 		    'value' => '',
+		    'childes' => '',
 		    'user' => ''
 		);
 	}
@@ -44,13 +46,13 @@ class Breadcrumb implements IQuarkStrongModel, IQuarkModelWithDataProvider {
 
 	/**
 	 * @param string $user
-	 * @param int $master
-	 * @param int $category
-	 * @param int $article
+	 * @param int $master <> 0
+	 * @param string $type = 'c'->category || 'a'->article
+	 * @param int $id
 	 *
 	 * @return bool
 	 */
-	public static function Set ($user, $master, $category = 0, $article = 0) {
+	public static function Set ($user, $master = -1, $type = 'c', $id = 0) {
 		/**
 		 * @var QuarkModel|Breadcrumb $breadcrumb
 		 */
@@ -62,18 +64,15 @@ class Breadcrumb implements IQuarkStrongModel, IQuarkModelWithDataProvider {
 			$breadcrumb->Create();
 		}
 
-		if ($breadcrumb->GetMasterId() != $master){
+		if ($master > 0 && $breadcrumb->GetMasterId() != $master)
 			$breadcrumb->value = 'm:' . $master;
-		}
-		else {
-			if ($category > 0)
-				$breadcrumb->value .= ';c:' . $category;
 
-			if ($article > 0)
-				$breadcrumb->value .= ';a:' . $article;
-		}
+		if ($id > 0 && !$breadcrumb->FindItem('p', $type, $id))
+			$breadcrumb->value .= ';' . $type . ':' . $id;
 
-		return $breadcrumb->Save();
+		$breadcrumb->Save();
+
+		return true;
 	}
 
 	/**
@@ -96,18 +95,30 @@ class Breadcrumb implements IQuarkStrongModel, IQuarkModelWithDataProvider {
 	}
 
 	/**
+	 * @param string $target = c => 'childes' | p => 'parents'
+	 * @param string $type = 'c'-category || 'a'-article
 	 * @param int $id
 	 *
 	 * @return bool
 	 */
-	public function FindParent ($id) {
-		$values = explode(';', $this->value);
+	public function FindItem ($target = 'p', $type = 'c', $id) {
+		$target_value = $target == 'p' ? $this->value : $this->childes;
+		$values = explode(';', $target_value);
 
 		foreach ($values as $value) {
-			if (explode(':', $value)[1] == $id)
+			if ($value == $type . ':' . $id)
 				return true;
 		}
 
 		return false;
+	}
+
+	/**
+	 * @param string $type
+	 * @param int $id
+	 */
+	public function SetChild ($type = 'c', $id = 0) {
+		$this->childes .= (strlen($this->childes) > 0 ? ';' : '');
+		$this->childes .=  $type . ':' . $id;
 	}
 }

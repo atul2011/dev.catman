@@ -250,6 +250,25 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 			QuarkModel::OPTION_SORT => array(
 				$field => QuarkModel::SORT_ASC,
 				'title' => QuarkModel::SORT_ASC
+			),
+			QuarkModel::OPTION_FIELDS => array(
+				'id',
+				'title',
+				'release_date',
+				'publish_date',
+				'resume',
+				'copyright',
+				'priority',
+				'type',
+				'keywords',
+				'description',
+				'event_id',
+				'author_id',
+				'short_title',
+				'available_on_api',
+				'runtime_priority',
+				'runtime_category',
+				'runtime_link'
 			)
 		));
 	}
@@ -359,17 +378,24 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	}
 
 	/**
+	 * @param string $user
+	 *
 	 * @return QuarkCollection|Category[]
 	 */
-	public function GetMasterCategoryChilds () {
+	public function GetMasterCategoryChildes ($user = '') {
 		/**
 		 * @var QuarkModel|Category $master
 		 */
 		$master = $this->GetMasterCategory();
 
-		if ($master == null)
-			return new QuarkCollection(new Category());
+		if ($master == null) {
+			$bc = Breadcrumb::Get($user);
 
+			if ($bc != null && $bc->FindItem('p', 'a', $this->id))
+				$master = QuarkModel::FindOneById(new Category(), $bc->GetMasterId());
+			else
+				$master = new QuarkModel(new Category());
+		}
 		return $master->ChildCategories(0);
 	}
 

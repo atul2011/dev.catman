@@ -11,6 +11,7 @@ use ViewModels\Article\IndexView;
 
 $related_categories = '';
 $categories = $article->Categories();
+
 foreach ($categories as $category) {
 	$related_categories .= '<div class="item-related-categories" id="related-category-' . $category->id . '">' . $category->title . '</div>';
 }
