@@ -7,6 +7,7 @@ use Models\Category;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
+use Quark\QuarkDate;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -40,6 +41,8 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+		$session_id = $session->ID() != null ? $session->ID()->Value() : sha1($request->Remote()->host . QuarkDate::GMTNow('d-m-Y'));
+
 		/**
 		 * @var QuarkModel|Article $article
 		 */
@@ -65,12 +68,12 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 		if (!$article->Save())
 			Quark::Log('Cannot save article ' . $article->id, Quark::LOG_FATAL);
 
-		$this->SetUserBreadcrumb($session->ID()->Value(), null, $article);//Set breadcrumb
+		$this->SetUserBreadcrumb($session_id, null, $article);//Set breadcrumb
 
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,
 			'title' => $article->title,
-			'user' => $session->ID()->Value()
+			'user' => $session_id
 		));
 	}
 }
