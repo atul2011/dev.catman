@@ -43,6 +43,7 @@ use Quark\QuarkModelBehavior;
  * @property int $runtime_category
  * @property int $runtime_link
  * @property int $master_category
+ * @property string $grouped
  *
  * @package Models
  */
@@ -92,7 +93,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 			'runtime_priority' => 0,
 			'runtime_category' => null,
 			'runtime_link' => 0,
-		    'master_category' => 0
+		    'master_category' => 0,
+		    'grouped' => 'false',
 		);
 	}
 
@@ -138,6 +140,14 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
      */
     public function BeforeExtract($fields, $weak) {
         $this->id = (string)$this->id;
+
+	    if ($this->runtime_category != null) {
+		    $this->grouped = QuarkModel::Count(new CategoryGroupItem(), array(
+			    'category' => (string)$this->runtime_category,
+			    'type' => CategoryGroupItem::TYPE_CATEGORY,
+			    'target' => (string)$this->id
+		    )) > 0 ? 'true' : 'false';
+	    }
     }
 
     /**
@@ -166,10 +176,12 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'event_id',
             'author_id',
             'short_title',
+            'available_on_site',
             'available_on_api',
             'runtime_priority',
             'runtime_category',
-            'runtime_link'
+            'runtime_link',
+            'grouped'
         );
     }
 

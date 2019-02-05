@@ -1,0 +1,123 @@
+.page-content {
+    min-width: 300px;
+    width: calc(100% - 240px);
+}
+
+.page-title {
+    margin-left: 10px;
+}
+
+.page-content-column {
+    border: 1px solid #AAAAAA;
+    min-width: 150px;
+    max-width: 250px;
+    width: calc(50% - 22px);
+}
+
+.page-sequence-title {
+    border-bottom: 1px solid #AAAAAA;
+    padding:5px;
+    width: calc(100% - 10px);
+}
+
+/*Links Column*/
+#category-links-container {
+    margin:5px;
+    padding-top: 30px;
+}
+
+.page-category-item {
+    background-color: #DEDEDE;
+    border-radius: 3px;
+    box-shadow: 2px 2px 4px #AAAAAA;
+    cursor: pointer;
+    font-size: 13px;
+    margin: 5px 0;
+    padding: 4px 2px;
+    width: calc(100% - 4px);
+}
+
+.page-category-item:hover {
+    background-color: #555555;
+    color: #EFEFEF;
+}
+
+.page-category-item:before {
+    margin-right: 4px;
+}
+
+/*Groups Column*/
+#category-groups-container {
+    margin: 5px;
+    width: calc(100% - 10px);
+}
+
+#category-group-add {
+    background: rgb(0, 176, 80);
+    border: 1px solid rgba(0, 0, 0, 0);
+    border-radius: 5px;
+    color: rgb(255, 255, 255);
+    cursor: pointer;
+    display: inline-block;
+    font-weight: bold;
+    padding: 8px 0;
+    text-align: center;
+    text-shadow: none;
+    text-transform: uppercase;
+    width: calc(100% - 2px);
+}
+
+#category-group-add:hover {
+    background: rgb(0, 225, 80);
+    border: 1px solid rgb(0, 176, 80);
+    color: rgb(255, 255, 255);
+}
+
+#category-groups-container .group-container {
+    border: 1px solid #3e6e8e;
+    display: inline-block;
+    margin: 5px 0;
+    width: calc(100% - 2px);
+}
+
+#category-groups-container .group-container .group-title{
+    border-bottom: 1px solid #3e6e8e;
+    font-size: 14px;
+    font-weight: 600;
+    padding: 5px;
+    text-align: left;
+    width: calc(100% - 10px);
+}
+
+#category-groups-container .group-container .group-title-editable{
+    border: none;
+    border-bottom: 1px solid #3e6e8e;
+    display: block;
+    font-style: italic;
+    padding: 5px;
+    width: calc(100% - 10px);
+}
+
+#category-groups-container .group-container .group-priority{
+    float: right;
+    font-weight: 800;
+    height: 16px;
+    margin-right: -4px;
+    margin-top: -2px;
+    padding: 2px 4px;
+    text-decoration: underline;
+}
+
+#category-groups-container .group-container .group-items-container{
+    min-height: 20px;
+    padding-bottom: 30px;
+}
+
+#category-groups-container .group-items-container .page-category-item-container{
+    text-align: center;
+}
+
+#category-groups-container .group-items-container .page-category-item{
+    text-align: left;
+    width: calc(100% - 14px);
+}

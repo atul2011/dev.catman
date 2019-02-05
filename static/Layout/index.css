@@ -31,12 +31,11 @@ body {
 .item-related-articles, .item-related-categories {
     margin-bottom: 10px;
 }
-
-.item-related-articles .related-item-detail {
+.related-item-detail {
     color: #000000;
     display: block;
-    font-size: 14px;
-    line-height: 16px;
+    font-size: 14px !important;
+    line-height: 16px !important;
     text-decoration: none;
 }
 

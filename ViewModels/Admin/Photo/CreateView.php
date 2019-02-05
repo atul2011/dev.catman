@@ -20,14 +20,14 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Photo Create';
+		return 'Photo Form';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Photo/Create';
+		return 'Admin/Photo/Form';
 	}
 
 	/**
@@ -48,13 +48,13 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Create/index.css';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		return __DIR__ . '/../../../static/Admin/Create/index.js';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.js';
 	}
 }

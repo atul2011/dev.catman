@@ -96,7 +96,8 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 			'response' => $orfans->Extract(array(
 					'id',
 					'title',
-					'sub'
+					'sub',
+			        'has_links'
 			))
 		);
 	}

@@ -48,13 +48,13 @@ class ListView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuar
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../../static/Admin/List/index.css';
+		return __DIR__ . '/../../../static/Admin/Behaviors/List/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		return __DIR__ . '/../../../static/Admin/List/index.js';
+		return __DIR__ . '/../../../static/Admin/Behaviors/List/index.js';
 	}
 }

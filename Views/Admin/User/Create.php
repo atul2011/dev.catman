@@ -11,7 +11,7 @@ use ViewModels\Admin\Event\CreateView;
 
 $item = new QuarkModel(new User);
 $service = 'create';
-$button_name = 'Create';
+$button_name = 'Form';
 if (isset($user)) {
 	$item = $user;
 	$service = 'edit/' . $item->id;
