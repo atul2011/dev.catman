@@ -31,9 +31,8 @@ class CreateService implements IQuarkPostService,IQuarkAuthorizableServiceWithAu
 	 * @return mixed
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
-		Quark::Trace($request->Data());
 		/**
-		 * @var QuarkModel|Category $group
+		 * @var QuarkModel|CategoryGroup $group
 		 */
 		$group = QuarkModel::FindOneById(new CategoryGroup(), $request->group);
 
@@ -47,13 +46,22 @@ class CreateService implements IQuarkPostService,IQuarkAuthorizableServiceWithAu
 		 * @var QuarkModel|CategoryGroupItem $item
 		 */
 		$item = QuarkModel::FindOne(new CategoryGroupItem(), array(
-			'category_group' => $group,
+			'category' => $group->category,
 			'type' => htmlspecialchars($request->type),
 			'target' => htmlspecialchars($request->target)
 		));
 
-		if ($item != null)
-			return array('status' => 409);
+		if ($item != null) {
+			if ((string)$item->category_group->id == (string)$group->id)
+				return array('status' => 409);
+
+			$item->category_group = $group;
+
+			if (!$item->Save())
+				return array('status' => 500);
+
+			return array('status' => 200);
+		}
 
 		$item = new QuarkModel(new CategoryGroupItem(), array(
 			'category_group' => $group,
