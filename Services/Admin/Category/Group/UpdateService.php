@@ -29,7 +29,6 @@ class UpdateService implements IQuarkPostService,IQuarkAuthorizableServiceWithAu
 	 * @return mixed
 	 */
 	public function Post (QuarkDTO $request, QuarkSession $session) {
-		Quark::Trace($request->Data());
 		/**
 		 * @var QuarkModel|CategoryGroup $group
 		 */

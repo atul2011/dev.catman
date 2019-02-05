@@ -1,6 +1,7 @@
 <?php
 namespace Models;
 
+use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModelWithBeforeCreate;
 use Quark\IQuarkModelWithBeforeExtract;
 use Quark\IQuarkModelWithDataProvider;
@@ -27,7 +28,7 @@ use Quark\QuarkModelBehavior;
  *
  * @package Models
  */
-class CategoryGroupItem implements IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkStrongModelWithRuntimeFields {
+class CategoryGroupItem implements IQuarkStrongModel, IQuarkModelWithDataProvider, IQuarkModelWithBeforeExtract, IQuarkModelWithBeforeCreate, IQuarkStrongModelWithRuntimeFields, IQuarkLinkedModel {
 	use QuarkModelBehavior;
 
 	const TYPE_ARTICLE = 'article';
@@ -89,7 +90,6 @@ class CategoryGroupItem implements IQuarkStrongModel, IQuarkModelWithDataProvide
 	 */
 	public function BeforeExtract ($fields, $weak) {
 		$this->category_group = (string)$this->category_group->id;
-
 		if ($this->type == self::TYPE_CATEGORY) {
 			/**
 			 * @var QuarkModel|Category $category
@@ -111,6 +111,22 @@ class CategoryGroupItem implements IQuarkStrongModel, IQuarkModelWithDataProvide
 			$this->title = $article->title;
 		}
 
+	}
+
+	/**
+	 * @param $raw
+	 *
+	 * @return mixed
+	 */
+	public function Link ($raw) {
+		return QuarkModel::FindOneById(new CategoryGroupItem(), $raw);
+	}
+
+	/**
+	 * @return mixed
+	 */
+	public function Unlink () {
+		return (string)$this->id;
 	}
 
 	/**
