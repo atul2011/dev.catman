@@ -10,6 +10,7 @@ use Quark\ViewResources\Quark\QuarkControls\QuarkControls;
 use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControlComponent;
 use ViewModels\Admin\Behaviors\ILoader;
 use ViewModels\Admin\Behaviors\INavigationBar;
+use ViewResources\Fonts\OpenSans;
 
 /**
  * Class ViewBehavior
@@ -84,6 +85,7 @@ trait ViewBehavior {
 		return array(
 			new jQueryCore(),
 			new QuarkControls(),
+			new OpenSans(),
 			$this instanceof INavigationBar ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Mechanisms/NavigationBar/index.css') : null,
 			$this instanceof INavigationBar ? QuarkGenericViewResource::JS(__DIR__ . '/../../static/Admin/Mechanisms/NavigationBar/index.js') : null,
 			$this instanceof ILoader ? QuarkGenericViewResource::CSS(__DIR__ . '/../../static/Admin/Mechanisms/Loader/index.css') : null,

@@ -5,3 +5,7 @@
     min-width: 260px;
     max-width: 260px;
 }
+
+.actions {
+    max-width: 70px;
+}

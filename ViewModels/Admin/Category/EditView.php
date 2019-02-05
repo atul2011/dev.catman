@@ -11,7 +11,7 @@ use ViewModels\Admin\ViewBehavior;
 use ViewResources\Summernote\Summernote;
 
 /**
- * Class EditView
+ * Class IndexView
  *
  * @package ViewModels\Admin\Category
  */
@@ -59,13 +59,13 @@ class EditView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuar
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Create/index.css';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		return __DIR__ . '/../../../static/Admin/Create/index.js';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.js';
 	}
 }

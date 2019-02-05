@@ -12,7 +12,6 @@ use Quark\QuarkConfig;
 use Quark\DataProviders\MySQL;
 
 const CM_DATA = 'data';
-const CM_DATA_LOCAL = 'data_local';
 const CM_SESSION = 'session';
 const CM_MAIL = 'mail';
 const CM_PUSH_NOTIFICATION = 'push';

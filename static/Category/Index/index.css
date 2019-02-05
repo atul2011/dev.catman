@@ -1,0 +1,9 @@
+.cm-group-container {
+    margin: 15px 0;
+}
+
+.cm-group-container .cm-group-title{
+    display: inline-block;
+    font-size: 1em;
+    margin: 10px 0;
+}

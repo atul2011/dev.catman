@@ -22,14 +22,14 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel , IQ
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'User Create';
+		return 'User Form';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/User/Create';
+		return 'Admin/User/Form';
 	}
 
 	/**
@@ -59,13 +59,13 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel , IQ
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Create/index.css';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		return __DIR__ . '/../../../static/Admin/Create/index.js';
+		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.js';
 	}
 }

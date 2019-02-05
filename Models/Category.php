@@ -36,6 +36,8 @@ use Quark\QuarkModelBehavior;
  * @property int $runtime_priority
  * @property int $runtime_category
  * @property int $runtime_link
+ * @property string $has_links
+ * @property string $grouped
  *
  * @package Models
  */
@@ -87,7 +89,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		return array(
 			'runtime_priority' => null,
 			'runtime_category' => null,
-			'runtime_link' => 0
+			'runtime_link' => 0,
+		    'has_links' => 'false',
+		    'grouped' => 'false'
 		);
 	}
 
@@ -135,6 +139,15 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     public function BeforeExtract($fields, $weak) {
         $this->id = (string)$this->id;
         $this->priority = (string)$this->priority;
+        $this->has_links = $this->HasLinks() ? 'true' : 'false';
+
+        if ($this->runtime_category != null) {
+	        $this->grouped = QuarkModel::Count(new CategoryGroupItem(), array(
+                'category' => (string)$this->runtime_category,
+                'type' => CategoryGroupItem::TYPE_CATEGORY,
+                'target' => (string)$this->id
+	        )) > 0 ? 'true' : 'false';
+        }
     }
 
     /**
@@ -161,7 +174,8 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
             'available_on_api',
             'runtime_priority',
             'runtime_category',
-            'runtime_link'
+            'runtime_link',
+            'has_links'
         );
     }
 
@@ -188,7 +202,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      *
      * @return QuarkCollection|Category[]
      */
-    public function ChildCategories($limit = 10, $offset = 0, $target = 'site'){
+    public function ChildCategories($limit = 0, $offset = 0, $target = 'site'){
         $options = array();
 
         if ($limit != 0) {
@@ -202,7 +216,6 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
          * @var QuarkCollection|Categories_has_Categories[] $links
          */
         $links = QuarkModel::Find(new Categories_has_Categories(), array('parent_id' => (string)$this->id), $options);
-
 	    $out = new QuarkCollection(new Category());
 
 	    foreach ($links as $link) {
@@ -274,7 +287,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
      * @param int $offset
      * @return QuarkCollection|Article[]
      */
-    public function Articles($limit = 10, $offset = 0, $sort_field = 'title') {
+    public function Articles($limit = 0, $offset = 0, $sort_field = 'title') {
 	    $options = array();
 
 	    if ($limit != 0) {
@@ -554,7 +567,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	/**
 	 * @param string $user
 	 *
-	 * @return Category[]|QuarkCollection
+	 * @return QuarkCollection|Category[]
 	 */
 	public function GetMasterCategoryChildes ($user = '') {
 		/**
@@ -572,5 +585,21 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		}
 
 		return $master->ChildCategories(0);
+	}
+
+	/**
+	 * @return array|QuarkCollection
+	 */
+	public function Groups () {
+		return QuarkModel::Find(new CategoryGroup(), array('category' => (string)$this->id), array(
+			QuarkModel::OPTION_SORT => array('priority' => QuarkModel::SORT_DESC)
+		));
+	}
+
+	/**
+	 * @return bool
+	 */
+	public function HasLinks () {
+		return (QuarkModel::Count(new Categories_has_Categories(), array('parent_id' => (string)$this->id)) > 0) || (QuarkModel::Count(new Articles_has_Categories(), array('category_id' => (string)$this->id)) > 0);
 	}
 }
