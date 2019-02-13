@@ -101,7 +101,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 //
 //		$article->publish_date = QuarkDate::FromFormat('Y-m-d', $request->publish_date);
 //
-//		$article->release_date = QuarkDate::FromFormat('Y-m-d H:i', $request->release_date);
+//		$article->release_date = QuarkDate::FromFormat('Y-m-d H:i', $request-->release_date);
 
 		$article->available_on_site = !isset($request->available_on_site) ? false : true;
 		$article->available_on_api = !isset($request->available_on_api) ? false : true;

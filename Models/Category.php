@@ -300,25 +300,18 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	     */
 	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
 	    $articles = new QuarkCollection(new Article());
-	    $out = new QuarkCollection(new Article());
-	    $keys = array();
 
 	    foreach ($links as $item) {
-		    $articles[] = $item->article_id->Retrieve();
-		    $keys[$item->article_id->value] = $item->id;
+		    /**
+		     * @var QuarkModel|Article $article
+		     */
+		    $article = $item->article_id->Retrieve();
+		    $article->SetRuntimePriority(new QuarkModel($this));
+		    $article->runtime_link = $item->id;
+		    $articles[] = $article;
 	    }
 
-	    $articles = Article::Sort($articles, $sort_field);
-
-	    foreach ($articles as $item) {
-	        /**
-	         * @var QuarkModel|Article $item
-	         */
-		    $item->runtime_link = $keys[$item->id];
-		    $out[] = $item;
-	    }
-
-	    return $out;
+	    return Article::Sort($articles, $sort_field);
     }
 
 	/**

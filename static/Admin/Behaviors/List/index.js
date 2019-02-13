@@ -97,7 +97,7 @@ function LoadContentAsCards (model, callback, skip, limit, items_selector) {//fu
 
                 DialogWindow();
             }
-    });
+        });
 }
 
 function noParents(alone, model, callback, limit, state){

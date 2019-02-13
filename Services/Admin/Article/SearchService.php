@@ -2,11 +2,11 @@
 namespace Services\Admin\Article;
 
 use Models\Article;
-use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Models\Articles_has_Categories;
 use Models\Author;
 use Models\Category;
 use Models\Event;
+use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkCollection;

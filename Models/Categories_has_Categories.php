@@ -31,7 +31,7 @@ class Categories_has_Categories implements IQuarkModel,IQuarkStrongModel, IQuark
 		return 'categories_has_categories';
 	}
 
-    /**
+	/**
      * @return mixed
      */
     public function Fields() {

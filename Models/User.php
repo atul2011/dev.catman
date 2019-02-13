@@ -10,6 +10,7 @@ use Quark\IQuarkModelWithCustomCollectionName;
 use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
+use Quark\Quark;
 use Quark\QuarkKeyValuePair;
 use Quark\QuarkModel;
 
