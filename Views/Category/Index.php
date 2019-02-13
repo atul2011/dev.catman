@@ -93,10 +93,7 @@ foreach ($groups as $group) {
 
 		    $groups_childes[$group->id] .=
 			    ('<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-                    '<a class="related-item-link" href="/category/'.$item->id.'">'.
-                        '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
-                        $item->title .
-                    '</a>'.
+                    '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
                     '<br />' .
                     '<div class="related-item-detail">' . $item->note  . '</div>' .
 			    '</div>');

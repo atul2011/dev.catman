@@ -67,11 +67,11 @@ class ListService implements IQuarkPostService, IQuarkGetService, IQuarkServiceW
 		$model = 'article';
 		$orfan = false;
 
-		if (isset($request->Data()->orfan) && $request->Data()->orfan !== null)
-			$orfan = $request->Data()->orfan;
+		if (isset($request->orfan) && $request->orfan !== null)
+			$orfan = $request->orfan;
 
-		if (isset($request->Data()->model) && $request->Data()->model !== null)
-			$model = $request->Data()->model;
+		if (isset($request->model) && $request->model !== null)
+			$model = $request->model;
 
 		if ($model !== 'none' && $model !== 'article') {//if is another model, go out
 			return array(

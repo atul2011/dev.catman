@@ -223,11 +223,7 @@ $(document).on('keydown', '.group-container .group-priority', function (e) {
 
                     return;
                 }
-                console.log(final_target);
-                console.log(final_item);
-                console.log(group_id);
-                console.log(item_type);
-                console.log(item_id);
+
                 GroupItemLink (group_id, item_type, item_id, function () {
                     final_target.appendChild(final_item);
                 });

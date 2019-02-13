@@ -41,6 +41,8 @@ class ChildesService implements IQuarkGetService, IQuarkServiceWithCustomProcess
 					'id',
 					'title',
 					'runtime_priority',
+					'runtime_category',
+					'runtime_link',
 			        'grouped'
 				)
 			),
@@ -48,6 +50,8 @@ class ChildesService implements IQuarkGetService, IQuarkServiceWithCustomProcess
 					'id',
 					'title',
 					'runtime_priority',
+					'runtime_category',
+					'runtime_link',
 					'grouped'
 				)
 			)

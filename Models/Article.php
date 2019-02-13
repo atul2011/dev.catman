@@ -144,7 +144,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	    if ($this->runtime_category != null) {
 		    $this->grouped = QuarkModel::Count(new CategoryGroupItem(), array(
 			    'category' => (string)$this->runtime_category,
-			    'type' => CategoryGroupItem::TYPE_CATEGORY,
+			    'type' => CategoryGroupItem::TYPE_ARTICLE,
 			    'target' => (string)$this->id
 		    )) > 0 ? 'true' : 'false';
 	    }
