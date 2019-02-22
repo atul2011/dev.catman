@@ -1,0 +1,64 @@
+<?php
+namespace Services\Admin\Term;
+
+use Models\Term;
+use Quark\IQuarkAuthorizableServiceWithAuthentication;
+use Quark\IQuarkGetService;
+use Quark\IQuarkPostService;
+use Quark\QuarkDTO;
+use Quark\QuarkModel;
+use Quark\QuarkSession;
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkPresenceControl\QuarkPresenceControl;
+use Services\Admin\Behaviors\AuthorizationBehavior;
+use ViewModels\Admin\Term\CreateView;
+use ViewModels\Admin\Status\ConflictView;
+use ViewModels\Admin\Status\InternalServerErrorView;
+
+/**
+ * Class CreateService
+ *
+ * @package Services\Admin\Term
+ */
+class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication {
+	use AuthorizationBehavior;
+
+	/**
+	 * @param QuarkDTO $request
+	 * @param QuarkSession $session
+	 *
+	 * @return mixed
+	 */
+	public function Get (QuarkDTO $request, QuarkSession $session) {
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array('term' => new QuarkModel(new Term())));
+	}
+
+	/**
+	 * @param QuarkDTO $request
+	 * @param QuarkSession $session
+	 *
+	 * @return mixed
+	 */
+	public function Post (QuarkDTO $request, QuarkSession $session) {
+		/**
+		 * @var QuarkModel|Term $term
+		 */
+		$term = QuarkModel::FindOne(new Term(), array('name' => $request->title));
+
+		if ($term !== null)
+			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
+
+		$term = new QuarkModel(new Term(), array(
+			'title' => htmlspecialchars(trim($request->title)),
+		    'description' => htmlspecialchars(trim($request->description))
+		));
+
+		if (!$term->Validate())
+			return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array('term' => $term));
+
+		if (!$term->Create())
+			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
+
+		return QuarkDTO::ForRedirect('/admin/term/list');
+	}
+}

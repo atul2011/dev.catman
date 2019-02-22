@@ -27,7 +27,7 @@ class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQu
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Banner/Form';
+		return 'Admin/Banner/Create';
 	}
 
 	/**

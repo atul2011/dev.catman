@@ -58,6 +58,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/admin/news/list', 'News', 'fa-bullhorn')
 		, $this->MenuWidgetItem('/admin/notification/list', 'Notification', 'fa-bell')
 		, $this->MenuWidgetItem('/admin/photo/list', 'Gallery', 'fa-file-photo-o')
+		, $this->MenuWidgetItem('/admin/term/list', 'Terms', 'fa-bold')
 		, $this->MenuWidgetItem('/admin/token/list', 'Token', 'fa-key')
 		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-users')
 		));
