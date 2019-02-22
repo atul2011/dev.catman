@@ -1,57 +1,47 @@
 <?php
-namespace ViewModels\Admin\Article;
+namespace ViewModels\Admin\Term;
 
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
-use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
-use ViewResources\Summernote\Summernote;
 
 /**
- * Class CreateView
+ * Class IndexView
  *
- * @package ViewModels\Admin\Article
+ * @package ViewModels\Admin\Term
  */
-class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources, IQuarkViewModelWithCustomizableLayout {
+class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Article Form';
+		return 'Term Details';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Article/Create';
+		return 'Admin/Term/Index';
 	}
+
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Article/Create/index.css';
+		return __DIR__ . '/../../../static/Admin/Term/Index/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../static/Admin/Article/Create/index.js';
-	}
-
-	/**
-	 * @return IQuarkViewResource[]
-	 */
-	public function ViewResources() {
-		return array(
-			new Summernote()
-		);
+		return __DIR__ . '/../../../static/Admin/Term/Index/index.js';
 	}
 
 	/**

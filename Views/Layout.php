@@ -317,18 +317,20 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
                         <div id="related-websites-container">
                             <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
                             <?php
-                            $iterator = 0;
-                            foreach (QuarkModel::Find(new Link()) as $link) {
+                            /**
+                             * @var QuarkCollection|Link[] $links
+                             */
+                            $links = QuarkModel::Find(new Link(), array(), array(QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)));
+
+                            foreach ($links as $key => $link) {
                                 /**
                                  * @var QuarkModel|Link $link
                                  */
                                 echo
-                                '<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($iterator) ,'">' ,
+                                '<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($key) ,'">' ,
                                     '<h4>' , $link->title ,'</h4>' ,
                                     '<span href="' , $link->link ,'#">' , $link->link , '</span>' ,
                                 '</a>';
-
-                                $iterator++;
                             }
                             ?>
                         </div>

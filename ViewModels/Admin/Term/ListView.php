@@ -1,70 +1,62 @@
 <?php
-namespace ViewModels\Admin\Article;
+namespace ViewModels\Admin\Term;
 
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
-use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
+use ViewModels\Admin\Behaviors\ILoader;
+use ViewModels\Admin\Behaviors\INavigationBar;
 use ViewModels\Admin\ViewBehavior;
-use ViewResources\Summernote\Summernote;
 
 /**
- * Class CreateView
+ * Class ListView
  *
- * @package ViewModels\Admin\Article
+ * @package ViewModels\Admin\Term
  */
-class CreateView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources, IQuarkViewModelWithCustomizableLayout {
+class ListView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout, INavigationBar, ILoader {
 	use ViewBehavior;
 
 	/**
 	 * @return string
 	 */
 	public function PresenceTitle () {
-		return 'Article Form';
+		return 'Term List';
 	}
 
 	/**
 	 * @return string
 	 */
 	public function View () {
-		return 'Admin/Article/Create';
+		return 'Admin/Term/List';
 	}
+
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Article/Create/index.css';
+		return __DIR__ . '/../../../static/Admin/Term/List/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewController () {
-		return __DIR__ . '/../../../static/Admin/Article/Create/index.js';
-	}
-
-	/**
-	 * @return IQuarkViewResource[]
-	 */
-	public function ViewResources() {
-		return array(
-			new Summernote()
-		);
+		return __DIR__ . '/../../../static/Admin/Term/List/index.js';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutStylesheet () {
-		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.css';
+		return __DIR__ . '/../../../static/Admin/Behaviors/List/index.css';
 	}
 
 	/**
 	 * @return IQuarkViewResource|string
 	 */
 	public function ViewLayoutController () {
-		return __DIR__ . '/../../../static/Admin/Behaviors/Form/index.js';
+		return __DIR__ . '/../../../static/Admin/Behaviors/List/index.js';
 	}
 }

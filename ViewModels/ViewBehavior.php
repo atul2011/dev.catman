@@ -3,6 +3,7 @@ namespace ViewModels;
 
 use Quark\IQuarkViewResource;
 use Quark\QuarkViewBehavior;
+use Quark\ViewResources\FontAwesome\FontAwesome;
 use Quark\ViewResources\jQuery\jQueryCore;
 
 /**
@@ -32,7 +33,8 @@ trait ViewBehavior {
 	 */
 	public function ViewLayoutResources () {
 		return array(
-			new jQueryCore()
+			new jQueryCore(),
+		    new FontAwesome()
 		);
 	}
 }

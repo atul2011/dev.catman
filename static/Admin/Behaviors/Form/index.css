@@ -6,11 +6,19 @@ input[type="text"] {
     width: 100%;
 }
 
+
+textarea.quark-input {
+    height: 300px;
+    resize: none;
+    width: 300px;
+}
+
 input[type="text"] {
     color: black;
     font-weight: bold;
 }
 
+textarea.quark-input::placeholder,
 input[type="text"]::placeholder {
     font-style: italic;
     font-weight: normal;
@@ -170,4 +178,19 @@ input[type="text"]::placeholder {
     color: #fff;
     background-color: #c9302c;
     border-color: #ac2925;
+}
+
+.quark-message p.content{
+    font-size: 14px;
+    line-height: 14px;
+    overflow: hidden;
+    width: auto;
+}
+.form-field {
+    text-align: left!important;
+}
+.form-field.title {
+    font-size: 16px;
+    line-height: 16px;
+    margin: 15px 0 10px;
 }
