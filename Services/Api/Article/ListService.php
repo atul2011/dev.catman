@@ -2,10 +2,12 @@
 namespace Services\Api\Article;
 
 use Models\Article;
+use Models\Category;
 use Quark\IQuarkGetService;
 use Quark\IQuarkIOProcessor;
 use Quark\IQuarkServiceWithAccessControl;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkJSONIOProcessor;
 use Quark\QuarkModel;
@@ -46,14 +48,32 @@ class ListService implements IQuarkGetService, IQuarkServiceWithCustomProcessor,
 		if (!$this->AuthorizeDevice($request))
 			return array('status' => 403);
 
-		return array(
-			'status' => 200,
-			'articles' => QuarkModel::Find(new Article(), array(
+		/**
+		 * @var QuarkCollection|Article[] $articles
+		 */
+		if (strlen($request->URI()->Route(3)) > 0) {
+			/**
+			 * @var QuarkModel|Category $category
+			 */
+			$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(3));
+
+			if ($category == null)
+				return array('status' => 400);
+
+			$articles = $category->ApiArticles($category->Articles());
+		}
+		else {
+			$articles = QuarkModel::Find(new Article(), array(
 				'available_on_api' => true,
 				'title' => array('$ne' => '')
 			), array(
 				QuarkModel::OPTION_SORT => array('id' => QuarkModel::SORT_ASC)
-			))->Extract()
+			));
+		}
+
+		return array(
+			'status' => 200,
+			'articles' => $articles->Extract()
 		);
 	}
 }
