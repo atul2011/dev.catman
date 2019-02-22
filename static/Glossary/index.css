@@ -38,9 +38,10 @@
 }
 
 .glossary-column .glossary-column-header {
-    margin: 5px 0;
-    font-weight: 600;
     border-bottom: 1px solid #CCCCCC;
+    font-weight: 600;
+    margin: 5px 0;
+    text-transform: uppercase;
 }
 
 /*overlay*/
@@ -83,7 +84,6 @@
     font-weight: bold;
     line-height: 20px;
     width: auto;
-    text-transform: uppercase;
 }
 
 #glossary-overlay .overlay-close{
