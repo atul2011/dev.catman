@@ -12,9 +12,6 @@ use ViewModels\IndexView;
  * @var QuarkView|IndexView $this
  * @var QuarkModel|Article $article
  * @var QuarkCollection|Banner[] $banners
- */
-
-/**
  * @var QuarkCollection|Banner[] $random_banner
  * @var QuarkModel|Banner $banner
  */
