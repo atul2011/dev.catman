@@ -21,13 +21,13 @@ trait ApiBehavior {
 		$token = isset($request->token) ? $request->token : '';
 
 		if (strlen($request->URI()->query) == 0) {
-			Quark::Trace(explode('%3F', $request->URI()->path)[1]);
 			if (!isset(explode('%3F', $request->URI()->path)[1]))
 				return null;
 			$step1 = explode('%3F', $request->URI()->path)[1];
 			$step2 = explode('&', $step1)[0];
 			$token = explode('=', $step2)[1];
-			Quark::Log($token);
+			$request->URI()->path = explode('%3F', $request->URI()->path)[0];
+			$request->URI()->query = 'token=' . $token;
 		}
 
 		return QuarkModel::FindOne(new Token(), array('token' => $token)) != null;
