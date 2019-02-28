@@ -11,11 +11,9 @@ use ViewModels\Admin\Event\CreateView;
 
 $item = new QuarkModel(new User);
 $service = 'create';
-$button_name = 'Form';
 if (isset($user)) {
 	$item = $user;
 	$service = 'edit/' . $item->id;
-	$button_name = 'Update';
 }
 ?>
 <h1 class="page-title">Add New User</h1>
@@ -61,9 +59,7 @@ if (isset($user)) {
 			<br />
 			<div class="quark-presence-container presence-block" id="form-div">
 				<br/>
-				<button class="quark-button block ok submit-button" type="submit">
-					<?php echo $button_name; ?>
-				</button>
+				<button class="quark-button block ok submit-button" type="submit">Save</button>
             </div>
         </div>
     </div>

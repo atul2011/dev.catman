@@ -283,7 +283,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 <!--										<li class="dropdown-item" id="category-main-list-dropdown">-->
 <!--											<div class="dropdown"></div>-->
 <!--										</li>-->
-                                        <?php echo $new_category_link;?>
+<!--                                        --><?php //echo $new_category_link;?>
 <!--                                        <span class="inner_mnu-expanded">-->
 										<?php
 //										$rest_main_list = array_slice($main_list, 5);
