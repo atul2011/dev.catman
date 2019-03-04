@@ -99,12 +99,10 @@
 }
 
 #category-groups-container .group-container .group-priority{
-    float: right;
     font-weight: 800;
     height: 16px;
-    margin-right: -4px;
-    margin-top: -2px;
-    padding: 2px 4px;
+    padding: 2px 0;
+    margin-right: 5px;
     text-decoration: underline;
 }
 
@@ -120,4 +118,13 @@
 #category-groups-container .group-items-container .page-category-item{
     text-align: left;
     width: calc(100% - 14px);
+}
+/*delete group*/
+#category-groups-container .group-container .group-delete{
+    cursor: pointer;
+    float: right;
+}
+
+#category-groups-container .group-container .group-delete:hover{
+    color: #666666;
 }

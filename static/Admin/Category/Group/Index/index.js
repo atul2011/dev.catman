@@ -47,7 +47,7 @@ function GroupBuilder(id, title, priority, items) {
     var group =
         '<div class="group-content-container">' +
             '<div class="group-container" group-id="' + id + '" group-priority="' + priority + '">' +
-                '<div class="group-title"><span class="group-title-value"> ' + title + '</span><span class="group-priority">' + priority + '</span></div>' +
+                '<div class="group-title"><span class="group-priority">' + priority + '</span><span class="group-title-value"> ' + title + '</span><span class="group-delete fa fa-remove"></span></div>' +
                 '<input type="hidden" class="group-title-editable" value="' + title + '" autofocus>' +
                 '<div class="group-items-container" data-draggable="target" data-draggable-type="drop">' + items_html + '</div>' +
             '</div>' +
@@ -79,7 +79,6 @@ function GroupItemLink (group, item_type, item_id, callback) {
     });
 }
 
-
 function GroupItemUnlink (group, item_type, item_id, callback) {
     console.log(group, item_type, item_id);
     $.ajax({url:'/admin/category/group/item/delete/', type:"POST", data:{group:group, type:item_type, target:item_id}}).then(function (data) {
@@ -90,6 +89,18 @@ function GroupItemUnlink (group, item_type, item_id, callback) {
             return false;
         }
     });
+}
+
+function GetListItemsCurrentPostion() {
+    var items = $('.list-item');
+
+    var positions = new Array(items.length);
+
+    $.each(items, function (key, item) {
+        positions[key] = $(item).attr('app-list-item-id');
+    });
+
+    return positions;
 }
 
 $(document).ready(function () {//Load Category groups and childs
@@ -168,6 +179,19 @@ $(document).on('keydown', '.group-container .group-priority', function (e) {
     }
 });
 
+$(document).on('dblclick', '.group-delete', function () {
+    var parent = $(this).parent().parent();
+    var item = parent.parent();
+    var parent_id = $('#current_category_id').val();
+
+    $.ajax({url:"/admin/category/group/delete/" + parent.attr('group-id')}).then(function (data) {
+        if (data.status === 200) {
+            item.remove();
+            GetChildes(parent_id);
+        }
+    });
+});
+
 //Dragable
 (function(){
     //exclude older browsers by the features we need them to support
@@ -237,7 +261,7 @@ $(document).on('keydown', '.group-container .group-priority', function (e) {
         item = null;
     }, false);
 })();
-
+//On Drag Event
 $(document).ready(function () {
     DragEndEvent = (function(_super) {
         return function() {
@@ -277,16 +301,3 @@ $(document).ready(function () {
 
     })(parseFloat);
 });
-
-
-function GetListItemsCurrentPostion() {
-    var items = $('.list-item');
-
-    var positions = new Array(items.length);
-
-    $.each(items, function (key, item) {
-        positions[key] = $(item).attr('app-list-item-id');
-    });
-
-    return positions;
-}
