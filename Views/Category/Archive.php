@@ -40,15 +40,7 @@ if (isset($sort_field_title)) {
         <hr class="cm-delimiter cm-content-categories-delimiter">
         <div class="item-related-categories-container">
             <?php
-            if (isset($sort_fields)) {
-                foreach ($sort_fields as $key => $value)
-                    echo
-                        '<div class="item-related-categories">' ,
-                            '<a href="/category/' , $category->id , '/sort/' , $key  , '"><b>' ,
-                                $this->CurrentLocalizationOf($value) ,
-                            '</b></a>' ,
-                        '</div>';
-            }
+
             if (isset($sort_values)) {
 	            if ($sort_field == Category::ARCHIVE_SORT_AUTHOR)
 		            echo '<h4>' . $this->CurrentLocalizationOf('Catman.Localization.Article.ArhiveSortType.Author') .'</h4>';

@@ -109,6 +109,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'sort_values' => $out,
 						'sort_field' => $sort_field,
+						'sort_fields' => Article::ArchiveSortTypes(),
 						'title' => $category->title,
 						'category' => $category
 					));
@@ -179,6 +180,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						)),
 						'title' => $category->title,
 						'category' => $category,
+						'sort_fields' => Article::ArchiveSortTypes(),
 						'sort_field' => $request->URI()->Route(3),
 						'sort_field_title' => $sort_field_title
 					));
