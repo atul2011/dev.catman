@@ -179,7 +179,7 @@ $(document).on('keydown', '.group-container .group-priority', function (e) {
     }
 });
 
-$(document).on('click', '.group-delete', function () {
+$(document).on('dblclick', '.group-delete', function () {
     var parent = $(this).parent().parent();
     var item = parent.parent();
     var parent_id = $('#current_category_id').val();
