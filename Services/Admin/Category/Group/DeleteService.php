@@ -2,9 +2,11 @@
 namespace Services\Admin\Category\Group;
 
 use Models\CategoryGroup;
+use Models\CategoryGroupItem;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\QuarkCollection;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
 use Quark\QuarkSession;
@@ -34,6 +36,18 @@ class DeleteService implements IQuarkGetService, IQuarkServiceWithCustomProcesso
 
 		if ($group == null)
 			return array('status' => 404);
+		/**
+		 * @var QuarkCollection|CategoryGroupItem[] $items
+		 */
+		$items = $group->Items();
+
+		foreach ($items as $item) {
+			if (!$item->Remove())
+				return array(
+					'status' => 500,
+					'errors' => array('Cannot delete group item of group:' . $group->id)
+				);
+		}
 
 		if (!$group->Remove())
 			return array('status' => 500);
