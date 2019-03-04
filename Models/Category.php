@@ -330,6 +330,13 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     }
 
 	/**
+	 * @return QuarkCollection|Article[]
+	 */
+    public function MasterArticles () {
+    	return $this->Articles()->Select(array('master' => true));
+    }
+
+	/**
 	 * @param QuarkCollection|Category[] $categories
 	 *
 	 * @return QuarkCollection|Category[] $categories

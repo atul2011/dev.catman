@@ -65,7 +65,6 @@ foreach ($groups as $group) {
 
             if ($item == null) {
                 Quark::Log('cannot find category of group:');
-                Quark::Trace($group_item);
             }
 
 	        $groups_childes[$group->id] .=
@@ -88,7 +87,6 @@ foreach ($groups as $group) {
 
 		    if ($item == null) {
 			    Quark::Log('cannot find article of group:');
-			    Quark::Trace($group_item);
 		    }
 
 		    $groups_childes[$group->id] .=

@@ -105,6 +105,7 @@ class EditService implements IQuarkPostService, IQuarkGetService,  IQuarkAuthori
 
 		$article->available_on_site = !isset($request->available_on_site) ? false : true;
 		$article->available_on_api = !isset($request->available_on_api) ? false : true;
+		$article->master = !isset($request->master) ? false : true;
 
 		if (!$article->Save())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());

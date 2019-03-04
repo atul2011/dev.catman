@@ -155,13 +155,33 @@ foreach ($news as $item){
 
 //////////////////////Master Category Links
 $master_links = array();
+
 /**
  * @var QuarkModel|Category $category
  * @var QuarkModel|Article $article
  * @var string $user
  */
 $user = isset($user) ? $user : '';
+
 if (isset($category)) {
+    //Set master articles
+	/**
+	 * @var QuarkCollection|Article[] $category_articles
+	 */
+	$category_articles = $category->MasterArticles();
+
+	foreach ($category_articles as $item) {
+		$master_links[] = '<a class="up-item-link" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
+    }
+
+    if ($category->sub == Category::TYPE_ARCHIVE) {
+	    if (isset($sort_fields)) {
+		    foreach ($sort_fields as $key => $value)
+			    $master_links[] = '<a class="up-item-link" href="/category/' . $category->id . '/sort/' . $key  . '">' . $this->CurrentLocalizationOf($value) . '</a>';
+	    }
+    }
+
+    //set master childes
     /**
      * @var QuarkCollection|Category[] $master_categories
      */
