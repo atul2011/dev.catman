@@ -118,8 +118,13 @@ foreach ($categories as $item) {
 
 //Related Articles
 foreach ($articles as $item) {
+	/**
+	 * @var QuarkModel|Article $item
+	 */
     if (strlen(trim($item->title)) == 0 || $item->grouped == 'true')
         continue;
+
+    if ($item->master) continue;
 
 	$related_articles .=
 	    '<div class="item-related-articles" id="related-article-' . $item->id . '">'.

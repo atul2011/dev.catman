@@ -180,6 +180,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'short_title',
             'available_on_site',
             'available_on_api',
+            'master',
             'runtime_priority',
             'runtime_category',
             'runtime_link',
