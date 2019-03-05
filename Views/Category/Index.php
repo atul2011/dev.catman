@@ -130,8 +130,7 @@ foreach ($groups as $group) {
             </div>
             <hr class="cm-delimiter cm-content-categories-delimiter">
             <?php
-
-            if (strlen($related_categories) > 0 && !$category->master) {
+            if (!$category->master) {
                 echo '<div class="item-related-categories-container">';
 
 	            foreach ($categories as $item) {
