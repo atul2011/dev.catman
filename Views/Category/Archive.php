@@ -40,7 +40,7 @@ if (isset($sort_field_title)) {
         <hr class="cm-delimiter cm-content-categories-delimiter">
         <div class="item-related-categories-container">
             <?php
-            if (isset($sort_fields)) {
+            if (isset($sort_fields) && !isset($sort_values)) {
 	            foreach ($sort_fields as $key => $value)
 		            echo
 		            '<div class="item-related-categories">' ,
