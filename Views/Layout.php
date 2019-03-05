@@ -72,7 +72,10 @@ foreach ($main_articles as $item)
  */
 $bottom_category = Category::BottomMenuCategory();
 $bottom_categories = Category::BottomMenuSubCategories();
-$bottom_articles = $bottom_category->Articles(20);
+$bottom_articles = $bottom_category->Articles(array(
+    QuarkModel::OPTION_LIMIT => 20,
+    QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+));
 
 $bottom_list = '';
 $iterator = 1;
@@ -154,7 +157,6 @@ foreach ($news as $item){
 }
 
 //////////////////////Master Category Links
-$master_links = array();
 
 /**
  * @var QuarkModel|Category $category
@@ -162,7 +164,18 @@ $master_links = array();
  * @var QuarkCollection|Link[] $links
  * @var string $user
  */
+$master_links = array();
 $user = isset($user) ? $user : '';
+
+if (isset($article)) {
+	/**
+	 * @var QuarkCollection|Category[] $master_categories
+	 */
+	$master_categories = $article->GetMasterCategoryChildes($user);
+
+	foreach ($master_categories as $item)
+		$master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+}
 
 if (isset($category)) {
     //Set master articles
@@ -187,16 +200,6 @@ if (isset($category)) {
      * @var QuarkCollection|Category[] $master_categories
      */
     $master_categories = $category->GetMasterCategoryChildes($user);
-
-    foreach ($master_categories as $item)
-        $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
-}
-
-if (isset($article)) {
-    /**
-     * @var QuarkCollection|Category[] $master_categories
-     */
-    $master_categories = $article->GetMasterCategoryChildes($user);
 
     foreach ($master_categories as $item)
         $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';

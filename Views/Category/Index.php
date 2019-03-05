@@ -41,7 +41,10 @@ if ($category->sub == Category::TYPE_NEW)
 		'resume'
 	));
 else
-	$articles = Article::Sort($category->Articles(30))->Extract();
+	$articles = Article::Minimize($category->Articles(array(
+        QuarkModel::OPTION_LIMIT => 30,
+        QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+    )))->Extract();
 
 //------------------------------------------
 //Create List

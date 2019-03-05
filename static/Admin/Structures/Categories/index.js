@@ -108,8 +108,10 @@ $(document).ready(function () {
         e.preventDefault();
 
         $.ajax({url:$(this).attr('action'), type:$(this).attr('method'), data:SerializeForm($(this))}).then(function (data) {
-            if (data.status === 200)
+            if (data.status === 200) {
                 $('#presence-header').notify('Success', {position:'bottom-center', className:'success'});
+                setCategory($('#route-row').attr('current'));
+            }
             else if (data.status === 500)
                 $('#presence-header').notify('Failed', {position:'bottom-center', className:'error'});
         });
@@ -241,10 +243,11 @@ function checkResponse (status, id) {//function to make decisions after get resp
 function setCategory (id) {//function that set in route the selected category and show all items of this
     button_none('category');
     button_none('article');
+    var route_row = $('#route-row');
 
     $.ajax({type: "GET", url: "/admin/category/" + id}).then(function (json) {
-        var str = '<div id="route-point-' + json.item.id + '" class="route-points quark-presence-column" >' +  json.item.title.substr(0, 15) + '</div>';
-
+        var str = '<div id="route-point-' + json.item.id + '" class="route-points quark-presence-column" category-id="' + json.item.id + '">' +  json.item.title.substr(0, 15) + '</div>';
+        route_row.attr('current', json.item.id);
         $(".route-points").each(function() {//check if that category is already in path
             if ($(this).attr('id').split('-')[2] == json.item.id) {
                 $(".route-points").remove();
