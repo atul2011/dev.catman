@@ -40,7 +40,11 @@ function ShowArticles(response){
         '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 50) + '</div>' +
         '<div class="content-values quark-presence-column dates">' + response.release_date + '</div>' +
         '<div class="content-values quark-presence-column events">' + event_name + '</div>' +
-        '<div class="content-values quark-presence-column actions">' + setActions(response.id, 'article') + '</div>' +
+        '<div class="content-values quark-presence-column actions">' +
+            '<a class="fa fa-pencil actions edit-button-article content-actions " id="edit-article -' + response.id + '" href="/admin/article /edit/' + response.id + '" title="Article Edit"></a>' +
+            '<a class="fa fa-trash actions delete-button-article content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/article/list/"  id="delete-article-' + response.id + '" href="/admin/article/delete/' + response.id + '" title="Article Delete"></a>'+
+            '<a class="fa fa-chain actions content-actions" href="/admin/link/list/article/' + response.id + '" title="Article Links"></a>'+
+        '</div>' +
         '</div>';
     $("#list-content").append(str);
     $('#loading-circle').css('display','none');
