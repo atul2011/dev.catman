@@ -70,6 +70,7 @@ class Link implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvide
 	 */
 	public function BeforeSave ($options) {
 		$this->updated = QuarkDate::GMTNow(QuarkDate::FORMAT_ISO);
+
 		if (strlen($this->target_type) > 0 && strlen($this->target_value) > 0)
 			$this->type = self::TYPE_RELATED;
 		else
