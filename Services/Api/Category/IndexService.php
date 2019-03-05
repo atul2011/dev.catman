@@ -149,7 +149,7 @@ class IndexService implements IQuarkGetService, IQuarkServiceWithCustomProcessor
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'articles' => $category->Articles(0)->Extract(),
+			'articles' => $category->Articles()->Extract(),
 			'categories' => $category->ChildCategories(0)->Extract(),
             'photos' => Photo::PhotosLinks($category->Photos())
 		);

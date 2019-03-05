@@ -26,7 +26,7 @@ echo $this->Fragment(new QuarkViewDialogFragment(
 <h5 class="page-title"><a class="fa fa-refresh contextual-refresh"></a></h5>
 <div class="quark-presence-column left tables-container" id="list-left">
     <form action="" method="POST">
-    <div class="quark-presence-container presence-block search-bar" id="route-row">
+    <div class="quark-presence-container presence-block search-bar" id="route-row" current="">
         <?php if (Category::RootCategory() != null) ?>
     </div>
     </form>

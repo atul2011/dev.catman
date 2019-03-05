@@ -40,19 +40,14 @@ class ArticlesService implements IQuarkGetService, IQuarkServiceWithCustomProces
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
-		$articles = $category->Articles();
-		$out = new QuarkCollection(new Article());
-
-		foreach ($articles as $article) {
-			$article->SetRuntimePriority($category);
-
-			$out[] = $article;
-		}
+		$articles = $category->Articles(array(
+			QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+		));
 
 		return array(
 			'status' => 200,
 			'category' => $category->Extract(),
-			'articles' => $out->Extract(array(
+			'articles' => $articles->Extract(array(
 	                'id',
 	                'title',
 	                'priority',

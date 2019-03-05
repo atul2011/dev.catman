@@ -10,10 +10,8 @@ use Quark\IQuarkModelWithDataProvider;
 use Quark\IQuarkModelWithDefaultExtract;
 use Quark\IQuarkStrongModel;
 use Quark\IQuarkStrongModelWithRuntimeFields;
-use Quark\Quark;
 use Quark\QuarkCollection;
 use Quark\QuarkDate;
-use Quark\QuarkDTO;
 use Quark\QuarkLazyLink;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
@@ -255,17 +253,12 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	}
 
 	/**
-	 * @param QuarkCollection|Article[] $articles,
-	 * @param string $field
+	 * @param QuarkCollection|Article[] $articles
 	 *
 	 * @return QuarkCollection|Article[]
 	 */
-	public static function Sort (QuarkCollection $articles, $field = 'priority') {
+	public static function Minimize (QuarkCollection $articles) {
 		return $articles->Select(array(), array(
-			QuarkModel::OPTION_SORT => array(
-				$field => QuarkModel::SORT_ASC,
-				'title' => QuarkModel::SORT_ASC
-			),
 			QuarkModel::OPTION_FIELDS => array(
 				'id',
 				'title',
@@ -332,7 +325,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 *
 	 * @return bool
 	 */
-	public function SetRuntimePriority (QuarkModel $category) {
+	public function SetRuntimePriority ($category) {
 		/**
 		 * @var QuarkModel|Articles_has_Categories $relation
 		 */

@@ -282,23 +282,15 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
     }
 
     /**
-     * @param string $sort_field
-     * @param int $limit
-     * @param int $offset
+     * @param array $options
+     *
      * @return QuarkCollection|Article[]
      */
-    public function Articles($limit = 0, $offset = 0, $sort_field = 'title') {
-	    $options = array();
-
-	    if ($limit != 0) {
-		    $options[QuarkModel::OPTION_LIMIT] = $limit;
-		    $options[QuarkModel::OPTION_SKIP] = $offset;
-	    }
-
+    public function Articles($options = array()) {
 	    /**
 	     * @var QuarkCollection|Articles_has_Categories[] $links
 	     */
-	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id), $options);
+	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id));
 	    $articles = new QuarkCollection(new Article());
 
 	    foreach ($links as $item) {
@@ -306,12 +298,12 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		     * @var QuarkModel|Article $article
 		     */
 		    $article = $item->article_id->Retrieve();
-		    $article->SetRuntimePriority(new QuarkModel($this));
+		    $article->SetRuntimePriority($this);
 		    $article->runtime_link = $item->id;
 		    $articles[] = $article;
 	    }
 
-	    return Article::Sort($articles, $sort_field);
+	    return Article::Minimize($articles)->Select(array(), $options);
     }
 
 	/**
@@ -333,7 +325,9 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	 * @return QuarkCollection|Article[]
 	 */
     public function MasterArticles () {
-    	return $this->Articles()->Select(array('master' => true));
+    	return $this->Articles(array(
+    		QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+	    ))->Select(array('master' => true));
     }
 
 	/**
