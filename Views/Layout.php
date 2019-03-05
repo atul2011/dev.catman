@@ -174,7 +174,7 @@ if (isset($article)) {
 	$master_categories = $article->GetMasterCategoryChildes($user);
 
 	foreach ($master_categories as $item)
-		$master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+		$master_links[] = '<a class="up-item-link link-article-cateogry" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
 }
 
 if (isset($category)) {
@@ -185,13 +185,13 @@ if (isset($category)) {
 	$category_articles = $category->MasterArticles();
 
 	foreach ($category_articles as $item) {
-		$master_links[] = '<a class="up-item-link" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
+		$master_links[] = '<a class="up-item-link link-category-article" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
     }
 
     if ($category->sub == Category::TYPE_ARCHIVE) {
 	    if (isset($sort_fields)) {
 		    foreach ($sort_fields as $key => $value)
-			    $master_links[] = '<a class="up-item-link" href="/category/' . $category->id . '/sort/' . $key  . '">' . $this->CurrentLocalizationOf($value) . '</a>';
+			    $master_links[] = '<a class="up-item-link link-archive" href="/category/' . $category->id . '/sort/' . $key  . '">' . $this->CurrentLocalizationOf($value) . '</a>';
 	    }
     }
 
@@ -202,13 +202,13 @@ if (isset($category)) {
     $master_categories = $category->GetMasterCategoryChildes($user);
 
     foreach ($master_categories as $item)
-        $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+        $master_links[] = '<a class="up-item-link link-category-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
 }
 
 if (isset($links)) {
 	foreach ($links as $link) {
 	    if ($link->master == true)
-		    $master_links[] = '<a class="up-item-link" href="' . $link->link . '">' . $link->title . '</a>';
+		    $master_links[] = '<a class="up-item-link link-link" href="' . $link->link . '">' . $link->title . '</a>';
 	}
 }
 
