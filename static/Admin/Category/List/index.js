@@ -39,9 +39,10 @@ function ShowCategories (response) {//function to show categories
         '<div class="content-values quark-presence-column titles">' + response.title.substr(0, 70)  + '</div>' +
         '<div class="content-values quark-presence-column types">' + response.sub + '</div>' +
         '<div class="content-values quark-presence-column actions">' +
-        '<a class="fa fa-pencil actions edit-button-category content-actions " id="edit-category-' + response.id + '" href="/admin/category/edit/' + response.id + '" title="Category Edit"></a>' +
-        '<a class="fa fa-trash actions delete-button-category content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/category/list/"  id="delete-category-' + response.id + '" href="/admin/category/delete/' + response.id + '" title="Category Delete"></a>'+
-        (response.has_links === 'true' ? '<a class="fa fa-database actions edit-button-category content-actions" href="/admin/category/group/' + response.id + '" title="Category Groups"></a>' : '') +
+            '<a class="fa fa-pencil actions edit-button-category content-actions " id="edit-category-' + response.id + '" href="/admin/category/edit/' + response.id + '" title="Category Edit"></a>' +
+            '<a class="fa fa-trash actions delete-button-category content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/category/list/"  id="delete-category-' + response.id + '" href="/admin/category/delete/' + response.id + '" title="Category Delete"></a>'+
+            '<a class="fa fa-chain actions content-actions" href="/admin/link/list/category/' + response.id + '" title="Category Links"></a>'+
+            (response.has_links === 'true' ? '<a class="fa fa-database actions edit-button-category content-actions" href="/admin/category/group/' + response.id + '" title="Category Groups"></a>' : '') +
         '</div>' +
         '</div>';
 

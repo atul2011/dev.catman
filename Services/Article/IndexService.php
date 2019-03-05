@@ -4,6 +4,7 @@ namespace Services\Article;
 use Models\Article;
 use Models\Breadcrumb;
 use Models\Category;
+use Models\Link;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
@@ -70,8 +71,13 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 
 		$this->SetUserBreadcrumb($session_id, null, $article);//Set breadcrumb
 
+
 		return QuarkView::InLayout(new IndexView(),new LayoutView(),array(
 			'article' => $article,
+			'links' => QuarkModel::Find(new Link(), array(
+				'target_type' => Link::TARGET_TYPE_ARTICLE,
+				'target_value' => (int)$article->id
+			)),
 			'title' => $article->title,
 			'user' => $session_id
 		));

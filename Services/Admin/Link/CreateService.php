@@ -31,7 +31,13 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl());
+		$target_type = strlen($request->URI()->Route(3)) > 0 ? $request->URI()->Route(3) : '';
+		$target_value = strlen($request->URI()->Route(4)) > 0 ? $request->URI()->Route(4) : '';
+
+		return QuarkView::InLayout(new CreateView(), new QuarkPresenceControl(), array(
+			'target_type' => $target_type,
+		    'target_value' => $target_value
+		));
 	}
 
 	/**
@@ -44,16 +50,19 @@ class CreateService implements IQuarkGetService, IQuarkPostService, IQuarkAuthor
 		/**
 		 * @var QuarkModel|Link $link
 		 */
-		$link = QuarkModel::FindOne(new Link(), array('title' => $request->title));
-
-		if ($link != null)
-			return QuarkView::InLayout(new ConflictView(), new QuarkPresenceControl());
-
+		$redirect = '/admin/link/list';
 		$link = new QuarkModel(new Link(), $request->Data());
+
+		if (isset($request->target_type) && isset($request->target_value)) {
+			$link->type = Link::TYPE_RELATED;
+			$redirect = $redirect . '/' . $request->target_type . '/' . $request->target_value;
+		}
+
+		$link->master = !isset($request->master) ? false : true;
 
 		if (!$link->Create())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/link/list');
+		return QuarkDTO::ForRedirect($redirect);
 	}
 }

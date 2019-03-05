@@ -1,9 +1,4 @@
-$(document).ready(function(){
-    $(document).on("submit",'#item-form',function(e){
-        var title =$('#item-name');
-        if(title.val()=== ''){
-            title.addClass('title_null').attr('placeholder', 'Name must be not null');
-            e.preventDefault();
-        }
-    });
+$(document).ready(function () {
+    var master = $('#cm-item-master');
+    master.prop('checked', master.val() == 1);
 });

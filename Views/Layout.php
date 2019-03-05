@@ -159,6 +159,7 @@ $master_links = array();
 /**
  * @var QuarkModel|Category $category
  * @var QuarkModel|Article $article
+ * @var QuarkCollection|Link[] $links
  * @var string $user
  */
 $user = isset($user) ? $user : '';
@@ -199,6 +200,13 @@ if (isset($article)) {
 
     foreach ($master_categories as $item)
         $master_links[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+}
+
+if (isset($links)) {
+	foreach ($links as $link) {
+	    if ($link->master == true)
+		    $master_links[] = '<a class="up-item-link" href="' . $link->link . '">' . $link->title . '</a>';
+	}
 }
 
 //9-----------------------------------------------New Category-----------------------------------
@@ -338,11 +346,11 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
                             <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
                             <?php
                             /**
-                             * @var QuarkCollection|Link[] $links
+                             * @var QuarkCollection|Link[] $external_links
                              */
-                            $links = QuarkModel::Find(new Link(), array(), array(QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)));
+                            $external_links = Link::IndependentLinks();
 
-                            foreach ($links as $key => $link) {
+                            foreach ($external_links as $key => $link) {
                                 /**
                                  * @var QuarkModel|Link $link
                                  */

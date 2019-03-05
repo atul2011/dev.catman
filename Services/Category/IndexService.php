@@ -6,6 +6,7 @@ use Models\Author;
 use Models\Breadcrumb;
 use Models\Category;
 use Models\Event;
+use Models\Link;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
@@ -259,7 +260,11 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'category' => $category,
 			'title' => $category->title,
-		    'user' => $session_id
+		    'user' => $session_id,
+		    'links' => QuarkModel::Find(new Link(), array(
+			    'target_type' => Link::TARGET_TYPE_CATEGORY,
+			    'target_value' => (int)$category->id
+		    ))
 		));
 	}
 }

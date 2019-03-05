@@ -43,17 +43,22 @@ class EditService implements IQuarkPostService, IQuarkAuthorizableServiceWithAut
 		/**
 		 * @var QuarkModel|Link $link
 		 */
-		$id = $request->URI()->Route(3);
-		$link = QuarkModel::FindOneById(new Link(), $id);
+		$link = QuarkModel::FindOneById(new Link(), $request->URI()->Route(3));
+		$redirect = '/admin/link/list';
 
 		if ($link === null)
 			return QuarkView::InLayout(new NotFoundView(), new QuarkPresenceControl());
 
 		$link->PopulateWith($request->Data());
+		$link->master = !isset($request->master) ? false : true;
+
+		if (strlen($link->target_type) > 0 && strlen($link->target_value) > 0) {
+			$redirect = $redirect . '/' . $link->target_type . '/' . $link->target_value;
+		}
 
 		if (!$link->Save())
 			return QuarkView::InLayout(new InternalServerErrorView(), new QuarkPresenceControl());
 
-		return QuarkDTO::ForRedirect('/admin/link/list/');
+		return QuarkDTO::ForRedirect($redirect);
 	}
 }

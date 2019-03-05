@@ -815,13 +815,13 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .home { top: 3px }
 
-#custom-search-form { margin: 0; padding: 0 0 0 40px }
+#custom-search-form { margin: 0; padding: 0 0 0 40px; min-width: 235px; }
 
 #custom-search-form .search-query { padding: 2px 3px 3px 10px; margin-bottom: 0; -webkit-border-radius: 20px; border-radius: 20px; line-height: 14px; border: 0; background-color: #cbb3cc; font-family: "Open Sans", sans-serif; font-weight: 400; font-size: 13px; }
 
 .top_mnu li a, h1 { font-family: Comfortaa, cursive; color: #fff }
 
-#custom-search-form button { border: 0; background: url(/static/resources/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-top: 1px; right: 13px; top: 1px; margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
+#custom-search-form button { border: 0; background: url(/static/resources/img/search.png) no-repeat; position: absolute; display: inline-block; width: 20px; height: 20px; background-size: contain; padding: 0 5px; margin-left: -20px; margin-top: 2px;  margin-bottom: 0; -webkit-border-radius: 3px; border-radius: 3px }
 
 .search-query:focus + button { z-index: 3 }
 
@@ -892,8 +892,6 @@ section.content { background: url(/static/resources/img/top_img.png); }
     .slide-menu-open { top: -24px; right: 20px; display: block; margin-right: 10px; height: 21px; width: 27px }
 
     #custom-search-form { padding: 0; margin-top: 6px }
-
-    #custom-search-form button { left: 146px }
 
     header { height: 40px }
 }

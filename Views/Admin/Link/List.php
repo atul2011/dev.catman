@@ -1,15 +1,41 @@
 <?php
-/**
- * @var QuarkView|ListView $this
- * @var QuarkCollection|Link[] $links
- */
+use Models\Article;
+use Models\Category;
 use Models\Link;
 use Quark\QuarkCollection;
+use Quark\QuarkModel;
 use Quark\QuarkView;
 use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
 use ViewModels\Admin\Event\ListView;
+/**
+ * @var QuarkView|ListView $this
+ * @var QuarkCollection|Link[] $links
+ * @var string $target_type
+ * @var string $target_value
+ */
+$parent_name = '';
+if ($target_type == Link::TARGET_TYPE_CATEGORY) {
+	/**
+	 * @var QuarkModel|Category $category
+	 */
+	$category = QuarkModel::FindOneById(new Category(), $target_value);
+
+	if ($category != null) {
+		$parent_name = 'of category "' . $category->title . '"';
+	}
+}
+elseif ($target_type == Link::TARGET_TYPE_ARTICLE) {
+	/**
+	 * @var QuarkModel|Article $article
+	 */
+	$article = QuarkModel::FindOneById(new Article(), $target_value);
+
+	if ($article != null) {
+		$parent_name = 'of article "' . $article->title . '"';
+	}
+}
 ?>
-<h1 class="page-title">Link List</h1>
+<h1 class="page-title">Link List <?php echo $parent_name;?></h1>
 <h5 class="page-title">Navigate through links</h5>
 <div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block main2 items-list" id="event-list">
@@ -41,7 +67,7 @@ use ViewModels\Admin\Event\ListView;
         <div class="quark-presence-column right">
             <div class="quark-presence-container button-div" id="form-add-button">
                 <div class="quark-presence-column right button-add-column" id="button-add-column">
-                    <form action="/admin/link/create" method="GET">
+                    <form action="/admin/link/create/<?php echo $target_type . '/' . $target_value;?>" method="GET">
                         <button type="submit" class=" button-add">+</button>
                     </form>
                 </div>
