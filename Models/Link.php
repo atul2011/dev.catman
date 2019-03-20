@@ -20,6 +20,7 @@ use Quark\QuarkModel;
  * @property string $target_type
  * @property string $target_value
  * @property bool $master
+ * @property int $priority
  * @property QuarkDate $created
  * @property QuarkDate $updated
  *
@@ -44,6 +45,7 @@ class Link implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvide
 			'target_type' => self::TARGET_TYPE_CATEGORY,
 			'target_value' => '',
 			'master' => false,
+			'priority' => 0,
 			'created' => QuarkDate::GMTNow('Y-m-d'),
 			'updated' => QuarkDate::GMTNow('Y-m-d')
 		);

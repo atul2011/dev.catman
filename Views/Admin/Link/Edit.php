@@ -25,6 +25,12 @@ use ViewModels\Admin\Link\IndexView;
                     <input placeholder="Link" type="text" class="quark-input text_field" name="link" id="item-link" value="<?php echo $link->link;?>">
                 </div>
             </div>
+            <br />
+            <div class="quark-presence-container presence-block middle">
+                <div class="title"><p>Priority</p>
+                    <input type="number" min="0" max="100" class="quark-input text_field" name="priority" placeholder="Priority" value="<?php echo $link->priority;?>">
+                </div>
+            </div>
 	        <?php
 	        if (strlen($link->target_type) > 0 && strlen($link->target_value) > 0)
 		        echo
