@@ -264,6 +264,11 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 		    'links' => QuarkModel::Find(new Link(), array(
 			    'target_type' => Link::TARGET_TYPE_CATEGORY,
 			    'target_value' => (int)$category->id
+		    ), array(
+		    	QuarkModel::OPTION_SORT => array(
+		    		'priority' => QuarkModel::SORT_ASC,
+			        'title' => QuarkModel::SORT_ASC
+			    )
 		    ))
 		));
 	}

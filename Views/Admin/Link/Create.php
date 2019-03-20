@@ -51,6 +51,12 @@ elseif ($target_type == Link::TARGET_TYPE_ARTICLE) {
                     <input placeholder="Link" type="text" class="quark-input text_field" name="link" id="item-link">
                 </div>
             </div>
+            <br />
+            <div class="quark-presence-container presence-block middle">
+                <div class="title"><p>Priority</p>
+                    <input type="number" min="0" max="100" class="quark-input text_field" name="priority" placeholder="Priority">
+                </div>
+            </div>
             <?php
             if (strlen($parent_name) > 0 )
                 echo
