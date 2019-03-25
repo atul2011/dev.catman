@@ -9,7 +9,7 @@ use ViewModels\Admin\Term\ListView;
  */
 
 ?>
-<h1 class="page-title">Term List</h1>
+<h1 class="page-title">Term List <a href="/admin/term/parse" class="list-button-link">Parse Glossary list</a></h1>
 <h5 class="page-title">Navigate through terms</h5>
 <div class="quark-presence-column left" id="content-container">
     <div class="quark-presence-container presence-block">
