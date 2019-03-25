@@ -6,6 +6,7 @@ use Quark\IQuarkAuthorizableServiceWithAuthentication;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
 use Quark\IQuarkServiceWithCustomProcessor;
+use Quark\Quark;
 use Quark\QuarkDTO;
 use Quark\QuarkFile;
 use Quark\QuarkModel;
@@ -50,17 +51,12 @@ class ParseService implements IQuarkGetService, IQuarkPostService, IQuarkAuthori
 		 */
 		$file = $request->file->Load();
 		$file = $file->Load();
-		$file_content = str_replace(' [', '[',
-			str_replace(' \\"', '\"',
-				str_replace('\\t', '',
-					str_replace('\\n', '',
-						str_replace('\\r', '',
-							json_encode($file->Content())
-						)
-					)
+		$file_content = str_replace('\\t', '',
+			str_replace('\\n', '',
+				str_replace('\\r', '',
+					json_encode($file->Content())
 				)
-			)
-		);
+		));
 
 		$json = json_decode(json_decode($file_content));
 		$items = $json->glossary;
