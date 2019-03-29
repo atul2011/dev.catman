@@ -28,22 +28,19 @@ class ListService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuth
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
+		$criteria = array();
+
 		if (strlen($request->URI()->Route(3)) > 0 || strlen($request->URI()->Route(4)) > 0) {
-			/**
-			 * @var QuarkCollection|Link[] $links
-			 */
-			$links = QuarkModel::Find(new Link(), array(
+			$criteria = array(
 				'target_type' => $request->URI()->Route(3),
 				'target_value' => $request->URI()->Route(4),
-			));
+			);
 		}
-		else {
-			$links = QuarkModel::Find(new Link());
-		}
-
 
 		return QuarkView::InLayout(new ListView(), new QuarkPresenceControl(), array(
-			'links' => $links,
+			'links' => QuarkModel::Find(new Link(), $criteria, array(
+				QuarkModel::OPTION_SORT => array('priority' => QuarkModel::SORT_ASC)
+			)),
 			'target_type' => $request->URI()->Route(3),
 			'target_value' => $request->URI()->Route(4),
 		));

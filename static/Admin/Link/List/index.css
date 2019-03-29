@@ -1,7 +1,40 @@
 .main2{
     max-width: 600px;
 }
+
 .title, .links {
-    min-width: 200px;
-    max-width: 200px;
+    width: 200px;
+}
+
+.ids {
+    width: 25px;
+}
+
+.content-values.ids ,
+.content-values.links {
+    font-size: 12px;
+    line-height: 16px;
+}
+
+.content-values.titles ,
+.content-values.priorities  {
+    font-size: 14px;
+    line-height: 16px;
+}
+.content-values.priorities  {
+    height: 16px;
+}
+
+.content-actions {
+    font-size: 18px;
+    line-height: 18px;
+}
+
+.priorities {
+    width: 60px;
+    outline:1px solid #FFFFFF;
+}
+
+.content-values, .content-titles {
+    margin: 5px !important;
 }
