@@ -388,7 +388,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	/**
 	 * @param string $user
 	 *
-	 * @return QuarkCollection|Category[]
+	 * @return array
 	 */
 	public function GetMasterCategoryChildes ($user = '') {
 		/**
@@ -404,7 +404,12 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 			else
 				$master = new QuarkModel(new Category());
 		}
-		return $master->ChildCategories(0);
+
+
+		return array(
+			'categories' => $master->ChildCategories(0),
+		    'articles' => $master->Articles()
+		);
 	}
 
 	/**
