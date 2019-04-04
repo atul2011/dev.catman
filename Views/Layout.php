@@ -175,14 +175,13 @@ if (isset($article)) {
 	 */
 	$master_childes = $article->GetMasterCategoryChildes($user);
 	$master_categories = $master_childes['categories'];
-
-	foreach ($master_categories as $item)
-		$master_links[] = '<a class="up-item-link link-article-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
-
 	$master_articles = $master_childes['articles'];
 
 	foreach ($master_articles as $item)
 		$master_links[] = '<a class="up-item-link link-article-article" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
+
+	foreach ($master_categories as $item)
+		$master_links[] = '<a class="up-item-link link-article-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
 }
 
 if (isset($category)) {
