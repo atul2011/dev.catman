@@ -156,6 +156,7 @@ foreach ($news as $item){
 	$news_list[] = $news_item;
 }
 
+//--------------------------------------------------------------------------------------------------------
 //////////////////////Master Category Links
 
 /**
@@ -170,11 +171,18 @@ $user = isset($user) ? $user : '';
 if (isset($article)) {
 	/**
 	 * @var QuarkCollection|Category[] $master_categories
+	 * @var QuarkCollection|Article[] $master_articles
 	 */
-	$master_categories = $article->GetMasterCategoryChildes($user);
+	$master_childes = $article->GetMasterCategoryChildes($user);
+	$master_categories = $master_childes['categories'];
 
 	foreach ($master_categories as $item)
-		$master_links[] = '<a class="up-item-link link-article-cateogry" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+		$master_links[] = '<a class="up-item-link link-article-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+
+	$master_articles = $master_childes['articles'];
+
+	foreach ($master_articles as $item)
+		$master_links[] = '<a class="up-item-link link-article-article" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
 }
 
 if (isset($category)) {
