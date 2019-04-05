@@ -30,7 +30,7 @@ input[type="text"]::placeholder {
 
 .text_field, select.text_field {
     min-width: 250px;
-    max-width: 250px;
+    width: 250px;
 }
 
 .title_null::placeholder {
@@ -193,4 +193,20 @@ input[type="text"]::placeholder {
     font-size: 16px;
     line-height: 16px;
     margin: 15px 0 10px;
+}
+
+.long-field {
+    width: auto;
+    text-align: left;
+    display: block;
+}
+
+
+.long-field .form-title{
+    text-align: left;
+}
+
+.long-field .text_field{
+    max-width: none;
+    width: 100%;
 }
