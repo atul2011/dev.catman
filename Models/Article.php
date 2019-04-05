@@ -413,7 +413,15 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 * @return QuarkCollection|Article[]
 	 */
 	public function MasterArticles () {
-		return $this->GetMasterCategory()->Articles(array(
+		/**
+		 * @var QuarkModel|Category $category
+		 */
+		$category = $this->GetMasterCategory();
+
+		if ($category == null)
+			return new QuarkCollection(new Article());
+
+		return $category->Articles(array(
 			QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
 		))->Select(array('master' => true));
 	}
