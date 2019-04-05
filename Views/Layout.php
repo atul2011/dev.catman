@@ -173,12 +173,14 @@ if (isset($article)) {
 	 * @var QuarkCollection|Category[] $master_categories
 	 * @var QuarkCollection|Article[] $master_articles
 	 */
-	$master_childes = $article->GetMasterCategoryChildes($user);
-	$master_categories = $master_childes['categories'];
-	$master_articles = $master_childes['articles'];
+	$master_categories = $article->GetMasterCategoryChildes($user);
+	$master_articles = $article->MasterArticles();
 
-	foreach ($master_articles as $item)
+	foreach ($master_articles as $item) {
+	    if ((string)$item->id == (string)$article->id) continue;
+
 		$master_links[] = '<a class="up-item-link link-article-article" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
+	}
 
 	foreach ($master_categories as $item)
 		$master_links[] = '<a class="up-item-link link-article-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
@@ -208,8 +210,11 @@ if (isset($category)) {
      */
     $master_categories = $category->GetMasterCategoryChildes($user);
 
-    foreach ($master_categories as $item)
+    foreach ($master_categories as $item) {
+        if ((string)$item->id == (string)$category->id) continue;
+
         $master_links[] = '<a class="up-item-link link-category-category" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+    }
 }
 
 if (isset($links)) {

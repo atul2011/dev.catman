@@ -388,7 +388,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	/**
 	 * @param string $user
 	 *
-	 * @return array
+	 * @return QuarkCollection|Category[]
 	 */
 	public function GetMasterCategoryChildes ($user = '') {
 		/**
@@ -406,10 +406,16 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 		}
 
 
-		return array(
-			'categories' => $master->ChildCategories(0),
-		    'articles' => $master->Articles()
-		);
+		return $master->ChildCategories(0);
+	}
+
+	/**
+	 * @return QuarkCollection|Article[]
+	 */
+	public function MasterArticles () {
+		return $this->GetMasterCategory()->Articles(array(
+			QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+		))->Select(array('master' => true));
 	}
 
 	/**
