@@ -29,7 +29,8 @@ $categories = $category->ChildCategories(0)->Extract(array(
 	'grouped',
     'note',
     'available_on_site',
-    'keywords'
+    'keywords',
+    'description'
 ));
 
 if ($category->sub == Category::TYPE_NEW)
