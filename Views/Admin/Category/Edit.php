@@ -93,8 +93,10 @@ use ViewModels\Admin\Category\CreateView;
 		</div>
 		<div class="quark-presence-container presence-block main" id="content-container">
             <div class="quark-presence-container presence-block middle">
-                <div class="title"><p>Description</p>
-                    <input type="text" PLACEHOLDER="Description" class="quark-input large_text_field" name="description" id="item-description" value="<?php echo $category->description; ?>"/>
+                <div class="quark-presence-column form-title">Description</div>
+                <br />
+                <div class="quark-presence-column form-value">
+                    <textarea name="description" class="editor-container"><?php echo $category->description; ?></textarea>
                 </div>
             </div>
             <div class="quark-presence-container presence-block" id="content-container">

@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#editor-container').summernote();//SUMMERNOTE
+    $('#editor-container, .editor-container').summernote();//SUMMERNOTE
 
     $(document).on("input", '#item-event', function () {
         removeItems('#eventlist');
