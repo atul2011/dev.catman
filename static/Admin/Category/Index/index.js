@@ -1,5 +1,5 @@
 $(document).ready(function(){
-    $('#editor-container').summernote();
+    $('#editor-container, .editor-container').summernote();//SUMMERNOTE
 
     var available_on_site = $('#cm-item-available_on_site');
     var available_on_api = $('#cm-item-available_on_api');

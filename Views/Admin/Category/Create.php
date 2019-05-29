@@ -83,13 +83,15 @@ use ViewModels\Admin\Category\CreateView;
             </div>
         </div>
         <div class="quark-presence-container presence-block main" id="content-container">
-            <div class="quark-presence-container presence-block middle">
-                <div class="title"><p>Description</p>
-                    <input type="text" PLACEHOLDER="Description" class="quark-input large_text_field" name="description" id="item-description"/>
-                </div>
-            </div>
             <div class="title"><p>Tags</p>
                 <input type="text" placeholder="Tags, divided by [,]" class="quark-input large_text_field" name="tag_list" id="item-tags">
+            </div>
+            <div class="quark-presence-container presence-block middle">
+                <div class="quark-presence-column form-title">Description</div>
+                <br />
+                <div class="quark-presence-column form-value">
+                    <textarea name="description" class="editor-container"></textarea>
+                </div>
             </div>
             <div class="quark-presence-container presence-block" id="content-container">
                 <input id="form-item-content" name="intro" type="hidden">
