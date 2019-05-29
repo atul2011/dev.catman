@@ -98,7 +98,7 @@ foreach ($groups as $group) {
 			    ('<div class="item-related-categories" id="related-category-' . $item->id . '">'.
                     '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
                     '<br />' .
-                    '<div class="related-item-detail">' . $item->note  . '</div>' .
+				    '<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
 			    '</div>');
 
 	    }
@@ -147,7 +147,7 @@ foreach ($groups as $group) {
                                 $item->title .
                             '</a>'.
                             '<br />' .
-                            '<div class="related-item-detail">' . $item->note  . '</div>' .
+                            '<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
 			            '</div>';
 	            }
 
