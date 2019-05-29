@@ -79,7 +79,7 @@ foreach ($groups as $group) {
                         $item->title .
                         '</a>'.
                     '<br />' .
-                    '<div class="related-item-detail">' . $item->note  . '</div>' .
+			        '<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
 		        '</div>');
 
         }
