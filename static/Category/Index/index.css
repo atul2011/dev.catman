@@ -7,3 +7,7 @@
     font-size: 1em;
     margin: 10px 0;
 }
+
+.related-item-detail p {
+    margin: 6px;
+}
