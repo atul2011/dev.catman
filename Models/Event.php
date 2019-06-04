@@ -113,6 +113,8 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 			}
 		}
 
-		return $events;
+		return $events->Select(array(), array(
+			QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
+		));
 	}
 }
