@@ -108,6 +108,8 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 
 		foreach ($articles as $article) {
 			if (!in_array($article->event_id->value, $events_ids)) {
+				if ($article->event_id->value == '1') continue;
+
 				$events_ids[] = $article->event_id->value;
 				$events[] = $article->event_id->Retrieve();
 			}
