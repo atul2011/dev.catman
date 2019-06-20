@@ -191,7 +191,7 @@ foreach ($groups as $group) {
                 if (strlen($childes) == 0) continue;
 	            echo
 		            '<div class="cm-group-container">' .
-		            '<h3 class="cm-group-title">' . ($groups->SelectOne(array('id' => (string)$group_id))->title) .'</h3>'.
+		            '<h3 class="cm-group-title" style="text-align: justify;">' . ($groups->SelectOne(array('id' => (string)$group_id))->title) .'</h3>'.
 		                $childes .
 		            '</div>';
             }
