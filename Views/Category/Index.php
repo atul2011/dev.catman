@@ -151,6 +151,12 @@ foreach ($groups as $group) {
 					if ($item->keywords === 'super-category' || $item->available_on_site !== true || strlen(trim($item->title)) == 0 || $item->grouped == 'true')
 						continue;
 
+					$itemResume = strlen(trim($item->description)) > 0
+						? ('<div class="related-item-detail">' . $item->description  . '</div>')
+						: (strlen(trim($item->note)) > 0
+							? ('<div class="related-item-detail">' . $item->note  . '</div>')
+							: ''
+						);
 					echo
 						'<div class="item-related-categories" id="related-category-' . $item->id . '">'.
 						'<a class="related-item-link" href="/category/'.$item->id.'">'.
@@ -158,7 +164,7 @@ foreach ($groups as $group) {
 						$item->title .
 						'</a>'.
 						'<br />' .
-						'<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
+						$itemResume .
 						'</div>';
 				}
 
