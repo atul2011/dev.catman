@@ -73,15 +73,23 @@ foreach ($groups as $group) {
                 Quark::Log('cannot find category of group:');
             }
 
-	        $groups_childes[$group->id] .=
-		        ('<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-                    '<a class="related-item-link" href="/category/'.$item->id.'">'.
-                    '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
-                        $item->title .
-                        '</a>'.
-                    '<br />' .
-			        '<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
-		        '</div>');
+	        $groupItemResume = strlen(trim($item->description)) > 0
+                ? ('<div class="related-item-detail">' . $item->description  . '</div>')
+                : (strlen(trim($item->note)) > 0
+                    ? ('<div class="related-item-detail">' . $item->note  . '</div>')
+                    : ''
+                );
+	        $groupItem =
+		        '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
+		        '<a class="related-item-link" href="/category/'.$item->id.'">'.
+		        '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
+		        $item->title .
+		        '</a>'.
+		        '<br />' .
+		        $groupItemResume .
+		        '</div>';
+
+	        $groups_childes[$group->id] .= $groupItem;
 
         }
 
@@ -94,13 +102,15 @@ foreach ($groups as $group) {
 		    if ($item == null) {
 			    Quark::Log('cannot find article of group:');
 		    }
-
-		    $groups_childes[$group->id] .=
-			    ('<div class="item-related-categories" id="related-category-' . $item->id . '">'.
+            $groupItemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
+		    $groupItem =
+                '<div class="item-related-categories">'.
                     '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
                     '<br />' .
-				    '<div class="related-item-detail">' . $item->resume  . '</div>' .
-			    '</div>');
+                     $groupItemResume.
+			    '</div>';
+
+		    $groups_childes[$group->id] .= $groupItem;
 
 	    }
     }
@@ -166,11 +176,12 @@ foreach ($groups as $group) {
 
 	                if ($item->master) continue;
 
+	                $itemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
 	                echo
 		                '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
                             '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
                                 '<br />'.
-                            '<div class="related-item-detail">' .$item->resume  . '</div>' .
+		                    $itemResume .
 		                '</div>';
                 }
                 ?>
