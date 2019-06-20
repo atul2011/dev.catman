@@ -27,10 +27,10 @@ $categories = $category->ChildCategories(0)->Extract(array(
 	'title',
 	'runtime_priority',
 	'grouped',
-    'note',
-    'available_on_site',
-    'keywords',
-    'description'
+	'note',
+	'available_on_site',
+	'keywords',
+	'description'
 ));
 
 if ($category->sub == Category::TYPE_NEW)
@@ -43,9 +43,9 @@ if ($category->sub == Category::TYPE_NEW)
 	));
 else
 	$articles = Article::Minimize($category->Articles(array(
-        QuarkModel::OPTION_LIMIT => 30,
-        QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
-    )))->Extract();
+		QuarkModel::OPTION_LIMIT => 30,
+		QuarkModel::OPTION_SORT => array('runtime_priority' => QuarkModel::SORT_ASC)
+	)))->Extract();
 
 //------------------------------------------
 //Create List
@@ -59,74 +59,74 @@ $groups_childes = array();
 $groups = $category->Groups();
 
 foreach ($groups as $group) {
-    $group_items = $group->Items();
-    $groups_childes[$group->id] = '';
+	$group_items = $group->Items();
+	$groups_childes[$group->id] = '';
 
-    foreach ($group_items as $group_item) {
-        if ($group_item->type == CategoryGroupItem::TYPE_CATEGORY) {
-            /**
-             * @var QuarkModel|Category $item
-             */
-            $item= QuarkModel::FindOneById(new Category(), $group_item->target);
+	foreach ($group_items as $group_item) {
+		if ($group_item->type == CategoryGroupItem::TYPE_CATEGORY) {
+			/**
+			 * @var QuarkModel|Category $item
+			 */
+			$item= QuarkModel::FindOneById(new Category(), $group_item->target);
 
-            if ($item == null) {
-                Quark::Log('cannot find category of group:');
-            }
+			if ($item == null) {
+				Quark::Log('cannot find category of group:');
+			}
 
-	        $groupItemResume = strlen(trim($item->description)) > 0
-                ? ('<div class="related-item-detail">' . $item->description  . '</div>')
-                : (strlen(trim($item->note)) > 0
-                    ? ('<div class="related-item-detail">' . $item->note  . '</div>')
-                    : ''
-                );
-	        $groupItem =
-		        '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-		        '<a class="related-item-link" href="/category/'.$item->id.'">'.
-		        '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
-		        $item->title .
-		        '</a>'.
-		        '<br />' .
-		        $groupItemResume .
-		        '</div>';
+			$groupItemResume = strlen(trim($item->description)) > 0
+				? ('<div class="related-item-detail">' . $item->description  . '</div>')
+				: (strlen(trim($item->note)) > 0
+					? ('<div class="related-item-detail">' . $item->note  . '</div>')
+					: ''
+				);
+			$groupItem =
+				'<div class="item-related-categories" id="related-category-' . $item->id . '">'.
+				'<a class="related-item-link" href="/category/'.$item->id.'">'.
+				'<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
+				$item->title .
+				'</a>'.
+				'<br />' .
+				$groupItemResume .
+				'</div>';
 
-	        $groups_childes[$group->id] .= $groupItem;
+			$groups_childes[$group->id] .= $groupItem;
 
-        }
+		}
 
-	    if ($group_item->type == CategoryGroupItem::TYPE_ARTICLE) {
-		    /**
-		     * @var QuarkModel|Article $item
-		     */
-		    $item = QuarkModel::FindOneById(new Article(), $group_item->target);
+		if ($group_item->type == CategoryGroupItem::TYPE_ARTICLE) {
+			/**
+			 * @var QuarkModel|Article $item
+			 */
+			$item = QuarkModel::FindOneById(new Article(), $group_item->target);
 
-		    if ($item == null) {
-			    Quark::Log('cannot find article of group:');
-		    }
-            $groupItemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
-		    $groupItem =
-                '<div class="item-related-categories">'.
-                    '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
-                    '<br />' .
-                     $groupItemResume.
-			    '</div>';
+			if ($item == null) {
+				Quark::Log('cannot find article of group:');
+			}
+			$groupItemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
+			$groupItem =
+				'<div class="item-related-categories">'.
+				'<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
+				'<br />' .
+				$groupItemResume.
+				'</div>';
 
-		    $groups_childes[$group->id] .= $groupItem;
+			$groups_childes[$group->id] .= $groupItem;
 
-	    }
-    }
+		}
+	}
 }
 ?>
 <div class="block-center__left js-equal-height">
-	<div class="item-head">
-		<h3 class="main-headline item-main-headline">
+    <div class="item-head">
+        <h3 class="main-headline item-main-headline">
 			<?php echo $category->title;?>
-		</h3>
-	</div>
+        </h3>
+    </div>
     <hr class="cm-delimiter cm-header-content-delimiter">
-	<div class="item-content">
-		<div class="item-content-container">
+    <div class="item-content">
+        <div class="item-content-container">
             <div class="item-related-content">
-                <?php echo $category->intro?>
+				<?php echo $category->intro?>
             </div>
             <hr class="cm-delimiter cm-content-photos-delimiter">
             <div class="item-related-photo-container">
@@ -140,70 +140,70 @@ foreach ($groups as $group) {
 				?>
             </div>
             <hr class="cm-delimiter cm-content-categories-delimiter">
-            <?php
-            if (!$category->master) {
-                echo '<div class="item-related-categories-container">';
+			<?php
+			if (!$category->master) {
+				echo '<div class="item-related-categories-container">';
 
-	            foreach ($categories as $item) {
-		            /**
-		             * @var QuarkModel|Category $item
-		             */
-		            if ($item->keywords === 'super-category' || $item->available_on_site !== true || strlen(trim($item->title)) == 0 || $item->grouped == 'true')
-			            continue;
+				foreach ($categories as $item) {
+					/**
+					 * @var QuarkModel|Category $item
+					 */
+					if ($item->keywords === 'super-category' || $item->available_on_site !== true || strlen(trim($item->title)) == 0 || $item->grouped == 'true')
+						continue;
 
-		            echo
-			            '<div class="item-related-categories" id="related-category-' . $item->id . '">'.
-                            '<a class="related-item-link" href="/category/'.$item->id.'">'.
-                                '<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
-                                $item->title .
-                            '</a>'.
-                            '<br />' .
-                            '<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
-			            '</div>';
-	            }
+					echo
+						'<div class="item-related-categories" id="related-category-' . $item->id . '">'.
+						'<a class="related-item-link" href="/category/'.$item->id.'">'.
+						'<b><span class="related-item-label">' . $this->CurrentLocalizationOf('Catman.Category.Label.The') . ': ' . '</span></b>' .
+						$item->title .
+						'</a>'.
+						'<br />' .
+						'<div class="related-item-detail">' . (strlen($item->description) > 0 ? $item->description : $item->note)  . '</div>' .
+						'</div>';
+				}
 
-                echo '</div>';
-            }
-            ?>
+				echo '</div>';
+			}
+			?>
             <div class="item-related-articles-container">
-                <?php
-                foreach ($articles as $item) {
-	                /**
-	                 * @var QuarkModel|Article $item
-	                 */
-	                if (strlen(trim($item->title)) == 0 || $item->grouped == 'true')
-		                continue;
+				<?php
+				foreach ($articles as $item) {
+					/**
+					 * @var QuarkModel|Article $item
+					 */
+					if (strlen(trim($item->title)) == 0 || $item->grouped == 'true')
+						continue;
 
-	                if ($item->master) continue;
+					if ($item->master) continue;
 
-	                $itemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
-	                echo
-		                '<div class="item-related-articles" id="related-article-' . $item->id . '">'.
-                            '<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
-                                '<br />'.
-		                    $itemResume .
-		                '</div>';
-                }
-                ?>
+					$itemResume = strlen(trim($item->resume)) > 0 ? ('<div class="related-item-detail">' . $item->resume  . '</div>') : '';
+					echo
+						'<div class="item-related-articles" id="related-article-' . $item->id . '">'.
+						'<a class="related-item-link" href="/article/'.$item->id.'">' . $item->title . '</a>'.
+						'<br />'.
+						$itemResume .
+						'</div>';
+				}
+				?>
             </div>
-            <?php
-            foreach ($groups_childes as $group_id => $childes) {
-                if (strlen($childes) == 0) continue;
-	            echo
-		            '<div class="cm-group-container">' .
-		            '<h3 class="cm-group-title" style="text-align: justify;">' . ($groups->SelectOne(array('id' => (string)$group_id))->title) .'</h3>'.
-		                $childes .
-		            '</div>';
-            }
+			<?php
+			foreach ($groups_childes as $group_id => $childes) {
+				if (strlen($childes) == 0) continue;
+				echo
+					'<div class="cm-group-container">' .
+					'<h3 class="cm-group-title">' . ($groups->SelectOne(array('id' => (string)$group_id))->title) .'</h3>'.
+					$childes .
+					'</div>';
+			}
 
-            foreach ($links as $link) {
-	            if ($link->master == true) continue;
-	            echo
-		            '<div class="item-related-articles" >'.
-		                '<a class="related-item-link" href="'.$link->link.'">' . $link->title . '</a>'.
-		            '</div>';
-            }
-            ?>
-		</div>
-	</div>
+			foreach ($links as $link) {
+				if ($link->master == true) continue;
+				echo
+					'<div class="item-related-articles" >'.
+					'<a class="related-item-link" href="'.$link->link.'">' . $link->title . '</a>'.
+					'</div>';
+			}
+			?>
+        </div>
+    </div>
 </div>
