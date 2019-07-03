@@ -37,6 +37,7 @@ foreach ($top_articles as $item)
 	$top_list[] = '<a class="up-item-link" href="/article/' . $item->id.'">'. $item->short_title . '</a>';
 
 $top_list[] = '<a class="up-item-link" href="/user/contact">Написать нам</a>';
+$top_list[] = '<a class="up-item-link" href="https://www.km-book.com/shop">Книги</a>';
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------main categories---------------------------------------------------------
@@ -357,26 +358,6 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				</div>
 				<div class="col-md-2 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
-                        <div id="related-websites-container">
-                            <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
-                            <?php
-                            /**
-                             * @var QuarkCollection|Link[] $external_links
-                             */
-                            $external_links = Link::IndependentLinks();
-
-                            foreach ($external_links as $key => $link) {
-                                /**
-                                 * @var QuarkModel|Link $link
-                                 */
-                                echo
-                                '<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($key) ,'">' ,
-                                    '<h4>' , $link->title ,'</h4>' ,
-                                    '<span href="' , $link->link ,'#">' , $link->link , '</span>' ,
-                                '</a>';
-                            }
-                            ?>
-                        </div>
 						<div class="news-right" id="news-container">
                             <?php
                             foreach ($news_list as $item)
@@ -386,6 +367,26 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 								<a href="/news/list" class="all-news__link">ВСЕ НОВОСТИ</a>
 							</div>
 						</div>
+                        <div id="related-websites-container">
+                            <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
+							<?php
+							/**
+							 * @var QuarkCollection|Link[] $external_links
+							 */
+							$external_links = Link::IndependentLinks();
+
+							foreach ($external_links as $key => $link) {
+								/**
+								 * @var QuarkModel|Link $link
+								 */
+								echo
+								'<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($key) ,'">' ,
+								'<h4>' , $link->title ,'</h4>' ,
+								'<span href="' , $link->link ,'#">' , $link->link , '</span>' ,
+								'</a>';
+							}
+							?>
+                        </div>
 					</div>
 				</div>
 			</div>
