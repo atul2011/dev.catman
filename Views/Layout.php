@@ -36,8 +36,8 @@ $top_articles = $top_category->Articles();
 foreach ($top_articles as $item)
 	$top_list[] = '<a class="up-item-link" href="/article/' . $item->id.'">'. $item->short_title . '</a>';
 
-$top_list[] = '<a class="up-item-link" href="/user/contact">Написать нам</a>';
 $top_list[] = '<a class="up-item-link" href="https://www.km-book.com/shop">Книги</a>';
+$top_list[] = '<a class="up-item-link" href="/user/contact">Написать нам</a>';
 
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------main categories---------------------------------------------------------
