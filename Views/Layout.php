@@ -289,6 +289,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<div class="side-menu-wrapper" id="mobile-category-top-container">
 					<a href="#" class="menu-close" id="mobile-category-top-list">&times;</a>
 					<ul class="side-menu-list">
+                    <li><a href="/" class="home"><img src="/static/resources/img/home.png" alt=""></a></li>
 					<?php
 					foreach ($top_list as $item)
 						echo '<li>' , $item , '</li>';
@@ -343,7 +344,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				</div>
 			</div>
 			<div class="row margin-none">
-                <div class="col-md-3 padding-none" id="main-links-container">
+                <div class="col-md-2 padding-none" id="main-links-container">
                     <div class="block-center__right js-equal-height related-items-container">
                         <div class="up-links-container">
                             <?php
@@ -356,9 +357,21 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<div class="col-md-7 padding-none" id="content-container">
                     <?php echo $this->View();?>
 				</div>
-				<div class="col-md-2 padding-none" id="additional-links-container">
+				<div class="col-md-3 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
-						<div class="news-right" id="news-container">
+                        <div class="related-internal-links special">
+                            <a href="/category/376" class="related-websites bg-red">
+                                <h4>МЫСЛЕФОРМА НА ГОД</h4>
+                            </a>
+                        </div>
+                        <div class="related-internal-links special" style="margin-top: 20px;">
+                            <a href="/glossary" class="related-websites bg-yellow">
+                                <h4>Глоссарий</h4>
+                                <!--                                <span>/glossary</span>-->
+                            </a>
+                        </div>
+						<div class="news-right" id="news-container" style="margin-top: 20px;">
+                            <h3 class="main-headline">НОВОСТИ</h3>
                             <?php
                             foreach ($news_list as $item)
                                 echo $item;
@@ -367,8 +380,8 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 								<a href="/news/list" class="all-news__link">ВСЕ НОВОСТИ</a>
 							</div>
 						</div>
-                        <div id="related-websites-container">
-                            <h3 class="main-headline">РОДСТВЕННЫЕ САЙТЫ</h3>
+                        <div id="related-websites-container" style="margin-top: 20px;">
+                            <h3 class="main-headline">ССЫЛКИ НА САЙТЫ</h3>
 							<?php
 							/**
 							 * @var QuarkCollection|Link[] $external_links
@@ -380,12 +393,24 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 								 * @var QuarkModel|Link $link
 								 */
 								echo
-								'<a href="' , $link->link ,'" class="related-websites ' , $this->GetColor($key) ,'">' ,
-								'<h4>' , $link->title ,'</h4>' ,
-								'<span href="' , $link->link ,'#">' , $link->link , '</span>' ,
+								'<a href="' , trim($link->link) ,'" class="related-websites ' , $this->GetColor($key) ,'">' ,
+                                    '<h4>' , trim($link->title) ,'</h4>' ,
+//                                    '<span>' , $link->link , '</span>' ,
 								'</a>';
 							}
 							?>
+                        </div>
+                        <div class="related-internal-links" style="margin-top: 20px;">
+                            <h3 class="main-headline">СТРАНИЦЫ В СОЦ. СЕТЯХ</h3>
+                            <a href="https://www.facebook.com/upath/" class="related-websites bg-red">
+                                <h4>Универсальный Путь в Фейсбуке</h4>
+                            </a>
+                            <a href="https://vk.com/upath" class="related-websites bg-blue">
+                                <h4>Универсальный Путь в Контакте</h4>
+                            </a>
+                            <a href="https://www.facebook.com/KimMichaelsRUS/" class="related-websites bg-yellow">
+                                <h4>Страница издательства в Фейсбуке </h4>
+                            </a>
                         </div>
 					</div>
 				</div>

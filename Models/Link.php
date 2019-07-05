@@ -94,7 +94,7 @@ class Link implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvide
 	 */
 	public static function IndependentLinks () {
 		return QuarkModel::Find(new Link(), array('type' => self::TYPE_INDEPENDENT), array(
-			QuarkModel::OPTION_SORT => array('title' => QuarkModel::SORT_ASC)
+			QuarkModel::OPTION_SORT => array('priority' => QuarkModel::SORT_ASC)
 		));
 	}
 }

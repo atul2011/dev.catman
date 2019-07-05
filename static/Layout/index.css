@@ -6,6 +6,27 @@ body {
     line-height: 1.4 !important;
 }
 
+#main-links-container {
+    width: 24% !important;
+}
+
+#content-container {
+    width: 56% !important;
+}
+
+#additional-links-container {
+    width: 20% !important;
+}
+
+@media only screen and (max-width: 1000px) {
+    #main-links-container,
+    #content-container,
+    #additional-links-container {
+        width: 100% !important;
+    }
+}
+
+
 .top-bar-list-container {
     margin: 4px 0;
 }
