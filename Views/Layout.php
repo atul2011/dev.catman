@@ -360,7 +360,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<div class="col-md-3 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
                         <div class="related-internal-links special">
-                            <a href="/category/376" class="related-websites bg-red">
+                            <a href="/article/2621" class="related-websites bg-red">
                                 <h4>МЫСЛЕФОРМА НА ГОД</h4>
                             </a>
                         </div>
