@@ -1,5 +1,6 @@
 <?php
 use Models\Article;
+use Models\Banner;
 use Models\Category;
 use Models\Link;
 use Quark\Quark;
@@ -10,7 +11,11 @@ use ViewModels\LayoutView;
 
 /**
  * @var QuarkView|LayoutView $this
+ * @var QuarkCollection|Banner[] $random_banner
+ * @var QuarkModel|Banner $banner
  */
+$random_banner = QuarkModel::FindRandom(new Banner());
+$banner = $random_banner[0];
 //----------------------------------------------------------------------------------------------------------------------
 //----------------------------------------------top categories----------------------------------------------------------
 //----------------------------------------------------------------------------------------------------------------------
@@ -23,20 +28,22 @@ $top_categories = Category::TopMenuSubCategories();
 
 $top_list = array();
 
-foreach ($top_categories as $item) {
+foreach ($top_categories as $index => $item) {
+	Quark::Log($index);
 	if ($item->available_on_site !== true) continue;
 
 	$top_list[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
+	if ($index == 1) $top_list[] = '<a class="up-item-link" href="https://www.km-book.com/shop">Книги</a>';//add link after 1 element
 }
 /**
  * @var QuarkCollection|Article[] $top_articles
  */
 $top_articles = $top_category->Articles();
 
-foreach ($top_articles as $item)
-	$top_list[] = '<a class="up-item-link" href="/article/' . $item->id.'">'. $item->short_title . '</a>';
+foreach ($top_articles as $item) {
+	$top_list[] = '<a class="up-item-link" href="/article/' . $item->id . '">' . $item->short_title . '</a>';
+}
 
-$top_list[] = '<a class="up-item-link" href="https://www.km-book.com/shop">Книги</a>';
 $top_list[] = '<a class="up-item-link" href="/user/contact">Написать нам</a>';
 
 //----------------------------------------------------------------------------------------------------------------------
@@ -236,10 +243,22 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 <html>
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="">
+    <title ><?php echo strlen($title) > 0 ? $title : 'Универсальный Путь'?></title>
+    <!-- Search Engine -->
+    <meta name="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
+    <meta name="image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+    <!-- Schema.org for Google -->
+    <meta itemprop="name" content="Универсальный Путь">
+    <meta itemprop="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
+    <meta itemprop="image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+    <!-- Open Graph general (Facebook, Pinterest & Google+) -->
+    <meta name="og:title" content="Универсальный Путь">
+    <meta name="og:description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
+    <meta name="og:type" content="website">
+
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta property="og:image" content="path/to/image.jpg">
+	<meta property="og:image" content="/static/resources/img/favicon/favicon.ico">
     <meta name="theme-color" content="#000">
     <meta name="msapplication-navbutton-color" content="#000">
     <meta name="apple-mobile-web-app-status-bar-style" content="#000">
@@ -250,14 +269,6 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 	<link rel="apple-touch-icon" sizes="114x114" href="/static/resources/img/favicon/apple-touch-icon-114x114.png">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Open+Sans:300,400,600,600i,700" rel="stylesheet">
     <?php echo $this->Resources();?>
-    <title id="page-title">
-        <?php
-        /**
-         * @var string $title = ''
-         */
-        echo $title;
-        ?>
-    </title>
 </head>
 <body>
 <header>
@@ -267,8 +278,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<ul class="top_mnu" id="nav-bar-menu-list">
 					<li><a href="/" class="home"><img src="/static/resources/img/home.png" alt=""></a></li>
 					<?php
-					foreach ($top_list as $item)
-					    echo '<li>' , $item , '</li>';;
+					foreach ($top_list as $item) echo '<li>' , $item , '</li>';
                     ?>
 				</ul>
 			</div>
@@ -291,12 +301,11 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 					<ul class="side-menu-list">
                     <li><a href="/" class="home"><img src="/static/resources/img/home.png" alt=""></a></li>
 					<?php
-					foreach ($top_list as $item)
-						echo '<li>' , $item , '</li>';
+					foreach ($top_list as $item) echo '<li>' , $item , '</li>';
 
                     echo '<li class="list-delimiter"><hr></li>';
-					foreach ($main_list as $item)
-						echo '<li>' , $item , '</li>';
+
+					foreach ($main_list as $item) echo '<li>' , $item , '</li>';
 					?>
 					</ul>
 				</div>
@@ -351,6 +360,11 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
                             foreach ($master_links as $item)
                                 echo $item;
                             ?>
+                            <?php
+
+                            if (isset($article) && $article->id == 1)
+                                foreach ($top_list as $item) echo $item ;
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -366,7 +380,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
                         </div>
                         <div class="related-internal-links special" style="margin-top: 20px;">
                             <a href="/glossary" class="related-websites bg-yellow">
-                                <h4>Глоссарий</h4>
+                                <h4>ГЛОССАРИЙ</h4>
                                 <!--                                <span>/glossary</span>-->
                             </a>
                         </div>
