@@ -61,12 +61,13 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 	public function getCurrentNews () {
 		return QuarkModel::Find(new News(),
 			array(
-				'publish_date' =>array(
-					'$lte' => QuarkDate::GMTNow()->Format('Y-m-d')
-				)
+//				'publish_date' =>array(
+//					'$lte' => QuarkDate::GMTNow()->Format('Y-m-d')
+//				)
 			),
 			array(
-				QuarkModel::OPTION_LIMIT => 3
+				QuarkModel::OPTION_SORT => array('publish_date' => QuarkModel::SORT_DESC),
+				QuarkModel::OPTION_LIMIT => 2
 			)
 		);
 	}

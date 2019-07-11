@@ -26,11 +26,10 @@ class ListService implements IQuarkGetService  {
 	 * @return mixed
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
-		return QuarkView::InLayout(new ListView(),new LayoutView(),array(
-			'news' => QuarkModel::Find(new News(), array(
-					'publish_date' => array('$lte' => QuarkDate::GMTNow()->Format('Y-m-d'))
-				)
-			),
+		return QuarkView::InLayout(new ListView(),new LayoutView(), array(
+			'news' => QuarkModel::Find(new News(), array(), array(
+				QuarkModel::OPTION_SORT => array('publish_date' => QuarkModel::SORT_DESC),
+			)),
 			'title' => $this->CurrentLocalizationOf('Catman.Localization.News.Label.Many')
 		));
 	}
