@@ -715,7 +715,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .block-center, .news-right .news__wrap { position: relative }
 
-.news__description { background: rgba(255, 255, 255, .85); bottom: 0; padding: 10px 0 0 10px; width: 100%;}
+.news__description { background: rgba(255, 255, 255, .85); bottom: 0; padding: 8px 0 8px 10px; width: 100%;}
 
 .news__main img { width: 100%; min-height: 250px; display: block }
 

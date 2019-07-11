@@ -153,11 +153,11 @@ foreach ($news as $item){
                         trim($item->text).
                     '</span>'.
                 '</div>'.
-                '<div class="news__more">'.
-                    '<a href="'.$link_url.'">'.
-                        $link_text.
-                    '</a>'.
-                '</div>'.
+//                '<div class="news__more">'.
+//                    '<a href="'.$link_url.'">'.
+//                        $link_text.
+//                    '</a>'.
+//                '</div>'.
                 '</div>'.
             '</div>'.
 		'</div>';
@@ -253,12 +253,14 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
     <meta itemprop="image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="Универсальный Путь">
+    <meta name="og:site_name" content="Универсальный Путь">
+    <meta name="og:image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="og:description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
     <meta name="og:type" content="website">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta property="og:image" content="/static/resources/img/favicon/favicon.ico">
+	<meta property="og:image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="theme-color" content="#000">
     <meta name="msapplication-navbutton-color" content="#000">
     <meta name="apple-mobile-web-app-status-bar-style" content="#000">
