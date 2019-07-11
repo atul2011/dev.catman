@@ -52,7 +52,7 @@ use ViewModels\Admin\News\CreateView;
             <div class="quark-presence-column form-title">Content</div>
             <br />
             <div class="quark-presence-column form-value">
-                <textarea name="txtfield" id="editor-container" ><?php echo $news->text;?></textarea>
+                <textarea name="text" id="editor-container" ><?php echo $news->text;?></textarea>
             </div>
 		</div>
         <br/>

@@ -743,7 +743,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .news-right .news__more a:hover { color: #2770dd }
 
-.news-right .news__content { font-size: 12px; padding-right: 5px }
+.news-right .news__content { font-size: 11px; padding-right: 5px }
 
 .all-news__link { color: #4990e2; font-size: 11px; font-weight: 700 }
 

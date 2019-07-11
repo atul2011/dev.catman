@@ -150,7 +150,7 @@ foreach ($news as $item){
                 '</div>'.
                 '<div class="news__content">'.
                     '<span>'.
-                        substr(trim($item->text,' '),0,160).
+                        trim($item->text).
                     '</span>'.
                 '</div>'.
                 '<div class="news__more">'.

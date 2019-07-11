@@ -51,7 +51,7 @@ use ViewModels\Admin\News\CreateView;
             <div class="quark-presence-column form-title">Content</div>
             <br />
             <div class="quark-presence-column form-value">
-                <textarea name="txtfield" id="editor-container"></textarea>
+                <textarea name="text" id="editor-container"></textarea>
             </div>
 		</div>
 		<div class="quark-presence-container presence-block button-div">
