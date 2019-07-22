@@ -72,7 +72,6 @@ class ParseService implements IQuarkGetService, IQuarkPostService, IQuarkAuthori
 
 			if ($term != null) {
 				$term->description = trim($item->description);
-
 				$term->Save();
 			}
 			else {
