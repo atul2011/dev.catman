@@ -288,7 +288,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<div class="span12">
 					<form action="http://www.google.ru/search" id="custom-search-form" class="form-search form-horizontal">
 						<div class="input-append span12" id="nav-bar-search-container">
-                            <input type="hidden" name="as_sitesearch" value="universalpath.org">
+                            <input type="hidden" name="as_sitesearch" value="new.universalpath.org">
                             <input type="text" class="search-query" name="as_q" placeholder="Ищите и найдете!">
                             <button type="submit" class="btn"></button>
 						</div>
