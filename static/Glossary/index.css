@@ -104,7 +104,7 @@
 #glossary-overlay .glossary-description{
     font-size: 14px;
     font-style: italic;
-    height: 50px;
+    height: auto;
     overflow-x: hidden;
     overflow-y: scroll;
 }

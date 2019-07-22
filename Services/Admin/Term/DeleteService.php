@@ -3,7 +3,7 @@ namespace Services\Admin\Term;
 
 use Models\Term;
 use Quark\IQuarkAuthorizableServiceWithAuthentication;
-use Quark\IQuarkPostService;
+use Quark\IQuarkGetService;
 use Quark\IQuarkServiceWithCustomProcessor;
 use Quark\QuarkDTO;
 use Quark\QuarkModel;
@@ -16,7 +16,7 @@ use Services\Admin\Behaviors\CustomProcessorBehavior;
  *
  * @package Services\Admin\Term
  */
-class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
+class DeleteService implements IQuarkGetService, IQuarkAuthorizableServiceWithAuthentication, IQuarkServiceWithCustomProcessor {
 	use AuthorizationBehavior;
 	use CustomProcessorBehavior;
 
@@ -26,7 +26,7 @@ class DeleteService implements IQuarkPostService, IQuarkAuthorizableServiceWithA
 	 *
 	 * @return mixed
 	 */
-	public function Post (QuarkDTO $request, QuarkSession $session) {
+	public function Get (QuarkDTO $request, QuarkSession $session) {
 		/**
 		 * @var QuarkModel|Term $term
 		 */

@@ -50,7 +50,7 @@ class ParseService implements IQuarkGetService, IQuarkPostService, IQuarkAuthori
 		 * @var \stdClass $file_content
 		 */
 		$file = $request->file->Load();
-		$file = $file->Load();
+
 		$file_content = str_replace('\\t', '',
 			str_replace('\\n', '',
 				str_replace('\\r', '',

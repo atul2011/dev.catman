@@ -33,12 +33,12 @@ use ViewModels\Admin\News\CreateView;
 				</div>
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Link URL</p>
-						<input placeholder="Note" type="text" class="quark-input text_field" name="link_url" id="item-link_url" value="<?php echo $news->link_url; ?>"/>
+						<input placeholder="url" type="text" class="quark-input text_field" name="link_url" id="item-link_url" value="<?php echo $news->link_url; ?>"/>
 					</div>
 				</div>
 				<div class="quark-presence-container presence-block middle">
 					<div class="title"><p>Link Text</p>
-						<input placeholder="Note" type="text" class="quark-input text_field" name="link_text" id="item-link_text" value="<?php echo $news->link_text; ?>"/>
+						<input placeholder="text" type="text" class="quark-input text_field" name="link_text" id="item-link_text" value="<?php echo $news->link_text; ?>"/>
 					</div>
 				</div>
 				<div class="quark-presence-container presence-block middle">
@@ -52,7 +52,7 @@ use ViewModels\Admin\News\CreateView;
             <div class="quark-presence-column form-title">Content</div>
             <br />
             <div class="quark-presence-column form-value">
-                <textarea name="txtfield" id="editor-container" ><?php echo $news->text;?></textarea>
+                <textarea name="text" id="editor-container" ><?php echo $news->text;?></textarea>
             </div>
 		</div>
         <br/>

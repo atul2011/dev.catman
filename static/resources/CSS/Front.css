@@ -103,7 +103,7 @@ hr { margin-top: 20px; margin-bottom: 20px; border-top: 1px solid #eee }
 .container, .container-fluid { margin-right: auto; margin-left: auto; padding-left: 15px; padding-right: 15px }
 
 .container {
-    width: 80%;
+    width: 90%;
 }
 
 .container-full {
@@ -705,7 +705,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .margin-none { margin: 0 }
 
-.news__main, .news__more { margin-top: 10px }
+.news__main, .news__more { margin-top: 0; }
 
 .main-section h1 { font-size: 48px; color: #fff; text-shadow: 0 2px 28px rgba(94, 1, 100, .8) }
 
@@ -715,13 +715,13 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .block-center, .news-right .news__wrap { position: relative }
 
-.news__description { background: rgba(255, 255, 255, .85); bottom: 0; padding: 10px 0 0 10px; width: 100%;}
+.news__description { background: rgba(255, 255, 255, .85); bottom: 0; padding: 8px 0 8px 10px; width: 100%;}
 
 .news__main img { width: 100%; min-height: 250px; display: block }
 
-.news__date { margin-bottom: 5px; color: #828282; font-size: 12px; font-weight: 100 }
+.news__date { margin-bottom: 2px; color: #828282; font-size: 11px; font-weight: 100 }
 
-.news__content { color: #1d1d1d; font-size: 14px; line-height: 18px }
+.news__content { color: #1d1d1d; font-size: 14px; line-height: 14px }
 
 .news_text p { margin: 0;}
 
@@ -743,7 +743,8 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .news-right .news__more a:hover { color: #2770dd }
 
-.news-right .news__content { font-size: 12px; padding-right: 5px }
+.news-right .news__content { font-size: 11px; padding-right: 5px }
+.news-right .news__content p{ margin: 0;}
 
 .all-news__link { color: #4990e2; font-size: 11px; font-weight: 700 }
 
@@ -759,7 +760,7 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .related-websites { border: 1px solid #e0dedc; padding: 10px; margin-top: 10px; display: block }
 
-.related-websites h4 { margin: 0; line-height: 18px; font-size: 14px; color: #4990e2 }
+.related-websites h4{ margin: 0; line-height: 18px; font-size: 12px; color: #4990e2 }
 
 .related-websites span { color: #494949; font-size: 11px; font-weight: 100; display: block }
 
