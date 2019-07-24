@@ -67,7 +67,7 @@ class LayoutView implements IQuarkViewModel, IQuarkViewModelWithComponents, IQua
 			),
 			array(
 				QuarkModel::OPTION_SORT => array('publish_date' => QuarkModel::SORT_DESC),
-				QuarkModel::OPTION_LIMIT => 2
+				QuarkModel::OPTION_LIMIT => 3
 			)
 		);
 	}
