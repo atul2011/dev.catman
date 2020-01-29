@@ -267,6 +267,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
     <meta name="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="og:description" content="<?php echo strip_tags($description);?>">
     <meta name="og:type" content="website">
+	<meta name="og:url" content="http://universalpath.org/">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
