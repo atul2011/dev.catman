@@ -2,7 +2,6 @@
 namespace Services\User;
 
 use Models\Article;
-use Models\User;
 use Quark\Extensions\Mail\Mail;
 use Quark\IQuarkGetService;
 use Quark\IQuarkPostService;
@@ -50,16 +49,14 @@ class ContactService implements IQuarkGetService, IQuarkPostService {
 		$message_text = htmlspecialchars($request->text);
 		$message_log = $user_name . ': ' . $user_email . ';\\n  [subject]=> ' . $message_subject .';\\n [content] => ' . $message_text . '\\n\\n';
 
-		foreach (QuarkModel::Find(new User(), array('rights' => User::RIGHTS_ADMIN)) as $user){
-			/**
-			 * @var QuarkModel|User $user
-			 */
-			$mail->To($user->email);
+		$emails = array('ain77@inbox.ru', 'pdsq2@mail.ru');
+		foreach ($emails as $targetEmail) {
+			$mail->To($targetEmail);
 			$mail->Subject($message_subject);
 
 			$message =//mail content
 				'<div style="font-size:16px; font-family: Verdana,sans-serif;color: #000000 !important; ">'.
-				'Привет, '. $user->name.
+				'Привет,'.
 				'<br/>'.
 				'Пользователь <u><i>'. $user_name . ': ' . $user_email . '</i></u> отправил коментарий к сайту Universal Path.'.
 				'<br/>'.
@@ -70,13 +67,11 @@ class ContactService implements IQuarkGetService, IQuarkPostService {
 			$mail->Content($message);
 
 			if (!$mail->Send())
-				Quark::Log('Cannot send message to email:' . $user->email);
+				Quark::Log('Cannot send message to email:' . $targetEmail);
 		}
 
 		Quark::Log($message_log, Quark::LOG_INFO, 'messages');
 
 		return QuarkDTO::ForRedirect('/');
 	}
-
-
 }
