@@ -1,11 +1,11 @@
 <?php
+use Quark\QuarkView;
+use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
+use ViewModels\Admin\Article\ListView;
 /**
  * @var QuarkView|ListView $this
  * @var int $number
  */
-use Quark\QuarkView;
-use Quark\ViewResources\Quark\QuarkControls\ViewFragments\QuarkViewDialogFragment;
-use ViewModels\Admin\Article\ListView;
 ?>
 <h1 class="page-title">Article List</h1>
 <h5 class="page-title">Navigate through articles</h5>
