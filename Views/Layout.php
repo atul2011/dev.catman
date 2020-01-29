@@ -255,7 +255,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 	<meta charset="utf-8">
     <title ><?php echo $title;?></title>
     <!-- Search Engine -->
-    <meta name="description" content="<?php echo $description;?>">
+    <meta name="description" content="<?php echo htmlspecialchars($description);?>">
     <meta name="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="Универсальный Путь">
@@ -265,7 +265,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
     <meta name="og:title" content="<?php echo $title;?>">
     <meta name="og:site_name" content="<?php echo $title;?>">
     <meta name="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
-    <meta name="og:description" content="<?php echo $description;?>">
+    <meta name="og:description" content="<?php echo htmlspecialchars($description);?>">
     <meta name="og:type" content="website">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
