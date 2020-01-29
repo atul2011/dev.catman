@@ -252,8 +252,8 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
     <meta itemprop="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
     <meta itemprop="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="Универсальный Путь">
-    <meta name="og:site_name" content="Универсальный Путь">
+    <meta name="og:title" content="<?php echo strlen($title) > 0 ? $title : 'Универсальный Путь'?>">
+    <meta name="og:site_name" content="<?php echo strlen($title) > 0 ? $title : 'Универсальный Путь'?>">
     <meta name="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="og:description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
     <meta name="og:type" content="website">
