@@ -246,21 +246,21 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
     <title ><?php echo strlen($title) > 0 ? $title : 'Универсальный Путь'?></title>
     <!-- Search Engine -->
     <meta name="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
-    <meta name="image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+    <meta name="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="Универсальный Путь">
     <meta itemprop="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
-    <meta itemprop="image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+    <meta itemprop="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
     <meta name="og:title" content="Универсальный Путь">
     <meta name="og:site_name" content="Универсальный Путь">
-    <meta name="og:image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+    <meta name="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="og:description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
     <meta name="og:type" content="website">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
 	<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-	<meta property="og:image" content="http://new.universalpath.org/static/resources/img/favicon/favicon.ico">
+	<meta property="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <meta name="theme-color" content="#000">
     <meta name="msapplication-navbutton-color" content="#000">
     <meta name="apple-mobile-web-app-status-bar-style" content="#000">
@@ -288,7 +288,7 @@ $new_category_link = '<li><a class="up-item-link" href="/category/' . $new_categ
 				<div class="span12">
 					<form action="http://www.google.ru/search" id="custom-search-form" class="form-search form-horizontal">
 						<div class="input-append span12" id="nav-bar-search-container">
-                            <input type="hidden" name="as_sitesearch" value="new.universalpath.org">
+                            <input type="hidden" name="as_sitesearch" value="universalpath.org">
                             <input type="text" class="search-query" name="as_q" placeholder="Ищите и найдете!">
                             <button type="submit" class="btn"></button>
 						</div>
