@@ -237,25 +237,35 @@ if (isset($links)) {
  * @var QuarkCollection|Category $new_category
  */
 $new_category = Category::NewCategory();
-$new_category_link = '<li><a class="up-item-link" href="/category/' . $new_category->id . '">' . $new_category->title . '</a></li>'
+$new_category_link = '<li><a class="up-item-link" href="/category/' . $new_category->id . '">' . $new_category->title . '</a></li>';
+
+//Set Title
+$title = 'Универсальный Путь';
+if (isset($category))  $title = $category->title;
+if (isset($article)) $title = $article->title;
+
+//Set Description
+$description = "Сайт посвящён учениям Вознесённых Владык новой диспенсации.";
+if (isset($category)) $description = implode('. ', array_slice(explode('.', $category->intro), 0, 1)) . '.';
+if (isset($article)) $description = implode('. ', array_slice(explode('.', $article->txtfield), 0, 1)) . '.';
 ?>
 <!DOCTYPE html>
 <html>
 <head>
 	<meta charset="utf-8">
-    <title ><?php echo strlen($title) > 0 ? $title : 'Универсальный Путь'?></title>
+    <title ><?php echo $title;?></title>
     <!-- Search Engine -->
-    <meta name="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
+    <meta name="description" content="<?php echo $description;?>">
     <meta name="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Schema.org for Google -->
     <meta itemprop="name" content="Универсальный Путь">
     <meta itemprop="description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
     <meta itemprop="image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
     <!-- Open Graph general (Facebook, Pinterest & Google+) -->
-    <meta name="og:title" content="Универсальный Путь">
-    <meta name="og:site_name" content="Универсальный Путь">
+    <meta name="og:title" content="<?php echo $title;?>">
+    <meta name="og:site_name" content="<?php echo $title;?>">
     <meta name="og:image" content="http://universalpath.org/static/resources/img/favicon/favicon.ico">
-    <meta name="og:description" content="Сайт посвящён учениям Вознесённых Владык новой диспенсации.">
+    <meta name="og:description" content="<?php echo $description;?>">
     <meta name="og:type" content="website">
 
 	<meta http-equiv="X-UA-Compatible" content="IE=edge">
