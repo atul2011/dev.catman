@@ -170,3 +170,8 @@ body {
         min-height: 1px!important;
     }
 }
+
+/*------------------2020---------------------*/
+table {
+    width: auto!important;
+}
