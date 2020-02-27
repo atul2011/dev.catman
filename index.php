@@ -16,6 +16,9 @@ const CM_SESSION = 'session';
 const CM_MAIL = 'mail';
 const CM_PUSH_NOTIFICATION = 'push';
 
+const GOOGLE_CAPTCHA_KEY = 'GOOGLE_CAPTCHA_KEY';
+const GOOGLE_CAPTCHA_SECRET = 'GOOGLE_CAPTCHA_SECRET';
+
 $config = new QuarkConfig(__DIR__ . '/runtime/application.ini');
 
 $config->DataProvider(CM_DATA, new MySQL());

@@ -19,7 +19,6 @@ $(document).ready(function () {
     });
 
     $('.item-content img').css('max-width', $('.item-content').width()).height('auto');
-    console.log(related_content.html().trim().length);
 
     if (related_content[0] !== undefined) {
         if (related_content.html().trim().length === 0) {
