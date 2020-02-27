@@ -99,11 +99,8 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						));
 					}
 					elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
-						$year = 2003;
-
-						while ($year <= 2017) {
+						for ($year = 2003; $year <= (int)date('Y'); $year++) {
 							$out[] = $year;
-							++$year;
 						}
 					}
 
