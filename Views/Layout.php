@@ -282,6 +282,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 	<link rel="apple-touch-icon" sizes="114x114" href="/static/resources/img/favicon/apple-touch-icon-114x114.png">
 	<link href="https://fonts.googleapis.com/css?family=Comfortaa:300,400,700|Open+Sans:300,400,600,600i,700" rel="stylesheet">
     <?php echo $this->Resources();?>
+    <script src="https://www.google.com/recaptcha/api.js" async defer></script>
 </head>
 <body>
 <header>

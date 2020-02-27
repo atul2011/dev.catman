@@ -37,6 +37,10 @@ use ViewModels\User\ContactView;
 					<div class="contact-form-item contact-form-field">
 						<textarea name="text" class="contact-form-input" placeholder="Сообщение"></textarea>
 					</div>
+					<br class="jp-captcha"/>
+					<div class="contact-form-item contact-form-field" id="jp-captcha">
+						<div class="g-recaptcha" data-sitekey="<?php echo $this->LocalSettings('GOOGLE_CAPTCHA_KEY');?>"></div>
+					</div>
 					<br />
 					<div  class="contact-form-item contact-form-submit">
 						<button type="submit" class="contact-form-button">Отправить сообщение</button>
