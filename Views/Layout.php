@@ -29,7 +29,6 @@ $top_categories = Category::TopMenuSubCategories();
 $top_list = array();
 
 foreach ($top_categories as $index => $item) {
-	Quark::Log($index);
 	if ($item->available_on_site !== true) continue;
 
 	$top_list[] = '<a class="up-item-link" href="/category/' . $item->id . '">' . $item->short_title . '</a>';
