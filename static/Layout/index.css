@@ -154,6 +154,22 @@ body {
     width: calc(100% - 40px);
 }
 
+.related-websites.with-icon.lowered {
+    line-height: 1 !important;
+}
+
+.related-websites.with-icon.lowered h4 {
+    display: inline-block;
+    line-height: 22px;
+    width: calc(100% - 30px);
+    vertical-align: bottom;
+}
+
+.related-websites.with-icon.lowered .related-website-icon {
+    height: 22px;
+    width: 22px
+}
+
 /*----------------------------Main Link Container-------------------------------*/
 #main-links-container {
 

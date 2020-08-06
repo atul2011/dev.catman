@@ -387,7 +387,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 				<div class="col-md-3 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
                         <div class="related-internal-links special">
-                            <a href="https://money.yandex.ru/to/4100115521007930" target="_blank" class="related-websites with-icon bg-green">
+                            <a href="https://money.yandex.ru/to/4100115521007930" target="_blank" class="related-websites lowered with-icon bg-green">
                                 <h4>ПОДДЕРЖИТЕ НАШ САЙТ</h4>
                                 <div class="related-website-icon" style="background-image: url(/static/resources/img/money.png);"></div>
                             </a>
