@@ -30,7 +30,7 @@ $banner = $random_banner[0];
 	</div>
 	<div class="item-content">
 		<div class="item-content-container">
-            <div class="item-related-content">
+            <div class="item-related-content" id="maincontent">
 				<?php echo $article->txtfield;?>
             </div>
             <div class="item-related-photo-container">

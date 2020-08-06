@@ -387,10 +387,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 				<div class="col-md-3 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
                         <div class="related-internal-links special">
-                            <a href="https://money.yandex.ru/to/4100115521007930" target="_blank" class="related-websites lowered with-icon bg-green">
-                                <h4>ПОДДЕРЖИТЕ НАШ САЙТ</h4>
-                                <div class="related-website-icon" style="background-image: url(/static/resources/img/money1.png);"></div>
-                            </a>
+                            <iframe id="support-form-frame" src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C%20%D1%81%D0%B0%D0%B9%D1%82&targets-hint=&default-sum=&button-text=11&payment-type-choice=on&mobile-payment-type-choice=on&fio=on&mail=on&hint=&successURL=&quickpay=shop&account=4100115521007930" width="100%" height="220" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
                         </div>
                         <div class="related-internal-links special"style="margin-top: 20px;">
                             <a href="/article/2707" class="related-websites bg-red">
@@ -445,15 +442,11 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
                             </a>
                         </div>
                         <div class="related-internal-links" style="margin-top: 20px;">
-                            <h3 class="main-headline">СТРАНИЦЫ В СОЦ. СЕТЯХ</h3>
-                            <a href="https://www.facebook.com/upath/" class="related-websites with-icon  bg-red" target="_blank" >
-                                <div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/fb-icon.png);"></div>
-                                <h4>Универсальный Путь в Фейсбуке</h4>
-                            </a>
-                            <a href="https://vk.com/upath" class="related-websites with-icon bg-blue" target="_blank" >
-                                <div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/vk-icon.jpg);"></div>
-                                <h4>Универсальный Путь в Контакте</h4>
-                            </a>
+                            <h3 class="main-headline">НАШИ СТРАНИЦЫ В СОЦСЕТЯХ</h3>
+                            <div class="related-websites" style="border: none">
+                                <a href="https://www.facebook.com/upath/" target="_blank" ><div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/fb-icon.png);"></div></a>
+                                <a href="https://vk.com/upath" target="_blank" style="margin-left: 20px"><div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/vk-icon.jpg);"></div></a>
+                            </div>
                         </div>
 					</div>
 				</div>
