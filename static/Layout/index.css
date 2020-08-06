@@ -140,6 +140,19 @@ body {
 .related-item-link .related-item-label{
     text-transform: uppercase;
 }
+.related-websites .related-website-icon {
+    background-size: cover;
+    background-position: center center;
+    display: inline-block;
+    height: 30px;
+    width: 30px;
+}
+
+.related-websites.with-icon h4 {
+    display: inline-block;
+    line-height: 20px;
+    width: calc(100% - 40px);
+}
 
 /*----------------------------Main Link Container-------------------------------*/
 #main-links-container {
