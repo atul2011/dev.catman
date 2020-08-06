@@ -155,14 +155,16 @@ body {
 }
 
 .related-websites.with-icon.lowered {
+    border: 1px solid #1f6dc7;
     line-height: 1 !important;
 }
 
 .related-websites.with-icon.lowered h4 {
+    color: #1f6dc7 !important;
     display: inline-block;
     line-height: 22px;
     width: calc(100% - 30px);
-    vertical-align: bottom;
+    vertical-align: super;
 }
 
 .related-websites.with-icon.lowered .related-website-icon {
