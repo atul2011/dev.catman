@@ -392,7 +392,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
                                 <div class="related-website-icon" style="background-image: url(/static/resources/img/money.png);"></div>
                             </a>
                         </div>
-                        <div class="related-internal-links special">
+                        <div class="related-internal-links special"style="margin-top: 20px;">
                             <a href="/article/2707" class="related-websites bg-red">
                                 <h4>МЫСЛЕФОРМА НА ГОД</h4>
                             </a>
