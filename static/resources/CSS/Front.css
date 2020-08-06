@@ -776,6 +776,10 @@ body { font-size: 16px; min-width: 320px; line-height: 1.75; font-family: "Open 
 
 .bg-blue:hover { background: #e4e9fb }
 
+.bg-green { background: #ccffe6; background: -webkit-gradient(left top, left bottom, color-stop(0, #e6fff2), color-stop(32%, #b3ffd9), color-stop(100%, #99ffcc)); background: -webkit-linear-gradient(top, #e6fff2 0, #b3ffd9 32%, #99ffcc 100%); background: -webkit-gradient(linear, left top, left bottom, from(#e6fff2), color-stop(32%, #b3ffd9), to(#99ffcc)); background: linear-gradient(to bottom, #e6fff2 0, #b3ffd9 32%, #99ffcc 100%); filter: progid:DXImageTransform.Microsoft.gradient(startColorstr='#fef9f9', endColorstr='#e2e8fb', GradientType=0) }
+
+.bg-green:hover { background: #ccffe6; }
+
 .main-headline { margin: 0; letter-spacing: 2px; font-size: 14px; font-weight: 700; color: #51263b;}
 
 .footer { background: #fff; border-top: 1px solid #e0dedc; padding: 30px 0 }

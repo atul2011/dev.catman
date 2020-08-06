@@ -387,6 +387,13 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 				<div class="col-md-3 padding-none" id="additional-links-container">
 					<div class="block-center__right js-equal-height related-items-container">
                         <div class="related-internal-links special">
+                            <a href="https://money.yandex.ru/to/4100115521007930" target="_blank" class="related-websites with-icon bg-green">
+                                <h4>ПОДДЕРЖИТЕ НАШ САЙТ</h4>
+                                <div class="related-website-icon" style="background-image: url(/static/resources/img/money.png);"></div>
+                            </a>
+                        </div>
+                        <br>
+                        <div class="related-internal-links special">
                             <a href="/article/2707" class="related-websites bg-red">
                                 <h4>МЫСЛЕФОРМА НА ГОД</h4>
                             </a>
@@ -394,7 +401,6 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
                         <div class="related-internal-links special" style="margin-top: 20px;">
                             <a href="/glossary" class="related-websites bg-yellow">
                                 <h4>ГЛОССАРИЙ</h4>
-                                <!--                                <span>/glossary</span>-->
                             </a>
                         </div>
 						<div class="news-right" id="news-container" style="margin-top: 20px;">
@@ -428,15 +434,26 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
 							?>
                         </div>
                         <div class="related-internal-links" style="margin-top: 20px;">
+                            <h3 class="main-headline">БДЕНИЯ СООБЩЕСТВА</h3>
+                            <a href="https://worldsundayvigil.net/" class="related-websites bg-red" target="_blank" >
+                                <h4>Воскресные Бдения</h4>
+                            </a>
+                            <a href="https://www.facebook.com/groups/406028906779353" class="related-websites bg-blue" target="_blank" >
+                                <h4>Призывы для России</h4>
+                            </a>
+                            <a href="https://www.facebook.com/groups/2387621914823702" class="related-websites bg-yellow" target="_blank" >
+                                <h4>Бдения для Украины</h4>
+                            </a>
+                        </div>
+                        <div class="related-internal-links" style="margin-top: 20px;">
                             <h3 class="main-headline">СТРАНИЦЫ В СОЦ. СЕТЯХ</h3>
-                            <a href="https://www.facebook.com/upath/" class="related-websites bg-red">
+                            <a href="https://www.facebook.com/upath/" class="related-websites with-icon  bg-red" target="_blank" >
+                                <div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/fb-icon.png);"></div>
                                 <h4>Универсальный Путь в Фейсбуке</h4>
                             </a>
-                            <a href="https://vk.com/upath" class="related-websites bg-blue">
+                            <a href="https://vk.com/upath" class="related-websites with-icon bg-blue" target="_blank" >
+                                <div class="related-website-icon" style="background-image: url(/static/resources/img/socicon/vk-icon.jpg);"></div>
                                 <h4>Универсальный Путь в Контакте</h4>
-                            </a>
-                            <a href="https://www.facebook.com/KimMichaelsRUS/" class="related-websites bg-yellow">
-                                <h4>Страница издательства в Фейсбуке </h4>
                             </a>
                         </div>
 					</div>
