@@ -23,6 +23,7 @@
 /*Links Column*/
 #category-links-container {
     margin:5px;
+    min-width: calc(100% - 20px);
     padding-top: 30px;
 }
 

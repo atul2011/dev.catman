@@ -80,7 +80,6 @@ function GroupItemLink (group, item_type, item_id, callback) {
 }
 
 function GroupItemUnlink (group, item_type, item_id, callback) {
-    console.log(group, item_type, item_id);
     $.ajax({url:'/admin/category/group/item/delete/', type:"POST", data:{group:group, type:item_type, target:item_id}}).then(function (data) {
         if (data.status === 200) {
             callback();
@@ -192,7 +191,9 @@ $(document).on('dblclick', '.group-delete', function () {
     });
 });
 
-//Dragable
+//----------------------------------------------------------------------------------------------------------------------
+//----------------------------------------------------------------------------------------------------------------------
+//-------------------------------------------Drag and Drop--------------------------------------------------------------
 (function(){
     //exclude older browsers by the features we need them to support
     //and legacy opera explicitly so we don't waste time on a dead browser
@@ -224,8 +225,8 @@ $(document).on('dblclick', '.group-delete', function () {
     //drop event to allow the element to be dropped into valid targets
     document.addEventListener('drop', function(e)  {
         //if this element is a drop target, move the item here then prevent default to allow the action (same as dragover)
-        var item_to_swap = $(e.target);
-        parent_dropped = FindDropableParent(item_to_swap);
+        var _item = $(e.target);
+        parent_dropped = FindDropableParent(_item);
 
         if (parent_dropped != null) {
             // if (parent_dropped.attr('data-draggable-type') === 'swap') {
@@ -234,13 +235,13 @@ $(document).on('dblclick', '.group-delete', function () {
             // }
             // else
             if (parent_dropped.attr('data-draggable-type') === 'drop') {
-                var group_id = $(e.target).parent().attr('group-id');
+                var final_item = item;
+                var final_target = parent_dropped[0];
+                var group_id = parent_dropped.parent().attr('group-id');
                 var item_id = $(item).find('.page-category-item').attr('item-id');
                 var item_type = $(item).find('.page-category-item').attr('item-type');
-                var final_target = (e.target);
-                var final_item = item;
 
-                if ($(final_target).attr('action') === 'unlink') {
+                if ($(parent_dropped).attr('action') && $(parent_dropped).attr('action') === 'unlink') {
                     GroupItemUnlink(parent_dragged.parent().attr('group-id'), item_type, item_id, function () {
                         final_target.appendChild(final_item);
                     });
@@ -248,7 +249,7 @@ $(document).on('dblclick', '.group-delete', function () {
                     return;
                 }
 
-                GroupItemLink (group_id, item_type, item_id, function () {
+                GroupItemLink(group_id, item_type, item_id, function () {
                     final_target.appendChild(final_item);
                 });
             }
@@ -261,6 +262,7 @@ $(document).on('dblclick', '.group-delete', function () {
         item = null;
     }, false);
 })();
+
 //On Drag Event
 $(document).ready(function () {
     DragEndEvent = (function(_super) {
