@@ -1,6 +1,4 @@
 $(document).ready(function () {
-    $('.js-equal-height').css('padding-bottom', '14px');
-
     var side_menu_list = $('.side-menu-list li');
     var related_categories = $('.item-related-categories-container');
     var related_articles = $('.item-related-articles-container');
@@ -9,16 +7,6 @@ $(document).ready(function () {
     var related_links = $('.item-related-content a');
 
     side_menu_list.slice(side_menu_list.index($('.list-delimiter')) + 1, side_menu_list.length).css('font-weight', 'bold');
-
-    $(window).on('resize', function () {
-        if ($(this).width() < 975) {
-            $('.related-items-container').height($('#related-websites-container').height() + $('#news-container').height());
-        } else {
-            $('.related-items-container').height($('#content-container').height() - 29);
-        }
-    });
-
-    $('.item-content img').css('max-width', $('.item-content').width()).height('auto');
 
     if (related_content[0] !== undefined) {
         if (related_content.html().trim().length === 0) {
@@ -49,8 +37,13 @@ $(document).ready(function () {
     }
 
     related_links.removeAttr('target');
-    $('.related-items-container, #content-container .block-center__left.js-equal-height').css('min-height', GetMaxheight());
 
+    ItemsResize();
+});
+
+
+$(window).on('resize', function () {
+    ItemsResize();
 });
 
 $(document).on('click', '.dropdown-item', function () {
@@ -68,4 +61,19 @@ function GetMaxheight () {
     var right_links = $('#additional-links-container .related-items-container');
 
     return Math.max(left_links.height(), content.height(), right_links.height());
+}
+
+function ItemsResize() {
+    var ccs = $('#additional-links-container .related-items-container, #content-container .block-center__left.js-equal-height');
+
+    $('.js-equal-height').css('padding-bottom', '14px');
+
+    $('.item-content img').css('max-width', $('.item-content').width()).height('auto');
+
+    ccs.css('min-height', GetMaxheight());
+
+    if ($(window).width() < 1000) {
+        ccs.css('min-height', '0');
+        ccs.css('height', 'auto');
+    }
 }
