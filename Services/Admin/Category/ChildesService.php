@@ -31,30 +31,26 @@ class ChildesService implements IQuarkGetService, IQuarkServiceWithCustomProcess
 		 * @var QuarkModel|Category $category
 		 */
 		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(3));
-
-		if ($category == null)
-			return array('status' => 404);
+		if ($category == null)return array('status' => 404);
 
 		return array(
 			'status' => 200,
 			'articles' => $category->Articles()->Extract(array(
-					'id',
-					'title',
-					'runtime_priority',
-					'runtime_category',
-					'runtime_link',
-			        'grouped'
-				)
-			),
+				'id',
+				'title',
+				'runtime_priority',
+				'runtime_category',
+				'runtime_link',
+		        'grouped'
+			)),
 			'categories' => $category->ChildCategories()->Extract(array(
-					'id',
-					'title',
-					'runtime_priority',
-					'runtime_category',
-					'runtime_link',
-					'grouped'
-				)
-			)
+				'id',
+				'title',
+				'runtime_priority',
+				'runtime_category',
+				'runtime_link',
+				'grouped'
+			))
 		);
 	}
 }

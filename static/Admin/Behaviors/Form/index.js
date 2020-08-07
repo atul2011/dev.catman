@@ -22,8 +22,7 @@ $(document).on('click', '.cm-button-sub-item-action', function (e) {
     var url = $(this).attr('action');
 
     $.ajax({url:url, type:'Get'}).then(function (data) {
-        if (data.status === 200)
-            item.remove();
+        if (data.status === 200) item.remove();
     });
 });
 
@@ -44,11 +43,9 @@ function DragEndEvent (parent1) {}
 
 function DropEvent (parent1, parent2, item) {}
 
-
 function FindDropableParent(item) {
-    for (var i=0; i < 1000; i++)
-        if (item.attr('data-draggable') === 'target')
-            return item;
-        else
-            item = item.parent();
+    for (var i=0; i < 1000; i++) {
+        if (item.attr('data-draggable') === 'target') return item;
+        else item = item.parent();
+    }
 }
