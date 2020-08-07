@@ -148,6 +148,10 @@ body {
     width: 30px;
 }
 
+.related-websites.heavy h4{
+    font-size: 15px;
+}
+
 .related-websites.with-icon h4 {
     display: inline-block;
     line-height: 20px;
@@ -170,6 +174,10 @@ body {
 .related-websites.with-icon.lowered .related-website-icon {
     height: 22px;
     width: 22px
+}
+
+#support-form-frame {
+    min-height: 270px;
 }
 
 /*----------------------------Main Link Container-------------------------------*/
