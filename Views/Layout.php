@@ -389,7 +389,7 @@ if (isset($article)) $description = implode('. ', array_slice(explode('.', $arti
                         <div class="related-internal-links special">
                             <iframe id="support-form-frame" src="https://money.yandex.ru/quickpay/shop-widget?writer=seller&targets=%D0%9F%D0%BE%D0%B4%D0%B4%D0%B5%D1%80%D0%B6%D0%B0%D1%82%D1%8C%20%D1%81%D0%B0%D0%B9%D1%82&targets-hint=&default-sum=&button-text=11&payment-type-choice=on&mobile-payment-type-choice=on&fio=on&mail=on&hint=&successURL=&quickpay=shop&account=4100115521007930" width="100%" height="250" frameborder="0" allowtransparency="true" scrolling="no"></iframe>
                         </div>
-                        <div class="related-internal-links special"style="margin-top: 20px;">
+                        <div class="related-internal-links special">
                             <a href="/article/2707" class="related-websites heavy bg-red">
                                 <h4>МЫСЛЕФОРМА НА ГОД</h4>
                             </a>
