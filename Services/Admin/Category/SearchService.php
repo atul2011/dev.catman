@@ -46,7 +46,8 @@ class SearchService implements IQuarkServiceWithCustomProcessor, IQuarkPostServi
 				$out[] = $category->Extract(array(
 	                  'id',
 	                  'title',
-	                  'sub'
+	                  'sub',
+	                  'has_links'
 	              ));
 
 			return array(
