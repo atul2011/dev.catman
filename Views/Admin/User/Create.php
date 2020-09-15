@@ -10,8 +10,11 @@ use ViewModels\Admin\Event\CreateView;
  */
 
 $item = new QuarkModel(new User);
+//print_r($user);
 $service = 'create';
 if (isset($user)) {
+	//echo "<br>";
+	//echo "user is : ".$user;
 	$item = $user;
 	$service = 'edit/' . $item->id;
 }

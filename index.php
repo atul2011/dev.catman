@@ -1,6 +1,6 @@
 <?php
 include __DIR__ . '/loader.php';
-
+//echo "hello";exit;
 use Models\User;
 use Quark\AuthorizationProviders\Session;
 use Quark\Extensions\Mail\MailConfig;

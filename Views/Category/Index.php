@@ -1,4 +1,5 @@
 <?php
+//echo "here";exit;
 use Models\Article;
 use Models\Category;
 use Models\CategoryGroup;
@@ -57,7 +58,7 @@ else
  */
 $groups_childes = array();
 $groups = $category->Groups();
-
+//echo "here";exit;
 foreach ($groups as $group) {
 	$group_items = $group->Items();
 	$groups_childes[$group->id] = '';

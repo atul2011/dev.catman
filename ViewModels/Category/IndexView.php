@@ -21,6 +21,7 @@ class IndexView implements IQuarkViewModel, IQuarkViewModelWithCustomizableLayou
 	 * @return string
 	 */
 	public function View () {
+		//echo "here";exit;
 		return 'Category/Index';
 	}
 
