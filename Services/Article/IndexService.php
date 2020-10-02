@@ -4,6 +4,7 @@ namespace Services\Article;
 use Models\Article;
 use Models\Breadcrumb;
 use Models\Category;
+use Models\Event;
 use Models\Link;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
@@ -48,7 +49,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 		 * @var QuarkModel|Article $article
 		 */
 		$article = QuarkModel::FindOneById(new Article(), $request->URI()->Route(1));
-
+		//echo "here";exit;
 		if ($article == null)
 			return QuarkView::InLayout(new NotFoundView(), new LayoutView(), array(
 				'model'=> 'Article',

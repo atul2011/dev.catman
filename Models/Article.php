@@ -1,6 +1,6 @@
 <?php
 namespace Models;
-
+//echo "test";exit;
 use Quark\IQuarkLinkedModel;
 use Quark\IQuarkModel;
 use Quark\IQuarkModelWithAfterFind;
@@ -69,6 +69,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'release_date' => QuarkDate::FromFormat('Y-m-d H:i'),
             'publish_date' => QuarkDate::FromFormat('Y-m-d'),
             'note' => '',
+	    'category_id' => '',
             'resume' => '',
             'txtfield' => '',
             'copyright' => '',
@@ -78,10 +79,13 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'description' => '',
 			'author_id' => $this->LazyLink(new Author(), 0),
 			'event_id' => $this->LazyLink(new Event(), 0),
+			//'event_id' => '',
+			//'author_id' => '',
 			'short_title' => '',
             'available_on_site' => true,
             'available_on_api' => false,
             'master' => false,
+	    'new_' => false
         );
     }
 
@@ -166,6 +170,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'release_date',
             'publish_date',
             'note',
+	    'category_id',
             'resume',
             'copyright',
             'txtfield',
@@ -179,6 +184,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
             'available_on_site',
             'available_on_api',
             'master',
+	    'new_',
             'runtime_priority',
             'runtime_category',
             'runtime_link',
@@ -258,6 +264,7 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 	 * @return QuarkCollection|Article[]
 	 */
 	public static function Minimize (QuarkCollection $articles) {
+	//echo "aaa";exit;
 		return $articles->Select(array(), array(
 			QuarkModel::OPTION_FIELDS => array(
 				'id',
@@ -276,7 +283,8 @@ class Article implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProv
 				'available_on_api',
 				'runtime_priority',
 				'runtime_category',
-				'runtime_link'
+				'runtime_link',
+				'new_'
 			)
 		));
 	}

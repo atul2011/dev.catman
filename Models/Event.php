@@ -30,6 +30,8 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 		return array(
 			'id' => 0,
 			'name' => '',
+			'msg_with_articles' => '',
+			'msg_without_articles' => '',
 			'startdate' =>QuarkDate::GMT
 		);
 	}
@@ -67,6 +69,8 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 		return array(
 			'id',
 			'name',
+			'msg_with_articles',
+			'msg_without_articles',
 			'startdate'
 		);
 	}
@@ -102,7 +106,9 @@ class Event implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataProvid
 		 * @var QuarkCollection|Article[] $articles
 		 * @var QuarkCollection|Event[] $events
 		 */
+		//echo Article::TYPE_QUESTION;exit;
 		$articles = QuarkModel::Find(new Article(), array('type' => Article::TYPE_QUESTION));
+		//print_r($articles);
 		$events = new QuarkCollection(new Event());
 		$events_ids = array();
 

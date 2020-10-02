@@ -55,11 +55,13 @@ body {
 .related-item-detail {
     color: #000000;
     display: block;
-    font-size: 14px !important;
+    font-size: 12px !important;
     line-height: 16px !important;
     text-decoration: none;
 }
-
+.related-item-detail a{
+   color: #000000 !important;
+}
 .item-related-articles .related-item-detail.related-item-date {
     font-size: 13px;
 }

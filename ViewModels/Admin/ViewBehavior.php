@@ -61,6 +61,7 @@ trait ViewBehavior {
 		, $this->MenuWidgetItem('/admin/term/list', 'Terms', 'fa-bold')
 		, $this->MenuWidgetItem('/admin/token/list', 'Token', 'fa-key')
 		, $this->MenuWidgetItem('/admin/user/list', 'User', 'fa-users')
+		, $this->MenuWidgetItem('/admin/settings/list', 'Settings', 'fa-cog')
 		));
 	}
 

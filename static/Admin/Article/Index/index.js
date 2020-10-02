@@ -16,9 +16,11 @@ $(document).ready(function () {
     var available_on_site = $('#cm-item-available_on_site');
     var available_on_api = $('#cm-item-available_on_api');
     var master = $('#cm-item-master');
+    var new_ = $('#cm-item-new_');
     available_on_site.prop('checked', available_on_site.val() == 1);
     available_on_api.prop('checked', available_on_api.val() == 1);
     master.prop('checked', master.val() == 1);
+    new_.prop('checked', new_.val() == 1);
 });
 
 function CheckSearch(str, model, name, limit, listname) {//function to check when you want to find items

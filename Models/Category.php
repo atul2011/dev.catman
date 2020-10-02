@@ -15,6 +15,7 @@ use Quark\QuarkCollection;
 use Quark\QuarkDate;
 use Quark\QuarkModel;
 use Quark\QuarkModelBehavior;
+use Quark\QuarkLazyLink;
 
 /**
  * Class Category
@@ -291,8 +292,14 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 	     * @var QuarkCollection|Articles_has_Categories[] $links
 	     */
 	    $links = QuarkModel::Find(new Articles_has_Categories(), array('category_id' => $this->id));
+		//$links = QuarkModel::Find(new Articles_has_Categories(), array('new_' => 1));
+//echo "id ".$this->id;
+//echo "<br>";	    
+//print_r($links);
 	    $articles = new QuarkCollection(new Article());
-
+		//echo "aaa";
+		//print_r($articles);
+		//exit;
 	    foreach ($links as $item) {
 		    /**
 		     * @var QuarkModel|Article $article
@@ -459,6 +466,7 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 		/**
 		 * @var QuarkCollection|Article[] $articles
 		 */
+		//echo $this->id;
 		$articles = QuarkModel::Find(new Article(), array(
 			'release_date' => array('$gte' => QuarkDate::GMTNow()->Offset('-183 days')->Format('Y-m-d')),
 		), array(
@@ -472,7 +480,35 @@ class Category implements IQuarkModel, IQuarkStrongModel, IQuarkModelWithDataPro
 
 		return $articles;
 	}
-
+	public static function NewCategoryNewArticles($cid) {
+                /**
+                 * @var QuarkCollection|Article[] $articles
+                 */
+		$type = '';
+		if($cid==462){
+			$type = "A";
+		}else if($cid==461){
+			$type = "Q";
+		}else if($cid==460){
+			$type = "M";
+		}else{
+			//$type = "";
+		}
+                $articles = QuarkModel::Find(new Article(), array(
+                        'publish_date' => array('$gte' => QuarkDate::GMTNow()->Offset('-730 days')->Format('Y-m-d')),
+			'new_' => '1',
+			'type' => $type
+                ), array(
+                        QuarkModel::OPTION_FIELDS => array('id', 'title', 'short_title', 'release_date', 'publish_date', 'event_id', 'type', 'author_id'),
+                        QuarkModel::OPTION_SORT => array(
+                                'release_date' => QuarkModel::SORT_ASC,
+                                //'publish_date' => QuarkModel::SORT_DESC,
+                                //'title' => QuarkModel::SORT_ASC
+                        )
+                ));
+		//print_r($articles);exit;
+                return $articles;
+        }
 	/**
 	 * @param QuarkCollection|Category[] $categories
 	 * @param string $field

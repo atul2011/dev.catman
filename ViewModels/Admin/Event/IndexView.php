@@ -4,16 +4,18 @@ namespace ViewModels\Admin\Event;
 use Quark\IQuarkViewModel;
 use Quark\IQuarkViewModelWithComponents;
 use Quark\IQuarkViewModelWithCustomizableLayout;
+use Quark\IQuarkViewModelWithResources;
 use Quark\IQuarkViewResource;
 use Quark\ViewResources\Quark\QuarkPresenceControl\IQuarkPresenceControlViewModel;
 use ViewModels\Admin\ViewBehavior;
+use ViewResources\Summernote\Summernote;
 
 /**
  * Class IndexView
  *
  * @package ViewModels\Admin\Event
  */
-class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithCustomizableLayout {
+class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQuarkViewModelWithComponents, IQuarkViewModelWithResources, IQuarkViewModelWithCustomizableLayout {
 	use ViewBehavior;
 
 	/**
@@ -42,6 +44,15 @@ class IndexView implements IQuarkViewModel, IQuarkPresenceControlViewModel, IQua
 	 */
 	public function ViewController () {
 		return __DIR__ . '/../../../static/Admin/Event/Index/index.js';
+	}
+
+	/**
+	 * @return IQuarkViewResource[]
+	 */
+	public function ViewResources() {
+		return array(
+			new Summernote()
+		);
 	}
 
 	/**

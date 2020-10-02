@@ -7,6 +7,7 @@ use Models\Breadcrumb;
 use Models\Category;
 use Models\Event;
 use Models\Link;
+use Models\Settings;
 use Quark\IQuarkAuthorizableService;
 use Quark\IQuarkGetService;
 use Quark\Quark;
@@ -48,25 +49,34 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 	 */
 	public function Get (QuarkDTO $request, QuarkSession $session) {
 		$session_id = $session->ID() != null ? $session->ID()->Value() : sha1($request->Remote()->host . QuarkDate::GMTNow('d-m-Y'));
-
+		
 		/**
 		 * @var QuarkModel|Category $category
 		 */
 		$category = QuarkModel::FindOneById(new Category(), $request->URI()->Route(1));
-
+		$settings = QuarkModel::Find(new Settings());
+		//print_r($settings);
+		//echo "here".$category;exit;
 		if ($category == null)
+		{
+			//echo "hersdfsdfsdfe";exit;
 			return QuarkView::InLayout(new NotFoundView(),new LayoutView(), array(
 				'model'=> 'Category',
 				'title' => 'Status: 404'
 			));
-
+		}
 		if ($category->available_on_site != true)
+		{
+			//echo "here";exit;
 			return QuarkView::InLayout(new NotFoundView(),new LayoutView(), array(
 				'model'=> 'Category',
 				'title' => 'Status: 404'
 			));
-
-		if ($category->sub == Category::TYPE_ARCHIVE) {
+		}
+		//echo $category->sub."--".Category::TYPE_ARCHIVE;
+		if ($category->sub == Category::TYPE_ARCHIVE) 
+		{
+		//echo "there";exit;
 			if ($request->URI()->Route(2) != 'sort') {
 				return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 					'sort_fields' => Article::ArchiveSortTypes(),
@@ -90,6 +100,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						));
 					}
 					elseif ($sort_field == Category::ARCHIVE_SORT_EVENT) {
+					//echo "event ";
 						$out = QuarkModel::Find(new Event(), array(
 							'startdate' => array(
 								'$ne' => '0000-00-00'
@@ -97,6 +108,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						), array(
 							QuarkModel::OPTION_SORT => array('startdate' => QuarkModel::SORT_ASC)
 						));
+
 					}
 					elseif ($sort_field == Category::ARCHIVE_SORT_DATE) {
 						for ($year = 2003; $year <= (int)date('Y'); $year++) {
@@ -113,12 +125,13 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 					));
 				}
 				else {
+					//echo "eee";exit;
 					/**
 					 * @var QuarkCollection|Article[] $articles
 					 */
 					$query = array();
 					$sort_field_title = '';
-
+					//echo $request->URI()->Route(3)."--".Category::ARCHIVE_SORT_AUTHOR;
 					if ($request->URI()->Route(3) == Category::ARCHIVE_SORT_AUTHOR) {
 						/**
 						 * @var QuarkModel|Author $author
@@ -136,8 +149,11 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						 */
 						$event = QuarkModel::FindOneById(new Event(), $request->URI()->Route(4));
 
-						if ($event != null)
+						if ($event != null){
 							$sort_field_title = $event->name;
+							$msg_with_articles = $event->msg_with_articles;
+							$msg_without_articles = $event->msg_without_articles;
+						}
 
 						$query = array('event_id.value' => $request->URI()->Route(4));
 					}
@@ -145,7 +161,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						$sort_field_title = $request->URI()->Route(4);
 						$query = Article::SearchByYearQuery($request->URI()->Route(4));
 					}
-
+					//echo "here";exit;
 					return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 						'articles' => QuarkModel::Find(new Article(), array(
 							'$or' => array(
@@ -180,24 +196,29 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 						'category' => $category,
 						'sort_fields' => Article::ArchiveSortTypes(),
 						'sort_field' => $request->URI()->Route(3),
-						'sort_field_title' => $sort_field_title
+						'sort_field_title' => $sort_field_title,
+						'settings' => $settings,
+						'msg_with_articles' => $msg_with_articles,
+						'msg_without_articles' => $msg_without_articles
 					));
 				}
 			}
 		}
-
+		//echo $category->sub."--".Category::TYPE_QNA;
 		if ($category->sub == Category::TYPE_QNA) {
+		//echo "test";exit;
 			if (strlen($request->URI()->Route(4)) != 0) {
+				//echo "here";exit;
 				$sort_field_title = '';
 
 				/**
 				 * @var QuarkModel|Event $event
 				 */
 				$event = QuarkModel::FindOneById(new Event(), $request->URI()->Route(4));
-
+				//echo "here";exit;
 				if ($event != null)
 					$sort_field_title = $event->name;
-
+				//print_r($category);
 				return QuarkView::InLayout(new ArchiveView(), new LayoutView(), array(
 					'articles' => QuarkModel::Find(new Article(), array(
 						'type' => Article::TYPE_QUESTION,
@@ -239,7 +260,7 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 				'category' => $category
 			));
 		}
-
+		//echo "abc";exit;
 		$content = str_replace('<p><br></p>', ' ', $category->intro);
 
 		if (strlen($content) > 0)
@@ -253,12 +274,14 @@ class IndexService implements IQuarkGetService, IQuarkAuthorizableService {
 			Breadcrumb::Set($session_id, $category->id);
 
 		$this->SetUserBreadcrumb($session_id, $category);
-
+		//return "test";
 		return QuarkView::InLayout(new IndexView(), new LayoutView(), array(
 			'category' => $category,
+			//'sort_values' => Event::QuestionEvents(),
+			//'sort_field' => 'event_id',
 			'title' => $category->title,
-		    'user' => $session_id,
-		    'links' => QuarkModel::Find(new Link(), array(
+		    	'user' => $session_id,
+		    	'links' => QuarkModel::Find(new Link(), array(
 			    'target_type' => Link::TARGET_TYPE_CATEGORY,
 			    'target_value' => (int)$category->id
 		    ), array(

@@ -114,7 +114,11 @@ function setActions(id, model){//function to add to each item in actions column 
         '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>' +
         '<a class="fa actions delete-button-' + model + ' fa-trash content-actions item-remove-dialog" quark-dialog="#item-remove" quark-redirect="/admin/' + model + '/list/"  id="delete-'+model+'-' + id + '" href="/admin/' + model + '/delete/' + id + '"></a>';
 }
-
+function setActions_nodelete(id, model){//function to add to each item in actions column the anchors-icons for redirecting
+    //define edit and remove buttons for all rows
+    return actions =
+        '<a class="fa actions edit-button-' + model + ' fa-pencil content-actions " id="edit-'+model+'-' + id + '" href="/admin/' + model + '/edit/' + id + '"></a>';
+}
 function removeItems(selector){//clear all items from left-table
     $(selector).remove();
 }

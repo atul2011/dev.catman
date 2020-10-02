@@ -143,6 +143,7 @@ use ViewModels\Admin\Article\CreateView;
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_site" id="cm-item-available_on_site" value="<?php echo $article->available_on_site;?>">On Site</div>
                         <div class="cm-form-checkbox"><input type="checkbox" name="available_on_api" id="cm-item-available_on_api" value="<?php echo $article->available_on_api;?>">On Api</div>
                         <div class="cm-form-checkbox"><input type="checkbox" name="master" id="cm-item-master" value="<?php echo $article->master;?>">Master</div>
+			<div class="cm-form-checkbox"><input type="checkbox" name="new_" id="cm-item-new_" value="<?php echo $article->new_;?>">New</div>
                     </div>
                 </div>
             </div>

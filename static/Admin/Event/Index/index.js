@@ -1,4 +1,5 @@
 $(document).ready(function(){
+    $('.editor-container').summernote();//SUMMERNOTE
     $(document).on("submit",'#item-form',function(e){
         var title =$('#item-name');
         if(title.val()=== ''){

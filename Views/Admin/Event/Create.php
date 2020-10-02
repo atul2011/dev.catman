@@ -3,6 +3,7 @@
  * @var QuarkView|CreateView $this
  */
 
+use Quark\QuarkCollection;
 use Quark\QuarkView;
 use ViewModels\Admin\Event\CreateView;
 ?>
@@ -24,6 +25,21 @@ use ViewModels\Admin\Event\CreateView;
                     </div>
                 </div>
                 <br/>
+		<div class="quark-presence-container presence-block middle">
+                    <div class="quark-presence-column form-title">Notification with Articles/dictations</div>
+                    <br />
+                    <div class="quark-presence-column form-value">
+                        <textarea name="msg_with_articles" class="editor-container"></textarea>
+                    </div>
+                </div>
+		<br/>
+                <div class="quark-presence-container presence-block middle">
+                    <div class="quark-presence-column form-title">Notification without Articles/dictations</div>
+                    <br />
+                    <div class="quark-presence-column form-value">
+                        <textarea name="msg_without_articles" class="editor-container"></textarea>
+                    </div>
+                </div>
                 <div class="quark-presence-container presence-block">
                     <br/>
                     <button class="quark-button block ok submit-button" type="submit">
